@@ -8,6 +8,7 @@
   ],
   "dependencies": {
     "@enonic/js-utils": "^1",
+    "@enonic/react-components": "^4.0.0",
     "dayjs": "^1",
     "react": "^18",
     "react-dom": "^18"
@@ -76,7 +77,7 @@
     "off:build:asset": "npx tsup -d build/resources/main/assets",
     "off:build:sass": "npx sass src/main/resources/assets/styles/sass:build/resources/main/assets/styles --style compressed",
     "build:server": "npx tsup -d build/resources/main",
-    "off:build:static": "npx tsup -d build/resources/main/static",
+    "build:static": "npx tsup -d build/resources/main/static",
     "check": "concurrently -c auto -g --timings npm:lint npm:check:types",
     "check:types": "concurrently -g -r --timings npm:check:types:*",
     "check:types:asset": "npx tsc --noEmit -p src/main/resources/assets/tsconfig.json",
@@ -89,7 +90,7 @@
     "watch:browserSync": "npx browser-sync start --files \"src/main/resources/**/*.html\" \"src/main/resources/**/*.xml\" \"build/resources/main\" --reload-delay 0 --port 3100 --no-snippet --watch",
     "off:watch:sass": "npm run build:sass -- --watch",
     "watch:server": "npm run build:server -- --watch",
-    "off:watch:static": "npm run build:static -- --watch"
+    "watch:static": "npm run build:static -- --watch"
   },
   "version": "1.0.0"
 }
