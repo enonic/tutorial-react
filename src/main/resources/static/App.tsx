@@ -10,6 +10,7 @@ import {RichText} from '@enonic/react-components/src';
 import {Image} from './components/Image';
 import {Link} from './components/Link';
 import {Macro} from './components/Macro';
+import {PersonList} from './components/PersonList';
 
 
 const GQL = `query MyQuery($siteKey: String!) {
@@ -109,6 +110,7 @@ export function App({
 
   return (
     <>
+      <PersonList/>
       {
         data
         ? <RichText
