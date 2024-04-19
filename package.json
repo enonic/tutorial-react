@@ -9,7 +9,7 @@
   "dependencies": {
     "@enonic/js-utils": "^1",
     "@enonic/react-components": "^4.0.0",
-    "dayjs": "^1",
+    "domelementtype": "^2.3.0",
     "react": "^18",
     "react-dom": "^18"
   },

@@ -4,10 +4,10 @@ import { get as getContext } from '/lib/xp/context';
 import { immutableGetter, getWebappUrl } from '/lib/urlHelper';
 
 import {
-	// DEBUG_MODE,
-	// FILEPATH_MANIFEST_CJS,
-	FILEPATH_MANIFEST_NODE_MODULES,
-	GETTER_ROOT
+  // DEBUG_MODE,
+  FILEPATH_MANIFEST_CJS,
+  FILEPATH_MANIFEST_NODE_MODULES,
+  GETTER_ROOT
 } from '/constants';
 
 function get(_request) {
@@ -23,13 +23,23 @@ function get(_request) {
       manifestPath: FILEPATH_MANIFEST_NODE_MODULES,
       path: 'react-dom/umd/react-dom.development.js'
     })}"></script>
+    <link rel="stylesheet" media="all" href="${getWebappUrl({
+      manifestPath: FILEPATH_MANIFEST_CJS,
+      path: 'App.css'
+    })}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Webapp</title>
   </head>
-  <body>
+  <body style="font-size:13px">
     <div id="react-root"></div>
     <script type='module' defer>
       import {App} from '${getWebappUrl({ path: 'App.mjs' })}';
       const root = ReactDOM.createRoot(document.getElementById('react-root'));
-      root.render(React.createElement(App, { header: 'Hello from React inside a web app!' }));
+      root.render(React.createElement(App, {
+        guillotineUrl: '${app.config.guillotineUrl}',
+        siteKey: '${app.config.siteKey}'
+      }));
     </script>
   </body>
 </html>`
@@ -39,10 +49,10 @@ function get(_request) {
 const router = Router();
 
 router.all(`/${GETTER_ROOT}/{path:.+}`, (r) => {
-	const context = getContext();
-	log.info('/wepapp/webapp context:%s', JSON.stringify(context, null, 4));
+  const context = getContext();
+  log.info('/wepapp/webapp context:%s', JSON.stringify(context, null, 4));
 
-	return immutableGetter(r);
+  return immutableGetter(r);
 });
 
 router.get('/?', get);
