@@ -3,36 +3,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-
-
-const GQL = `query MyQuery($siteKey: String!) {
-  guillotine(siteKey: $siteKey) {
-    queryDsl(
-      query: {
-        term: {
-          field: "type",
-          value: {
-            string: "com.enonic.app.intro:person"
-          }
-        }
-      }
-    ) {
-      _path
-      dataAsJson
-      displayName
-      type
-      ... on com_enonic_app_intro_Person {
-        data {
-        	photos {
-            ... on media_Image {
-        			imageUrl(scale: "width(500)")
-      			}
-          }
-      	}
-      }
-    }
-  }
-}`;
+import {PERSON_LIST_QUERY} from './personListQuery';
 
 
 export function PersonList() {
@@ -53,7 +24,7 @@ export function PersonList() {
   useEffect(() => {
     fetch('http://localhost:8080/admin/site/preview/intro/draft', {
       body: JSON.stringify({
-        query: GQL,
+        query: PERSON_LIST_QUERY,
         variables: {
           siteKey: 'intro'
         }

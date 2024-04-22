@@ -11,66 +11,7 @@ import {Image} from './components/Image';
 import {Link} from './components/Link';
 import {Macro} from './components/Macro';
 import {PersonList} from './components/PersonList';
-
-
-const GQL = `query MyQuery($siteKey: String!) {
-  guillotine(siteKey: $siteKey) {
-    getSite {
-      ... on portal_Site {
-        components {
-          text {
-            value(processHtml: {
-              type: absolute
-              imageWidths: [
-                2048,
-                1024
-              ]
-              imageSizes: "juhu"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
-                    }
-                  }
-                  intent
-                } # media
-                ref
-                uri
-              } # links
-              macrosAsJson
-              processedHtml
-            }
-          }
-        }
-      }
-    }
-  }
-}`;
+import {RICH_TEXT_QUERY} from './richTextQuery';
 
 
 export function App({
@@ -88,7 +29,7 @@ export function App({
   useEffect(() => {
     fetch(guillotineUrl, {
       body: JSON.stringify({
-        query: GQL,
+        query: RICH_TEXT_QUERY,
         variables: {
           siteKey
         }

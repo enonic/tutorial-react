@@ -1,0 +1,39 @@
+= Query
+:sourcedir: ../
+
+== Data
+
+In the previous chapter we installed the `Enonic intro` app. On installation it created a project name `intro` within the Enonic XP instance. If you open this project in Content Studio you will see that it contains a number of content types and content. In this tutorial we are going to use the `Person` content items and corresponding `images` it provides.
+
+
+== Query Playground
+
+In the previous chapter we installed the `Guillotine` app. This app provides a query playground where you can try out various queries.
+
+== Query a list of persons
+
+In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
+
+.src/main/resources/static/components/personListQuery.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/personListQuery.ts[]
+----
+
+== RichText query
+
+In order to test the query below you first have make some `page` in some `project` using a `Text Component` on the page. In the text component you can insert images, links and macros.
+
+Query Playground Variables
+[source, json]
+----
+{
+  "siteKey": "/mysite"
+}
+----
+
+.src/main/resources/static/richTextQuery.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/richTextQuery.ts[]
+----
