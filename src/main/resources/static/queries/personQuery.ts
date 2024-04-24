@@ -1,16 +1,23 @@
-export const RICH_TEXT_QUERY: string = `query RichTextQuery($siteKey: String!) {
-  guillotine(siteKey: $siteKey) {
-    getSite {
-      ... on portal_Site {
-        components {
-          text {
-            value(processHtml: {
+export const PERSON_QUERY: string = `query PersonQuery($personId: ID!) {
+  guillotine {
+    get(key: $personId) {
+      _name
+      displayName
+      ... on com_enonic_app_intro_Person {
+        data {
+          dateofbirth
+          photos {
+            ... on media_Image {
+              imageUrl(scale: "width(500)")
+            }
+          }
+          bio(processHtml: {
               type: absolute
               imageWidths: [
-                2048,
-                1024
+                200,
+                400,
               ]
-              imageSizes: "juhu"
+              imageSizes: "(max-width: 600px) 200px, 50vw"
             }) {
               images {
                 image {
@@ -43,14 +50,13 @@ export const RICH_TEXT_QUERY: string = `query RichTextQuery($siteKey: String!) {
                     }
                   }
                   intent
-                } # media
+                }
                 ref
                 uri
-              } # links
+              }
               macrosAsJson
               processedHtml
             }
-          }
         }
       }
     }

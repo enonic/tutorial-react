@@ -3,10 +3,14 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {PERSON_LIST_QUERY} from './personListQuery';
+import {PERSON_LIST_QUERY} from '../queries/personListQuery';
 
 
-export function PersonList() {
+export function PersonList({
+  guillotineUrl,
+}: {
+  guillotineUrl: string
+}) {
   const [data, setData] = useState<{
     data: {
       photos: {
@@ -22,12 +26,9 @@ export function PersonList() {
   }[]>();
 
   useEffect(() => {
-    fetch('http://localhost:8080/admin/site/preview/intro/draft', {
+    fetch(guillotineUrl, {
       body: JSON.stringify({
         query: PERSON_LIST_QUERY,
-        variables: {
-          siteKey: 'intro'
-        }
       }),
       headers: { // HTTP/2 uses lowercase header keys
         'content-type':	'application/json'

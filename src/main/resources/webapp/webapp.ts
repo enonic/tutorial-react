@@ -46,7 +46,6 @@ function get(request) {
       const root = ReactDOM.createRoot(document.getElementById('react-root'));
       root.render(React.createElement(App, {
         guillotineUrl: '${app.config.guillotineUrl}',
-        siteKey: '${app.config.siteKey}'
       }));
     </script>
   </body>
@@ -55,6 +54,8 @@ function get(request) {
 }
 
 const router = Router();
+
+// router.get('/p/', get);
 
 router.get('/?', get);
 
