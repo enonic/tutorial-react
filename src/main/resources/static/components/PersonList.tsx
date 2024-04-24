@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import {Link} from 'react-router-dom';
 import {PERSON_LIST_QUERY} from '../queries/personListQuery';
 
 
@@ -12,16 +13,18 @@ export function PersonList({
   guillotineUrl: string
 }) {
   const [data, setData] = useState<{
+    _id: string
+    _name: string
     data: {
       photos: {
         imageUrl: string
       }[]
     }
-    dataAsJson: {
-      bio: string
-      dateofbirth: string
-      // photos: string
-    }
+    // dataAsJson: {
+    //   bio: string
+    //   dateofbirth: string
+    //   // photos: string
+    // }
     displayName: string
   }[]>();
 
@@ -39,32 +42,31 @@ export function PersonList({
       .then(json => {
         // console.debug(json);
         const value = json.data.guillotine.queryDsl;
-        console.debug(value);
+        // console.debug(value);
         setData(value)
       });
   }, []);
+
   return (
     <>
       {data
         ? <ul>
           {
             data.map(({
+              _id,
+              _name,
               data: {
                 photos
-              },
-              dataAsJson: {
-                bio,
-                dateofbirth,
               },
               displayName
             }, i) => {
               // http://localhost:8080/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/09b3af0e-6da3-4bcf-88d9-11cbe9c41283:e1738c655c27bae3f1323e48916e49165f958239/width-500/Lea-Seydoux.jpg
               const imageSrc = photos ? forceArray(photos)[0].imageUrl : null;
               return <li key={i}>
-                <h2>{displayName}</h2>
+                <h2><Link
+        to={`/p/${_name}/${_id}`}
+      >{displayName}</Link></h2>
                 <img src={imageSrc} alt={displayName}/>
-                <p>{dateofbirth}</p>
-                <p>{bio}</p>
               </li>;
             })
           }</ul>

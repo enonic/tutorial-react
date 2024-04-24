@@ -8,6 +8,10 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import {
+  Link as RouterLink,
+  useParams,
+} from 'react-router-dom';
 import {Image} from '../components/Image';
 import {Link} from '../components/Link';
 import {Macro} from '../components/Macro';
@@ -16,11 +20,15 @@ import {PERSON_QUERY} from '../queries/personQuery';
 
 export function Person({
   guillotineUrl,
-  personId,
+  // personId,
 }: {
   guillotineUrl: string
-  personId: string
+  // personId: string
 }) {
+  const {
+    name,
+    personId
+  } = useParams();
   const [data, setData] = useState<{
     _name: string
     data: {
@@ -93,6 +101,7 @@ export function Person({
         Macro={Macro}
         tag='article'
       />
+      <RouterLink to='/'>Back to list</RouterLink>
     </section>
   );
 }

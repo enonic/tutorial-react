@@ -1,5 +1,3 @@
-// @ts-expect-error No types
-import Router from '/lib/router';
 // import {toStr} from '@enonic/js-utils/value/toStr';
 import {
   getStaticCjsUrl,
@@ -8,7 +6,10 @@ import {
 } from '/services/static/static';
 
 
-function get(request) {
+const BASENAME = `/webapp/${app.name}`;
+
+
+export function get(request) {
   // log.info('request:%s', toStr(request));
   const {
     host,
@@ -45,18 +46,11 @@ function get(request) {
       })}';
       const root = ReactDOM.createRoot(document.getElementById('react-root'));
       root.render(React.createElement(App, {
+        basename: '${BASENAME}',
         guillotineUrl: '${app.config.guillotineUrl}',
       }));
     </script>
   </body>
 </html>`
-  }
+  };
 }
-
-const router = Router();
-
-// router.get('/p/', get);
-
-router.get('/?', get);
-
-export const all = (r) => router.dispatch(r);

@@ -81,6 +81,8 @@ export default function buildStaticConfig(): Options {
       /^@enonic\/react-components/,
       'domelementtype',
       'react', // WARNING: For GlobalsPlugin to work react MUST be listed here (if react under dependencies or peerDependencies)
+      'react-dom',
+      'react-router-dom',
     ],
 
     platform: 'browser',

@@ -9,19 +9,25 @@ export const PERSON_LIST_QUERY: string = `query PersonListQuery {
           }
         }
       }
+      sort: {
+        field: "modifiedTime",
+        direction: DESC
+      }
     ) {
-      _path
-      dataAsJson
+      _id
+      _name
+      # _path
+      # dataAsJson
       displayName
       type
       ... on com_enonic_app_intro_Person {
         data {
-        	photos {
+          photos {
             ... on media_Image {
-        			imageUrl(scale: "width(500)")
-      			}
+              imageUrl(scale: "width(250)")
+            }
           }
-      	}
+        }
       }
     }
   }

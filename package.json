@@ -11,7 +11,8 @@
     "@enonic/react-components": "^5.0.0-B1",
     "domelementtype": "^2.3.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-router-dom": "^6.23.0"
   },
   "description": "My Enonic XP project",
   "devDependencies": {
