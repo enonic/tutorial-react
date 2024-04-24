@@ -1,28 +1,35 @@
 // @ts-expect-error No types
 import Router from '/lib/router';
-import { immutableGetter, getWebappUrl } from '/lib/urlHelper';
+// import {toStr} from '@enonic/js-utils/value/toStr';
 import {
-  FILEPATH_MANIFEST_CJS,
-  FILEPATH_MANIFEST_NODE_MODULES,
-  GETTER_ROOT
-} from '/constants';
+  getStaticCjsUrl,
+  getStaticEsmUrl,
+  getStaticNodeModuleUrl,
+} from '/services/static/static';
 
 
-function get(_request) {
+function get(request) {
+  // log.info('request:%s', toStr(request));
+  const {
+    host,
+    port,
+    scheme,
+  } = request;
+  const baseUrl = `${scheme}://${host}:${port}`;
   return {
     contentType: 'text/html',
     body: `<html>
   <head>
-    <script type="text/javascript" src="${getWebappUrl({
-      manifestPath: FILEPATH_MANIFEST_NODE_MODULES,
+    <script type="text/javascript" src="${getStaticNodeModuleUrl({
+      baseUrl,
       path: 'react/umd/react.development.js'
     })}"></script>
-    <script type="text/javascript" src="${getWebappUrl({
-      manifestPath: FILEPATH_MANIFEST_NODE_MODULES,
+    <script type="text/javascript" src="${getStaticNodeModuleUrl({
+      baseUrl,
       path: 'react-dom/umd/react-dom.development.js'
     })}"></script>
-    <link rel="stylesheet" media="all" href="${getWebappUrl({
-      manifestPath: FILEPATH_MANIFEST_CJS,
+    <link rel="stylesheet" media="all" href="${getStaticCjsUrl({
+      baseUrl,
       path: 'App.css'
     })}">
     <meta charset="UTF-8" />
@@ -32,7 +39,10 @@ function get(_request) {
   <body style="font-size:13px">
     <div id="react-root"></div>
     <script type='module' defer>
-      import {App} from '${getWebappUrl({ path: 'App.mjs' })}';
+      import {App} from '${getStaticEsmUrl({
+        baseUrl,
+        path: 'App.mjs'
+      })}';
       const root = ReactDOM.createRoot(document.getElementById('react-root'));
       root.render(React.createElement(App, {
         guillotineUrl: '${app.config.guillotineUrl}',
@@ -45,10 +55,6 @@ function get(_request) {
 }
 
 const router = Router();
-
-router.all(`/${GETTER_ROOT}/{path:.+}`, (r) => {
-  return immutableGetter(r);
-});
 
 router.get('/?', get);
 
