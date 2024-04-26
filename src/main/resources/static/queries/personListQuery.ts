@@ -1,6 +1,7 @@
 export const PERSON_LIST_QUERY: string = `query PersonListQuery {
   guillotine {
     queryDsl(
+      first: 9
       query: {
         term: {
           field: "type",
@@ -24,7 +25,7 @@ export const PERSON_LIST_QUERY: string = `query PersonListQuery {
         data {
           photos {
             ... on media_Image {
-              imageUrl(scale: "width(250)")
+              imageUrl(scale: "width(34)")
             }
           }
         }
@@ -32,3 +33,4 @@ export const PERSON_LIST_QUERY: string = `query PersonListQuery {
     }
   }
 }`;
+//

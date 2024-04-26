@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 // import { toStr } from '@enonic/js-utils';
-import 'css/panel.css';
+import './styles/body.sass';
+import './styles/reactRoot.sass';
+import './styles/panel.css';
 import React from 'react';
 import {
   Route,
   BrowserRouter as Router,
-	Routes,
+  Routes,
 } from 'react-router-dom';
 import {Person} from './components/Person';
 import {PersonList} from './components/PersonList';

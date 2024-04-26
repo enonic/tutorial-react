@@ -37,7 +37,7 @@ export function get(request) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Webapp</title>
   </head>
-  <body style="font-size:13px">
+  <body>
     <div id="react-root"></div>
     <script type='module' defer>
       import {App} from '${getStaticEsmUrl({

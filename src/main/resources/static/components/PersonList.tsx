@@ -5,6 +5,16 @@ import React, {
 } from 'react';
 import {Link} from 'react-router-dom';
 import {PERSON_LIST_QUERY} from '../queries/personListQuery';
+import '../styles/personList.sass';
+import {BREAK_POINTS} from './constants';
+
+
+// Images are presented in a grid of 3 columns (and 30px gutter).
+// The grid itself is centered on the page and has a max-width of 50%.
+// Let's calculate the smallest image size:
+// The smallest breakPoint is 320px, so the grid will be 160px wide.
+// 160 -(2*30) = 100 / 3 = 33.333333 px
+// So let's use 34px as the smallest image width.
 
 
 export function PersonList({
@@ -50,7 +60,7 @@ export function PersonList({
   return (
     <>
       {data
-        ? <ul>
+        ? <ul className='person-list'>
           {
             data.map(({
               _id,
@@ -60,13 +70,42 @@ export function PersonList({
               },
               displayName
             }, i) => {
-              // http://localhost:8080/admin/site/preview/intro/draft/persons/lea-seydoux/_/image/09b3af0e-6da3-4bcf-88d9-11cbe9c41283:e1738c655c27bae3f1323e48916e49165f958239/width-500/Lea-Seydoux.jpg
-              const imageSrc = photos ? forceArray(photos)[0].imageUrl : null;
+              const src = photos ? forceArray(photos)[0].imageUrl : null;
+
+              // The styles.sass centers images and sets a max-width of 50%.
+              const srcSet = src
+                ? Object.values(BREAK_POINTS)
+                  .map(
+                    (width) => {
+                      const w = Math.ceil((width/2-60)/3);
+                      return `${
+                        src.replace('/width-34/', `/width-${w}/`)
+                        } ${w}w`}
+                  )
+                  .join(',')
+                : null;
+
+              // The last slot width has no media condition (this is the default
+              // that is chosen when none of the media conditions are true)
+              // The browser ignores everything after the first matching
+              // condition, so be careful how you order the media conditions.
+              const sizes = src
+                ? Object.values(BREAK_POINTS)
+                  .map((width) => `(max-width: ${width}px) ${Math.ceil((width/2-60)/3)}px`)
+                  .join(',').replace('(max-width: 3840px) ', '')
+                : null;
+
+              const imgProps = {
+                alt: displayName,
+                sizes,
+                src,
+                srcSet,
+              };
               return <li key={i}>
-                <h2><Link
-        to={`/p/${_name}/${_id}`}
-      >{displayName}</Link></h2>
-                <img src={imageSrc} alt={displayName}/>
+                <Link to={`/p/${_name}/${_id}`}>
+                  <img {...imgProps}/>
+                  <div>{displayName}</div>
+                </Link>
               </li>;
             })
           }</ul>
