@@ -33,4 +33,3 @@ export const PERSON_LIST_QUERY: string = `query PersonListQuery {
     }
   }
 }`;
-//

@@ -14,26 +14,26 @@ In the previous chapter we installed the `Guillotine` app. This app provides a q
 
 In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
 
-.src/main/resources/static/components/personListQuery.ts
+.src/main/resources/static/queries/personListQuery.ts
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/personListQuery.ts[]
+include::{sourcedir}src/main/resources/static/queries/personListQuery.ts[]
 ----
 
-== RichText query
+== Get data about a specific person
 
-In order to test the query below you first have make some `page` in some `project` using a `Text Component` on the page. In the text component you can insert images, links and macros.
+In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
 
-Query Playground Variables
+In addition you need to set a query variable in the Query Playground Variables panel:
 [source, json]
 ----
 {
-  "siteKey": "/mysite"
+  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
 }
 ----
 
-.src/main/resources/static/richTextQuery.ts
+.src/main/resources/static/queries/personQuery.ts
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/richTextQuery.ts[]
+include::{sourcedir}src/main/resources/static/queries/personQuery.ts[]
 ----
