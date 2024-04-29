@@ -84,7 +84,7 @@ export function Person({
       <img src={imageSrc} alt={displayName}/>
       <p>{dateofbirth}</p>
       <RichText
-        customReplacer={(el, data) => {
+        replacer={(el, data) => {
           // console.debug('el', el);
           // console.debug('data', data);
           if (
