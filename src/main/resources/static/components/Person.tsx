@@ -26,7 +26,7 @@ export function Person({
   // personId: string
 }) {
   const {
-    name,
+    // name,
     personId
   } = useParams();
   const [data, setData] = useState<{

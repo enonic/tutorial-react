@@ -1,7 +1,7 @@
 = Tutorial React
 :toc: right
 
-In this tutorial we are going to create a `webapp` that fetches data from the `Enonic intro` app using `Guillotine` and client-side renders a one-page application using `React`.
+In this tutorial we are going to create a `web application` that fetches data from the `Enonic intro` app using `Guillotine` and client-side renders a one-page application using `React`.
 
 The react application will use the `RichText` react component from `@enonic/react-components` in order to render Enonic TextComponents and HTMLArea-inputs that can contain images, links and macros.
 
@@ -10,8 +10,24 @@ We will use macros from the `Panel macros` app from Enonic Market and create a r
 This guide will show you how to:
 
 * <<setup#,Set up>> a project
-* Model: <<query#,Query>> for Person data (via Guillotine)
-* Web application
-* Static assets service
-* Client-side "routing"
-* View/Controller: Render PersonList and PersonComponents
+
+Model (data):
+
+* <<query#,Query>> for Person data (via Guillotine)
+
+Controller:
+
+* <<webapp#,Web application>>
+* <<static#,Static assets>>
+* <<routing#,Routing>>
+
+View (components):
+
+* <<personlist#,PersonList>>
+* <<person#,Person>>
+
+RichText Components:
+
+* <<image#,Image>>
+* <<link#,Link>>
+* <<macro#,Macro>>

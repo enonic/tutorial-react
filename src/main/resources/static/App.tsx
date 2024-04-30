@@ -1,14 +1,18 @@
-/* eslint-disable react/prop-types */
-// import { toStr } from '@enonic/js-utils';
+// <1> Import some styling, so that a App.css is built
 import './styles/body.sass';
 import './styles/reactRoot.sass';
 import './styles/panel.css';
-import React from 'react';
+
+import React from 'react'; // <2> Support JSX syntax
+
+// <3> Import routing components
 import {
   Route,
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
+
+// <4> Import actual components (views)
 import {Person} from './components/Person';
 import {PersonList} from './components/PersonList';
 

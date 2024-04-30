@@ -31,7 +31,7 @@ The code below does a number of things:
 
 5. Some styling is nice to have.
 
-  Some sass and css files are imported into the /static/App.tsx file. The build system will automatically build a `App.css` from those style files.
+  Some sass and css files are imported into the `/static/App.tsx` file. The build system will automatically build a `App.css` from those style files.
 
 6. React needs a root element to render it's application into.
 

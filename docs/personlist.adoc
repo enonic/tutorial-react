@@ -1,0 +1,30 @@
+= PersonList Component
+:sourcedir: ../
+
+When the PersonList component is first rendered, it has no `data`, so it simply returns `null`.
+
+It has a useEffect hook that will asyncronously run a fetch using the imported PERSON_LIST_QUERY.
+
+Once the fetch returns, it will update the `data` state, so there is something to render.
+
+Since the state has changed it will now be re-rendered based on the new state.
+
+This time it will return an unordered list with one list-item per person in the data.
+
+The list-item consists of a single Link component which contains an image and the displayName of the person.
+
+Notice that the Link component is imported from `react-router-dom` and that it's `to` prop follows the pattern described in the routing chapter.
+
+Since the personList.sass file is imported, the styling becomes available in the App.css which is already loaded.
+
+The final result in the browser is a page with a grid of 9 images (3 rows with 3 images on each row).
+
+The displayName is initally hidden, but becomes visible when the link is hovered.
+
+In addition the images are grayscaled, but becomes colorful when hovered.
+
+.src/main/resources/components/PersonList.tsx
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
+----
