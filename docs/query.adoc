@@ -1,6 +1,8 @@
 = Query
 :sourcedir: ../
 
+Before we even write a single line of code, lets have a look at the data we're going to be working with:
+
 == Data
 
 In the previous chapter we installed the `Enonic intro` app. On installation it created a project name `intro` within the Enonic XP instance. If you open this project in Content Studio you will see that it contains a number of content types and content. In this tutorial we are going to use the `Person` content items and corresponding `images` it provides.

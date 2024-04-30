@@ -1,0 +1,60 @@
+= Static
+:sourcedir: ../
+
+== Intro
+
+We are using the `Static Library` to serve `static assets` for the web application.
+
+In order for an asset to be static, it needs to have an url which is `unique` and `always returns the exact same data`.
+
+The way to achive this, is by adding a `hash` string into the url of the asset.
+
+The build system will do this automatically for us. In addition the build system will create manifest files, which are used by the `url builders` to lookup the hashed "path" from the unhashed asset "path".
+
+== URL helpers
+
+In webapp.ts 3 url helper functions (`getStaticCjsUrl`, `getStaticEsmUrl` and `getStaticEsmUrl`) was imported from `/services/static` where they are exported:
+
+.src/main/resources/services/static/index.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/index.ts[]
+----
+
+Each of those url helper functions are simple wrappers around `getHashedPath` and `getStaticUrl`, just with differing manifest files:
+
+.src/main/resources/services/static/getStaticCjsUrl.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/getStaticCjsUrl.ts[]
+----
+
+When running XP in `production mode`, the manifiles files (which are contained in the application jar file) never changes.
+
+<1> Reading and json parsing the manifest files everytime a url needs to be generated, is a waste of time and server resources, so we keep a "cache" of the finished parsed object.
+
+<2> In `development mode` the "cache" that lives in memory could point to static asset files that no longer exists, so the cache must be skipped, and the manifest files read freshly everytime.
+
+.src/main/resources/services/static/getHashedPath.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/getHashedPath.ts[]
+----
+
+The `getStaticUrl` function simply joins together a baseUrl with the path to the `static service` and a specific static `asset path`.
+
+.src/main/resources/services/static/getStaticUrl.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/getStaticUrl.ts[]
+----
+
+== Service
+
+The static service uses `lib-static` to serve static assets.
+
+.src/main/resources/services/static/static.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/static.ts[]
+----

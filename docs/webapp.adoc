@@ -1,0 +1,50 @@
+= Web application
+:sourcedir: ../
+
+
+== Intro
+
+Enonic XP comes with an engine for hosting `web applications`.
+
+Below is an example of code needed by Enonic XP to serve such a `webapp`.
+
+
+== Code
+
+The code below does a number of things:
+
+1. First it imports some functions from the static service controller.
+
+  Those functions are used to `build urls` that the browser uses to download all the JavaScript and CSS files needed to render the web application.
+
+2. The BASENAME constant is passed as a prop to the App component.
+
+  It is used for client-side routing. We will talk more about this in a later chapter.
+
+  NOTE: If you use a vhost configuration file to change the location of where the webapp will be available, you will also have to change this constant to match the configuration.
+
+3. In order for the `url builder functions` to create correct urls: host, port and scheme is gotten from the request object and passed to the functions as a `baseUrl` parameter.
+
+4. In order for the browser to render the web application, it first needs to load both `react` and `react-dom` into the global scope.
+
+  The build system conveniently copies both `react.development.js` and `react-dom.development.js` into the correct place for us. All we have to do is give the browser the correct urls.
+
+5. Some styling is nice to have.
+
+  Some sass and css files are imported into the /static/App.tsx file. The build system will automatically build a `App.css` from those style files.
+
+6. React needs a root element to render it's application into.
+
+  So we provide a `div` with the id `react-root`.
+
+7. Render the web application.
+
+  7.1 First we import the `App` component.
+  7.2 Then we make a render root using the div with the id `react-root`.
+  7.3 Then we finally call render using the App component and passing along some props.
+
+.src/main/resources/webapp/webapp.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/webapp/webapp.ts[]
+----

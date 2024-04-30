@@ -3,7 +3,7 @@ import {
   getStaticCjsUrl,
   getStaticEsmUrl,
   getStaticNodeModuleUrl,
-} from '/services/static/static';
+} from '/services/static';
 
 
 const BASENAME = `/webapp/${app.name}`;

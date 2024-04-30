@@ -5,9 +5,13 @@ In this tutorial we are going to create a `webapp` that fetches data from the `E
 
 The react application will use the `RichText` react component from `@enonic/react-components` in order to render Enonic TextComponents and HTMLArea-inputs that can contain images, links and macros.
 
-We will use the `Panel macros` app from Enonic Market and create a react component to render those macros.
+We will use macros from the `Panel macros` app from Enonic Market and create a react component to render those macros.
 
 This guide will show you how to:
 
 * <<setup#,Set up>> a project
-* <<query#,Query>> for persons and RichText content via Guillotine
+* Model: <<query#,Query>> for Person data (via Guillotine)
+* Web application
+* Static assets service
+* Client-side "routing"
+* View/Controller: Render PersonList and PersonComponents
