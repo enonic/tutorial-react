@@ -1,7 +1,6 @@
 // <1> Import some styling, so that a App.css is built
 import './styles/body.sass';
 import './styles/reactRoot.sass';
-import './styles/panel.css';
 
 import React from 'react'; // <2> Support JSX syntax
 
@@ -13,6 +12,7 @@ import {
 } from 'react-router-dom';
 
 // <4> Import actual components (views)
+import {Movie} from './components/Movie';
 import {Person} from './components/Person';
 import {PersonList} from './components/PersonList';
 
@@ -28,6 +28,10 @@ export function App({
     <Router basename={basename}>
       <Routes>
         <Route path="/" element={<PersonList guillotineUrl={guillotineUrl}/>}/>
+        <Route
+          element={<Movie guillotineUrl={guillotineUrl}/>}
+          path="/m/:name/:movieId"
+        />
         <Route
           element={<Person guillotineUrl={guillotineUrl}/>}
           path="/p/:name/:personId"

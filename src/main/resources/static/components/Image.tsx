@@ -2,7 +2,6 @@ import type {ImageComponent} from '@enonic/react-components';
 
 
 import React from 'react';
-import {cssToReactStyle} from '@enonic/react-components/src';
 
 
 export const Image: ImageComponent = ({
@@ -11,8 +10,8 @@ export const Image: ImageComponent = ({
 	// imageStyle,
 	sizes,
 	src,
-	srcset,
-	styleStr,
+	srcSet,
+	style,
 }) => {
 	// const {
 	// 	_id,
@@ -30,7 +29,7 @@ export const Image: ImageComponent = ({
 		alt={alt}
 		sizes={sizes}
 		src={src}
-		srcSet={srcset}
-		style={cssToReactStyle(styleStr)}
+		srcSet={srcSet}
+		style={style}
 	/>;
 }

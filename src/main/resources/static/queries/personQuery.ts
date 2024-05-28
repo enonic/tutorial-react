@@ -54,7 +54,16 @@ export const PERSON_QUERY: string = `query PersonQuery($personId: ID!) {
                 ref
                 uri
               }
-              macrosAsJson
+              macros {
+                ref
+                name
+                descriptor
+                config {
+                  filmography {
+                    heading
+                  }
+                }
+              }
               processedHtml
             }
         }

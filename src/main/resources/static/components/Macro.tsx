@@ -1,14 +1,19 @@
 import type {MacroComponent} from '@enonic/react-components';
+import type {RestProps} from '.';
+
+
 import React from 'react';
-import {Panel} from './Panel';
+import {Filmography} from './macros/Filmography';
 
 
-export const Macro: MacroComponent = ({
+export const Macro: MacroComponent<RestProps> = ({
 	config,
-	descriptor
+	descriptor,
+  ...rest
 }) => {
-	if (descriptor.startsWith('com.enonic.app.panelmacros:')) {
-		return <Panel config={config} descriptor={descriptor} />;
+	if (descriptor === 'com.enonic.app.intro:filmography') {
+    const props = {...rest, config};
+		return <Filmography {...props} />;
 	}
 	throw new Error(`Macro not found: ${descriptor}`);
 }

@@ -1,9 +1,10 @@
 import type {RichTextData} from '@enonic/react-components';
-import {ElementType} from 'domelementtype';
+import type {RestProps} from '.';
 
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
 import {RichText} from '@enonic/react-components/src';
+import {ElementType} from 'domelementtype';
 import React, {
   useEffect,
   useState,
@@ -20,10 +21,8 @@ import {PERSON_QUERY} from '../queries/personQuery';
 
 export function Person({
   guillotineUrl,
-  // personId,
 }: {
   guillotineUrl: string
-  // personId: string
 }) {
   const {
     // name,
@@ -56,10 +55,7 @@ export function Person({
     })
       .then(response => response.json())
       .then(json => {
-        // console.debug(json);
         const value = json.data.guillotine.get;
-        console.debug(value);
-        value.macros = value.macrosAsJson;
         setData(value)
       });
   }, []); // useEffect
@@ -83,7 +79,7 @@ export function Person({
       <h2>{displayName}</h2>
       <img src={imageSrc} alt={displayName}/>
       <p>{dateofbirth}</p>
-      <RichText
+      <RichText<RestProps>
         replacer={(el, data) => {
           // console.debug('el', el);
           // console.debug('data', data);
@@ -99,6 +95,8 @@ export function Person({
         Image={Image}
         Link={Link}
         Macro={Macro}
+        guillotineUrl={guillotineUrl}
+        personId={personId}
         tag='article'
       />
       <RouterLink to='/'>Back to list</RouterLink>
