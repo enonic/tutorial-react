@@ -445,6 +445,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#query_playground">Query Playground</a></li>
 <li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
 <li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
+<li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
+<li><a href="#navigation">Navigation</a></li>
 </ul>
 </div>
 </div>
@@ -595,7 +597,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                 ref
                 uri
               }
-              macrosAsJson
+              macros {
+                ref
+                name
+                descriptor
+                config {
+                  filmography {
+                    heading
+                  }
+                }
+              }
               processedHtml
             }
         }
@@ -607,10 +618,80 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="get_data_about_which_movies_references_a_person"><a class="link" href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
+</div>
+<div class="paragraph">
+<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/static/queries/personQuery.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export const PERSON_MOVIES_QUERY: string = `query PersonMoviesQuery($personId: String!) {
+  guillotine {
+    queryDsl(
+      query: {
+        boolean: {
+          must: [
+            {
+              term: {
+                field: "type",
+                value: {
+                  string: "com.enonic.app.intro:movie"
+                }
+              }
+            },
+            {
+              in: {
+                field: "_references",
+                stringValues: [$personId]
+              }
+            }
+          ]
+        }
+      }
+    ) {
+      _id
+      _name
+      displayName
+      ... on com_enonic_app_intro_Movie {
+        data {
+          photos(first: 1) {
+            ... on media_Image {
+              imageUrl(scale: "width(100)")
+            }
+          }
+        }
+      }
+    }
+  }
+}`;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the next chapter you will learn how to create a <a href="webapp.ahtml">Web application</a>.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-30 12:45:16 UTC
+Last updated 2024-05-30 13:55:47 UTC
 </div>
 </div>
 </body>

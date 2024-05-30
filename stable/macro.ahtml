@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Macro component</title>
+<title>Macros</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,16 +435,243 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
-<h1>Macro component</h1>
+<h1>Macros</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#props">Props</a></li>
+<li><a href="#restprops">RestProps</a></li>
+<li><a href="#macro_component">Macro component</a></li>
+<li><a href="#filmography_component">Filmography component</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>RichText</code> component imported from <code>@enonic/react-components</code> doesn&#8217;t know how to render macros. To render macros, you need to create your own Macro component that can handle macros and pass that to the RichText component.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read more about XP <a href="https://developer.enonic.com/docs/xp/stable/cms/macros">Macros</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="props"><a class="link" href="#props">Props</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default the Macro component you create will receive two props:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>config</p>
+<div class="literalblock">
+<div class="content">
+<pre>An object with filled in values of properties defined in a macro's xml file.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>descriptor</p>
+<div class="literalblock">
+<div class="content">
+<pre>A string that contains the app.name and which specific macro is used.</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="restprops"><a class="link" href="#restprops">RestProps</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In additon to the two default props, one can pass additional RestProps to the RichText component, which will be passed down to the Macro component.</p>
+</div>
+<div class="paragraph">
+<p>In the examples below, we pass along <code>guillotineUrl</code> and <code>personId</code> props.</p>
+</div>
+<div class="paragraph">
+<p>A separate Typescript declaration file is created to reuse the RestProps type:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/components/index.d.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export declare interface RestProps {
+  guillotineUrl: string
+  personId: string
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how it is used in the Person component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RestProps} from '.';
 
+&lt;RichText&lt;RestProps&gt;
+  guillotineUrl={guillotineUrl}
+  personId={personId}
+/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="macro_component"><a class="link" href="#macro_component">Macro component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Macro component below imports a <code>Filmography</code> component, and uses that to render all macros that has the descriptor <code>com.enonic.app.intro:filmography</code>.</p>
+</div>
+<div class="paragraph">
+<p>If macros are used that doesn&#8217;t have a mathcing descriptor, it will throw an error, which will cause the <code>RichText</code> component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
+</div>
+<div class="paragraph">
+<p>Notice how it&#8217;s passing along the RestProps by using the <code>&#8230;&#8203;rest</code> spread operator.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/components/Macro.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
+import type {RestProps} from '.';
+
+
+import React from 'react';
+import {Filmography} from './macros/Filmography';
+
+
+export const Macro: MacroComponent&lt;RestProps&gt; = ({
+  config,
+  descriptor,
+  ...rest
+}) =&gt; {
+  if (descriptor === 'com.enonic.app.intro:filmography') {
+  const props = {...rest, config};
+    return &lt;Filmography {...props} /&gt;;
+  }
+  throw new Error(`Macro not found: ${descriptor}`);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="filmography_component"><a class="link" href="#filmography_component">Filmography component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Notice how the RestProps <code>guillotineUrl</code> and <code>personId</code> are available in the params.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/components/macros/Filmography.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RestProps} from '..';
+
+
+import {forceArray} from '@enonic/js-utils/array/forceArray';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+import {PERSON_MOVIES_QUERY} from '../../queries/personMoviesQuery';
+import '../../styles/filmography.sass';
+
+
+export declare interface FilmographyConfig {
+  heading?: string
+}
+
+
+export function Filmography({
+  config,
+  guillotineUrl,
+  personId,
+}: {
+  config: FilmographyConfig,
+} &amp; RestProps) {
+  const {heading = 'Movies'} = config;
+
+  const [data, setData] = useState&lt;{
+    _id: string
+    _name: string
+    displayName: string
+    data: {
+      photos: {
+        imageUrl: string
+      }[]
+    }
+  }[]&gt;();
+  console.debug(data);
+
+  useEffect(() =&gt; {
+    fetch(guillotineUrl, {
+      body: JSON.stringify({
+        query: PERSON_MOVIES_QUERY,
+        variables: {
+          personId,
+        }
+      }),
+      headers: { // HTTP/2 uses lowercase header keys
+        'content-type':	'application/json'
+      },
+      method: 'POST',
+    })
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        const value = json.data.guillotine.queryDsl;
+        setData(value)
+      });
+  }, []); // useEffect
+
+  if (!data) {
+    return null;
+  }
+
+  return (
+    &lt;div className='filmography'&gt;
+      &lt;h2&gt;{heading}&lt;/h2&gt;
+      &lt;ul&gt;
+        {data.map(({
+          _id,
+          _name,
+          data: {
+            photos
+          },
+          displayName
+        }) =&gt; {
+        const src = photos ? forceArray(photos)[0].imageUrl : null;
+        return &lt;li key={_id}&gt;
+            &lt;img alt={displayName} src={src}/&gt;
+            &lt;div&gt;{displayName}&lt;/div&gt;
+        &lt;/li&gt;;
+      })}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-30 12:45:16 UTC
+Last updated 2024-05-30 13:55:47 UTC
 </div>
 </div>
 </body>

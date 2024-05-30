@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#sample_project">Sample project</a></li>
 <li><a href="#peer_apps">Peer apps</a></li>
+<li><a href="#navigation">Navigation</a></li>
 </ul>
 </div>
 </div>
@@ -458,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic project create com.example.tutorial.react -r starter-tsup -d react-tutorial</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic project create com.example.tutorial.react -r starter-ts -d react-tutorial</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -472,15 +473,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>In order to fetch data from the <code>Enonic intro</code> app via <code>Guillotine</code>, we need to have both the <code>Enonic intro</code> app and the <code>Guillotine</code> app installed in our Enonic XP instance.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>In addition make sure the <code>Panel macros</code> app is installed.</p>
+<p>In the next chapter you will learn how to <a href="query.ahtml">Query</a> for data.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-30 12:45:16 UTC
+Last updated 2024-05-30 13:55:47 UTC
 </div>
 </div>
 </body>

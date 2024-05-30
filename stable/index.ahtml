@@ -447,9 +447,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The react application will use the <code>RichText</code> react component from <code>@enonic/react-components</code> in order to render Enonic TextComponents and HTMLArea-inputs that can contain images, links and macros.</p>
 </div>
 <div class="paragraph">
-<p>We will use macros from the <code>Panel macros</code> app from Enonic Market and create a react component to render those macros.</p>
-</div>
-<div class="paragraph">
 <p>This guide will show you how to:</p>
 </div>
 <div class="ulist">
@@ -517,7 +514,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-30 12:45:16 UTC
+Last updated 2024-05-30 13:55:47 UTC
 </div>
 </div>
 </body>

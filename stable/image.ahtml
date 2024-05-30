@@ -435,16 +435,103 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
 <h1>Image component</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#custom_image_component">Custom Image component</a></li>
+<li><a href="#navigation">Navigation</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>RichText</code> component imported from <code>@enonic/react-components</code> comes with a default component for rendering Images.</p>
+</div>
+<div class="paragraph">
+<p>If you want to have more control over rendering RichText Images, you can provide your&#8217;s own customized <code>Image</code> component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom_image_component"><a class="link" href="#custom_image_component">Custom Image component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is an empty custom <code>Image</code> component example:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/components/Image.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {ImageComponent} from '@enonic/react-components';
 
+
+import React from 'react';
+
+
+export const Image: ImageComponent = ({
+	alt,
+	// image,
+	// imageStyle,
+	sizes,
+	src,
+	srcSet,
+	style,
+}) =&gt; {
+	// const {
+	// 	_id,
+	// 	_name,
+	// 	_path,
+	// 	type,
+	// 	imageUrl
+	// } = image;
+	// const {
+	// 	aspectRatio,
+	// 	filter,
+	// 	name
+	// } = imageStyle;
+	return &lt;img
+		alt={alt}
+		sizes={sizes}
+		src={src}
+		srcSet={srcSet}
+		style={style}
+	/&gt;;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Which you can import a pass to the <code>RichText</code> component like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Image} from '../components/Image';
+
+// ...
+
+&lt;RichText
+  Image={Image}
+/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the next chapter you will learn about the RichText <a href="link.ahtml">Link</a> Component.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-30 12:45:16 UTC
+Last updated 2024-05-30 13:55:47 UTC
 </div>
 </div>
 </body>

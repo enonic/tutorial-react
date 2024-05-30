@@ -435,11 +435,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
 <h1>Person Component</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#navigation">Navigation</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>When the Person component is first rendered, it has no <code>data</code>, so it simply returns <code>null</code>.</p>
 </div>
@@ -490,11 +498,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">src/main/resources/components/Person.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData} from '@enonic/react-components';
-import {ElementType} from 'domelementtype';
+import type {RestProps} from '.';
 
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
 import {RichText} from '@enonic/react-components/src';
+import {ElementType} from 'domelementtype';
 import React, {
   useEffect,
   useState,
@@ -503,18 +512,16 @@ import {
   Link as RouterLink,
   useParams,
 } from 'react-router-dom';
-import {Image} from '../components/Image';
-import {Link} from '../components/Link';
+// import {Image} from '../components/Image';
+// import {Link} from '../components/Link';
 import {Macro} from '../components/Macro';
 import {PERSON_QUERY} from '../queries/personQuery';
 
 
 export function Person({
   guillotineUrl,
-  // personId,
 }: {
   guillotineUrl: string
-  // personId: string
 }) {
   const {
     // name,
@@ -547,10 +554,7 @@ export function Person({
     })
       .then(response =&gt; response.json())
       .then(json =&gt; {
-        // console.debug(json);
         const value = json.data.guillotine.get;
-        console.debug(value);
-        value.macros = value.macrosAsJson;
         setData(value)
       });
   }, []); // useEffect
@@ -574,7 +578,7 @@ export function Person({
       &lt;h2&gt;{displayName}&lt;/h2&gt;
       &lt;img src={imageSrc} alt={displayName}/&gt;
       &lt;p&gt;{dateofbirth}&lt;/p&gt;
-      &lt;RichText
+      &lt;RichText&lt;RestProps&gt;
         replacer={(el, data) =&gt; {
           // console.debug('el', el);
           // console.debug('data', data);
@@ -587,9 +591,11 @@ export function Person({
           }
         }}
         data={bio}
-        Image={Image}
-        Link={Link}
+        // Image={Image}
+        // Link={Link}
         Macro={Macro}
+        guillotineUrl={guillotineUrl}
+        personId={personId}
         tag='article'
       /&gt;
       &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
@@ -599,9 +605,19 @@ export function Person({
 </div>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the next chapter you will learn about the RichText <a href="image.ahtml">Image</a> Component.</p>
+</div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-30 12:45:16 UTC
+Last updated 2024-05-30 13:55:47 UTC
 </div>
 </div>
 </body>
