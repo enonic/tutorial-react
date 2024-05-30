@@ -44,7 +44,7 @@ export function PersonList({
         query: PERSON_LIST_QUERY,
       }),
       headers: { // HTTP/2 uses lowercase header keys
-        'content-type':	'application/json'
+        'content-type': 'application/json'
       },
       method: 'POST',
     })

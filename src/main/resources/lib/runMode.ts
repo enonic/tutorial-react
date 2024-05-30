@@ -1,7 +1,7 @@
 declare const Java: {
-	type: (_classPath: string) => {
-		get: () => string
-	}
+  type: (_classPath: string) => {
+    get: () => string
+  }
 };
 
 export const XP_RUN_MODE = `${Java.type('com.enonic.xp.server.RunMode').get()}`; // PROD || DEV

@@ -45,7 +45,7 @@ export function Filmography({
         }
       }),
       headers: { // HTTP/2 uses lowercase header keys
-        'content-type':	'application/json'
+        'content-type': 'application/json'
       },
       method: 'POST',
     })
