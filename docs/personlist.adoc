@@ -28,3 +28,7 @@ In addition the images are grayscaled, but becomes colorful when hovered.
 ----
 include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
 ----
+
+== Navigation
+
+In the next chapter you will create a <<person#,Person>> component.

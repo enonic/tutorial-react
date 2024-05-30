@@ -48,3 +48,7 @@ The code below does a number of things:
 ----
 include::{sourcedir}src/main/resources/webapp/webapp.ts[]
 ----
+
+== Navigation
+
+In the next chapter you will learn about <<static#,Static assets>>.

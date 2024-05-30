@@ -58,3 +58,7 @@ The static service uses `lib-static` to serve static assets.
 ----
 include::{sourcedir}src/main/resources/services/static/static.ts[]
 ----
+
+== Navigation
+
+In the next chapter you will learn about <<routing#,Routing>>.

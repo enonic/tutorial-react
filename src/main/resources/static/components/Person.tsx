@@ -13,8 +13,8 @@ import {
   Link as RouterLink,
   useParams,
 } from 'react-router-dom';
-import {Image} from '../components/Image';
-import {Link} from '../components/Link';
+// import {Image} from '../components/Image';
+// import {Link} from '../components/Link';
 import {Macro} from '../components/Macro';
 import {PERSON_QUERY} from '../queries/personQuery';
 
@@ -92,8 +92,8 @@ export function Person({
           }
         }}
         data={bio}
-        Image={Image}
-        Link={Link}
+        // Image={Image}
+        // Link={Link}
         Macro={Macro}
         guillotineUrl={guillotineUrl}
         personId={personId}

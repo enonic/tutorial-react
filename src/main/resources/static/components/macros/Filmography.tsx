@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {Link} from 'react-router-dom';
 import {PERSON_MOVIES_QUERY} from '../../queries/personMoviesQuery';
 import '../../styles/filmography.sass';
 
@@ -75,10 +74,8 @@ export function Filmography({
         }) => {
         const src = photos ? forceArray(photos)[0].imageUrl : null;
         return <li key={_id}>
-          <Link to={`/m/${_name}/${_id}`}>
             <img alt={displayName} src={src}/>
             <div>{displayName}</div>
-          </Link>
         </li>;
       })}
       </ul>

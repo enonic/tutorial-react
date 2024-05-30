@@ -7,13 +7,13 @@ import {Filmography} from './macros/Filmography';
 
 
 export const Macro: MacroComponent<RestProps> = ({
-	config,
-	descriptor,
+  config,
+  descriptor,
   ...rest
 }) => {
-	if (descriptor === 'com.enonic.app.intro:filmography') {
-    const props = {...rest, config};
-		return <Filmography {...props} />;
-	}
-	throw new Error(`Macro not found: ${descriptor}`);
+  if (descriptor === 'com.enonic.app.intro:filmography') {
+  const props = {...rest, config};
+    return <Filmography {...props} />;
+  }
+  throw new Error(`Macro not found: ${descriptor}`);
 }

@@ -22,3 +22,7 @@ The routing in the code below is setup in such a way that visiting:
 ----
 include::{sourcedir}src/main/resources/static/App.tsx[]
 ----
+
+== Navigation
+
+In the next chapter you will create a <<personlist#,PersonList>> component.

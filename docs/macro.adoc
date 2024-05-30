@@ -1,2 +1,69 @@
-= Macro component
+= Macros
 :sourcedir: ../
+
+The `RichText` component imported from `@enonic/react-components` doesn't know how to render macros. To render macros, you need to create your own Macro component that can handle macros and pass that to the RichText component.
+
+TIP: Read more about XP https://developer.enonic.com/docs/xp/stable/cms/macros[Macros].
+
+== Props
+
+By default the Macro component you create will receive two props:
+
+1. config
+
+  An object with filled in values of properties defined in a macro's xml file.
+
+2. descriptor
+
+  A string that contains the app.name and which specific macro is used.
+
+== RestProps
+
+In additon to the two default props, one can pass additional RestProps to the RichText component, which will be passed down to the Macro component.
+
+In the examples below, we pass along `guillotineUrl` and `personId` props.
+
+A separate Typescript declaration file is created to reuse the RestProps type:
+
+.src/main/resources/components/index.d.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/index.d.ts[]
+----
+
+Notice how it is used in the Person component:
+
+.src/main/resources/components/Person.tsx
+[source, TypeScript]
+----
+import type {RestProps} from '.';
+
+<RichText<RestProps>
+  guillotineUrl={guillotineUrl}
+  personId={personId}
+/>
+----
+
+== Macro component
+
+The Macro component below imports a `Filmography` component, and uses that to render all macros that has the descriptor `com.enonic.app.intro:filmography`.
+
+If macros are used that doesn't have a mathcing descriptor, it will throw an error, which will cause the `RichText` component's `ErrorBoundary` to render an `Error placeholder`.
+
+Notice how it's passing along the RestProps by using the `...rest` spread operator.
+
+.src/main/resources/components/Macro.tsx
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/Macro.tsx[]
+----
+
+== Filmography component
+
+Notice how the RestProps `guillotineUrl` and `personId` are available in the params.
+
+.src/main/resources/components/macros/Filmography.tsx
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/macros/Filmography.tsx[]
+----

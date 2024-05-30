@@ -1,2 +1,35 @@
 = Image component
 :sourcedir: ../
+
+The `RichText` component imported from `@enonic/react-components` comes with a default component for rendering Images.
+
+If you want to have more control over rendering RichText Images, you can provide your's own customized `Image` component.
+
+== Custom Image component
+
+Here is an empty custom `Image` component example:
+
+.src/main/resources/components/Image.tsx
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/Image.tsx[]
+----
+
+Which you can import a pass to the `RichText` component like this:
+
+.src/main/resources/components/Person.tsx
+[source, TypeScript]
+----
+import {Image} from '../components/Image';
+
+// ...
+
+<RichText
+  Image={Image}
+/>
+----
+
+
+== Navigation
+
+In the next chapter you will learn about the RichText <<link#,Link>> Component.

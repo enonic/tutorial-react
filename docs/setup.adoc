@@ -9,7 +9,7 @@ To create a project for the tutorial, run the following command:
 
 [source, Terminal]
 ----
-enonic project create com.example.tutorial.react -r starter-tsup -d react-tutorial
+enonic project create com.example.tutorial.react -r starter-ts -d react-tutorial
 ----
 
 This will create an app and place it in a folder called `react-tutorial`.
@@ -19,5 +19,6 @@ This will create an app and place it in a folder called `react-tutorial`.
 
 In order to fetch data from the `Enonic intro` app via `Guillotine`, we need to have both the `Enonic intro` app and the `Guillotine` app installed in our Enonic XP instance.
 
-In addition make sure the `Panel macros` app is installed.
+== Navigation
 
+In the next chapter you will learn how to <<query#,Query>> for data.

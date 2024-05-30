@@ -29,10 +29,6 @@ export function App({
       <Routes>
         <Route path="/" element={<PersonList guillotineUrl={guillotineUrl}/>}/>
         <Route
-          element={<Movie guillotineUrl={guillotineUrl}/>}
-          path="/m/:name/:movieId"
-        />
-        <Route
           element={<Person guillotineUrl={guillotineUrl}/>}
           path="/p/:name/:personId"
         />

@@ -39,3 +39,26 @@ In addition you need to set a query variable in the Query Playground Variables p
 ----
 include::{sourcedir}src/main/resources/static/queries/personQuery.ts[]
 ----
+
+== Get data about which movies references a person
+
+In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
+
+In addition you need to set a query variable in the Query Playground Variables panel:
+
+[source, json]
+----
+{
+  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
+}
+----
+
+.src/main/resources/static/queries/personQuery.ts
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/queries/personMoviesQuery.ts[]
+----
+
+== Navigation
+
+In the next chapter you will learn how to create a <<webapp#,Web application>>.

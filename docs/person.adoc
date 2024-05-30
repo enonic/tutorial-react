@@ -31,3 +31,7 @@ The next chapters will cover our custom implementation of the `Image`, `Link` an
 ----
 include::{sourcedir}src/main/resources/static/components/Person.tsx[]
 ----
+
+== Navigation
+
+In the next chapter you will learn about the RichText <<image#,Image>> Component.
