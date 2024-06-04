@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Link component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -467,8 +467,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">src/main/resources/components/Link.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {
-	LinkComponent,
-	// LinkDataMedia,
+  LinkComponent,
+  // LinkDataMedia,
 } from '@enonic/react-components';
 
 
@@ -477,35 +477,35 @@ import React from 'react';
 
 
 export const Link: LinkComponent = ({
-	children,
-	content,
-	media,
-	href,
-	target,
-	title,
-	uri,
+  children,
+  content,
+  media,
+  href,
+  target,
+  title,
+  uri,
 }) =&gt; {
-	// const {
-	// 	content: mediaContent,
-	// 	intent,
-	// } = media || {} as LinkDataMedia;
+  // const {
+  //   content: mediaContent,
+  //   intent,
+  // } = media || {} as LinkDataMedia;
 
-	// const {
-	// 	_id,
-	// 	_name,
-	// 	_path,
-	// 	imageUrl,
-	// 	mediaUrl,
-	// 	type,
-	// } = mediaContent || content;
+  // const {
+  //   _id,
+  //   _name,
+  //   _path,
+  //   imageUrl,
+  //   mediaUrl,
+  //   type,
+  // } = mediaContent || content;
 
-	// const hrefObj = parse(href);
-	// console.debug('hrefObj', hrefObj);
+  // const hrefObj = parse(href);
+  // console.debug('hrefObj', hrefObj);
 
-	// const uriObj = parse(uri);
-	// console.debug('uriObj', uriObj);
+  // const uriObj = parse(uri);
+  // console.debug('uriObj', uriObj);
 
-	return &lt;a href={href} target={target} title={title}&gt;{children}&lt;/a&gt;;
+  return &lt;a href={href} target={target} title={title}&gt;{children}&lt;/a&gt;;
 }</code></pre>
 </div>
 </div>
@@ -537,7 +537,7 @@ export const Link: LinkComponent = ({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-30 13:55:47 UTC
+Last updated 2024-06-04 13:39:54 UTC
 </div>
 </div>
 </body>

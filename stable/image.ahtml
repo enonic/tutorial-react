@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Image component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -473,33 +473,33 @@ import React from 'react';
 
 
 export const Image: ImageComponent = ({
-	alt,
-	// image,
-	// imageStyle,
-	sizes,
-	src,
-	srcSet,
-	style,
+  alt,
+  // image,
+  // imageStyle,
+  sizes,
+  src,
+  srcSet,
+  style,
 }) =&gt; {
-	// const {
-	// 	_id,
-	// 	_name,
-	// 	_path,
-	// 	type,
-	// 	imageUrl
-	// } = image;
-	// const {
-	// 	aspectRatio,
-	// 	filter,
-	// 	name
-	// } = imageStyle;
-	return &lt;img
-		alt={alt}
-		sizes={sizes}
-		src={src}
-		srcSet={srcSet}
-		style={style}
-	/&gt;;
+  // const {
+  //   _id,
+  //   _name,
+  //   _path,
+  //   type,
+  //   imageUrl
+  // } = image;
+  // const {
+  //   aspectRatio,
+  //   filter,
+  //   name
+  // } = imageStyle;
+  return &lt;img
+    alt={alt}
+    sizes={sizes}
+    src={src}
+    srcSet={srcSet}
+    style={style}
+  /&gt;;
 }</code></pre>
 </div>
 </div>
@@ -531,7 +531,7 @@ export const Image: ImageComponent = ({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-30 13:55:47 UTC
+Last updated 2024-06-04 13:39:54 UTC
 </div>
 </div>
 </body>
