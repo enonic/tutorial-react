@@ -515,21 +515,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="dlist">
 <dl>
-<dt class="hdlist1">TS</dt>
+<dt class="hdlist1">Tab A</dt>
 <dd>
-<div class="listingblock">
-<div class="title">src/main/resources/components/Person.tsx</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import portalLib from '/lib/xp/portal';</code></pre>
-</div>
+<p>Contents of Tab A.</p>
+</dd>
+<dt class="hdlist1">Tab B</dt>
+<dd>
+<div class="paragraph">
+<p>Contents of Tab B.</p>
 </div>
 </dd>
-<dt class="hdlist1">JS</dt>
+<dt class="hdlist1">Tab C</dt>
 <dd>
-<div class="listingblock">
-<div class="title">src/main/resources/components/Person.js</div>
+<div class="openblock">
 <div class="content">
-<pre class="highlight"><code class="language-Javascript" data-lang="Javascript">var portalLib = require('/lib/xp/portal');</code></pre>
+<div class="paragraph">
+<p>Contents of Tab C.</p>
+</div>
+<div class="paragraph">
+<p>Contains more than one block.</p>
+</div>
 </div>
 </div>
 </dd>
@@ -540,7 +545,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-04 13:39:54 UTC
+Last updated 2024-06-04 13:50:02 UTC
 </div>
 </div>
 </body>
