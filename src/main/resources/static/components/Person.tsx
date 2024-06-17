@@ -16,7 +16,7 @@ import {
 // import {Image} from '../components/Image';
 // import {Link} from '../components/Link';
 import {Macro} from '../components/Macro';
-import {PERSON_QUERY} from '../queries/personQuery';
+import PERSON_QUERY from '../queries/person.gql';
 
 
 export function Person({

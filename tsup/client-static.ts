@@ -72,6 +72,9 @@ export default function buildStaticConfig(): Options {
       'cjs', // Legacy browser support, also css in manifest.cjs.json
       'esm', // cjs needed because css files are not reported in manifest.esm.json
     ],
+    loader: {
+      '.gql': 'text' // Make it possible to import the contents of a *.gql file as a string.
+    },
     minify: process.env.NODE_ENV === 'development' ? false : true,
 
     // TIP: Command to check if there are any bad requires left behind

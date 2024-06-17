@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {PERSON_MOVIES_QUERY} from '../../queries/personMoviesQuery';
+import PERSON_MOVIES_QUERY from '../../queries/personMovies.gql';
 import '../../styles/filmography.sass';
 
 

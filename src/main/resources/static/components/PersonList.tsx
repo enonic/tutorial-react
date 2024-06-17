@@ -4,7 +4,7 @@ import React, {
   useState,
 } from 'react';
 import {Link} from 'react-router-dom';
-import {PERSON_LIST_QUERY} from '../queries/personListQuery';
+import PERSON_LIST_QUERY from '../queries/personList.gql';
 import '../styles/personList.sass';
 import {BREAK_POINTS} from './constants';
 

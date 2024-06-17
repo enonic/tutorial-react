@@ -16,10 +16,10 @@ In the previous chapter we installed the `Guillotine` app. This app provides a q
 
 In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
 
-.src/main/resources/static/queries/personListQuery.ts
-[source, TypeScript]
+.src/main/resources/static/queries/personList.gql
+[source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personListQuery.ts[]
+include::{sourcedir}src/main/resources/static/queries/personList.gql[]
 ----
 
 == Get data about a specific person
@@ -34,10 +34,10 @@ In addition you need to set a query variable in the Query Playground Variables p
 }
 ----
 
-.src/main/resources/static/queries/personQuery.ts
-[source, TypeScript]
+.src/main/resources/static/queries/person.gql
+[source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personQuery.ts[]
+include::{sourcedir}src/main/resources/static/queries/person.gql[]
 ----
 
 == Get data about which movies references a person
@@ -53,10 +53,10 @@ In addition you need to set a query variable in the Query Playground Variables p
 }
 ----
 
-.src/main/resources/static/queries/personQuery.ts
-[source, TypeScript]
+.src/main/resources/static/queries/person.gql
+[source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personMoviesQuery.ts[]
+include::{sourcedir}src/main/resources/static/queries/personMovies.gql[]
 ----
 
 == Navigation
