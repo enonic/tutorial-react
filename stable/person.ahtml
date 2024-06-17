@@ -515,7 +515,7 @@ import {
 // import {Image} from '../components/Image';
 // import {Link} from '../components/Link';
 import {Macro} from '../components/Macro';
-import {PERSON_QUERY} from '../queries/personQuery';
+import PERSON_QUERY from '../queries/person.gql';
 
 
 export function Person({
@@ -617,7 +617,7 @@ export function Person({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-04 14:08:30 UTC
+Last updated 2024-06-17 08:19:47 UTC
 </div>
 </div>
 </body>

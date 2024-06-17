@@ -490,7 +490,7 @@ import React, {
   useState,
 } from 'react';
 import {Link} from 'react-router-dom';
-import {PERSON_LIST_QUERY} from '../queries/personListQuery';
+import PERSON_LIST_QUERY from '../queries/personList.gql';
 import '../styles/personList.sass';
 import {BREAK_POINTS} from './constants';
 
@@ -615,7 +615,7 @@ export function PersonList({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-04 14:08:30 UTC
+Last updated 2024-06-17 08:19:47 UTC
 </div>
 </div>
 </body>
