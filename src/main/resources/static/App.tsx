@@ -12,7 +12,6 @@ import {
 } from 'react-router-dom';
 
 // <4> Import actual components (views)
-import {Movie} from './components/Movie';
 import {Person} from './components/Person';
 import {PersonList} from './components/PersonList';
 
