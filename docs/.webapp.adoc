@@ -11,7 +11,15 @@ Below is an example of code needed by Enonic XP to serve such a `webapp`.
 
 == Code
 
-The code below does a number of things:
+Create a file called `webapp.ts` in the `src/main/resources/webapp` directory with the following contents:
+
+.src/main/resources/webapp/webapp.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/webapp/webapp.ts[]
+----
+
+The code above does a number of things:
 
 1. First it imports some functions from the static service controller.
 
@@ -43,12 +51,6 @@ The code below does a number of things:
   7.2 Then we make a render root using the div with the id `react-root`.
   7.3 Then we finally call render using the App component and passing along some props.
 
-.src/main/resources/webapp/webapp.ts
-[source, TypeScript]
-----
-include::{sourcedir}src/main/resources/webapp/webapp.ts[]
-----
+== Next step
 
-== Navigation
-
-In the next chapter you will learn about <<static#,Static assets>>.
+In the next chapter you will learn about <<.static.adoc#,Static assets>>.

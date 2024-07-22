@@ -1,32 +1,28 @@
 import type {RichTextData} from '@enonic/react-components';
 import type {RestProps} from '.';
+import type {Element} from 'html-react-parser';
 
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
 import {RichText} from '@enonic/react-components/src';
 import {ElementType} from 'domelementtype';
-import React, {
-  useEffect,
-  useState,
-} from 'react';
-import {
-  Link as RouterLink,
-  useParams,
-} from 'react-router-dom';
+import React, {useEffect, useState,} from 'react';
+import {Link as RouterLink, useParams,} from 'react-router-dom';
 // import {Image} from '../components/Image';
 // import {Link} from '../components/Link';
 import {Macro} from '../components/Macro';
-import PERSON_QUERY from '../queries/person.gql';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import PERSON_QUERY from '!!raw-loader!../queries/person.gql';
 
 
 export function Person({
-  guillotineUrl,
-}: {
+                           guillotineUrl,
+                       }: {
   guillotineUrl: string
 }) {
   const {
     // name,
-    personId
+      personId = ''
   } = useParams();
   const [data, setData] = useState<{
     _name: string
@@ -53,11 +49,11 @@ export function Person({
       },
       method: 'POST',
     })
-      .then(response => response.json())
-      .then(json => {
-        const value = json.data.guillotine.get;
-        setData(value)
-      });
+        .then(response => response.json())
+        .then(json => {
+            const value = json.data.guillotine.get;
+            setData(value)
+        });
   }, []); // useEffect
 
   if (!data) {
@@ -72,34 +68,34 @@ export function Person({
     },
     displayName
   } = data;
-  const imageSrc = photos ? forceArray(photos)[0].imageUrl : null;
+    const imageSrc = photos ? forceArray(photos)[0].imageUrl : undefined;
 
   return (
-    <section>
-      <h2>{displayName}</h2>
-      <img src={imageSrc} alt={displayName}/>
-      <p>{dateofbirth}</p>
-      <RichText<RestProps>
-        replacer={(el, data) => {
-          // console.debug('el', el);
-          // console.debug('data', data);
-          if (
-            el.name === 'p'
-            && el.children[0].type === ElementType.Text
-            && el.children[0].data === 'Some text'
-          ) {
-            return <p>Replaced text</p>;
-          }
-        }}
-        data={bio}
-        // Image={Image}
-        // Link={Link}
-        Macro={Macro}
-        guillotineUrl={guillotineUrl}
-        personId={personId}
-        tag='article'
-      />
-      <RouterLink to='/'>Back to list</RouterLink>
-    </section>
+      <section>
+          <h2>{displayName}</h2>
+          <img src={imageSrc} alt={displayName}/>
+          <p>{dateofbirth}</p>
+          <RichText<RestProps>
+              replacer={(el: Element, data: RichTextData) => {
+                  // console.debug('el', el);
+                  // console.debug('data', data);
+                  if (
+                      el.name === 'p'
+                      && el.children[0].type === ElementType.Text
+                      && el.children[0].data === 'Some text'
+                  ) {
+                      return <p>Replaced text</p>;
+                  }
+              }}
+              data={bio}
+              // Image={Image}
+              // Link={Link}
+              Macro={Macro}
+              guillotineUrl={guillotineUrl}
+              personId={personId}
+              tag='article'
+          />
+          <RouterLink to='/'>Back to list</RouterLink>
+      </section>
   );
 }

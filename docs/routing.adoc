@@ -1,15 +1,12 @@
 = Routing
 :sourcedir: ../
 
-The client-side web application is a `one-page application` using React.
+The client-side web application is a `one-page application` using React.js.
 
-There is [red]#no server-side routing#. All url's under the webapp baseUrl simply returns the same `one-page application`.
+That means there is no server-side routing.
+For client-side routing we use `react-router-dom` npm module.
 
-There is however [green]#client-side routing#, so that the `one-page application` will render different components depening upon the url.
-
-In this tutorial we are using the `react-router-dom` npm module.
-
-The routing in the code below is setup in such a way that visiting:
+The routing is set up in such a way that visiting:
 
 `/` will render the PersonList component
 
@@ -17,12 +14,68 @@ The routing in the code below is setup in such a way that visiting:
 
 `/non-macthing-path` will render a fallback paragraph with the message: URL doesn't exist!
 
-.src/main/resources/static/App.tsx
+Let's start with modifying content of the auto-generated `App.tsx` file to the following:
+
+.src/App.tsx
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/App.tsx[]
+import React from 'react';
+
+import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<h1>List url</h1>}/>
+        <Route
+          element={<h1>Person url</h1>}
+          path="/p/:name/:personId"
+        />
+        <Route path='*' element={<p>URL doesn't exist!</p>}/>
+      </Routes>
+    </Router>
+  );
+}
 ----
 
-== Navigation
+NOTE: Notice we also renamed the `App.css` file to `App.sass` and updated the import statement in the `App.tsx` file to use SASS.
+
+And here is the content of the `App.sass` file:
+
+.src/App.sass
+[source,sass]
+----
+body
+  text-align: center
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 0 0
+  margin: 0
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box
+
+#react-root
+  margin: 0 auto
+  width: 50%
+----
+
+Now, if you open the browser and visit `http://localhost:3000/` you should see the text `List url` rendered on the page.
+
+Likewise, if you visit `http://localhost:3000/p/name/123` you should see the text `Person url` rendered on the page because it matches the pattern `/p/:name/:personId`.
+
+And finally, if you visit `http://localhost:3000/foo` you should see the text `URL doesn't exist!`.
+
+== Next step
+
+Let's create actual implementations for the `List url` and `Person url` routes.
 
 In the next chapter you will create a <<personlist#,PersonList>> component.
