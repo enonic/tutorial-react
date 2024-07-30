@@ -1,5 +1,6 @@
 = PersonList Component
 :sourcedir: ../
+:imagesdir: media/
 
 When the PersonList component is first rendered, it has no `data`, so it simply returns `null`.
 
@@ -21,14 +22,99 @@ The final result in the browser is a page with a grid of 9 images (3 rows with 3
 
 The displayName is initally hidden, but becomes visible when the link is hovered.
 
-In addition the images are grayscaled, but becomes colorful when hovered.
+In addition, images are grayscaled but become colorful when hovered.
 
-.src/main/resources/components/PersonList.tsx
-[source, TypeScript]
+== Query
+
+First, let's define a query that we want to execute to fetch the data:
+
+.src/queries/personList.gql
+[source,graphql]
+----
+include::{sourcedir}src/main/resources/static/queries/personList.gql[]
+----
+
+To be able to import the `.gql` files we need to add a declaration file for them in the same directory:
+
+.src/queries/index.d.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/queries/index.d.ts[]
+----
+
+== Component
+
+To define a component create a `PersonList.tsx` file in the `components` directory:
+
+.src/components/PersonList.tsx
+[source,TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
 ----
 
-== Navigation
+NOTE: Notice the `import PERSON_LIST_QUERY from '!!raw-loader!../queries/personList.gql';` line.
+This syntax instructs webpack to load the file as a raw string.
 
-In the next chapter you will create a <<person#,Person>> component.
+As you can see this component has 1 parameter `guillotineUrl` which is an url where we want to fetch data from.
+
+We defined common constants in a separate file:
+
+.src/components/constants.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/constants.ts[]
+----
+
+== Styles
+
+To style the PersonList component we also need a complementary sass file:
+
+.src/styles/personList.sass
+[source,Sass]
+----
+include::{sourcedir}src/main/resources/static/styles/personList.sass[]
+----
+
+== Update App.tsx
+
+Finally, we need to update the App.tsx file to include the `PersonList` component and display it on the root path `/`:
+
+.src/App.tsx
+[source,TypeScript]
+----
+import './App.sass';
+
+import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+
+import {PersonList} from './components/PersonList';
+
+export default function App({guillotineUrl = '/site/intro/master'}: { guillotineUrl?: string }) {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<PersonList guillotineUrl={guillotineUrl}/>}/>
+        <Route
+          element={<h1>Person url</h1>}
+          path="/p/:name/:personId"
+        />
+        <Route path='*' element={<p>URL doesn't exist!</p>}/>
+      </Routes>
+    </Router>
+  );
+}
+----
+
+NOTE: We added optional `guillotineUrl` parameter that is passed to the `PersonList` component.
+This lets us define the url where we want to fetch data from.
+By default, it's set to `/site/intro/master` which will be appended to the `proxy` setting from the <<setup-react#, Setup React>> chapter.
+
+== Result
+
+Now, if you did everything correctly, you should see a grid of 9 images.
+When you hover over the image, the displayName will appear and the image will become colorful.
+
+image::./person-list.png[width=1200]
+
+== Next step
+
+Let's create a <<person#,Person>> component now.

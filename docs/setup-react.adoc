@@ -1,0 +1,52 @@
+= Setup Enonic XP
+:sourcedir: ../
+
+== Create react project
+
+Feel free to use your favourite tool to create react project, but for this tutorial we will use the following command to set up a project with typescript support:
+
+[source,Terminal]
+----
+npx create-react-app react-demo --template typescript
+----
+
+TIP: you can read more about the `create-react-app` tool at https://create-react-app.dev/docs/getting-started[their website]
+
+This will create react app and place it in `react-demo` folder.
+
+== Install dependencies
+
+Now, let's add typescript, router, sass and type definitions:
+
+[source,Terminal]
+----
+cd react-demo
+
+npm install --save typescript react-router-dom sass raw-loader @enonic/react-components @enonic/js-utils @types/node @types/react @types/react-dom @types/jest
+----
+
+NOTE: In case you're wondering, `raw-loader` is used to load graphql `.gql` files in the React app.
+
+== Allow CORS
+
+To allow cross-origin requests to Enonic XP we need to configure it as proxy in the `package.json` file:
+
+.adding proxy to package.json
+----
+{
+  ...
+  "proxy": "http://127.0.0.1:8080",
+  ...
+}
+----
+
+With that done, you're ready to start the app:
+
+[source,Terminal]
+----
+npm start
+----
+
+== Next step
+
+In the next chapter you will learn how to <<query#,Query>> for data.

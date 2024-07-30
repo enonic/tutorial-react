@@ -9,7 +9,9 @@ In order for an asset to be static, it needs to have an url which is `unique` an
 
 The way to achive this, is by adding a `hash` string into the url of the asset.
 
-The build system will do this automatically for us. In addition the build system will create manifest files, which are used by the `url builders` to lookup the hashed "path" from the unhashed asset "path".
+The build system will do this automatically for us.
+In addition, the build system will create manifest files, which are used by the `url
+builders` to look up the hashed "path" from the unhashed asset "path".
 
 == URL helpers
 
@@ -21,7 +23,9 @@ In webapp.ts 3 url helper functions (`getStaticCjsUrl`, `getStaticEsmUrl` and `g
 include::{sourcedir}src/main/resources/services/static/index.ts[]
 ----
 
-Each of those url helper functions are simple wrappers around `getHashedPath` and `getStaticUrl`, just with differing manifest files:
+Each of those url helper functions are simple wrappers around `getHashedPath` and `getStaticUrl`, just with differing manifest files.
+
+Let's create them one by one:
 
 .src/main/resources/services/static/getStaticCjsUrl.ts
 [source, TypeScript]
@@ -34,6 +38,22 @@ When running XP in `production mode`, the manifiles files (which are contained i
 <1> Reading and json parsing the manifest files everytime a url needs to be generated, is a waste of time and server resources, so we keep a "cache" of the finished parsed object.
 
 <2> In `development mode` the "cache" that lives in memory could point to static asset files that no longer exists, so the cache must be skipped, and the manifest files read freshly everytime.
+
+.src/main/resources/services/static/getStaticEsmUrl.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/getStaticEsmUrl.ts[]
+----
+
+And the last one:
+
+.src/main/resources/services/static/getStaticNodeModuleUrl.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/services/static/getStaticNodeModuleUrl.ts[]
+----
+
+All of the above files use the `getHashedPath` and `getStaticUrl` functions, so we need to create them as well:
 
 .src/main/resources/services/static/getHashedPath.ts
 [source, TypeScript]
@@ -49,9 +69,25 @@ The `getStaticUrl` function simply joins together a baseUrl with the path to the
 include::{sourcedir}src/main/resources/services/static/getStaticUrl.ts[]
 ----
 
+== Constants
+
+We are also going to need to define `constants` file that was referenced above:
+
+.src/main/resources/constants.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/constants.ts[]
+----
+
+== Main file
+
+Main file is needed for Enonic XP to know it's an application and display it accordingly.
+
+Since our app is static we can leave it empty at `src/main/resources/main.ts`.
+
 == Service
 
-The static service uses `lib-static` to serve static assets.
+And finally the static service that uses `lib-static` to serve static assets:
 
 .src/main/resources/services/static/static.ts
 [source, TypeScript]

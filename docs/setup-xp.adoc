@@ -1,0 +1,34 @@
+= Setup Enonic XP
+:sourcedir: ../
+
+The easiest way to boot up an Enonic XP instance is to use the Enonic CLI.
+If you haven't installed it yet, you can do so by running the following command:
+
+[source, Terminal]
+----
+npm install -g @enonic/cli
+----
+
+TIP: More installation methods along with CLI documentation can be found https://developer.enonic.com/docs/enonic-cli/stable/install[here]
+
+== Install Enonic XP
+
+Now that you have the CLI installed, you can create a new sandbox with Enonic XP instance by running the following command:
+
+[source,Terminal]
+----
+enonic sandbox create react_box -t essentials -f
+----
+
+This will create a sandbox named `react_box` using latest Enonic XP distribution and start it after creation.
+
+== Get some data
+
+Let's install `Enonic intro` app to get some actual data to query for.
+To do that, go to the Enonic XP admin interface at `http://localhost:8080` and log in as guest.
+
+Then open the `Applications` app from the right-hand menu, click on the `Install` button and search for `Introduction` app.
+
+== Next step
+
+In the next chapter you will learn how to <<query#,Query>> for data.

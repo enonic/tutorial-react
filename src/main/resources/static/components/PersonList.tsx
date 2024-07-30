@@ -1,12 +1,12 @@
 import {forceArray} from '@enonic/js-utils/array/forceArray';
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom';
-import PERSON_LIST_QUERY from '../queries/personList.gql';
-import '../styles/personList.sass';
 import {BREAK_POINTS} from './constants';
+
+import '../styles/personList.sass';
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import PERSON_LIST_QUERY from '!!raw-loader!../queries/personList.gql';
 
 
 // Images are presented in a grid of 3 columns (and 30px gutter).
@@ -70,7 +70,7 @@ export function PersonList({
               },
               displayName
             }, i) => {
-              const src = photos ? forceArray(photos)[0].imageUrl : null;
+              const src = photos ? forceArray(photos)[0].imageUrl : undefined;
 
               // The styles.sass centers images and sets a max-width of 50%.
               const srcSet = src
@@ -83,7 +83,7 @@ export function PersonList({
                         } ${w}w`}
                   )
                   .join(',')
-                : null;
+                  : undefined;
 
               // The last slot width has no media condition (this is the default
               // that is chosen when none of the media conditions are true)
@@ -93,7 +93,7 @@ export function PersonList({
                 ? Object.values(BREAK_POINTS)
                   .map((width) => `(max-width: ${width}px) ${Math.ceil((width/2-60)/3)}px`)
                   .join(',').replace('(max-width: 3840px) ', '')
-                : null;
+                  : undefined;
 
               const imgProps = {
                 alt: displayName,

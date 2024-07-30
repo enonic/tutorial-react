@@ -7,17 +7,16 @@ The react application will use the `RichText` react component from `@enonic/reac
 
 This guide will show you how to:
 
-* <<setup#,Set up>> a project
+* <<setup-xp.adoc#,Set up Enonic XP>>
+* <<setup-react.adoc#,Set up React project>>
 
 Model (data):
 
-* <<query#,Query>> for Person data (via Guillotine)
+* <<query#,Query>> data from Enonic XP (via Guillotine)
 
 Controller:
 
-* <<webapp#,Web application>>
-* <<static#,Static assets>>
-* <<routing#,Routing>>
+* <<routing#,Client-side routing>>
 
 View (components):
 

@@ -5,43 +5,39 @@
       "document": "index"
     },
     {
-      "title": "1 - Setup",
-      "document": "setup"
+      "title": "1 - Setup Enonic XP",
+      "document": "setup-xp"
     },
     {
       "title": "2 - Query",
       "document": "query"
     },
     {
-      "title": "3 - Web application",
-      "document": "webapp"
+      "title": "3 - Setup React project",
+      "document": "setup-react"
     },
     {
-      "title": "4 - Static assets",
-      "document": "static"
-    },
-    {
-      "title": "5 - Routing",
+      "title": "4 - Routing",
       "document": "routing"
     },
     {
-      "title": "6 - PersonList",
+      "title": "5 - PersonList",
       "document": "personlist"
     },
     {
-      "title": "7 - Person",
+      "title": "6 - Person",
       "document": "person"
     },
     {
-      "title": "8 - Image",
+      "title": "7 - Image",
       "document": "image"
     },
     {
-      "title": "9 - Link",
+      "title": "8 - Link",
       "document": "link"
     },
     {
-      "title": "10 - Macro",
+      "title": "9 - Macro",
       "document": "macro"
     }
   ]
