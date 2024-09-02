@@ -28,17 +28,140 @@ In order to test the query below you first have to open the `intro` project in C
 include::{sourcedir}src/main/resources/static/queries/personList.gql[]
 ----
 
-== Get data about a specific person
+Hit play button and you should see a list of persons in the response:
 
-In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
-
-In addition you need to set a query variable in the Query Playground Variables panel:
 [source, json]
 ----
 {
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "a8b374a2-c532-45eb-9aa1-73d1c37cd681",
+          "_name": "lea-seydoux",
+          "displayName": "Léa Seydoux",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/09b3af0e-6da3-4bcf-88d9-11cbe9c41283:e1738c655c27bae3f1323e48916e49165f958239/width-34/Lea-Seydoux.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "569d127d-b6bd-45d6-94b0-949ec6171336",
+          "_name": "jeffrey-wright",
+          "displayName": "Jeffrey Wright",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/d50f811b-6a56-4347-b3b5-ea7e11b8b2db:1818ba7bbf22a95889ff24a1a9fdcb11cee83973/width-34/Jeffrey-Wright-hp.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "f29ba9b7-a73a-4767-82db-9da4df952924",
+          "_name": "daniel-craig",
+          "displayName": "Daniel Craig",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/fd8a6c82-fe17-49d1-96ed-3b47a5eb955a:e72c356f676473785cf4a44b330f0eed33984d5d/width-34/daniel-craig.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "3dd66ee9-093a-4690-9971-ed7f6bf4c610",
+          "_name": "the-wachowskis",
+          "displayName": "The Wachowskis",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/9696f989-787f-4924-81d6-b8c53f7b8d0b:ee801037559cfd379e3a5c959b5a61f3c20d291f/width-34/the-wachowskis.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "3a7b833f-3c37-4d55-88ae-cea21c556c68",
+          "_name": "brad-pitt",
+          "displayName": "Brad Pitt",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/c4b38a24-7857-4a56-bf92-a6bc17369a15:3a008385486eac54b252bdcee60598053f36e415/width-34/brad-pitt.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "2d50ddce-444f-474e-821f-83ae63049c97",
+          "_name": "keanu-reeves",
+          "displayName": "Keanu Reeves",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/35870699-fcae-4694-a378-0ae610eb0117:7e7027e622fca48fb55cf9c69d1747933354a034/width-34/keanu-reeves.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "c95c0726-778f-4db5-b9ec-4f456dbadf49",
+          "_name": "carrie-anne-moss",
+          "displayName": "Carrie-Anne Moss",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/1ebcff18-2d21-47b2-8771-44f00778c47a:53de94ffa7a9ca900f82f4be32005ab8a59dba33/width-34/Carrie-Anne-Moss.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "7c27c93b-cbbf-4a0b-8a54-22d99b83a1e4",
+          "_name": "bruce-willis",
+          "displayName": "Bruce Willis",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/cbad75b1-7048-46a4-85b1-99b923da139c:3547a5570f47d44dba5c9b886b6451934b53074b/width-34/bruce-willis.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "_id": "6d31fc67-d31b-4581-b891-5307dcd18aac",
+          "_name": "samuel-l.jackson",
+          "displayName": "Samuel L. Jackson",
+          "type": "com.enonic.app.intro:person",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/1c077183-2322-4c02-b236-3cb28046c677:94b9b258b34dd9dd0dea146a360eae8e399f701c/width-34/Samuel-L-Jackson.jpg"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }
 ----
+
+== Get data about a specific person
+
+Open the `Query Playground` panel and paste the query below:
 
 .src/main/resources/static/queries/person.gql
 [source, GraphQL]
@@ -46,11 +169,73 @@ In addition you need to set a query variable in the Query Playground Variables p
 include::{sourcedir}src/main/resources/static/queries/person.gql[]
 ----
 
+But before you hit play, you need to set a query variable this time in the Query Playground Variables panel to specify which person you want to get data about:
+
+[source,json]
+----
+{
+  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
+}
+----
+
+Hit play and you should see the data about the specified person:
+
+[source,json]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "_name": "lea-seydoux",
+        "displayName": "Léa Seydoux",
+        "data": {
+          "dateofbirth": "1985-07-01",
+          "photos": [
+            {
+              "imageUrl": "/admin/site/preview/intro/draft/_/image/09b3af0e-6da3-4bcf-88d9-11cbe9c41283:e1738c655c27bae3f1323e48916e49165f958239/width-500/Lea-Seydoux.jpg"
+            }
+          ],
+          "bio": {
+            "images": [
+              {
+                "image": {
+                  "_id": "dfe76f74-e6c1-459c-869a-7702f1974c29",
+                  "_path": "/persons/lea-seydoux/Lea_Seydoux_Cannes_2013_2.jpg",
+                  "type": "media:image"
+                },
+                "ref": "9b73ecf1-0b0f-48ea-9abf-fc9f3307223a",
+                "style": {
+                  "name": "editor-image-widescreen",
+                  "aspectRatio": "16:9",
+                  "filter": null
+                }
+              }
+            ],
+            "links": [],
+            "macros": [
+              {
+                "ref": "bcf8aed4-eb31-43ea-aa1d-24f3977c5938",
+                "name": "filmography",
+                "descriptor": "com.enonic.app.intro:filmography",
+                "config": {
+                  "filmography": {
+                    "heading": "Léa's Movies"
+                  }
+                }
+              }
+            ],
+            "processedHtml": "<p>French actress Léa Seydoux was born in 1985 in Paris, France, to Valérie Schlumberger, a philanthropist, and Henri Seydoux, a businessman.</p>\n\n<h3>Additional photos</h3>\n\n<figure class=\"captioned editor-align-justify editor-image-widescreen\"><img alt=\"Seydoux at the 2013 Cannes Film Festival\" src=\"http://localhost:8080/admin/site/preview/intro/draft/_/image/dfe76f74-e6c1-459c-869a-7702f1974c29:ebc3931acd108c6e7da03d0f58be5f703bddce55/block-768-432/Lea_Seydoux_Cannes_2013_2.jpg\" style=\"width:100%\" srcset=\"http://localhost:8080/admin/site/preview/intro/draft/_/image/dfe76f74-e6c1-459c-869a-7702f1974c29:ebc3931acd108c6e7da03d0f58be5f703bddce55/block-200-108/Lea_Seydoux_Cannes_2013_2.jpg 200w,http://localhost:8080/admin/site/preview/intro/draft/_/image/dfe76f74-e6c1-459c-869a-7702f1974c29:ebc3931acd108c6e7da03d0f58be5f703bddce55/block-400-225/Lea_Seydoux_Cannes_2013_2.jpg 400w\" sizes=\"(max-width: 600px) 200px, 50vw\" data-image-ref=\"9b73ecf1-0b0f-48ea-9abf-fc9f3307223a\">\n<figcaption>Seydoux at the 2013 Cannes Film Festival</figcaption>\n</figure>\n\n<h3>External Links</h3>\n\n<ul>\n\t<li>Léa Seydoux&nbsp;at&nbsp;<a href=\"https://en.wikipedia.org/wiki/L%C3%A9a_Seydoux\">Wikipedia</a></li>\n</ul>\n\n<p><editor-macro data-macro-name=\"filmography\" data-macro-ref=\"bcf8aed4-eb31-43ea-aa1d-24f3977c5938\"></editor-macro></p>\n"
+          }
+        }
+      }
+    }
+  }
+}
+----
+
 == Get data about which movies references a person
 
-In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel and paste the query below into the query editor.
-
-In addition you need to set a query variable in the Query Playground Variables panel:
+Similarly to the previous query, set a query variable in the Query Playground Variables panel:
 
 [source, json]
 ----
@@ -59,12 +244,40 @@ In addition you need to set a query variable in the Query Playground Variables p
 }
 ----
 
+And paste the query below into the query editor:
+
 .src/main/resources/static/queries/person.gql
 [source, GraphQL]
 ----
 include::{sourcedir}src/main/resources/static/queries/personMovies.gql[]
 ----
 
+After hitting play you should see the array of movies that reference the specified person:
+
+[source,json]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "b909b9d6-0c45-447f-be67-6c2624a1dd31",
+          "_name": "no-time-to-die",
+          "displayName": "No time to die",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "/admin/site/preview/intro/draft/_/image/2f08a16a-61ad-4ae4-88b8-576164b240a2:c8305d28470c1bbd6be06136836ca02e4d5d7f16/width-100/NoTimeToDie_02_Poster.jpg"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
 == Next step
 
-In the next chapter you will learn how to create a <<.webapp.adoc#,Web application>>.
+In the next chapter you will learn how to set up a <<setup-react#,React.js application>>.

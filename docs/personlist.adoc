@@ -16,13 +16,13 @@ The list-item consists of a single Link component which contains an image and th
 
 Notice that the Link component is imported from `react-router-dom` and that it's `to` prop follows the pattern described in the routing chapter.
 
-Since the personList.sass file is imported, the styling becomes available in the App.css which is already loaded.
+Styling is added by importing `personList.sass` file.
 
 The final result in the browser is a page with a grid of 9 images (3 rows with 3 images on each row).
 
-The displayName is initally hidden, but becomes visible when the link is hovered.
+The displayName is initially hidden, but becomes visible when the link is hovered.
 
-In addition, images are grayscaled but become colorful when hovered.
+In addition, grayscale images become colorful when hovered.
 
 == Query
 
@@ -34,7 +34,7 @@ First, let's define a query that we want to execute to fetch the data:
 include::{sourcedir}src/main/resources/static/queries/personList.gql[]
 ----
 
-To be able to import the `.gql` files we need to add a declaration file for them in the same directory:
+To be able to import the `.gql` files we need to add an `index.d.ts` type declaration file for them in the same directory:
 
 .src/queries/index.d.ts
 [source,TypeScript]
@@ -57,7 +57,7 @@ This syntax instructs webpack to load the file as a raw string.
 
 As you can see this component has 1 parameter `guillotineUrl` which is an url where we want to fetch data from.
 
-We defined common constants in a separate file:
+All the common constants are extracted to a separate `constants.ts` file to be reused in other components:
 
 .src/components/constants.ts
 [source,TypeScript]
@@ -110,11 +110,12 @@ By default, it's set to `/site/intro/master` which will be appended to the `prox
 
 == Result
 
-Now, if you did everything correctly, you should see a grid of 9 images.
+Now, if you did everything correctly, you should see a grid of 9 images at http://localhost:3000.
+
 When you hover over the image, the displayName will appear and the image will become colorful.
 
 image::./person-list.png[width=1200]
 
 == Next step
 
-Let's create a <<person#,Person>> component now.
+Let's create a single <<person#,Person component>> now.

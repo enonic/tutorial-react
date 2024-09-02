@@ -49,7 +49,7 @@ import type {Element} from 'html-react-parser';
 
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
-import {RichText} from '@enonic/react-components/src';
+import {RichText} from '@enonic/react-components';
 import {ElementType} from 'domelementtype';
 import React, {
   useEffect,
@@ -128,8 +128,6 @@ export function Person({
       <p>{dateofbirth}</p>
       <RichText<RestProps>
         replacer={(el: Element, data: RichTextData) => {
-          // console.debug('el', el);
-          // console.debug('data', data);
           if (
             el.name === 'p'
             && el.children[0].type === ElementType.Text
@@ -152,19 +150,34 @@ export function Person({
 }
 ----
 
+IMPORTANT: We used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
+It will take care of rendering images, links and macros.
+
 NOTE: Again, notice the `import PERSON_QUERY from '!!raw-loader!../queries/person.gql';` line.
 This syntax instructs webpack to load the file as a raw string.
 
 Similarly to `PersonList` component, we are passing `guillotineUrl` as a property to this component.
 
-== Type definitions
+== RestProps
 
-Let's define the `RestProps` type in the `src/components/index.ts` file to be able to access it from other components:
+Let's define the `RestProps` type in the `src/components/index.ts` file:
 
 .src/components/index.d.ts
 [source,TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/index.d.ts[]
+----
+
+This file defines properties `guillotineUrl` and `personId` that we want to add to the `RichText` component as parameters:
+
+[source,TypeScript]
+----
+<RichText<RestProps>
+  ...
+  guillotineUrl={guillotineUrl}
+  personId={personId}
+  ...
+/>
 ----
 
 == Update App.tsx
@@ -196,6 +209,9 @@ export default function App({guillotineUrl = '/site/intro/master'}: { guillotine
   );
 }
 ----
+
+To see the `Person` component in action, open http://localhost:3000 and click any of the person.
+Alternatively, here's the direct link to http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68[Brad Pitt].
 
 == Next step
 

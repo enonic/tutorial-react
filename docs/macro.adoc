@@ -5,9 +5,17 @@ The `RichText` component imported from `@enonic/react-components` doesn't know h
 
 TIP: Read more about XP https://developer.enonic.com/docs/xp/stable/cms/macros[Macros].
 
-== Props
+You can see it if you open the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Link to Lea] that we added to the http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68[Brad Pitt's] page in the last chapter.
 
-By default the Macro component you create will receive two props:
+At the bottom of the `Lea Seydoux` page you will see the notice:
+
+ No Macro component provided to RichText. Can't render com.enonic.app.intro:filmography with config { "heading": "Léa's Movies" }
+
+That is because we haven't created a Macro implementation for `com.enonic.app.intro:filmography` macro yet.
+
+== Input properties
+
+By default Macro component you create will receive following props:
 
 1. config
 
@@ -15,55 +23,84 @@ By default the Macro component you create will receive two props:
 
 2. descriptor
 
-  A string that contains the app.name and which specific macro is used.
+  A string that contains the app.name and which specific macro used.
 
-== RestProps
-
-In additon to the two default props, one can pass additional RestProps to the RichText component, which will be passed down to the Macro component.
-
-In the examples below, we pass along `guillotineUrl` and `personId` props.
-
-A separate Typescript declaration file is created to reuse the RestProps type:
-
-.src/main/resources/components/index.d.ts
+3. `RichText<RestProps>`
++
+All the props we added to `RichText` will be also passed down to the Macro component.
++
+.src/components/index.d.ts
 [source, TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/index.d.ts[]
 ----
 
-Notice how it is used in the Person component:
-
-.src/main/resources/components/Person.tsx
-[source, TypeScript]
-----
-import type {RestProps} from '.';
-
-<RichText<RestProps>
-  guillotineUrl={guillotineUrl}
-  personId={personId}
-/>
-----
-
 == Macro component
 
-The Macro component below imports a `Filmography` component, and uses that to render all macros that has the descriptor `com.enonic.app.intro:filmography`.
+First, we need to create a `Macro` component that we can add to `RichText`.
 
-If macros are used that doesn't have a mathcing descriptor, it will throw an error, which will cause the `RichText` component's `ErrorBoundary` to render an `Error placeholder`.
-
-Notice how it's passing along the RestProps by using the `...rest` spread operator.
-
-.src/main/resources/components/Macro.tsx
+.src/components/Macro.tsx
 [source, TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/Macro.tsx[]
 ----
 
+The Macro component above imports a `Filmography` component, and uses it to render all macros that have `com.enonic.app.intro:filmography` descriptor.
+
+It will throw an error otherwise, which will cause the `RichText` component's `ErrorBoundary` to render an `Error placeholder`.
+
+Notice the `...rest` spread operator is used to pass around the `RestProps`, but we could also refer them directly by their names.
+
 == Filmography component
+
+Now we need to create an actual implementation for the `Filmography` macro.
 
 Notice how the RestProps `guillotineUrl` and `personId` are available in the params.
 
-.src/main/resources/components/macros/Filmography.tsx
+.src/components/macros/Filmography.tsx
 [source, TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/macros/Filmography.tsx[]
 ----
+
+== GraphQL query
+
+`Filmography` macro imports `PERSON_MOVIES_QUERY` GraphQL query that we need to create now:
+
+.src/queries/personMovies.gql
+[source,GraphQL]
+----
+include::{sourcedir}src/main/resources/static/queries/personMovies.gql[]
+----
+
+== Styling
+
+And finally, we need to style the `Filmography` component by creating a complementary sass file:
+
+.src/styles/filmography.sass
+[source,Sass]
+----
+include::{sourcedir}src/main/resources/static/styles/filmography.sass[]
+----
+
+== Add Macro to RichText
+
+Remember to import and enable the `Macro` component in the `Person` component:
+
+.src/main/resources/components/Person.tsx
+[source,TypeScript]
+----
+import {Macro} from './Macro';
+
+// ..
+
+<RichText<RestProps>
+  // ...
+  Macro={Macro}
+  // ...
+/>
+----
+
+You should be able to see the `Lea's movies` macro listing `No time to die` movie if you open the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux] page now.
+
+== Congratulations!

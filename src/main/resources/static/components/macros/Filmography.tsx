@@ -2,11 +2,9 @@ import type {RestProps} from '..';
 
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
-import React, {
-  useEffect,
-  useState,
-} from 'react';
-import PERSON_MOVIES_QUERY from '../../queries/personMovies.gql';
+import React, {useEffect, useState,} from 'react';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import PERSON_MOVIES_QUERY from '!!raw-loader!../../queries/personMovies.gql';
 import '../../styles/filmography.sass';
 
 
@@ -72,7 +70,7 @@ export function Filmography({
           },
           displayName
         }) => {
-        const src = photos ? forceArray(photos)[0].imageUrl : null;
+          const src = photos ? forceArray(photos)[0].imageUrl : undefined;
         return <li key={_id}>
             <img alt={displayName} src={src}/>
             <div>{displayName}</div>

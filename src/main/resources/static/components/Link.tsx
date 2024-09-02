@@ -1,7 +1,4 @@
-import type {
-  LinkComponent,
-  // LinkDataMedia,
-} from '@enonic/react-components';
+import type {LinkComponent,} from '@enonic/react-components';
 
 
 import React from 'react';
@@ -31,11 +28,12 @@ export const Link: LinkComponent = ({
   //   type,
   // } = mediaContent || content;
 
-  // const hrefObj = parse(href);
-  // console.debug('hrefObj', hrefObj);
+  let appHref = '';
+  if (content) {
+    appHref = `/p/${content._name}/${content._id}`;
+  } else if (media?.content) {
+    appHref = href;
+  }
 
-  // const uriObj = parse(uri);
-  // console.debug('uriObj', uriObj);
-
-  return <a href={href} target={target} title={title}>{children}</a>;
+  return <a href={appHref} target={target} title={title}>{children}</a>;
 }

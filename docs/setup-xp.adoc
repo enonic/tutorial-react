@@ -25,7 +25,7 @@ This will create a sandbox named `react_box` using latest Enonic XP distribution
 == Get some data
 
 Let's install `Enonic intro` app to get some actual data to query for.
-To do that, go to the Enonic XP admin interface at `http://localhost:8080` and log in as guest.
+To do that, go to the Enonic XP admin interface at `http://localhost:8080/admin` and log in as guest.
 
 Then open the `Applications` app from the right-hand menu, click on the `Install` button and search for `Introduction` app.
 

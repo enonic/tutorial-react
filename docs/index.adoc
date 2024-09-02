@@ -1,9 +1,9 @@
 = Tutorial React
 :toc: right
 
-In this tutorial we are going to create a `web application` that fetches data from the `Enonic intro` app using `Guillotine` and client-side renders a one-page application using `React`.
+In this tutorial we are going to create a `web application` that fetches data from the `Enonic intro` app using `Guillotine` and client-side renders a one-page application using `React.js` framework.
 
-The react application will use the `RichText` react component from `@enonic/react-components` in order to render Enonic TextComponents and HTMLArea-inputs that can contain images, links and macros.
+The react application will use the `RichText` react component from `@enonic/react-components` in order to render Enonic TextComponents and HTML area inputs that can contain images, links and macros.
 
 This guide will show you how to:
 
