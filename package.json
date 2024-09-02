@@ -45,7 +45,7 @@
     "@enonic/mock-xp": "^1.0.0",
     "@enonic/tsup-plugin-manifest": "^0.0.1",
     "@jest/globals": "^29.6.4",
-    "@swc/core": "^1.7.12",
+    "@swc/core": "^1.7.22",
     "@types/react": "^18",
     "@typescript-eslint/eslint-plugin": "^8",
     "browser-sync": "^3",
