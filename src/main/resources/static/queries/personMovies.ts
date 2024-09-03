@@ -1,4 +1,4 @@
-query PersonMoviesQuery($personId: String!) {
+const query = `query PersonMoviesQuery($personId: String!) {
   guillotine {
     queryDsl(
       query: {
@@ -36,4 +36,6 @@ query PersonMoviesQuery($personId: String!) {
       }
     }
   }
-}
+}`
+
+export default query;

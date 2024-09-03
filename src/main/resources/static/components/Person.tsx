@@ -1,18 +1,14 @@
 import type {RichTextData} from '@enonic/react-components';
+import {RichText} from '@enonic/react-components';
 import type {RestProps} from '.';
 import type {Element} from 'html-react-parser';
 
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
-import {RichText} from '@enonic/react-components/src';
 import {ElementType} from 'domelementtype';
 import React, {useEffect, useState,} from 'react';
 import {Link as RouterLink, useParams,} from 'react-router-dom';
-// import {Image} from '../components/Image';
-// import {Link} from '../components/Link';
-import {Macro} from '../components/Macro';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import PERSON_QUERY from '!!raw-loader!../queries/person.gql';
+import PERSON_QUERY from '../queries/person';
 
 
 export function Person({
@@ -88,9 +84,6 @@ export function Person({
                   }
               }}
               data={bio}
-              // Image={Image}
-              // Link={Link}
-              Macro={Macro}
               guillotineUrl={guillotineUrl}
               personId={personId}
               tag='article'

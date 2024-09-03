@@ -1,4 +1,4 @@
-query PersonListQuery {
+const query = `query PersonListQuery {
   guillotine {
     queryDsl(
       first: 9
@@ -30,4 +30,6 @@ query PersonListQuery {
       }
     }
   }
-}
+}`;
+
+export default query;

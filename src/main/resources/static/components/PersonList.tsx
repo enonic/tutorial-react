@@ -5,8 +5,7 @@ import {BREAK_POINTS} from './constants';
 
 import '../styles/personList.sass';
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import PERSON_LIST_QUERY from '!!raw-loader!../queries/personList.gql';
+import PERSON_LIST_QUERY from '../queries/personList';
 
 
 // Images are presented in a grid of 3 columns (and 30px gutter).

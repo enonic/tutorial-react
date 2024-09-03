@@ -22,10 +22,10 @@ But it also provides a query playground where you can try out various queries!
 
 In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel from the left-hand vertical toolbar and paste the query below into the query editor.
 
-.src/main/resources/static/queries/personList.gql
+.src/queries/personList.gql
 [source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personList.gql[]
+include::{sourcedir}src/main/resources/static/queries/personList.ts[]
 ----
 
 Hit play button and you should see a list of persons in the response:
@@ -163,10 +163,10 @@ Hit play button and you should see a list of persons in the response:
 
 Open the `Query Playground` panel and paste the query below:
 
-.src/main/resources/static/queries/person.gql
+.src/queries/person.gql
 [source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/person.gql[]
+include::{sourcedir}src/main/resources/static/queries/person.ts[]
 ----
 
 But before you hit play, you need to set a query variable this time in the Query Playground Variables panel to specify which person you want to get data about:
@@ -246,10 +246,10 @@ Similarly to the previous query, set a query variable in the Query Playground Va
 
 And paste the query below into the query editor:
 
-.src/main/resources/static/queries/person.gql
+.src/queries/person.gql
 [source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personMovies.gql[]
+include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
 ----
 
 After hitting play you should see the array of movies that reference the specified person:

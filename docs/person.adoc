@@ -33,7 +33,7 @@ First, let's create `src/queries/person.gql` file with a query that we want to e
 .src/queries/person.gql
 [source,graphql]
 ----
-include::{sourcedir}src/main/resources/static/queries/person.gql[]
+include::{sourcedir}src/main/resources/static/queries/person.ts[]
 ----
 
 == Component
@@ -43,118 +43,11 @@ Next, let's define Person component in the `src/components/Person.tsx` file:
 .src/components/Person.tsx
 [source, TypeScript]
 ----
-import type {RichTextData} from '@enonic/react-components';
-import type {RestProps} from '.';
-import type {Element} from 'html-react-parser';
-
-
-import {forceArray} from '@enonic/js-utils/array/forceArray';
-import {RichText} from '@enonic/react-components';
-import {ElementType} from 'domelementtype';
-import React, {
-  useEffect,
-  useState,
-} from 'react';
-import {
-  Link as RouterLink,
-  useParams,
-} from 'react-router-dom';
-// import {Image} from '../components/Image';
-// import {Link} from '../components/Link';
-// import {Macro} from '../components/Macro';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import PERSON_QUERY from '!!raw-loader!../queries/person.gql';
-
-
-export function Person({
-  guillotineUrl,
-}: {
-  guillotineUrl: string
-}) {
-  const {
-    // name,
-    personId = ''
-  } = useParams();
-  const [data, setData] = useState<{
-    _name: string
-    data: {
-      bio: RichTextData
-      dateofbirth: string
-      photos: {
-        imageUrl: string
-      }[]
-    }
-    displayName: string
-  }>();
-
-  useEffect(() => {
-    fetch(guillotineUrl, {
-      body: JSON.stringify({
-        query: PERSON_QUERY,
-        variables: {
-          personId,
-        }
-      }),
-      headers: { // HTTP/2 uses lowercase header keys
-        'content-type': 'application/json'
-      },
-      method: 'POST',
-    })
-      .then(response => response.json())
-      .then(json => {
-        const value = json.data.guillotine.get;
-        setData(value)
-      });
-  }, []); // useEffect
-
-  if (!data) {
-    return null;
-  }
-
-  const {
-    data: {
-      bio,
-      dateofbirth,
-      photos
-    },
-    displayName
-  } = data;
-  const imageSrc = photos ? forceArray(photos)[0].imageUrl : undefined;
-
-  return (
-    <section>
-      <h2>{displayName}</h2>
-      <img src={imageSrc} alt={displayName}/>
-      <p>{dateofbirth}</p>
-      <RichText<RestProps>
-        replacer={(el: Element, data: RichTextData) => {
-          if (
-            el.name === 'p'
-            && el.children[0].type === ElementType.Text
-            && el.children[0].data === 'Some text'
-          ) {
-            return <p>Replaced text</p>;
-          }
-        }}
-        data={bio}
-        // Image={Image}
-        // Link={Link}
-        // Macro={Macro}
-        guillotineUrl={guillotineUrl}
-        personId={personId}
-        tag='article'
-      />
-      <RouterLink to='/'>Back to list</RouterLink>
-    </section>
-  );
-}
+include::{sourcedir}src/main/resources/static/components/Person.tsx[]
 ----
 
 IMPORTANT: We used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
 It will take care of rendering images, links and macros.
-
-NOTE: Again, notice the `import PERSON_QUERY from '!!raw-loader!../queries/person.gql';` line.
-This syntax instructs webpack to load the file as a raw string.
 
 Similarly to `PersonList` component, we are passing `guillotineUrl` as a property to this component.
 

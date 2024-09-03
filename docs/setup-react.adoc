@@ -16,16 +16,14 @@ This will create react app and place it in `react-demo` folder.
 
 == Install dependencies
 
-Now, let's add enonic libs, react-router-dom, sass and raw-loader to the project:
+Now, let's add enonic libs, react-router-dom and sass to the project:
 
 [source,Terminal]
 ----
 cd react-demo
 
-npm install --save react-router-dom sass raw-loader @enonic/react-components @enonic/js-utils
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils
 ----
-
-NOTE: In case you're wondering, `raw-loader` is used to load graphql `.gql` files in the React app.
 
 == Allow CORS
 

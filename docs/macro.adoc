@@ -70,7 +70,7 @@ include::{sourcedir}src/main/resources/static/components/macros/Filmography.tsx[
 .src/queries/personMovies.gql
 [source,GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personMovies.gql[]
+include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
 ----
 
 == Styling
@@ -87,7 +87,7 @@ include::{sourcedir}src/main/resources/static/styles/filmography.sass[]
 
 Remember to import and enable the `Macro` component in the `Person` component:
 
-.src/main/resources/components/Person.tsx
+.src/components/Person.tsx
 [source,TypeScript]
 ----
 import {Macro} from './Macro';

@@ -3,8 +3,7 @@ import type {RestProps} from '..';
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
 import React, {useEffect, useState,} from 'react';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import PERSON_MOVIES_QUERY from '!!raw-loader!../../queries/personMovies.gql';
+import PERSON_MOVIES_QUERY from '../../queries/personMovies';
 import '../../styles/filmography.sass';
 
 

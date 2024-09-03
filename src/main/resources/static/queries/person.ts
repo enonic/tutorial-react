@@ -1,4 +1,4 @@
-query PersonQuery($personId: ID!) {
+const query = `query PersonQuery($personId: ID!) {
   guillotine {
     get(key: $personId) {
       _name
@@ -70,4 +70,6 @@ query PersonQuery($personId: ID!) {
       }
     }
   }
-}
+}`;
+
+export default query;

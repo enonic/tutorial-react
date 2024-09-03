@@ -31,7 +31,7 @@ First, let's define a query that we want to execute to fetch the data:
 .src/queries/personList.gql
 [source,graphql]
 ----
-include::{sourcedir}src/main/resources/static/queries/personList.gql[]
+include::{sourcedir}src/main/resources/static/queries/personList.ts[]
 ----
 
 To be able to import the `.gql` files we need to add an `index.d.ts` type declaration file for them in the same directory:
@@ -51,9 +51,6 @@ To define a component create a `PersonList.tsx` file in the `components` directo
 ----
 include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
 ----
-
-NOTE: Notice the `import PERSON_LIST_QUERY from '!!raw-loader!../queries/personList.gql';` line.
-This syntax instructs webpack to load the file as a raw string.
 
 As you can see this component has 1 parameter `guillotineUrl` which is an url where we want to fetch data from.
 

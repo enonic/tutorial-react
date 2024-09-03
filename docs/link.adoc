@@ -34,7 +34,7 @@ include::{sourcedir}src/main/resources/static/components/Link.tsx[]
 
 Which you can import and pass to the `RichText` component like this:
 
-.src/main/resources/components/Person.tsx
+.src/components/Person.tsx
 [source, TypeScript]
 ----
 import {Link} from './Link';
