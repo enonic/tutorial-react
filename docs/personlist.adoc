@@ -28,18 +28,10 @@ In addition, grayscale images become colorful when hovered.
 
 First, let's define a query that we want to execute to fetch the data:
 
-.src/queries/personList.gql
+.src/queries/personList.ts
 [source,graphql]
 ----
 include::{sourcedir}src/main/resources/static/queries/personList.ts[]
-----
-
-To be able to import the `.gql` files we need to add an `index.d.ts` type declaration file for them in the same directory:
-
-.src/queries/index.d.ts
-[source,TypeScript]
-----
-include::{sourcedir}src/main/resources/static/queries/index.d.ts[]
 ----
 
 == Component

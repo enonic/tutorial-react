@@ -67,7 +67,7 @@ include::{sourcedir}src/main/resources/static/components/macros/Filmography.tsx[
 
 `Filmography` macro imports `PERSON_MOVIES_QUERY` GraphQL query that we need to create now:
 
-.src/queries/personMovies.gql
+.src/queries/personMovies.ts
 [source,GraphQL]
 ----
 include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]

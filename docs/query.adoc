@@ -22,7 +22,7 @@ But it also provides a query playground where you can try out various queries!
 
 In order to test the query below you first have to open the `intro` project in Content Studio, then open the `Query Playground` panel from the left-hand vertical toolbar and paste the query below into the query editor.
 
-.src/queries/personList.gql
+.src/queries/personList.ts
 [source, GraphQL]
 ----
 include::{sourcedir}src/main/resources/static/queries/personList.ts[]
@@ -163,7 +163,7 @@ Hit play button and you should see a list of persons in the response:
 
 Open the `Query Playground` panel and paste the query below:
 
-.src/queries/person.gql
+.src/queries/person.ts
 [source, GraphQL]
 ----
 include::{sourcedir}src/main/resources/static/queries/person.ts[]
@@ -246,7 +246,7 @@ Similarly to the previous query, set a query variable in the Query Playground Va
 
 And paste the query below into the query editor:
 
-.src/queries/person.gql
+.src/queries/person.ts
 [source, GraphQL]
 ----
 include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]

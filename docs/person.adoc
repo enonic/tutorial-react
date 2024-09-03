@@ -28,9 +28,9 @@ We will cover custom implementation of the `Image`, `Link` and `Macro` component
 
 == Query
 
-First, let's create `src/queries/person.gql` file with a query that we want to execute to fetch the data:
+First, let's create `src/queries/person.ts` file with a query that we want to execute to fetch the data:
 
-.src/queries/person.gql
+.src/queries/person.ts
 [source,graphql]
 ----
 include::{sourcedir}src/main/resources/static/queries/person.ts[]
