@@ -1,0 +1,44 @@
+{
+  "menuItems": [
+    {
+      "title": "Introduction",
+      "document": "index"
+    },
+    {
+      "title": "1 - Setup Enonic XP",
+      "document": "setup-xp"
+    },
+    {
+      "title": "2 - Query",
+      "document": "query"
+    },
+    {
+      "title": "3 - Setup React project",
+      "document": "setup-react"
+    },
+    {
+      "title": "4 - Routing",
+      "document": "routing"
+    },
+    {
+      "title": "5 - PersonList",
+      "document": "personlist"
+    },
+    {
+      "title": "6 - Person",
+      "document": "person"
+    },
+    {
+      "title": "7 - Image",
+      "document": "image"
+    },
+    {
+      "title": "8 - Link",
+      "document": "link"
+    },
+    {
+      "title": "9 - Macro",
+      "document": "macro"
+    }
+  ]
+}

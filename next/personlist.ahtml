@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Query</title>
+<title>PersonList Component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,16 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Query</h1>
+<h1>PersonList Component</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#data">Data</a></li>
-<li><a href="#query_playground">Query Playground</a></li>
-<li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
-<li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
-<li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
-<li><a href="#navigation">Navigation</a></li>
+<li><a href="#query">Query</a></li>
+<li><a href="#component">Component</a></li>
+<li><a href="#styles">Styles</a></li>
+<li><a href="#update_app_tsx">Update App.tsx</a></li>
+<li><a href="#result">Result</a></li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
@@ -454,36 +454,50 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before we even write a single line of code, lets have a look at the data we&#8217;re going to be working with:</p>
+<p>When the PersonList component is first rendered, it has no <code>data</code>, so it simply returns <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>It has a useEffect hook that will asyncronously run a fetch using the imported PERSON_LIST_QUERY.</p>
+</div>
+<div class="paragraph">
+<p>Once the fetch returns, it will update the <code>data</code> state, so there is something to render.</p>
+</div>
+<div class="paragraph">
+<p>Since the state has changed it will now be re-rendered based on the new state.</p>
+</div>
+<div class="paragraph">
+<p>This time it will return an unordered list with one list-item per person in the data.</p>
+</div>
+<div class="paragraph">
+<p>The list-item consists of a single Link component which contains an image and the displayName of the person.</p>
+</div>
+<div class="paragraph">
+<p>Notice that the Link component is imported from <code>react-router-dom</code> and that it&#8217;s <code>to</code> prop follows the pattern described in the routing chapter.</p>
+</div>
+<div class="paragraph">
+<p>Styling is added by importing <code>personList.sass</code> file.</p>
+</div>
+<div class="paragraph">
+<p>The final result in the browser is a page with a grid of 9 images (3 rows with 3 images on each row).</p>
+</div>
+<div class="paragraph">
+<p>The displayName is initially hidden, but becomes visible when the link is hovered.</p>
+</div>
+<div class="paragraph">
+<p>In addition, grayscale images become colorful when hovered.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="data"><a class="link" href="#data">Data</a></h2>
+<h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous chapter we installed the <code>Enonic intro</code> app. On installation it created a project name <code>intro</code> within the Enonic XP instance. If you open this project in Content Studio you will see that it contains a number of content types and content. In this tutorial we are going to use the <code>Person</code> content items and corresponding <code>images</code> it provides.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_playground"><a class="link" href="#query_playground">Query Playground</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the previous chapter we installed the <code>Guillotine</code> app. This app provides a query playground where you can try out various queries.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_a_list_of_persons"><a class="link" href="#query_a_list_of_persons">Query a list of persons</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
+<p>First, let&#8217;s define a query that we want to execute to fetch the data:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/static/queries/personList.gql</div>
+<div class="title">src/queries/personList.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonListQuery {
   guillotine {
     queryDsl(
       first: 9
@@ -515,181 +529,296 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       }
     }
   }
-}</code></pre>
+}`;
+
+export default query;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_a_specific_person"><a class="link" href="#get_data_about_a_specific_person">Get data about a specific person</a></h2>
+<h2 id="component"><a class="link" href="#component">Component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p>To define a component create a <code>PersonList.tsx</code> file in the <code>components</code> directory:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/components/PersonList.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonQuery($personId: ID!) {
-  guillotine {
-    get(key: $personId) {
-      _name
-      displayName
-      ... on com_enonic_app_intro_Person {
-        data {
-          dateofbirth
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(500)")
-            }
-          }
-          bio(processHtml: {
-              type: absolute
-              imageWidths: [
-                200,
-                400,
-              ]
-              imageSizes: "(max-width: 600px) 200px, 50vw"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
-                    }
-                  }
-                  intent
-                }
-                ref
-                uri
-              }
-              macros {
-                ref
-                name
-                descriptor
-                config {
-                  filmography {
-                    heading
-                  }
-                }
-              }
-              processedHtml
-            }
-        }
-      }
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {forceArray} from '@enonic/js-utils/array/forceArray';
+import React, {useEffect, useState,} from 'react';
+import {Link} from 'react-router-dom';
+import {BREAK_POINTS} from './constants';
+
+import '../styles/personList.sass';
+
+import PERSON_LIST_QUERY from '../queries/personList';
+
+
+// Images are presented in a grid of 3 columns (and 30px gutter).
+// The grid itself is centered on the page and has a max-width of 50%.
+// Let's calculate the smallest image size:
+// The smallest breakPoint is 320px, so the grid will be 160px wide.
+// 160 -(2*30) = 100 / 3 = 33.333333 px
+// So let's use 34px as the smallest image width.
+
+
+export function PersonList({
+  guillotineUrl,
+}: {
+  guillotineUrl: string
+}) {
+  const [data, setData] = useState&lt;{
+    _id: string
+    _name: string
+    data: {
+      photos: {
+        imageUrl: string
+      }[]
     }
-  }
+    // dataAsJson: {
+    //   bio: string
+    //   dateofbirth: string
+    //   // photos: string
+    // }
+    displayName: string
+  }[]&gt;();
+
+  useEffect(() =&gt; {
+    fetch(guillotineUrl, {
+      body: JSON.stringify({
+        query: PERSON_LIST_QUERY,
+      }),
+      headers: { // HTTP/2 uses lowercase header keys
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+    })
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        // console.debug(json);
+        const value = json.data.guillotine.queryDsl;
+        // console.debug(value);
+        setData(value)
+      });
+  }, []);
+
+  return (
+    &lt;&gt;
+      {data
+        ? &lt;ul className='person-list'&gt;
+          {
+            data.map(({
+              _id,
+              _name,
+              data: {
+                photos
+              },
+              displayName
+            }, i) =&gt; {
+              const src = photos ? forceArray(photos)[0].imageUrl : undefined;
+
+              // The styles.sass centers images and sets a max-width of 50%.
+              const srcSet = src
+                ? Object.values(BREAK_POINTS)
+                  .map(
+                    (width) =&gt; {
+                      const w = Math.ceil((width/2-60)/3);
+                      return `${
+                        src.replace('/width-34/', `/width-${w}/`)
+                        } ${w}w`}
+                  )
+                  .join(',')
+                  : undefined;
+
+              // The last slot width has no media condition (this is the default
+              // that is chosen when none of the media conditions are true)
+              // The browser ignores everything after the first matching
+              // condition, so be careful how you order the media conditions.
+              const sizes = src
+                ? Object.values(BREAK_POINTS)
+                  .map((width) =&gt; `(max-width: ${width}px) ${Math.ceil((width/2-60)/3)}px`)
+                  .join(',').replace('(max-width: 3840px) ', '')
+                  : undefined;
+
+              const imgProps = {
+                alt: displayName,
+                sizes,
+                src,
+                srcSet,
+              };
+              return &lt;li key={i}&gt;
+                &lt;Link to={`/p/${_name}/${_id}`}&gt;
+                  &lt;img {...imgProps}/&gt;
+                  &lt;div&gt;{displayName}&lt;/div&gt;
+                &lt;/Link&gt;
+              &lt;/li&gt;;
+            })
+          }&lt;/ul&gt;
+        : null
+      }
+    &lt;/&gt;
+  );
 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see this component has 1 parameter <code>guillotineUrl</code> which is an url where we want to fetch data from.</p>
+</div>
+<div class="paragraph">
+<p>All the common constants are extracted to a separate <code>constants.ts</code> file to be reused in other components:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/constants.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export const BREAK_POINTS = {
+  phone: 320,
+  tablet: 768,
+  laptop: 992,
+  desktop: 1024,
+  hd: 1280,
+  full: 1920,
+  quad: 2560,
+  ultra: 3840
+};</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_which_movies_references_a_person"><a class="link" href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></h2>
+<h2 id="styles"><a class="link" href="#styles">Styles</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p>To style the PersonList component we also need a complementary sass file:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/styles/personList.sass</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonMoviesQuery($personId: String!) {
-  guillotine {
-    queryDsl(
-      query: {
-        boolean: {
-          must: [
-            {
-              term: {
-                field: "type",
-                value: {
-                  string: "com.enonic.app.intro:movie"
-                }
-              }
-            },
-            {
-              in: {
-                field: "_references",
-                stringValues: [$personId]
-              }
-            }
-          ]
-        }
-      }
-    ) {
-      _id
-      _name
-      displayName
-      ... on com_enonic_app_intro_Movie {
-        data {
-          photos(first: 1) {
-            ... on media_Image {
-              imageUrl(scale: "width(100)")
-            }
-          }
-        }
-      }
-    }
-  }
-}</code></pre>
+<pre class="highlight"><code class="language-Sass" data-lang="Sass">$gutter: 30px
+$color: rgba(0, 0, 0, .5)
+
+ul.person-list
+  list-style-type: none
+  padding: 15px
+
+  li
+    display: inline-block
+    margin-bottom: $gutter
+    padding-right: $gutter
+    vertical-align: middle
+    width: calc((100% / 3) - $gutter)
+    &amp;:nth-child(3n)
+      padding-right: 0
+
+    a
+      display: inline-block
+      width: 100%
+      position: relative // so div can be centered
+      div
+        bottom: 10px
+        color: #fff
+        left: 50%
+        font-size: 1.5rem
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        text-shadow: 1px 0 0 $color, 0 -1px 0 $color, 0 1px 0 $color, -1px 0 0 $color
+        transform: translate(-50%)
+        white-space: nowrap
+      &amp;:hover
+        div
+          opacity: 1
+      img
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1)
+        border-radius: 5%
+        filter: grayscale(100%)
+        height: auto
+        margin: auto 0
+        transition: all .2s ease-in-out
+        width: 100%
+
+        &amp;:hover
+          filter: grayscale(0%)
+          transform: scale(1.1)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<h2 id="update_app_tsx"><a class="link" href="#update_app_tsx">Update App.tsx</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will learn how to create a <a href="webapp.ahtml">Web application</a>.</p>
+<p>Finally, we need to update the App.tsx file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+
+import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+
+import {PersonList} from './components/PersonList';
+
+export default function App({guillotineUrl = '/site/intro/master'}: { guillotineUrl?: string }) {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;PersonList guillotineUrl={guillotineUrl}/&gt;}/&gt;
+        &lt;Route
+          element={&lt;h1&gt;Person url&lt;/h1&gt;}
+          path="/p/:name/:personId"
+        /&gt;
+        &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  );
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We added optional <code>guillotineUrl</code> parameter that is passed to the <code>PersonList</code> component.
+This lets us define the url where we want to fetch data from.
+By default, it&#8217;s set to <code>/site/intro/master</code> which will be appended to the <code>proxy</code> setting from the <a href="setup-react.ahtml">Setup React</a> chapter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="result"><a class="link" href="#result">Result</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, if you did everything correctly, you should see a grid of 9 images at <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
+</div>
+<div class="paragraph">
+<p>When you hover over the image, the displayName will appear and the image will become colorful.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/person-list.png" alt="person list" width="1200">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s create a single <a href="person.ahtml">Person component</a> now.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-03 15:11:45 UTC
+Last updated 2024-09-03 15:11:59 UTC
 </div>
 </div>
 </body>

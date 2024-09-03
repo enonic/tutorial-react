@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Query</title>
+<title>Macros</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,16 +437,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Query</h1>
+<h1>Macros</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#data">Data</a></li>
-<li><a href="#query_playground">Query Playground</a></li>
-<li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
-<li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
-<li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
-<li><a href="#navigation">Navigation</a></li>
+<li><a href="#input_properties">Input properties</a></li>
+<li><a href="#macro_component">Macro component</a></li>
+<li><a href="#filmography_component">Filmography component</a></li>
+<li><a href="#graphql_query">GraphQL query</a></li>
+<li><a href="#styling">Styling</a></li>
+<li><a href="#add_macro_to_richtext">Add Macro to RichText</a></li>
+<li><a href="#congratulations">Congratulations!</a></li>
 </ul>
 </div>
 </div>
@@ -454,188 +455,227 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before we even write a single line of code, lets have a look at the data we&#8217;re going to be working with:</p>
+<p>The <code>RichText</code> component imported from <code>@enonic/react-components</code> doesn&#8217;t know how to render macros. To render macros, you need to create your own Macro component that can handle macros and pass that to the RichText component.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read more about XP <a href="https://developer.enonic.com/docs/xp/stable/cms/macros">Macros</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can see it if you open the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Link to Lea</a> that we added to the <a href="http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68">Brad Pitt&#8217;s</a> page in the last chapter.</p>
+</div>
+<div class="paragraph">
+<p>At the bottom of the <code>Lea Seydoux</code> page you will see the notice:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>No Macro component provided to RichText. Can't render com.enonic.app.intro:filmography with config { "heading": "Léa's Movies" }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That is because we haven&#8217;t created a Macro implementation for <code>com.enonic.app.intro:filmography</code> macro yet.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="data"><a class="link" href="#data">Data</a></h2>
+<h2 id="input_properties"><a class="link" href="#input_properties">Input properties</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous chapter we installed the <code>Enonic intro</code> app. On installation it created a project name <code>intro</code> within the Enonic XP instance. If you open this project in Content Studio you will see that it contains a number of content types and content. In this tutorial we are going to use the <code>Person</code> content items and corresponding <code>images</code> it provides.</p>
+<p>By default Macro component you create will receive following props:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>config</p>
+<div class="literalblock">
+<div class="content">
+<pre>An object with filled in values of properties defined in a macro's xml file.</pre>
 </div>
 </div>
+</li>
+<li>
+<p>descriptor</p>
+<div class="literalblock">
+<div class="content">
+<pre>A string that contains the app.name and which specific macro used.</pre>
 </div>
-<div class="sect1">
-<h2 id="query_playground"><a class="link" href="#query_playground">Query Playground</a></h2>
-<div class="sectionbody">
+</div>
+</li>
+<li>
+<p><code>RichText&lt;RestProps&gt;</code></p>
 <div class="paragraph">
-<p>In the previous chapter we installed the <code>Guillotine</code> app. This app provides a query playground where you can try out various queries.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_a_list_of_persons"><a class="link" href="#query_a_list_of_persons">Query a list of persons</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
+<p>All the props we added to <code>RichText</code> will be also passed down to the Macro component.</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/static/queries/personList.gql</div>
+<div class="title">src/components/index.d.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
-  guillotine {
-    queryDsl(
-      first: 9
-      query: {
-        term: {
-          field: "type",
-          value: {
-            string: "com.enonic.app.intro:person"
-          }
-        }
-      }
-      sort: {
-        field: "modifiedTime",
-        direction: DESC
-      }
-    ) {
-      _id
-      _name
-      displayName
-      type
-      ... on com_enonic_app_intro_Person {
-        data {
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(34)")
-            }
-          }
-        }
-      }
-    }
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export declare interface RestProps {
+  guillotineUrl: string
+  personId: string
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="macro_component"><a class="link" href="#macro_component">Macro component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, we need to create a <code>Macro</code> component that we can add to <code>RichText</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Macro.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
+import type {RestProps} from '.';
+
+
+import React from 'react';
+import {Filmography} from './macros/Filmography';
+
+
+export const Macro: MacroComponent&lt;RestProps&gt; = ({
+  config,
+  descriptor,
+  ...rest
+}) =&gt; {
+  if (descriptor === 'com.enonic.app.intro:filmography') {
+  const props = {...rest, config};
+    return &lt;Filmography {...props} /&gt;;
   }
+  throw new Error(`Macro not found: ${descriptor}`);
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The Macro component above imports a <code>Filmography</code> component, and uses it to render all macros that have <code>com.enonic.app.intro:filmography</code> descriptor.</p>
+</div>
+<div class="paragraph">
+<p>It will throw an error otherwise, which will cause the <code>RichText</code> component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
+</div>
+<div class="paragraph">
+<p>Notice the <code>&#8230;&#8203;rest</code> spread operator is used to pass around the <code>RestProps</code>, but we could also refer them directly by their names.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_a_specific_person"><a class="link" href="#get_data_about_a_specific_person">Get data about a specific person</a></h2>
+<h2 id="filmography_component"><a class="link" href="#filmography_component">Filmography component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
+<p>Now we need to create an actual implementation for the <code>Filmography</code> macro.</p>
 </div>
 <div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p>Notice how the RestProps <code>guillotineUrl</code> and <code>personId</code> are available in the params.</p>
 </div>
 <div class="listingblock">
+<div class="title">src/components/macros/Filmography.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonQuery($personId: ID!) {
-  guillotine {
-    get(key: $personId) {
-      _name
-      displayName
-      ... on com_enonic_app_intro_Person {
-        data {
-          dateofbirth
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(500)")
-            }
-          }
-          bio(processHtml: {
-              type: absolute
-              imageWidths: [
-                200,
-                400,
-              ]
-              imageSizes: "(max-width: 600px) 200px, 50vw"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
-                    }
-                  }
-                  intent
-                }
-                ref
-                uri
-              }
-              macros {
-                ref
-                name
-                descriptor
-                config {
-                  filmography {
-                    heading
-                  }
-                }
-              }
-              processedHtml
-            }
-        }
-      }
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RestProps} from '..';
+
+
+import {forceArray} from '@enonic/js-utils/array/forceArray';
+import React, {useEffect, useState,} from 'react';
+import PERSON_MOVIES_QUERY from '../../queries/personMovies';
+import '../../styles/filmography.sass';
+
+
+export declare interface FilmographyConfig {
+  heading?: string
+}
+
+
+export function Filmography({
+  config,
+  guillotineUrl,
+  personId,
+}: {
+  config: FilmographyConfig,
+} &amp; RestProps) {
+  const {heading = 'Movies'} = config;
+
+  const [data, setData] = useState&lt;{
+    _id: string
+    _name: string
+    displayName: string
+    data: {
+      photos: {
+        imageUrl: string
+      }[]
     }
+  }[]&gt;();
+  console.debug(data);
+
+  useEffect(() =&gt; {
+    fetch(guillotineUrl, {
+      body: JSON.stringify({
+        query: PERSON_MOVIES_QUERY,
+        variables: {
+          personId,
+        }
+      }),
+      headers: { // HTTP/2 uses lowercase header keys
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+    })
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        const value = json.data.guillotine.queryDsl;
+        setData(value)
+      });
+  }, []); // useEffect
+
+  if (!data) {
+    return null;
   }
+
+  return (
+    &lt;div className='filmography'&gt;
+      &lt;h2&gt;{heading}&lt;/h2&gt;
+      &lt;ul&gt;
+        {data.map(({
+          _id,
+          _name,
+          data: {
+            photos
+          },
+          displayName
+        }) =&gt; {
+          const src = photos ? forceArray(photos)[0].imageUrl : undefined;
+        return &lt;li key={_id}&gt;
+            &lt;img alt={displayName} src={src}/&gt;
+            &lt;div&gt;{displayName}&lt;/div&gt;
+        &lt;/li&gt;;
+      })}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_which_movies_references_a_person"><a class="link" href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></h2>
+<h2 id="graphql_query"><a class="link" href="#graphql_query">GraphQL query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p><code>Filmography</code> macro imports <code>PERSON_MOVIES_QUERY</code> GraphQL query that we need to create now:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/queries/personMovies.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonMoviesQuery($personId: String!) {
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonMoviesQuery($personId: String!) {
   guillotine {
     queryDsl(
       query: {
@@ -673,23 +713,65 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       }
     }
   }
-}</code></pre>
+}`
+
+export default query;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will learn how to create a <a href="webapp.ahtml">Web application</a>.</p>
+<p>And finally, we need to style the <code>Filmography</code> component by creating a complementary sass file:</p>
 </div>
+<div class="listingblock">
+<div class="title">src/styles/filmography.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-Sass" data-lang="Sass">.filmography
+  ul
+    list-style-type: none
+    padding: 0 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add_macro_to_richtext"><a class="link" href="#add_macro_to_richtext">Add Macro to RichText</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Remember to import and enable the <code>Macro</code> component in the <code>Person</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Macro} from './Macro';
+
+// ..
+
+&lt;RichText&lt;RestProps&gt;
+  // ...
+  Macro={Macro}
+  // ...
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should be able to see the <code>Lea&#8217;s movies</code> macro listing <code>No time to die</code> movie if you open the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Lea Seydoux</a> page now.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="congratulations"><a class="link" href="#congratulations">Congratulations!</a></h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-03 15:11:45 UTC
+Last updated 2024-09-03 15:11:59 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Query</title>
+<title>Setup Enonic XP</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,259 +437,111 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Query</h1>
+<h1>Setup Enonic XP</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#data">Data</a></li>
-<li><a href="#query_playground">Query Playground</a></li>
-<li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
-<li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
-<li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
-<li><a href="#navigation">Navigation</a></li>
+<li><a href="#create_react_project">Create react project</a></li>
+<li><a href="#install_dependencies">Install dependencies</a></li>
+<li><a href="#allow_cors">Allow CORS</a></li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Before we even write a single line of code, lets have a look at the data we&#8217;re going to be working with:</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="data"><a class="link" href="#data">Data</a></h2>
+<h2 id="create_react_project"><a class="link" href="#create_react_project">Create react project</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous chapter we installed the <code>Enonic intro</code> app. On installation it created a project name <code>intro</code> within the Enonic XP instance. If you open this project in Content Studio you will see that it contains a number of content types and content. In this tutorial we are going to use the <code>Person</code> content items and corresponding <code>images</code> it provides.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_playground"><a class="link" href="#query_playground">Query Playground</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the previous chapter we installed the <code>Guillotine</code> app. This app provides a query playground where you can try out various queries.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_a_list_of_persons"><a class="link" href="#query_a_list_of_persons">Query a list of persons</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/personList.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
-  guillotine {
-    queryDsl(
-      first: 9
-      query: {
-        term: {
-          field: "type",
-          value: {
-            string: "com.enonic.app.intro:person"
-          }
-        }
-      }
-      sort: {
-        field: "modifiedTime",
-        direction: DESC
-      }
-    ) {
-      _id
-      _name
-      displayName
-      type
-      ... on com_enonic_app_intro_Person {
-        data {
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(34)")
-            }
-          }
-        }
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="get_data_about_a_specific_person"><a class="link" href="#get_data_about_a_specific_person">Get data about a specific person</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p>Feel free to use your favourite tool to create react project, but for this tutorial we will use the following command to set up a project with typescript support:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npx create-react-app react-demo --template typescript</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+you can read more about the <code>create-react-app</code> tool at <a href="https://create-react-app.dev/docs/getting-started">their website</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This will create react app and place it in <code>react-demo</code> folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, let&#8217;s add enonic libs, react-router-dom and sass to the project:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonQuery($personId: ID!) {
-  guillotine {
-    get(key: $personId) {
-      _name
-      displayName
-      ... on com_enonic_app_intro_Person {
-        data {
-          dateofbirth
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(500)")
-            }
-          }
-          bio(processHtml: {
-              type: absolute
-              imageWidths: [
-                200,
-                400,
-              ]
-              imageSizes: "(max-width: 600px) 200px, 50vw"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
-                    }
-                  }
-                  intent
-                }
-                ref
-                uri
-              }
-              macros {
-                ref
-                name
-                descriptor
-                config {
-                  filmography {
-                    heading
-                  }
-                }
-              }
-              processedHtml
-            }
-        }
-      }
-    }
-  }
-}</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-demo
+
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_which_movies_references_a_person"><a class="link" href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></h2>
+<h2 id="allow_cors"><a class="link" href="#allow_cors">Allow CORS</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
+<p>To allow cross-origin requests to Enonic XP we need to configure it as proxy in the <code>package.json</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">package.json</div>
+<div class="content">
+<pre>{
+  ...
+  "proxy": "http://127.0.0.1:8080",
+  ...
+}</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p>Until <a href="https://github.com/facebook/create-react-app/issues/11762">this issue</a> in <code>create-react-app</code> is fixed, we also need to add <code>.env</code> file to the project root with the following content to make proxy work:</p>
+</div>
+<div class="listingblock">
+<div class="title">.env</div>
+<div class="content">
+<pre>DANGEROUSLY_DISABLE_HOST_CHECK=true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With that done, you&#8217;re ready to start the app:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm start</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonMoviesQuery($personId: String!) {
-  guillotine {
-    queryDsl(
-      query: {
-        boolean: {
-          must: [
-            {
-              term: {
-                field: "type",
-                value: {
-                  string: "com.enonic.app.intro:movie"
-                }
-              }
-            },
-            {
-              in: {
-                field: "_references",
-                stringValues: [$personId]
-              }
-            }
-          ]
-        }
-      }
-    ) {
-      _id
-      _name
-      displayName
-      ... on com_enonic_app_intro_Movie {
-        data {
-          photos(first: 1) {
-            ... on media_Image {
-              imageUrl(scale: "width(100)")
-            }
-          }
-        }
-      }
-    }
-  }
-}</code></pre>
-</div>
+<div class="paragraph">
+<p>This will start the app and open it in your default browser.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will learn how to create a <a href="webapp.ahtml">Web application</a>.</p>
+<p>In the next chapter you will learn how add <a href="routing.ahtml">Routing</a> to your app.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-03 15:11:45 UTC
+Last updated 2024-09-03 15:11:59 UTC
 </div>
 </div>
 </body>

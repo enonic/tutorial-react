@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Query</title>
+<title>Image component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,16 +437,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Query</h1>
+<h1>Image component</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#data">Data</a></li>
-<li><a href="#query_playground">Query Playground</a></li>
-<li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
-<li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
-<li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
-<li><a href="#navigation">Navigation</a></li>
+<li><a href="#custom_image_component">Custom Image component</a></li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
@@ -454,242 +450,93 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before we even write a single line of code, lets have a look at the data we&#8217;re going to be working with:</p>
+<p>The <code>RichText</code> component imported from <code>@enonic/react-components</code> comes with a default component for rendering Images.</p>
+</div>
+<div class="paragraph">
+<p>If you want to have more control over rendering RichText Images, you can provide your own customized <code>Image</code> component.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="data"><a class="link" href="#data">Data</a></h2>
+<h2 id="custom_image_component"><a class="link" href="#custom_image_component">Custom Image component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous chapter we installed the <code>Enonic intro</code> app. On installation it created a project name <code>intro</code> within the Enonic XP instance. If you open this project in Content Studio you will see that it contains a number of content types and content. In this tutorial we are going to use the <code>Person</code> content items and corresponding <code>images</code> it provides.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_playground"><a class="link" href="#query_playground">Query Playground</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the previous chapter we installed the <code>Guillotine</code> app. This app provides a query playground where you can try out various queries.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query_a_list_of_persons"><a class="link" href="#query_a_list_of_persons">Query a list of persons</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
+<p>Here is an empty custom <code>Image</code> component example:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/main/resources/static/queries/personList.gql</div>
+<div class="title">src/components/Image.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
-  guillotine {
-    queryDsl(
-      first: 9
-      query: {
-        term: {
-          field: "type",
-          value: {
-            string: "com.enonic.app.intro:person"
-          }
-        }
-      }
-      sort: {
-        field: "modifiedTime",
-        direction: DESC
-      }
-    ) {
-      _id
-      _name
-      displayName
-      type
-      ... on com_enonic_app_intro_Person {
-        data {
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(34)")
-            }
-          }
-        }
-      }
-    }
-  }
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {ImageComponent} from '@enonic/react-components';
+
+
+import React from 'react';
+
+
+export const Image: ImageComponent = ({
+  alt,
+  // image,
+  // imageStyle,
+  sizes,
+  src,
+  srcSet,
+  style,
+}) =&gt; {
+  // const {
+  //   _id,
+  //   _name,
+  //   _path,
+  //   type,
+  //   imageUrl
+  // } = image;
+  // const {
+  //   aspectRatio,
+  //   filter,
+  //   name
+  // } = imageStyle;
+  return &lt;img
+    alt={alt}
+    sizes={sizes}
+    src={src}
+    srcSet={srcSet}
+    style={style}
+  /&gt;;
 }</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="get_data_about_a_specific_person"><a class="link" href="#get_data_about_a_specific_person">Get data about a specific person</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
+<p>Which you can import and pass to the <code>RichText</code> component like this:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Image} from './Image';
+
+// ...
+
+&lt;RichText
+  ...
+  Image={Image}
+  ...
+/&gt;</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonQuery($personId: ID!) {
-  guillotine {
-    get(key: $personId) {
-      _name
-      displayName
-      ... on com_enonic_app_intro_Person {
-        data {
-          dateofbirth
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(500)")
-            }
-          }
-          bio(processHtml: {
-              type: absolute
-              imageWidths: [
-                200,
-                400,
-              ]
-              imageSizes: "(max-width: 600px) 200px, 50vw"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
-                    }
-                  }
-                  intent
-                }
-                ref
-                uri
-              }
-              macros {
-                ref
-                name
-                descriptor
-                config {
-                  filmography {
-                    heading
-                  }
-                }
-              }
-              processedHtml
-            }
-        }
-      }
-    }
-  }
-}</code></pre>
-</div>
+<div class="paragraph">
+<p>If you open <a href="http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68">Brad Pitt</a> now, you will see that the images are still rendered, but now you can add custom logic.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_which_movies_references_a_person"><a class="link" href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></h2>
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel and paste the query below into the query editor.</p>
-</div>
-<div class="paragraph">
-<p>In addition you need to set a query variable in the Query Playground Variables panel:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">src/main/resources/static/queries/person.gql</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonMoviesQuery($personId: String!) {
-  guillotine {
-    queryDsl(
-      query: {
-        boolean: {
-          must: [
-            {
-              term: {
-                field: "type",
-                value: {
-                  string: "com.enonic.app.intro:movie"
-                }
-              }
-            },
-            {
-              in: {
-                field: "_references",
-                stringValues: [$personId]
-              }
-            }
-          ]
-        }
-      }
-    ) {
-      _id
-      _name
-      displayName
-      ... on com_enonic_app_intro_Movie {
-        data {
-          photos(first: 1) {
-            ... on media_Image {
-              imageUrl(scale: "width(100)")
-            }
-          }
-        }
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the next chapter you will learn how to create a <a href="webapp.ahtml">Web application</a>.</p>
+<p>In the next chapter you will learn about the RichText <a href="link.ahtml">Link</a> Component.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-03 15:11:45 UTC
+Last updated 2024-09-03 15:11:59 UTC
 </div>
 </div>
 </body>
