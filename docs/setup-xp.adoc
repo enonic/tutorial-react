@@ -1,4 +1,4 @@
-= Setup Enonic XP
+= Set up Enonic XP
 :sourcedir: ../
 
 The easiest way to boot up an Enonic XP instance is to use the Enonic CLI.

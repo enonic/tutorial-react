@@ -1,4 +1,4 @@
-= Setup Enonic XP
+= Set up Enonic XP
 :sourcedir: ../
 
 == Create react project

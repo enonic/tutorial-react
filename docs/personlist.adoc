@@ -95,7 +95,7 @@ export default function App({guillotineUrl = '/site/intro/master'}: { guillotine
 
 NOTE: We added optional `guillotineUrl` parameter that is passed to the `PersonList` component.
 This lets us define the url where we want to fetch data from.
-By default, it's set to `/site/intro/master` which will be appended to the `proxy` setting from the <<setup-react#, Setup React>> chapter.
+By default, it's set to `/site/intro/master` which will be appended to the `proxy` setting from the <<setup-react#, Set up React>> chapter.
 
 == Result
 
