@@ -784,7 +784,7 @@ export default function App({guillotineUrl = '/site/intro/master'}: { guillotine
 <td class="content">
 We added optional <code>guillotineUrl</code> parameter that is passed to the <code>PersonList</code> component.
 This lets us define the url where we want to fetch data from.
-By default, it&#8217;s set to <code>/site/intro/master</code> which will be appended to the <code>proxy</code> setting from the <a href="setup-react.ahtml">Setup React</a> chapter.
+By default, it&#8217;s set to <code>/site/intro/master</code> which will be appended to the <code>proxy</code> setting from the <a href="setup-react.ahtml">Set up React</a> chapter.
 </td>
 </tr>
 </table>
@@ -818,7 +818,7 @@ By default, it&#8217;s set to <code>/site/intro/master</code> which will be appe
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-03 15:12:14 UTC
+Last updated 2024-09-03 15:15:21 UTC
 </div>
 </div>
 </body>
