@@ -87,13 +87,13 @@ import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
 
-export default function App({guillotineUrl = '/site/intro/master'}: { guillotineUrl?: string }) {
+export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<PersonList guillotineUrl={guillotineUrl}/>}/>
+        <Route path="/" element={<PersonList />}/>
         <Route
-          element={<Person guillotineUrl={guillotineUrl}/>}
+          element={<Person />}
           path="/p/:name/:personId"
         />
         <Route path='*' element={<p>URL doesn't exist!</p>}/>

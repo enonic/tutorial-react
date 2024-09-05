@@ -44,8 +44,6 @@ To define a component create a `PersonList.tsx` file in the `components` directo
 include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
 ----
 
-As you can see this component has 1 parameter `guillotineUrl` which is an url where we want to fetch data from.
-
 All the common constants are extracted to a separate `constants.ts` file to be reused in other components:
 
 .src/components/constants.ts
@@ -77,11 +75,11 @@ import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
 
 import {PersonList} from './components/PersonList';
 
-export default function App({guillotineUrl = '/site/intro/master'}: { guillotineUrl?: string }) {
+export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<PersonList guillotineUrl={guillotineUrl}/>}/>
+        <Route path="/" element={<PersonList />}/>
         <Route
           element={<h1>Person url</h1>}
           path="/p/:name/:personId"
@@ -92,9 +90,6 @@ export default function App({guillotineUrl = '/site/intro/master'}: { guillotine
   );
 }
 ----
-
-NOTE: We added optional `guillotineUrl` parameter that is passed to the `PersonList` component.
-This lets us define the url where we want to fetch data from.
 
 == Result
 
