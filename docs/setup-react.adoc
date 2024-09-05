@@ -25,26 +25,6 @@ cd react-demo
 npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils
 ----
 
-== Allow CORS
-
-To allow cross-origin requests to Enonic XP we need to configure it as proxy in the `package.json` file:
-
-.package.json
-----
-{
-  ...
-  "proxy": "http://127.0.0.1:8080",
-  ...
-}
-----
-
-Until https://github.com/facebook/create-react-app/issues/11762[this issue] in `create-react-app` is fixed, we also need to add `.env` file to the project root with the following content to make proxy work:
-
-..env
-----
-DANGEROUSLY_DISABLE_HOST_CHECK=true
-----
-
 With that done, you're ready to start the app:
 
 [source,Terminal]
