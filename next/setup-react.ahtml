@@ -443,7 +443,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#create_react_project">Create react project</a></li>
 <li><a href="#install_dependencies">Install dependencies</a></li>
-<li><a href="#allow_cors">Allow CORS</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -490,33 +489,6 @@ you can read more about the <code>create-react-app</code> tool at <a href="https
 npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="allow_cors"><a class="link" href="#allow_cors">Allow CORS</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To allow cross-origin requests to Enonic XP we need to configure it as proxy in the <code>package.json</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="title">package.json</div>
-<div class="content">
-<pre>{
-  ...
-  "proxy": "http://127.0.0.1:8080",
-  ...
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Until <a href="https://github.com/facebook/create-react-app/issues/11762">this issue</a> in <code>create-react-app</code> is fixed, we also need to add <code>.env</code> file to the project root with the following content to make proxy work:</p>
-</div>
-<div class="listingblock">
-<div class="title">.env</div>
-<div class="content">
-<pre>DANGEROUSLY_DISABLE_HOST_CHECK=true</pre>
-</div>
-</div>
 <div class="paragraph">
 <p>With that done, you&#8217;re ready to start the app:</p>
 </div>
@@ -541,7 +513,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-03 15:15:21 UTC
+Last updated 2024-09-05 12:04:14 UTC
 </div>
 </div>
 </body>
