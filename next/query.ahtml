@@ -493,37 +493,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">src/queries/personList.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonListQuery {
-  guillotine {
-    queryDsl(
-      first: 9
-      query: {
-        term: {
-          field: "type",
-          value: {
-            string: "com.enonic.app.intro:person"
-          }
-        }
-      }
-      sort: {
-        field: "modifiedTime",
-        direction: DESC
-      }
-    ) {
-      _id
-      _name
-      displayName
-      type
-      ... on com_enonic_app_intro_Person {
-        data {
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(34)")
+    guillotine {
+        queryDsl(
+            first: 9
+            query: {
+                term: {
+                    field: "type",
+                    value: {
+                        string: "com.enonic.app.intro:person"
+                    }
+                }
             }
-          }
+            sort: {
+                field: "modifiedTime",
+                direction: DESC
+            }
+        ) {
+            _id
+            _name
+            displayName
+            type
+            ... on com_enonic_app_intro_Person {
+                data {
+                    photos {
+                        ... on media_Image {
+                            imageUrl(type: absolute, scale: "width(500)")
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }`;
 
 export default query;</code></pre>
@@ -673,77 +673,77 @@ export default query;</code></pre>
 <div class="title">src/queries/person.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonQuery($personId: ID!) {
-  guillotine {
-    get(key: $personId) {
-      _name
-      displayName
-      ... on com_enonic_app_intro_Person {
-        data {
-          dateofbirth
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(500)")
-            }
-          }
-          bio(processHtml: {
-              type: absolute
-              imageWidths: [
-                200,
-                400,
-              ]
-              imageSizes: "(max-width: 600px) 200px, 50vw"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
+    guillotine {
+        get(key: $personId) {
+            _name
+            displayName
+            ... on com_enonic_app_intro_Person {
+                data {
+                    dateofbirth
+                    photos {
+                        ... on media_Image {
+                            imageUrl(scale: "width(500)", type: absolute)
+                        }
                     }
-                  }
-                  intent
+                    bio(processHtml: {
+                        type: absolute
+                        imageWidths: [
+                            200,
+                            400,
+                        ]
+                        imageSizes: "(max-width: 600px) 200px, 50vw"
+                    }) {
+                        images {
+                            image {
+                                _id
+                                _path
+                                type
+                            }
+                            ref
+                            style {
+                                name
+                                aspectRatio
+                                filter
+                            }
+                        }
+                        links {
+                            content {
+                                _id
+                                _name
+                                _path
+                                type
+                            }
+                            media {
+                                content {
+                                    _id
+                                    _name
+                                    _path
+                                    type
+                                    ... on media_Image {
+                                        mediaUrl
+                                    }
+                                }
+                                intent
+                            }
+                            ref
+                            uri
+                        }
+                        macros {
+                            ref
+                            name
+                            descriptor
+                            config {
+                                filmography {
+                                    heading
+                                }
+                            }
+                        }
+                        processedHtml
+                    }
                 }
-                ref
-                uri
-              }
-              macros {
-                ref
-                name
-                descriptor
-                config {
-                  filmography {
-                    heading
-                  }
-                }
-              }
-              processedHtml
             }
         }
-      }
     }
-  }
 }`;
 
 export default query;</code></pre>
@@ -919,7 +919,7 @@ export default query;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-05 12:04:14 UTC
+Last updated 2024-09-05 15:17:55 UTC
 </div>
 </div>
 </body>

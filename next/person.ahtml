@@ -510,77 +510,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">src/queries/person.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonQuery($personId: ID!) {
-  guillotine {
-    get(key: $personId) {
-      _name
-      displayName
-      ... on com_enonic_app_intro_Person {
-        data {
-          dateofbirth
-          photos {
-            ... on media_Image {
-              imageUrl(scale: "width(500)")
-            }
-          }
-          bio(processHtml: {
-              type: absolute
-              imageWidths: [
-                200,
-                400,
-              ]
-              imageSizes: "(max-width: 600px) 200px, 50vw"
-            }) {
-              images {
-                image {
-                  _id
-                  _path
-                  type
-                }
-                ref
-                style {
-                  name
-                  aspectRatio
-                  filter
-                }
-              }
-              links {
-                content {
-                  _id
-                  _name
-                  _path
-                  type
-                }
-                media {
-                  content {
-                    _id
-                    _name
-                    _path
-                    type
-                    ... on media_Image {
-                      mediaUrl
+    guillotine {
+        get(key: $personId) {
+            _name
+            displayName
+            ... on com_enonic_app_intro_Person {
+                data {
+                    dateofbirth
+                    photos {
+                        ... on media_Image {
+                            imageUrl(scale: "width(500)", type: absolute)
+                        }
                     }
-                  }
-                  intent
+                    bio(processHtml: {
+                        type: absolute
+                        imageWidths: [
+                            200,
+                            400,
+                        ]
+                        imageSizes: "(max-width: 600px) 200px, 50vw"
+                    }) {
+                        images {
+                            image {
+                                _id
+                                _path
+                                type
+                            }
+                            ref
+                            style {
+                                name
+                                aspectRatio
+                                filter
+                            }
+                        }
+                        links {
+                            content {
+                                _id
+                                _name
+                                _path
+                                type
+                            }
+                            media {
+                                content {
+                                    _id
+                                    _name
+                                    _path
+                                    type
+                                    ... on media_Image {
+                                        mediaUrl
+                                    }
+                                }
+                                intent
+                            }
+                            ref
+                            uri
+                        }
+                        macros {
+                            ref
+                            name
+                            descriptor
+                            config {
+                                filmography {
+                                    heading
+                                }
+                            }
+                        }
+                        processedHtml
+                    }
                 }
-                ref
-                uri
-              }
-              macros {
-                ref
-                name
-                descriptor
-                config {
-                  filmography {
-                    heading
-                  }
-                }
-              }
-              processedHtml
             }
         }
-      }
     }
-  }
 }`;
 
 export default query;</code></pre>
@@ -602,94 +602,97 @@ import {RichText} from '@enonic/react-components';
 import type {RestProps} from '.';
 import type {Element} from 'html-react-parser';
 
-
 import {forceArray} from '@enonic/js-utils/array/forceArray';
 import {ElementType} from 'domelementtype';
 import React, {useEffect, useState,} from 'react';
 import {Link as RouterLink, useParams,} from 'react-router-dom';
+
+import {Image} from './Image';
+import {Link} from './Link';
+import {Macro} from './Macro';
 import PERSON_QUERY from '../queries/person';
 
 
-export function Person({
-                           guillotineUrl,
-                       }: {
-  guillotineUrl: string
-}) {
-  const {
-    // name,
-      personId = ''
-  } = useParams();
-  const [data, setData] = useState&lt;{
-    _name: string
-    data: {
-      bio: RichTextData
-      dateofbirth: string
-      photos: {
-        imageUrl: string
-      }[]
-    }
-    displayName: string
-  }&gt;();
+export function Person() {
+    const {
+        // name,
+        personId = ''
+    } = useParams();
 
-  useEffect(() =&gt; {
-    fetch(guillotineUrl, {
-      body: JSON.stringify({
-        query: PERSON_QUERY,
-        variables: {
-          personId,
+    const guillotineUrl = process.env.REACT_APP_GUILLOTINE_URL as string;
+
+    const [data, setData] = useState&lt;{
+        _name: string
+        data: {
+            bio: RichTextData
+            dateofbirth: string
+            photos: {
+                imageUrl: string
+            }[]
         }
-      }),
-      headers: { // HTTP/2 uses lowercase header keys
-        'content-type': 'application/json'
-      },
-      method: 'POST',
-    })
-        .then(response =&gt; response.json())
-        .then(json =&gt; {
-            const value = json.data.guillotine.get;
-            setData(value)
-        });
-  }, []); // useEffect
+        displayName: string
+    }&gt;();
 
-  if (!data) {
-    return null;
-  }
+    useEffect(() =&gt; {
+        fetch(guillotineUrl, {
+            body: JSON.stringify({
+                query: PERSON_QUERY,
+                variables: {
+                    personId,
+                }
+            }),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+        })
+            .then(response =&gt; response.json())
+            .then(json =&gt; {
+                const value = json.data.guillotine.get;
+                setData(value)
+            });
+    }, []); // useEffect
 
-  const {
-    data: {
-      bio,
-      dateofbirth,
-      photos
-    },
-    displayName
-  } = data;
+    if (!data) {
+        return null;
+    }
+
+    const {
+        data: {
+            bio,
+            dateofbirth,
+            photos
+        },
+        displayName
+    } = data;
     const imageSrc = photos ? forceArray(photos)[0].imageUrl : undefined;
 
-  return (
-      &lt;section&gt;
-          &lt;h2&gt;{displayName}&lt;/h2&gt;
-          &lt;img src={imageSrc} alt={displayName}/&gt;
-          &lt;p&gt;{dateofbirth}&lt;/p&gt;
-          &lt;RichText&lt;RestProps&gt;
-              replacer={(el: Element, data: RichTextData) =&gt; {
-                  // console.debug('el', el);
-                  // console.debug('data', data);
-                  if (
-                      el.name === 'p'
-                      &amp;&amp; el.children[0].type === ElementType.Text
-                      &amp;&amp; el.children[0].data === 'Some text'
-                  ) {
-                      return &lt;p&gt;Replaced text&lt;/p&gt;;
-                  }
-              }}
-              data={bio}
-              guillotineUrl={guillotineUrl}
-              personId={personId}
-              tag='article'
-          /&gt;
-          &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
-      &lt;/section&gt;
-  );
+    return (
+        &lt;section&gt;
+            &lt;h2&gt;{displayName}&lt;/h2&gt;
+            &lt;img src={imageSrc} alt={displayName}/&gt;
+            &lt;p&gt;{dateofbirth}&lt;/p&gt;
+            &lt;RichText&lt;RestProps&gt;
+                replacer={(el: Element, data: RichTextData) =&gt; {
+                    if (
+                        el.name === 'p'
+                        &amp;&amp; el.children[0].type === ElementType.Text
+                        &amp;&amp; el.children[0].data === 'Some text'
+                    ) {
+                        return &lt;p&gt;Replaced text&lt;/p&gt;;
+                    }
+                }}
+                data={bio}
+                Image={Image}
+                Link={Link}
+                Macro={Macro}
+                guillotineUrl={guillotineUrl}
+                personId={personId}
+                tag='article'
+            /&gt;
+            &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
+        &lt;/section&gt;
+    );
 }</code></pre>
 </div>
 </div>
@@ -757,13 +760,13 @@ import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
 
-export default function App({guillotineUrl = '/site/intro/master'}: { guillotineUrl?: string }) {
+export default function App() {
   return (
     &lt;Router&gt;
       &lt;Routes&gt;
-        &lt;Route path="/" element={&lt;PersonList guillotineUrl={guillotineUrl}/&gt;}/&gt;
+        &lt;Route path="/" element={&lt;PersonList /&gt;}/&gt;
         &lt;Route
-          element={&lt;Person guillotineUrl={guillotineUrl}/&gt;}
+          element={&lt;Person /&gt;}
           path="/p/:name/:personId"
         /&gt;
         &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
@@ -790,7 +793,7 @@ Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-05 12:04:14 UTC
+Last updated 2024-09-05 15:17:55 UTC
 </div>
 </div>
 </body>
