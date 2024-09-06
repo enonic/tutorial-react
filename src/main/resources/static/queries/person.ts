@@ -11,14 +11,7 @@ const query = `query PersonQuery($personId: ID!) {
                             imageUrl(scale: "width(500)", type: absolute)
                         }
                     }
-                    bio(processHtml: {
-                        type: absolute
-                        imageWidths: [
-                            200,
-                            400,
-                        ]
-                        imageSizes: "(max-width: 600px) 200px, 50vw"
-                    }) {
+                    bio(processHtml: { type: absolute }) {
                         images {
                             image {
                                 _id

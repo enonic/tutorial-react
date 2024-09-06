@@ -5,12 +5,12 @@ import type {Element} from 'html-react-parser';
 
 import {forceArray} from '@enonic/js-utils/array/forceArray';
 import {ElementType} from 'domelementtype';
-import React, {useEffect, useState,} from 'react';
-import {Link as RouterLink, useParams,} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link as RouterLink, useParams} from 'react-router-dom';
 
-import {Image} from './Image';
-import {Link} from './Link';
-import {Macro} from './Macro';
+// import {Image} from './Image';
+// import {Link} from './Link';
+// import {Macro} from './Macro';
 import PERSON_QUERY from '../queries/person';
 
 
@@ -84,9 +84,9 @@ export function Person() {
                     }
                 }}
                 data={bio}
-                Image={Image}
-                Link={Link}
-                Macro={Macro}
+                // Image={Image}
+                // Link={Link}
+                // Macro={Macro}
                 guillotineUrl={guillotineUrl}
                 personId={personId}
                 tag='article'

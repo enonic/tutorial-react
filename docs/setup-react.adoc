@@ -34,6 +34,59 @@ npm start
 
 This will start the app and open it in your default browser.
 
+== Update default app
+
+Although beautiful, the default app doesn't do much.
+Let's change content of the auto-generated `App.tsx` file to the following:
+
+.src/App.tsx
+[source,TypeScript]
+----
+import React from 'react';
+
+import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path='*' element={<p>URL doesn't exist!</p>}/>
+      </Routes>
+    </Router>
+  )
+}
+----
+
+Notice we renamed the `App.css` file to `App.sass`.
+Here is the content of the `App.sass` file:
+
+.src/App.sass
+[source,sass]
+----
+body
+  text-align: center
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 0 0
+  margin: 0
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box
+
+#react-root
+  margin: 0 auto
+  width: 50%
+----
+
+Now, if you reload http://localhost:3000/[http://localhost:3000], you should see the text `URL doesn't exist!` rendered on the page and that means you are ready for the next chapter!
+
 == Next step
 
-In the next chapter you will learn how add <<routing#,Routing>> to your app.
+In the next chapter we'll create our first component -- <<personlist#,person list>>.
