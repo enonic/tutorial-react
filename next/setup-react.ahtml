@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#create_react_project">Create react project</a></li>
 <li><a href="#install_dependencies">Install dependencies</a></li>
+<li><a href="#update_default_app">Update default app</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -503,17 +504,76 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 </div>
 </div>
 <div class="sect1">
+<h2 id="update_default_app"><a class="link" href="#update_default_app">Update default app</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Although beautiful, the default app doesn&#8217;t do much.
+Let&#8217;s change content of the auto-generated <code>App.tsx</code> file to the following:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
+
+import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  )
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice we renamed the <code>App.css</code> file to <code>App.sass</code>.
+Here is the content of the <code>App.sass</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/App.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-sass" data-lang="sass">body
+  text-align: center
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 0 0
+  margin: 0
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box
+
+#react-root
+  margin: 0 auto
+  width: 50%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, if you reload <a href="http://localhost:3000/">http://localhost:3000</a>, you should see the text <code>URL doesn&#8217;t exist!</code> rendered on the page and that means you are ready for the next chapter!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will learn how add <a href="routing.ahtml">Routing</a> to your app.</p>
+<p>In the next chapter we&#8217;ll create our first component&#8201;&#8212;&#8201;<a href="personlist.ahtml">person list</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-05 15:17:55 UTC
+Last updated 2024-09-06 14:05:04 UTC
 </div>
 </div>
 </body>

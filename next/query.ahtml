@@ -685,14 +685,7 @@ export default query;</code></pre>
                             imageUrl(scale: "width(500)", type: absolute)
                         }
                     }
-                    bio(processHtml: {
-                        type: absolute
-                        imageWidths: [
-                            200,
-                            400,
-                        ]
-                        imageSizes: "(max-width: 600px) 200px, 50vw"
-                    }) {
+                    bio(processHtml: { type: absolute }) {
                         images {
                             image {
                                 _id
@@ -919,7 +912,7 @@ export default query;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-05 15:17:55 UTC
+Last updated 2024-09-06 14:05:04 UTC
 </div>
 </div>
 </body>

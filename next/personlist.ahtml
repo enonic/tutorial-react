@@ -444,55 +444,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#query">Query</a></li>
 <li><a href="#component">Component</a></li>
 <li><a href="#styles">Styles</a></li>
-<li><a href="#update_app_tsx">Update App.tsx</a></li>
+<li><a href="#routing">Routing</a></li>
 <li><a href="#result">Result</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>When the PersonList component is first rendered, it has no <code>data</code>, so it simply returns <code>null</code>.</p>
-</div>
-<div class="paragraph">
-<p>It has a useEffect hook that will asyncronously run a fetch using the imported PERSON_LIST_QUERY.</p>
-</div>
-<div class="paragraph">
-<p>Once the fetch returns, it will update the <code>data</code> state, so there is something to render.</p>
-</div>
-<div class="paragraph">
-<p>Since the state has changed it will now be re-rendered based on the new state.</p>
-</div>
-<div class="paragraph">
-<p>This time it will return an unordered list with one list-item per person in the data.</p>
-</div>
-<div class="paragraph">
-<p>The list-item consists of a single Link component which contains an image and the displayName of the person.</p>
-</div>
-<div class="paragraph">
-<p>Notice that the Link component is imported from <code>react-router-dom</code> and that it&#8217;s <code>to</code> prop follows the pattern described in the routing chapter.</p>
-</div>
-<div class="paragraph">
-<p>Styling is added by importing <code>personList.sass</code> file.</p>
-</div>
-<div class="paragraph">
-<p>The final result in the browser is a page with a grid of 9 images (3 rows with 3 images on each row).</p>
-</div>
-<div class="paragraph">
-<p>The displayName is initially hidden, but becomes visible when the link is hovered.</p>
-</div>
-<div class="paragraph">
-<p>In addition, grayscale images become colorful when hovered.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>First, let&#8217;s define a query that we want to execute to fetch the data:</p>
+<p>First, we need to create a <code>src/queries/personList.ts</code> file with query to fetch the data:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/queries/personList.ts</div>
@@ -635,7 +598,7 @@ export function PersonList() {
 <h2 id="styles"><a class="link" href="#styles">Styles</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To style the PersonList component we also need a complementary sass file:</p>
+<p>To style the component we also need a complementary sass file:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/styles/personList.sass</div>
@@ -691,7 +654,7 @@ ul.person-list
 </div>
 </div>
 <div class="sect1">
-<h2 id="update_app_tsx"><a class="link" href="#update_app_tsx">Update App.tsx</a></h2>
+<h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Finally, we need to update the App.tsx file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
@@ -701,7 +664,7 @@ ul.person-list
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
 
-import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 
 import {PersonList} from './components/PersonList';
 
@@ -710,10 +673,6 @@ export default function App() {
     &lt;Router&gt;
       &lt;Routes&gt;
         &lt;Route path="/" element={&lt;PersonList /&gt;}/&gt;
-        &lt;Route
-          element={&lt;h1&gt;Person url&lt;/h1&gt;}
-          path="/p/:name/:personId"
-        /&gt;
         &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
       &lt;/Routes&gt;
     &lt;/Router&gt;
@@ -727,7 +686,7 @@ export default function App() {
 <h2 id="result"><a class="link" href="#result">Result</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, if you did everything correctly, you should see a grid of 9 images at <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
+<p>Now you should see a grid of 9 images at <a href="http://localhost:3000">http://localhost:3000</a>.</p>
 </div>
 <div class="paragraph">
 <p>When you hover over the image, the displayName will appear and the image will become colorful.</p>
@@ -736,6 +695,9 @@ export default function App() {
 <div class="content">
 <img src="media/person-list.png" alt="person list" width="1200">
 </div>
+</div>
+<div class="paragraph">
+<p>Clicking on any of the images will take you to the person&#8217;s page which we will implement in the next chapter.</p>
 </div>
 </div>
 </div>
@@ -750,7 +712,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-05 15:17:55 UTC
+Last updated 2024-09-06 14:05:04 UTC
 </div>
 </div>
 </body>
