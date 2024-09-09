@@ -442,7 +442,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#install_enonic_xp">Install Enonic XP</a></li>
-<li><a href="#get_some_data">Get some data</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -481,23 +480,23 @@ More installation methods along with CLI documentation can be found <a href="htt
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_box -t essentials -f</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_box -t intro -f</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This will create a sandbox named <code>react_box</code> using latest Enonic XP distribution and start it after creation.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="get_some_data"><a class="link" href="#get_some_data">Get some data</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Let&#8217;s install <code>Enonic intro</code> app to get some actual data to query for.
-To do that, go to the Enonic XP admin interface at <code><a href="http://localhost:8080/admin" class="bare">http://localhost:8080/admin</a></code> and log in as guest.</p>
-</div>
-<div class="paragraph">
-<p>Then open the <code>Applications</code> app from the right-hand menu, click on the <code>Install</code> button and search for <code>Introduction</code> app.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>-t intro</code> flag tells the CLI to use the <code>intro</code> template which conveniently has graphQL app installed along with some data to query.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -512,7 +511,7 @@ To do that, go to the Enonic XP admin interface at <code><a href="http://localho
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-06 14:05:04 UTC
+Last updated 2024-09-09 08:52:32 UTC
 </div>
 </div>
 </body>

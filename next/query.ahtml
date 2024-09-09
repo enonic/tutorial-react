@@ -441,8 +441,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#data">Data</a></li>
-<li><a href="#query_playground">Query Playground</a></li>
 <li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
 <li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
 <li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
@@ -454,18 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before we even write a single line of code, lets have a look at the data we&#8217;re going to work with:</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="data"><a class="link" href="#data">Data</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the previous chapter we installed the <code>Introduction</code> app that created a project named <code>intro</code>.</p>
-</div>
-<div class="paragraph">
-<p>If you open this project in Content Studio you will see that it contains a number of content types and content.</p>
+<p>If you open <code>Intro project</code> in Content Studio you will see that it contains a number of content types and content.</p>
 </div>
 <div class="paragraph">
 <p>In this tutorial we are going to use the <code>Person</code> content items and corresponding <code>images</code> it provides.</p>
@@ -473,21 +460,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="query_playground"><a class="link" href="#query_playground">Query Playground</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>We used <code>Essentials</code> template to create the sandbox that comes with the <code>Guillotine</code> app that allows fetching data from Enonic XP using graphQL queries.</p>
-</div>
-<div class="paragraph">
-<p>But it also provides a query playground where you can try out various queries!</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="query_a_list_of_persons"><a class="link" href="#query_a_list_of_persons">Query a list of persons</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>intro</code> project in Content Studio, then open the <code>Query Playground</code> panel from the left-hand vertical toolbar and paste the query below into the query editor.</p>
+<p>In order to test the query below you first have to open the <code>Query Playground</code> panel from the left-hand vertical toolbar and paste the query below into the query editor.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/queries/personList.ts</div>
@@ -912,7 +888,7 @@ export default query;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-06 14:05:04 UTC
+Last updated 2024-09-09 08:52:32 UTC
 </div>
 </div>
 </body>
