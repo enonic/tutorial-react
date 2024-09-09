@@ -441,77 +441,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="paragraph">
-<p>In this tutorial we are going to create a <code>web application</code> that fetches data from the <code>Enonic intro</code> app using <code>Guillotine</code> and client-side renders a one-page application using <code>React.js</code> framework.</p>
+<p>In this tutorial we are going to create a single-page <a href="https://react.dev/">react.js</a> application that fetches data from the <a href="http://enonic.com">Enonic XP</a> using <a href="https://graphql.org/">graphQL</a> queries.</p>
 </div>
 <div class="paragraph">
-<p>The react application will use the <code>RichText</code> react component from <code>@enonic/react-components</code> in order to render Enonic TextComponents and HTML area inputs that can contain images, links and macros.</p>
+<p>We will also show how to use the <code>RichText</code> component from <a href="https://www.npmjs.com/package/@enonic/react-components">@enonic/react-components</a> to render HTML area inputs that can contain images, links and macros.</p>
 </div>
 <div class="paragraph">
-<p>This guide will show you how to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="setup-xp.ahtml">Set up Enonic XP</a></p>
-</li>
-<li>
-<p><a href="setup-react.ahtml">Set up React project</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Model (data):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="query.ahtml">Query</a> data from Enonic XP (via Guillotine)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Controller:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="routing.ahtml">Client-side routing</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>View (components):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="personlist.ahtml">PersonList</a></p>
-</li>
-<li>
-<p><a href="person.ahtml">Person</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>RichText Components:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="image.ahtml">Image</a></p>
-</li>
-<li>
-<p><a href="link.ahtml">Link</a></p>
-</li>
-<li>
-<p><a href="macro.ahtml">Macro</a></p>
-</li>
-</ul>
+<p>Let&#8217;s <a href="setup-xp.ahtml">get started</a>!</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-09 11:49:07 UTC
+Last updated 2024-09-09 14:58:02 UTC
 </div>
 </div>
 </body>
