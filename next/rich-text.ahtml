@@ -442,6 +442,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#passing_additional_params">Passing additional params</a></li>
+<li><a href="#custom_link_component">Custom Link component</a></li>
+<li><a href="#custom_image_component">Custom Image component</a></li>
+<li><a href="#custom_macro_component">Custom Macro component</a>
+<ul class="sectlevel2">
+<li><a href="#filmography_component">Filmography component</a></li>
+<li><a href="#graphql_query">GraphQL query</a></li>
+<li><a href="#styling">Styling</a></li>
+</ul>
+</li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
@@ -487,12 +497,423 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>These params will be passed to the <code>Link</code> and <code>Macro</code> components as well, but more on them below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom_link_component"><a class="link" href="#custom_link_component">Custom Link component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Link component will be invoked by <code>RichText</code> for rendering links in the html area fields.</p>
+</div>
+<div class="paragraph">
+<p><strong>TODO</strong>: Let&#8217;s have a look at [some example link].
+URL is wrong because the default <code>Link</code> component doesn&#8217;t know about our webapp&#8217;s URL structure.</p>
+</div>
+<div class="paragraph">
+<p>You can easily change it with a custom <code>Link</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Link.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {LinkComponent,} from '@enonic/react-components';
+
+
+import React from 'react';
+// import {parse} from 'uri-js';
+
+
+export const Link: LinkComponent = ({
+                                        children,
+                                        content,
+                                        media,
+                                        href,
+                                        target,
+                                        title,
+                                        uri,
+                                    }) =&gt; {
+    // const {
+    //   content: mediaContent,
+    //   intent,
+    // } = media || {} as LinkDataMedia;
+
+    // const {
+    //   _id,
+    //   _name,
+    //   _path,
+    //   imageUrl,
+    //   mediaUrl,
+    //   type,
+    // } = mediaContent || content;
+
+    let appHref = '';
+    if (content &amp;&amp; content.type?.endsWith(':person')) {
+        appHref = `/p/${content?._name}/${content?._id}`;
+    } else if (media?.content) {
+        appHref = href;
+    } else {
+        return &lt;&gt;{children}&lt;/&gt;
+    }
+
+    return &lt;a href={appHref} target={target} title={title}&gt;{children}&lt;/a&gt;;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We used it to construct app URLs for content of type <code>person</code>: <code>/p/:name/:personId</code>.
+For media content, we used the <code>href</code> attribute because we want to keep them as is.
+For all other links we just render them as text.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s how you can add it to <code>RichText</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Link} from './Link';
+
+// ...
+
+&lt;RichText&lt;RestProps&gt;
+  // ...
+  Link={Link}
+  // ...
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>TODO</strong>: If you open that link again you will be taken to the correct page now!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom_image_component"><a class="link" href="#custom_image_component">Custom Image component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to have more control over rendering <code>RichText</code> Images, you can provide your own customized <code>Image</code> component.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Image.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {ImageComponent} from '@enonic/react-components';
+
+
+import React from 'react';
+
+
+export const Image: ImageComponent = ({
+                                          alt,
+                                          // image,
+                                          // imageStyle,
+                                          sizes,
+                                          src,
+                                          srcSet,
+                                          style,
+                                      }) =&gt; {
+    // const {
+    //   _id,
+    //   _name,
+    //   _path,
+    //   type,
+    //   imageUrl
+    // } = image;
+    // const {
+    //   aspectRatio,
+    //   filter,
+    //   name
+    // } = imageStyle;
+
+    return &lt;img
+        alt={alt}
+        sizes={sizes}
+        src={src}
+        srcSet={srcSet}
+        style={style}
+    /&gt;;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It doesn&#8217;t do anything special, but this is a good place to add your own logic to images.</p>
+</div>
+<div class="paragraph">
+<p>Which you can import and pass to the <code>RichText</code> component like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Image} from './Image';
+
+// ...
+
+&lt;RichText
+  ...
+  Image={Image}
+  ...
+/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom_macro_component"><a class="link" href="#custom_macro_component">Custom Macro component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unlike <code>Link</code> and <code>Image</code>, <code>RichText</code> doesn&#8217;t know how to render <code>Macro</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read more about XP <a href="https://developer.enonic.com/docs/xp/stable/cms/macros">Macros</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You will see a notice at the bottom of the <code>Lea Seydoux</code> page:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>No Macro component provided to RichText. Can't render com.enonic.app.intro:filmography with config { "heading": "Léa's Movies" }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That is because to render macros, you need to create your own Macro component that know how to handle specific macros and pass that to the RichText component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Macro.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
+import type {RestProps} from '.';
+
+
+import React from 'react';
+import {Filmography} from './macros/Filmography';
+
+
+export const Macro: MacroComponent&lt;RestProps&gt; = ({
+  config,
+  descriptor,
+  ...rest
+}) =&gt; {
+  if (descriptor === 'com.enonic.app.intro:filmography') {
+  const props = {...rest, config};
+    return &lt;Filmography {...props} /&gt;;
+  }
+  throw new Error(`Macro not found: ${descriptor}`);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>TODO</strong>: change macro !</p>
+</div>
+<div class="paragraph">
+<p>The Macro component above imports a <code>Filmography</code> component, and uses it to render all macros that have <code>com.enonic.app.intro:filmography</code> descriptor.</p>
+</div>
+<div class="paragraph">
+<p>It will throw an error otherwise, which will cause the <code>RichText</code> component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
+</div>
+<div class="paragraph">
+<p>Remember to import and add <code>Macro</code> component to <code>RichText</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Macro} from './Macro';
+
+// ..
+
+&lt;RichText&lt;RestProps&gt;
+  // ...
+  Macro={Macro}
+  // ...
+/&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="filmography_component"><a class="link" href="#filmography_component">Filmography component</a></h3>
+<div class="paragraph">
+<p>Now we need to create an actual implementation for the <code>Filmography</code> macro.</p>
+</div>
+<div class="paragraph">
+<p>Notice how the RestProps <code>guillotineUrl</code> and <code>personId</code> are available in the params.</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/macros/Filmography.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RestProps} from '..';
+
+
+import {forceArray} from '@enonic/js-utils/array/forceArray';
+import React, {useEffect, useState,} from 'react';
+import PERSON_MOVIES_QUERY from '../../queries/personMovies';
+import '../../styles/filmography.sass';
+
+
+export declare interface FilmographyConfig {
+  heading?: string
+}
+
+
+export function Filmography({
+  config,
+  guillotineUrl,
+  personId,
+}: {
+  config: FilmographyConfig,
+} &amp; RestProps) {
+  const {heading = 'Movies'} = config;
+
+  const [data, setData] = useState&lt;{
+    _id: string
+    _name: string
+    displayName: string
+    data: {
+      photos: {
+        imageUrl: string
+      }[]
+    }
+  }[]&gt;();
+  console.debug(data);
+
+  useEffect(() =&gt; {
+    fetch(guillotineUrl, {
+      body: JSON.stringify({
+        query: PERSON_MOVIES_QUERY,
+        variables: {
+          personId,
+        }
+      }),
+      headers: { // HTTP/2 uses lowercase header keys
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+    })
+      .then(response =&gt; response.json())
+      .then(json =&gt; {
+        const value = json.data.guillotine.queryDsl;
+        setData(value)
+      });
+  }, []); // useEffect
+
+  if (!data) {
+    return null;
+  }
+
+  return (
+    &lt;div className='filmography'&gt;
+      &lt;h2&gt;{heading}&lt;/h2&gt;
+      &lt;ul&gt;
+        {data.map(({
+          _id,
+          _name,
+          data: {
+            photos
+          },
+          displayName
+        }) =&gt; {
+          const src = photos ? forceArray(photos)[0].imageUrl : undefined;
+        return &lt;li key={_id}&gt;
+            &lt;img alt={displayName} src={src}/&gt;
+            &lt;div&gt;{displayName}&lt;/div&gt;
+        &lt;/li&gt;;
+      })}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphql_query"><a class="link" href="#graphql_query">GraphQL query</a></h3>
+<div class="paragraph">
+<p><code>Filmography</code> macro imports <code>PERSON_MOVIES_QUERY</code> GraphQL query that we need to create now:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/queries/personMovies.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonMoviesQuery($personId: String!) {
+  guillotine {
+    queryDsl(
+      query: {
+        boolean: {
+          must: [
+            {
+              term: {
+                field: "type",
+                value: {
+                  string: "com.enonic.app.intro:movie"
+                }
+              }
+            },
+            {
+              in: {
+                field: "_references",
+                stringValues: [$personId]
+              }
+            }
+          ]
+        }
+      }
+    ) {
+      _id
+      _name
+      displayName
+      ... on com_enonic_app_intro_Movie {
+        data {
+          photos(first: 1) {
+            ... on media_Image {
+              imageUrl(scale: "width(100)")
+            }
+          }
+        }
+      }
+    }
+  }
+}`
+
+export default query;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="styling"><a class="link" href="#styling">Styling</a></h3>
+<div class="paragraph">
+<p>And finally, we need to style the <code>Filmography</code> component by creating a complementary sass file:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/styles/filmography.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-Sass" data-lang="Sass">.filmography
+  ul
+    list-style-type: none
+    padding: 0 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations!
+Now you are ready to create you own <a href="https://react.dev/">react.js</a> webapp with <a href="https://developer.enonic.com/docs/intro/stable/api">headless Enonic XP</a> using <a href="https://www.npmjs.com/package/@enonic/react-components">@enonic/react-components</a>.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-09 08:52:32 UTC
+Last updated 2024-09-09 11:49:07 UTC
 </div>
 </div>
 </body>

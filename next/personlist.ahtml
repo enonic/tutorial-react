@@ -455,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>First, we need to create a <code>src/queries/personList.ts</code> file with query to fetch the data:</p>
+<p>First, we need to create a <code>src/queries/personList.ts</code> file with query that our component will use to fetch data:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/queries/personList.ts</div>
@@ -688,16 +688,13 @@ export default function App() {
 <div class="paragraph">
 <p>Now you should see a grid of 9 images at <a href="http://localhost:3000">http://localhost:3000</a>.</p>
 </div>
-<div class="paragraph">
-<p>When you hover over the image, the displayName will appear and the image will become colorful.</p>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="media/person-list.png" alt="person list" width="1200">
 </div>
 </div>
 <div class="paragraph">
-<p>Clicking on any of the images will take you to the person&#8217;s page which we will implement in the next chapter.</p>
+<p>Clicking any of the images will take you to the person&#8217;s page which we will implement in the next chapter.</p>
 </div>
 </div>
 </div>
@@ -712,7 +709,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-09 08:52:32 UTC
+Last updated 2024-09-09 11:49:07 UTC
 </div>
 </div>
 </body>

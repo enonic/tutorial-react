@@ -17,28 +17,16 @@
       "document": "setup-react"
     },
     {
-      "title": "4 - Routing",
-      "document": "routing"
-    },
-    {
-      "title": "5 - PersonList",
+      "title": "4 - PersonList",
       "document": "personlist"
     },
     {
-      "title": "6 - Person",
+      "title": "5 - Person",
       "document": "person"
     },
     {
-      "title": "7 - Image",
-      "document": "image"
-    },
-    {
-      "title": "8 - Link",
-      "document": "link"
-    },
-    {
-      "title": "9 - Macro",
-      "document": "macro"
+      "title": "6 - Rich Text",
+      "document": "rich-text"
     }
   ]
 }
