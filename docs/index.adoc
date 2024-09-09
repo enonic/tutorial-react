@@ -1,30 +1,8 @@
 = Tutorial React
 :toc: right
 
-In this tutorial we are going to create a `web application` that fetches data from the `Enonic intro` app using `Guillotine` and client-side renders a one-page application using `React.js` framework.
+In this tutorial we are going to create a single-page https://react.dev/[react.js] application that fetches data from the http://enonic.com[Enonic XP] using https://graphql.org/[graphQL] queries.
 
-The react application will use the `RichText` react component from `@enonic/react-components` in order to render Enonic TextComponents and HTML area inputs that can contain images, links and macros.
+We will also show how to use the `RichText` component from https://www.npmjs.com/package/@enonic/react-components[@enonic/react-components] to render HTML area inputs that can contain images, links and macros.
 
-This guide will show you how to:
-
-* <<setup-xp.adoc#,Set up Enonic XP>>
-* <<setup-react.adoc#,Set up React project>>
-
-Model (data):
-
-* <<query#,Query>> data from Enonic XP (via Guillotine)
-
-Controller:
-
-* <<routing#,Client-side routing>>
-
-View (components):
-
-* <<personlist#,PersonList>>
-* <<person#,Person>>
-
-RichText Components:
-
-* <<image#,Image>>
-* <<link#,Link>>
-* <<macro#,Macro>>
+Let's <<setup-xp#,get started>>!
