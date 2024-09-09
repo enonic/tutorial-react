@@ -17,17 +17,12 @@ Now that you have the CLI installed, you can create a new sandbox with Enonic XP
 
 [source,Terminal]
 ----
-enonic sandbox create react_box -t essentials -f
+enonic sandbox create react_box -t intro -f
 ----
 
 This will create a sandbox named `react_box` using latest Enonic XP distribution and start it after creation.
 
-== Get some data
-
-Let's install `Enonic intro` app to get some actual data to query for.
-To do that, go to the Enonic XP admin interface at `http://localhost:8080/admin` and log in as guest.
-
-Then open the `Applications` app from the right-hand menu, click on the `Install` button and search for `Introduction` app.
+NOTE: The `-t intro` flag tells the CLI to use the `intro` template which conveniently has graphQL app installed along with some data to query.
 
 == Next step
 
