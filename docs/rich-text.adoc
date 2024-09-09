@@ -31,3 +31,147 @@ Where `RestProps` is defined in the `src/components/index.ts` file and declares 
 include::{sourcedir}src/main/resources/static/components/index.d.ts[]
 ----
 
+These params will be passed to the `Link` and `Macro` components as well, but more on them below.
+
+== Custom Link component
+
+Link component will be invoked by `RichText` for rendering links in the html area fields.
+
+*TODO*: Let's have a look at [some example link].
+URL is wrong because the default `Link` component doesn't know about our webapp's URL structure.
+
+You can easily change it with a custom `Link` component:
+
+.src/components/Link.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/Link.tsx[]
+----
+
+We used it to construct app URLs for content of type `person`: `/p/:name/:personId`.
+For media content, we used the `href` attribute because we want to keep them as is.
+For all other links we just render them as text.
+
+Here's how you can add it to `RichText` component:
+
+.src/components/Person.tsx
+[source,TypeScript]
+----
+import {Link} from './Link';
+
+// ...
+
+<RichText<RestProps>
+  // ...
+  Link={Link}
+  // ...
+/>
+----
+
+*TODO*: If you open that link again you will be taken to the correct page now!
+
+== Custom Image component
+
+If you want to have more control over rendering `RichText` Images, you can provide your own customized `Image` component.
+Here is an example:
+
+.src/components/Image.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/Image.tsx[]
+----
+
+It doesn't do anything special, but this is a good place to add your own logic to images.
+
+Which you can import and pass to the `RichText` component like this:
+
+.src/components/Person.tsx
+[source,TypeScript]
+----
+import {Image} from './Image';
+
+// ...
+
+<RichText
+  ...
+  Image={Image}
+  ...
+/>
+----
+
+== Custom Macro component
+
+Unlike `Link` and `Image`, `RichText` doesn't know how to render `Macro`.
+
+TIP: Read more about XP https://developer.enonic.com/docs/xp/stable/cms/macros[Macros].
+
+You will see a notice at the bottom of the `Lea Seydoux` page:
+
+ No Macro component provided to RichText. Can't render com.enonic.app.intro:filmography with config { "heading": "Léa's Movies" }
+
+That is because to render macros, you need to create your own Macro component that know how to handle specific macros and pass that to the RichText component:
+
+.src/components/Macro.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/Macro.tsx[]
+----
+
+*TODO*: change macro !
+
+The Macro component above imports a `Filmography` component, and uses it to render all macros that have `com.enonic.app.intro:filmography` descriptor.
+
+It will throw an error otherwise, which will cause the `RichText` component's `ErrorBoundary` to render an `Error placeholder`.
+
+Remember to import and add `Macro` component to `RichText` component:
+
+.src/components/Person.tsx
+[source,TypeScript]
+----
+import {Macro} from './Macro';
+
+// ..
+
+<RichText<RestProps>
+  // ...
+  Macro={Macro}
+  // ...
+/>
+----
+
+=== Filmography component
+
+Now we need to create an actual implementation for the `Filmography` macro.
+
+Notice how the RestProps `guillotineUrl` and `personId` are available in the params.
+
+.src/components/macros/Filmography.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/macros/Filmography.tsx[]
+----
+
+=== GraphQL query
+
+`Filmography` macro imports `PERSON_MOVIES_QUERY` GraphQL query that we need to create now:
+
+.src/queries/personMovies.ts
+[source,GraphQL]
+----
+include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
+----
+
+=== Styling
+
+And finally, we need to style the `Filmography` component by creating a complementary sass file:
+
+.src/styles/filmography.sass
+[source,Sass]
+----
+include::{sourcedir}src/main/resources/static/styles/filmography.sass[]
+----
+
+== Next step
+
+Congratulations!
+Now you are ready to create you own https://react.dev/[react.js] webapp with https://developer.enonic.com/docs/intro/stable/api[headless Enonic XP] using https://www.npmjs.com/package/@enonic/react-components[@enonic/react-components].

@@ -3,7 +3,7 @@
 
 == Query
 
-Similarly to person list component, let's create `src/queries/person.ts` file with a query to fetch the data:
+Similarly to person list component, let's create `src/queries/person.ts` file with a query:
 
 .src/queries/person.ts
 [source,graphql]
@@ -51,7 +51,7 @@ export default function App() {
 }
 ----
 
-To see the `Person` component in action, open http://localhost:3000[http://localhost:3000] and click any of the person.
+To see the `Person` component in action, open http://localhost:3000[http://localhost:3000] and click any of the persons.
 Alternatively, here's the direct link to http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68[Brad Pitt].
 
 == Next step

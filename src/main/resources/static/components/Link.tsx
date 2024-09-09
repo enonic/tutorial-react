@@ -6,34 +6,36 @@ import React from 'react';
 
 
 export const Link: LinkComponent = ({
-  children,
-  content,
-  media,
-  href,
-  target,
-  title,
-  uri,
-}) => {
-  // const {
-  //   content: mediaContent,
-  //   intent,
-  // } = media || {} as LinkDataMedia;
+                                        children,
+                                        content,
+                                        media,
+                                        href,
+                                        target,
+                                        title,
+                                        uri,
+                                    }) => {
+    // const {
+    //   content: mediaContent,
+    //   intent,
+    // } = media || {} as LinkDataMedia;
 
-  // const {
-  //   _id,
-  //   _name,
-  //   _path,
-  //   imageUrl,
-  //   mediaUrl,
-  //   type,
-  // } = mediaContent || content;
+    // const {
+    //   _id,
+    //   _name,
+    //   _path,
+    //   imageUrl,
+    //   mediaUrl,
+    //   type,
+    // } = mediaContent || content;
 
-  let appHref = '';
-  if (content) {
-    appHref = `/p/${content._name}/${content._id}`;
-  } else if (media?.content) {
-    appHref = href;
-  }
+    let appHref = '';
+    if (content && content.type?.endsWith(':person')) {
+        appHref = `/p/${content?._name}/${content?._id}`;
+    } else if (media?.content) {
+        appHref = href;
+    } else {
+        return <>{children}</>
+    }
 
-  return <a href={appHref} target={target} title={title}>{children}</a>;
+    return <a href={appHref} target={target} title={title}>{children}</a>;
 }
