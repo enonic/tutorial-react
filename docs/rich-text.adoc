@@ -10,31 +10,7 @@ which is why you can create your own `Image` and `Link` components and pass thos
 
 In addition, the RichText component doesn't really know how macros are supposed to look, so its default `Macro` component will simply render a placeholder.
 
-== Additional params
-
-You can pass additional params to the `RichText` component by supplying a generic interface declaring them, in this case it is called `RestProps`:
-
-[source,TypeScript]
-----
-<RichText<RestProps>
-  ...
-  guillotineUrl={guillotineUrl}
-  personId={personId}
-  ...
-/>
-----
-
-And it declares additional params `guillotineUrl` and `personId`:
-
-.src/components/index.d.ts
-[source,TypeScript]
-----
-include::{sourcedir}src/main/resources/static/components/index.d.ts[]
-----
-
-These params will be passed to the `Link` and `Macro` components as well.
-
-== Customizing links
+== Links
 
 `Link` component is used by `RichText` to correctly resolve and render links inside an HTML content.
 
@@ -81,7 +57,7 @@ If you go to the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d
 
 image::./craig-app-render.png[width=1242]
 
-== Customizing images
+== Images
 
 If you want to have more control over image rendering, you can provide `RichText` with your own custom `Image` component:
 
@@ -109,17 +85,19 @@ import {Image} from './Image';
 />
 ----
 
-== Implementing macros
+== Macros
 
 Unlike `Link` and `Image`, `RichText` doesn't know how to render `Macro` and prints warning when encountering them.
 
 TIP: Read more about XP https://developer.enonic.com/docs/xp/stable/cms/macros[Macros^].
 
+=== General component
+
 You will see a warning in the middle of the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
 
 image::./lea-no-macro.png[width=1226]
 
-That is because to render macros, you need to create your own implementation that knows how to render specific macro!
+That is because to render macros, you need to create your own implementation that knows how to render a specific macro!
 
 Let's create a `Macro.tsx` file:
 
@@ -149,7 +127,7 @@ import {Macro} from './Macro';
 />
 ----
 
-=== FactBox component
+=== Factbox component
 
 But we are not done yet.
 We need to create an actual implementation of the `FactBox` macro that is used by our `Macro` component.
@@ -164,7 +142,7 @@ include::{sourcedir}src/main/resources/static/components/macros/FactBox.tsx[]
 
 NOTE: Remember that `guillotineUrl` and `personId` are available in macros because we added them to `RichText` component previously.
 
-== Styling
+=== Styling
 
 To style the macro we are using https://www.reacttutorial.com/css-modules-react[css modules^] again.
 
@@ -190,6 +168,30 @@ Congratulations!
 If you did everything correctly, you should see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
 
 image::./lea-with-macro.png[width=1222]
+
+== Custom params
+
+You can pass additional params to the `RichText` component by supplying a generic interface declaring them, in this case it is called `RestProps`:
+
+[source,TypeScript]
+----
+<RichText<RestProps>
+  ...
+  guillotineUrl={guillotineUrl}
+  personId={personId}
+  ...
+/>
+----
+
+And it declares additional params `guillotineUrl` and `personId`:
+
+.src/components/index.d.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/index.d.ts[]
+----
+
+These params will be passed to the `Link` and `Macro` components as well.
 
 == Next step
 

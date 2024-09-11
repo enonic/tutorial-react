@@ -1,7 +1,7 @@
 = Set up Enonic XP
 :sourcedir: ../
 
-== Create react project
+== Create React project
 
 Feel free to use your favourite tool to create a React project, but for this tutorial we will use the following command
 to set up a project with TypeScript support:
@@ -35,7 +35,7 @@ npm start
 
 This will start the app and open it in your default browser.
 
-== Update default app
+== Update the app
 
 Although beautiful, the default app doesn't do much.
 Let's change content of the auto-generated `App.tsx` file to the following:
