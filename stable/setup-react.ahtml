@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Setup</title>
+<title>Set up Enonic XP</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,56 +437,138 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Setup</h1>
+<h1>Set up Enonic XP</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#sample_project">Sample project</a></li>
-<li><a href="#peer_apps">Peer apps</a></li>
-<li><a href="#navigation">Navigation</a></li>
+<li><a href="#create_react_project">Create react project</a></li>
+<li><a href="#install_dependencies">Install dependencies</a></li>
+<li><a href="#update_default_app">Update default app</a></li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="sample_project"><a class="link" href="#sample_project">Sample project</a></h2>
+<h2 id="create_react_project"><a class="link" href="#create_react_project">Create react project</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial is based on the <code>starter-tsup</code> project template.</p>
-</div>
-<div class="paragraph">
-<p>To create a project for the tutorial, run the following command:</p>
+<p>Feel free to use your favourite tool to create react project, but for this tutorial we will use the following command to set up a project with typescript support:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic project create com.example.tutorial.react -r starter-ts -d react-tutorial</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npx create-react-app react-demo --template typescript</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+you can read more about the <code>create-react-app</code> tool at <a href="https://create-react-app.dev/docs/getting-started">their website</a>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>This will create an app and place it in a folder called <code>react-tutorial</code>.</p>
+<p>This will create react app and place it in <code>react-demo</code> folder.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="peer_apps"><a class="link" href="#peer_apps">Peer apps</a></h2>
+<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to fetch data from the <code>Enonic intro</code> app via <code>Guillotine</code>, we need to have both the <code>Enonic intro</code> app and the <code>Guillotine</code> app installed in our Enonic XP instance.</p>
+<p>Now, let&#8217;s add enonic libs, react-router-dom and sass to the project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-demo
+
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With that done, you&#8217;re ready to start the app:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will start the app and open it in your default browser.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<h2 id="update_default_app"><a class="link" href="#update_default_app">Update default app</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will learn how to <a href="query.ahtml">Query</a> for data.</p>
+<p>Although beautiful, the default app doesn&#8217;t do much.
+Let&#8217;s change content of the auto-generated <code>App.tsx</code> file to the following:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
+
+import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  )
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice we renamed the <code>App.css</code> file to <code>App.sass</code>.
+Here is the content of the <code>App.sass</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/App.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-sass" data-lang="sass">body
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 20px
+  margin: 0
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, if you reload <a href="http://localhost:3000/">http://localhost:3000</a>, you should see the text <code>URL doesn&#8217;t exist!</code> rendered on the page and that means you are ready for the next chapter!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the next chapter we&#8217;ll create our first component&#8201;&#8212;&#8201;<a href="personlist.ahtml">person list</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 10:55:29 UTC
+Last updated 2024-09-11 11:13:05 UTC
 </div>
 </div>
 </body>
