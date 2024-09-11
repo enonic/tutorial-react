@@ -1,34 +1,78 @@
 = PersonList Component
 :sourcedir: ../
+:imagesdir: media/
 
-When the PersonList component is first rendered, it has no `data`, so it simply returns `null`.
+== Query
 
-It has a useEffect hook that will asyncronously run a fetch using the imported PERSON_LIST_QUERY.
+First, we need to create a `src/queries/personList.ts` file with query that our component will use to fetch data:
 
-Once the fetch returns, it will update the `data` state, so there is something to render.
+.src/queries/personList.ts
+[source,graphql]
+----
+include::{sourcedir}src/main/resources/static/queries/personList.ts[]
+----
 
-Since the state has changed it will now be re-rendered based on the new state.
+== Component
 
-This time it will return an unordered list with one list-item per person in the data.
+To define a component create a `PersonList.tsx` file in the `components` directory:
 
-The list-item consists of a single Link component which contains an image and the displayName of the person.
-
-Notice that the Link component is imported from `react-router-dom` and that it's `to` prop follows the pattern described in the routing chapter.
-
-Since the personList.sass file is imported, the styling becomes available in the App.css which is already loaded.
-
-The final result in the browser is a page with a grid of 9 images (3 rows with 3 images on each row).
-
-The displayName is initally hidden, but becomes visible when the link is hovered.
-
-In addition the images are grayscaled, but becomes colorful when hovered.
-
-.src/main/resources/components/PersonList.tsx
-[source, TypeScript]
+.src/components/PersonList.tsx
+[source,TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
 ----
 
-== Navigation
+All the common constants are extracted to a separate `constants.ts` file to be reused in other components:
 
-In the next chapter you will create a <<person#,Person>> component.
+.src/components/constants.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/constants.ts[]
+----
+
+== Styles
+
+To style the component we also need a complementary sass file:
+
+.src/styles/personList.sass
+[source,Sass]
+----
+include::{sourcedir}src/main/resources/static/styles/personList.sass[]
+----
+
+== Routing
+
+Finally, we need to update the App.tsx file to include the `PersonList` component and display it on the root path `/`:
+
+.src/App.tsx
+[source,TypeScript]
+----
+import './App.sass';
+
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+
+import {PersonList} from './components/PersonList';
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<PersonList />}/>
+        <Route path='*' element={<p>URL doesn't exist!</p>}/>
+      </Routes>
+    </Router>
+  );
+}
+----
+
+== Result
+
+Now you should see a grid of 9 images at http://localhost:3000[http://localhost:3000].
+
+image::./person-list.png[width=1200]
+
+Clicking any of the images will take you to the person's page which we will implement in the next chapter.
+
+== Next step
+
+Let's create a single <<person#,Person component>> now.

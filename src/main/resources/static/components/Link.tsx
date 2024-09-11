@@ -1,7 +1,4 @@
-import type {
-  LinkComponent,
-  // LinkDataMedia,
-} from '@enonic/react-components';
+import type {LinkComponent,} from '@enonic/react-components';
 
 
 import React from 'react';
@@ -9,33 +6,36 @@ import React from 'react';
 
 
 export const Link: LinkComponent = ({
-  children,
-  content,
-  media,
-  href,
-  target,
-  title,
-  uri,
-}) => {
-  // const {
-  //   content: mediaContent,
-  //   intent,
-  // } = media || {} as LinkDataMedia;
+                                        children,
+                                        content,
+                                        media,
+                                        href,
+                                        target,
+                                        title,
+                                        uri,
+                                    }) => {
+    // const {
+    //   content: mediaContent,
+    //   intent,
+    // } = media || {} as LinkDataMedia;
 
-  // const {
-  //   _id,
-  //   _name,
-  //   _path,
-  //   imageUrl,
-  //   mediaUrl,
-  //   type,
-  // } = mediaContent || content;
+    // const {
+    //   _id,
+    //   _name,
+    //   _path,
+    //   imageUrl,
+    //   mediaUrl,
+    //   type,
+    // } = mediaContent || content;
 
-  // const hrefObj = parse(href);
-  // console.debug('hrefObj', hrefObj);
+    let appHref = '';
+    if (content && content.type?.endsWith(':person')) {
+        appHref = `/p/${content?._name}/${content?._id}`;
+    } else if (media?.content) {
+        appHref = href;
+    } else {
+        return <>{children}</>
+    }
 
-  // const uriObj = parse(uri);
-  // console.debug('uriObj', uriObj);
-
-  return <a href={href} target={target} title={title}>{children}</a>;
+    return <a href={appHref} target={target} title={title}>{children}</a>;
 }
