@@ -659,55 +659,69 @@ export default query;</code></pre>
                     photos {
                         ... on media_Image {
                             imageUrl(scale: "width(500)", type: absolute)
+                            attachments {
+                                name
+                            }
                         }
                     }
                     bio(processHtml: { type: absolute }) {
-                        images {
-                            image {
-                                _id
-                                _path
-                                type
-                            }
-                            ref
-                            style {
-                                name
-                                aspectRatio
-                                filter
-                            }
-                        }
+                        processedHtml
                         links {
-                            content {
-                                _id
-                                _name
-                                _path
-                                type
-                            }
+                            ref
                             media {
                                 content {
                                     _id
-                                    _name
-                                    _path
-                                    type
-                                    ... on media_Image {
-                                        mediaUrl
-                                    }
                                 }
-                                intent
                             }
+                            content {
+                                _id
+                                _name
+                                type
+                            }
+                        }
+                        images {
                             ref
-                            uri
+                            image {
+                                _id
+                            }
                         }
                         macros {
                             ref
                             name
                             descriptor
                             config {
-                                filmography {
-                                    heading
+                                factbox {
+                                    header
+                                    body(processHtml: { type: absolute }) {
+                                        processedHtml
+                                        links {
+                                            ref
+                                            media {
+                                                content {
+                                                    _id
+                                                }
+                                            }
+                                            content {
+                                                _id
+                                                _name
+                                                type
+                                            }
+                                        }
+                                        images {
+                                            ref
+                                            image {
+                                                _id
+                                            }
+                                        }
+                                        macros {
+                                            ref
+                                            name
+                                            descriptor
+                                        }
+                                    }
                                 }
                             }
                         }
-                        processedHtml
                     }
                 }
             }
@@ -888,7 +902,7 @@ export default query;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-09 14:58:02 UTC
+Last updated 2024-09-11 10:55:43 UTC
 </div>
 </div>
 </body>

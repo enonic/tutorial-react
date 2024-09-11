@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#query">Query</a></li>
 <li><a href="#component">Component</a></li>
+<li><a href="#styling">Styling</a></li>
 <li><a href="#routing">Routing</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
@@ -469,55 +470,69 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                     photos {
                         ... on media_Image {
                             imageUrl(scale: "width(500)", type: absolute)
+                            attachments {
+                                name
+                            }
                         }
                     }
                     bio(processHtml: { type: absolute }) {
-                        images {
-                            image {
-                                _id
-                                _path
-                                type
-                            }
-                            ref
-                            style {
-                                name
-                                aspectRatio
-                                filter
-                            }
-                        }
+                        processedHtml
                         links {
-                            content {
-                                _id
-                                _name
-                                _path
-                                type
-                            }
+                            ref
                             media {
                                 content {
                                     _id
-                                    _name
-                                    _path
-                                    type
-                                    ... on media_Image {
-                                        mediaUrl
-                                    }
                                 }
-                                intent
                             }
+                            content {
+                                _id
+                                _name
+                                type
+                            }
+                        }
+                        images {
                             ref
-                            uri
+                            image {
+                                _id
+                            }
                         }
                         macros {
                             ref
                             name
                             descriptor
                             config {
-                                filmography {
-                                    heading
+                                factbox {
+                                    header
+                                    body(processHtml: { type: absolute }) {
+                                        processedHtml
+                                        links {
+                                            ref
+                                            media {
+                                                content {
+                                                    _id
+                                                }
+                                            }
+                                            content {
+                                                _id
+                                                _name
+                                                type
+                                            }
+                                        }
+                                        images {
+                                            ref
+                                            image {
+                                                _id
+                                            }
+                                        }
+                                        macros {
+                                            ref
+                                            name
+                                            descriptor
+                                        }
+                                    }
                                 }
                             }
                         }
-                        processedHtml
                     }
                 }
             }
@@ -542,17 +557,12 @@ export default query;</code></pre>
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import type {RestProps} from '.';
-import type {Element} from 'html-react-parser';
+import React, {useEffect, useState,} from 'react';
+import {Link as RouterLink, useParams,} from 'react-router-dom';
 
-import {forceArray} from '@enonic/js-utils/array/forceArray';
-import {ElementType} from 'domelementtype';
-import React, {useEffect, useState} from 'react';
-import {Link as RouterLink, useParams} from 'react-router-dom';
-
-// import {Image} from './Image';
-// import {Link} from './Link';
-// import {Macro} from './Macro';
 import PERSON_QUERY from '../queries/person';
+
+import styles from './Person.module.css';
 
 
 export function Person() {
@@ -602,39 +612,45 @@ export function Person() {
     const {
         data: {
             bio,
-            dateofbirth,
             photos
         },
         displayName
     } = data;
-    const imageSrc = photos ? forceArray(photos)[0].imageUrl : undefined;
 
     return (
-        &lt;section&gt;
-            &lt;h2&gt;{displayName}&lt;/h2&gt;
-            &lt;img src={imageSrc} alt={displayName}/&gt;
-            &lt;p&gt;{dateofbirth}&lt;/p&gt;
-            &lt;RichText&lt;RestProps&gt;
-                replacer={(el: Element, data: RichTextData) =&gt; {
-                    if (
-                        el.name === 'p'
-                        &amp;&amp; el.children[0].type === ElementType.Text
-                        &amp;&amp; el.children[0].data === 'Some text'
-                    ) {
-                        return &lt;p&gt;Replaced text&lt;/p&gt;;
+        &lt;&gt;
+            &lt;div className={styles.person}&gt;
+                &lt;h2&gt;{displayName}&lt;/h2&gt;
+                &lt;RichText&lt;RestProps&gt;
+                    className={styles.bio}
+                    data={bio}
+                    guillotineUrl={guillotineUrl}
+                    personId={personId}
+                    tag='article'
+                /&gt;
+                {
+                    photos.length &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
+                }
+                &lt;div className={styles.photos}&gt;
+                    {
+                        photos.map((photo: any, i: number) =&gt; (
+                            &lt;img key={i}
+                                 src={photo.imageUrl}
+                                 title={getTitle(photo, displayName)}
+                                 alt={getTitle(photo, displayName)}
+                                 width="500"
+                            /&gt;
+                        ))
                     }
-                }}
-                data={bio}
-                // Image={Image}
-                // Link={Link}
-                // Macro={Macro}
-                guillotineUrl={guillotineUrl}
-                personId={personId}
-                tag='article'
-            /&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
             &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
-        &lt;/section&gt;
+        &lt;/&gt;
     );
+}
+
+function getTitle(photo: any, displayName: string) {
+    return (photo.attachments || [])[0].name || displayName;
 }</code></pre>
 </div>
 </div>
@@ -650,6 +666,73 @@ More about it in the <a href="rich-text.ahtml">next chapter</a>.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Lastly, we need to create <code>RestProps</code> interface in the <code>src/components/index.d.ts</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/index.d.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export declare interface RestProps {
+  guillotineUrl: string
+  personId: string
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll cover what it does in detail in the <a href="rich-text.ahtml">next chapter</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We are going to use To style the macro we are using <a href="https://www.reacttutorial.com/css-modules-react">css modules</a> this time:</p>
+</div>
+<div class="paragraph">
+<p>Create a <code>Person.module.css</code> file with the following content:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.module.css</div>
+<div class="content">
+<pre class="highlight"><code class="language-css" data-lang="css">.person,
+.person .bio {
+    font-family: sans-serif;
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+}
+
+.bio {
+    line-height: 24px;
+}
+
+.bio figcaption {
+    font-size: 12px;
+}
+
+.photos {
+    padding: 0 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 50px;
+    gap: 50px;
+}
+
+.photos img {
+    width: 100%;
+    height: auto; /* Ensures images scale properly */
+}
+
+@media screen and (max-width: 720px) {
+    .bio figure {
+        width: auto !important;
+    }
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -684,7 +767,7 @@ export default function App() {
 </div>
 <div class="paragraph">
 <p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000">http://localhost:3000</a> and click any of the persons.
-Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68">Brad Pitt</a>.</p>
+Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Lea Seydoux</a>.</p>
 </div>
 </div>
 </div>
@@ -699,7 +782,7 @@ Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-09 14:58:02 UTC
+Last updated 2024-09-11 10:55:43 UTC
 </div>
 </div>
 </body>

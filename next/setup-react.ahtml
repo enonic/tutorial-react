@@ -543,18 +543,13 @@ Here is the content of the <code>App.sass</code> file:</p>
 <div class="title">src/App.sass</div>
 <div class="content">
 <pre class="highlight"><code class="language-sass" data-lang="sass">body
-  text-align: center
   background-color: #fff
   color: #595959 // 7:1 AAA #595959 on #fff
-  padding: 0 0
+  padding: 20px
   margin: 0
   font-family: roboto, arial, serif
   width: 100%
-  box-sizing: border-box
-
-#react-root
-  margin: 0 auto
-  width: 50%</code></pre>
+  box-sizing: border-box</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -573,7 +568,7 @@ Here is the content of the <code>App.sass</code> file:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-09 14:58:02 UTC
+Last updated 2024-09-11 10:55:43 UTC
 </div>
 </div>
 </body>
