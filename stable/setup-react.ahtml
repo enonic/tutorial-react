@@ -441,16 +441,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#create_react_project">Create react project</a></li>
+<li><a href="#create_react_project">Create React project</a></li>
 <li><a href="#install_dependencies">Install dependencies</a></li>
-<li><a href="#update_default_app">Update default app</a></li>
+<li><a href="#update_the_app">Update the app</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="create_react_project"><a class="link" href="#create_react_project">Create react project</a></h2>
+<h2 id="create_react_project"><a class="link" href="#create_react_project">Create React project</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Feel free to use your favourite tool to create a React project, but for this tutorial we will use the following command
@@ -505,7 +505,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 </div>
 </div>
 <div class="sect1">
-<h2 id="update_default_app"><a class="link" href="#update_default_app">Update default app</a></h2>
+<h2 id="update_the_app"><a class="link" href="#update_the_app">Update the app</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Although beautiful, the default app doesn&#8217;t do much.
@@ -569,7 +569,7 @@ Here is the content of the <code>App.sass</code> file:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 11:42:54 UTC
+Last updated 2024-09-11 11:55:05 UTC
 </div>
 </div>
 </body>

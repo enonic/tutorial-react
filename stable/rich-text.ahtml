@@ -441,19 +441,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#additional_params">Additional params</a></li>
-<li><a href="#customizing_links">Customizing links</a></li>
-<li><a href="#customizing_images">Customizing images</a></li>
-<li><a href="#implementing_macros">Implementing macros</a>
+<li><a href="#links">Links</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#macros">Macros</a>
 <ul class="sectlevel2">
-<li><a href="#factbox_component">FactBox component</a></li>
-</ul>
-</li>
-<li><a href="#styling">Styling</a>
-<ul class="sectlevel2">
+<li><a href="#general_component">General component</a></li>
+<li><a href="#factbox_component">Factbox component</a></li>
+<li><a href="#styling">Styling</a></li>
 <li><a href="#graphql_query">GraphQL query</a></li>
 </ul>
 </li>
+<li><a href="#custom_params">Custom params</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -474,40 +472,7 @@ which is why you can create your own <code>Image</code> and <code>Link</code> co
 </div>
 </div>
 <div class="sect1">
-<h2 id="additional_params"><a class="link" href="#additional_params">Additional params</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can pass additional params to the <code>RichText</code> component by supplying a generic interface declaring them, in this case it is called <code>RestProps</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
-  ...
-  guillotineUrl={guillotineUrl}
-  personId={personId}
-  ...
-/&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And it declares additional params <code>guillotineUrl</code> and <code>personId</code>:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/index.d.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export declare interface RestProps {
-  guillotineUrl: string
-  personId: string
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>These params will be passed to the <code>Link</code> and <code>Macro</code> components as well.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="customizing_links"><a class="link" href="#customizing_links">Customizing links</a></h2>
+<h2 id="links"><a class="link" href="#links">Links</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>Link</code> component is used by <code>RichText</code> to correctly resolve and render links inside an HTML content.</p>
@@ -620,7 +585,7 @@ export const Link: LinkComponent = ({
 </div>
 </div>
 <div class="sect1">
-<h2 id="customizing_images"><a class="link" href="#customizing_images">Customizing images</a></h2>
+<h2 id="images"><a class="link" href="#images">Images</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you want to have more control over image rendering, you can provide <code>RichText</code> with your own custom <code>Image</code> component:</p>
@@ -689,7 +654,7 @@ export const Image: ImageComponent = ({
 </div>
 </div>
 <div class="sect1">
-<h2 id="implementing_macros"><a class="link" href="#implementing_macros">Implementing macros</a></h2>
+<h2 id="macros"><a class="link" href="#macros">Macros</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Unlike <code>Link</code> and <code>Image</code>, <code>RichText</code> doesn&#8217;t know how to render <code>Macro</code> and prints warning when encountering them.</p>
@@ -706,6 +671,8 @@ Read more about XP <a href="https://developer.enonic.com/docs/xp/stable/cms/macr
 </tr>
 </table>
 </div>
+<div class="sect2">
+<h3 id="general_component"><a class="link" href="#general_component">General component</a></h3>
 <div class="paragraph">
 <p>You will see a warning in the middle of the biography on the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> page:</p>
 </div>
@@ -715,7 +682,7 @@ Read more about XP <a href="https://developer.enonic.com/docs/xp/stable/cms/macr
 </div>
 </div>
 <div class="paragraph">
-<p>That is because to render macros, you need to create your own implementation that knows how to render specific macro!</p>
+<p>That is because to render macros, you need to create your own implementation that knows how to render a specific macro!</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s create a <code>Macro.tsx</code> file:</p>
@@ -767,8 +734,9 @@ export const Macro: MacroComponent&lt;RestProps&gt; = ({
 /&gt;</code></pre>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="factbox_component"><a class="link" href="#factbox_component">FactBox component</a></h3>
+<h3 id="factbox_component"><a class="link" href="#factbox_component">Factbox component</a></h3>
 <div class="paragraph">
 <p>But we are not done yet.
 We need to create an actual implementation of the <code>FactBox</code> macro that is used by our <code>Macro</code> component.</p>
@@ -815,11 +783,8 @@ Remember that <code>guillotineUrl</code> and <code>personId</code> are available
 </table>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="styling"><a class="link" href="#styling">Styling</a></h3>
 <div class="paragraph">
 <p>To style the macro we are using <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> again.</p>
 </div>
@@ -904,6 +869,7 @@ Remember that <code>guillotineUrl</code> and <code>personId</code> are available
 }</code></pre>
 </div>
 </div>
+</div>
 <div class="sect2">
 <h3 id="graphql_query"><a class="link" href="#graphql_query">GraphQL query</a></h3>
 <div class="paragraph">
@@ -968,6 +934,39 @@ If you did everything correctly, you should see the <code>FactBox</code> macro r
 </div>
 </div>
 <div class="sect1">
+<h2 id="custom_params"><a class="link" href="#custom_params">Custom params</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can pass additional params to the <code>RichText</code> component by supplying a generic interface declaring them, in this case it is called <code>RestProps</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
+  ...
+  guillotineUrl={guillotineUrl}
+  personId={personId}
+  ...
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And it declares additional params <code>guillotineUrl</code> and <code>personId</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/index.d.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export declare interface RestProps {
+  guillotineUrl: string
+  personId: string
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These params will be passed to the <code>Link</code> and <code>Macro</code> components as well.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -978,7 +977,7 @@ If you did everything correctly, you should see the <code>FactBox</code> macro r
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 11:42:54 UTC
+Last updated 2024-09-11 11:55:05 UTC
 </div>
 </div>
 </body>
