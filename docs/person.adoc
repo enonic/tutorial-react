@@ -21,7 +21,7 @@ Next, let's define Person component in the `src/components/Person.tsx` file:
 include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions.tsx[]
 ----
 
-NOTE: Notice we used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
+NOTE: Notice that we used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
 More about it in the <<rich-text#,next chapter>>.
 
 Lastly, we need to create `RestProps` interface in the `src/components/index.d.ts` file:
@@ -36,7 +36,7 @@ We'll cover what it does in detail in the <<rich-text#,next chapter>>.
 
 == Styling
 
-We are going to use To style the macro we are using https://www.reacttutorial.com/css-modules-react[css modules] this time:
+We are going to use https://www.reacttutorial.com/css-modules-react[css modules^] to style the macro:
 
 Create a `Person.module.css` file with the following content:
 
@@ -73,8 +73,8 @@ export default function App() {
 }
 ----
 
-To see the `Person` component in action, open http://localhost:3000[http://localhost:3000] and click any of the persons.
-Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux].
+To see the `Person` component in action, open http://localhost:3000[] and click any of the persons.
+Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^].
 
 == Next step
 

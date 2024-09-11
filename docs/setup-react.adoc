@@ -3,20 +3,21 @@
 
 == Create react project
 
-Feel free to use your favourite tool to create react project, but for this tutorial we will use the following command to set up a project with typescript support:
+Feel free to use your favourite tool to create a React project, but for this tutorial we will use the following command
+to set up a project with TypeScript support:
 
 [source,Terminal]
 ----
 npx create-react-app react-demo --template typescript
 ----
 
-TIP: you can read more about the `create-react-app` tool at https://create-react-app.dev/docs/getting-started[their website]
+TIP: You can read more about the `create-react-app` tool at https://create-react-app.dev/docs/getting-started[their website^]
 
-This will create react app and place it in `react-demo` folder.
+This will create a React app and place it in `react-demo` folder.
 
 == Install dependencies
 
-Now, let's add enonic libs, react-router-dom and sass to the project:
+Now, let's add Enonic libs, `react-router-dom` and `sass` to the project:
 
 [source,Terminal]
 ----
@@ -64,7 +65,7 @@ export default function App() {
 }
 ----
 
-Notice we renamed the `App.css` file to `App.sass`.
+Notice that we renamed the `App.css` file to `App.sass`.
 Here is the content of the `App.sass` file:
 
 .src/App.sass
@@ -73,8 +74,8 @@ Here is the content of the `App.sass` file:
 include::{sourcedir}src/main/resources/static/styles/body.sass[]
 ----
 
-Now, if you reload http://localhost:3000/[http://localhost:3000], you should see the text `URL doesn't exist!` rendered on the page and that means you are ready for the next chapter!
+Now, if you reload http://localhost:3000/[http://localhost:3000^], you should see the text `URL doesn't exist!` rendered on the page and that means you are ready for the next chapter!
 
 == Next step
 
-In the next chapter we'll create our first component -- <<personlist#,person list>>.
+In the next chapter we'll create our first component -- a <<personlist#,Person list>>.

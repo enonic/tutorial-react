@@ -26,4 +26,4 @@ NOTE: The `-t intro` flag tells the CLI to use the `intro` template which conven
 
 == Next step
 
-In the next chapter you will learn how to <<query#,Query>> for data.
+In the next chapter you will learn how to write data fetching <<queries#,queries>>.

@@ -1,13 +1,14 @@
-= Query
+= Queries
 :sourcedir: ../
 
-If you open `Intro project` in Content Studio you will see that it contains a number of content types and content.
+If you open the `Intro project` in Content Studio you will see that it contains a number of content items of various types.
 
-In this tutorial we are going to use the `Person` content items and corresponding `images` it provides.
+In this tutorial we are going to use the content items of type `Person`.
 
-== Query a list of persons
+== Person list query
 
-In order to test the query below you first have to open the `Query Playground` panel from the left-hand vertical toolbar and paste the query below into the query editor.
+In order to test the query below you first have to open the `Query Playground` panel from the left-hand vertical toolbar
+of Content Studio and paste the query below into the query editor.
 
 .src/queries/personList.ts
 [source, GraphQL]
@@ -15,7 +16,7 @@ In order to test the query below you first have to open the `Query Playground` p
 include::{sourcedir}src/main/resources/static/queries/personList.ts[]
 ----
 
-Hit play button and you should see a list of persons in the response:
+Hit the Play button, and you should see a list of persons in the response:
 
 [source, json]
 ----
@@ -146,7 +147,7 @@ Hit play button and you should see a list of persons in the response:
 }
 ----
 
-== Get data about a specific person
+== Person query
 
 Open the `Query Playground` panel and paste the query below:
 
@@ -156,7 +157,8 @@ Open the `Query Playground` panel and paste the query below:
 include::{sourcedir}src/main/resources/static/queries/person.ts[]
 ----
 
-But before you hit play, you need to set a query variable this time in the Query Playground Variables panel to specify which person you want to get data about:
+But before you hit Play, you need to set a query variable (this time in the Variables panel at the bottom of the Query
+Playground) to specify which person you want to query data for:
 
 [source,json]
 ----
@@ -165,7 +167,7 @@ But before you hit play, you need to set a query variable this time in the Query
 }
 ----
 
-Hit play and you should see the data about the specified person:
+Hit Play, and you should see data of the specified person:
 
 [source,json]
 ----
@@ -220,7 +222,7 @@ Hit play and you should see the data about the specified person:
 }
 ----
 
-== Get data about which movies references a person
+== Person references query
 
 Similarly to the previous query, set a query variable in the Query Playground Variables panel:
 
@@ -239,7 +241,7 @@ And paste the query below into the query editor:
 include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
 ----
 
-After hitting play you should see the array of movies that reference the specified person:
+After hitting Play you should see an array of movies that reference the specified person:
 
 [source,json]
 ----
