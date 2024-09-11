@@ -504,14 +504,14 @@ The <code>-t intro</code> flag tells the CLI to use the <code>intro</code> templ
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will learn how to <a href="query.ahtml">Query</a> for data.</p>
+<p>In the next chapter you will learn how to write data fetching <a href="queries.ahtml">queries</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 11:13:05 UTC
+Last updated 2024-09-11 11:42:54 UTC
 </div>
 </div>
 </body>

@@ -661,7 +661,7 @@ function getTitle(photo: any, displayName: string) {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Notice we used <code>RichText</code> component from <code>@enonic/react-components</code> npm module to render the HTML area <code>bio</code> field.
+Notice that we used <code>RichText</code> component from <code>@enonic/react-components</code> npm module to render the HTML area <code>bio</code> field.
 More about it in the <a href="rich-text.ahtml">next chapter</a>.
 </td>
 </tr>
@@ -688,7 +688,7 @@ More about it in the <a href="rich-text.ahtml">next chapter</a>.
 <h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We are going to use To style the macro we are using <a href="https://www.reacttutorial.com/css-modules-react">css modules</a> this time:</p>
+<p>We are going to use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style the macro:</p>
 </div>
 <div class="paragraph">
 <p>Create a <code>Person.module.css</code> file with the following content:</p>
@@ -766,8 +766,8 @@ export default function App() {
 </div>
 </div>
 <div class="paragraph">
-<p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000">http://localhost:3000</a> and click any of the persons.
-Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Lea Seydoux</a>.</p>
+<p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000" class="bare">http://localhost:3000</a> and click any of the persons.
+Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a>.</p>
 </div>
 </div>
 </div>
@@ -782,7 +782,7 @@ Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 11:13:05 UTC
+Last updated 2024-09-11 11:42:54 UTC
 </div>
 </div>
 </body>

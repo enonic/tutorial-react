@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Query</title>
+<title>Queries</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Query</h1>
+<h1>Queries</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#query_a_list_of_persons">Query a list of persons</a></li>
-<li><a href="#get_data_about_a_specific_person">Get data about a specific person</a></li>
-<li><a href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></li>
+<li><a href="#person_list_query">Person list query</a></li>
+<li><a href="#person_query">Person query</a></li>
+<li><a href="#person_references_query">Person references query</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -452,18 +452,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you open <code>Intro project</code> in Content Studio you will see that it contains a number of content types and content.</p>
+<p>If you open the <code>Intro project</code> in Content Studio you will see that it contains a number of content items of various types.</p>
 </div>
 <div class="paragraph">
-<p>In this tutorial we are going to use the <code>Person</code> content items and corresponding <code>images</code> it provides.</p>
+<p>In this tutorial we are going to use the content items of type <code>Person</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="query_a_list_of_persons"><a class="link" href="#query_a_list_of_persons">Query a list of persons</a></h2>
+<h2 id="person_list_query"><a class="link" href="#person_list_query">Person list query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to test the query below you first have to open the <code>Query Playground</code> panel from the left-hand vertical toolbar and paste the query below into the query editor.</p>
+<p>In order to test the query below you first have to open the <code>Query Playground</code> panel from the left-hand vertical toolbar
+of Content Studio and paste the query below into the query editor.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/queries/personList.ts</div>
@@ -506,7 +507,7 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Hit play button and you should see a list of persons in the response:</p>
+<p>Hit the Play button, and you should see a list of persons in the response:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -640,7 +641,7 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_a_specific_person"><a class="link" href="#get_data_about_a_specific_person">Get data about a specific person</a></h2>
+<h2 id="person_query"><a class="link" href="#person_query">Person query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Open the <code>Query Playground</code> panel and paste the query below:</p>
@@ -733,7 +734,8 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>But before you hit play, you need to set a query variable this time in the Query Playground Variables panel to specify which person you want to get data about:</p>
+<p>But before you hit Play, you need to set a query variable (this time in the Variables panel at the bottom of the Query
+Playground) to specify which person you want to query data for:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -743,7 +745,7 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Hit play and you should see the data about the specified person:</p>
+<p>Hit Play, and you should see data of the specified person:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -801,7 +803,7 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get_data_about_which_movies_references_a_person"><a class="link" href="#get_data_about_which_movies_references_a_person">Get data about which movies references a person</a></h2>
+<h2 id="person_references_query"><a class="link" href="#person_references_query">Person references query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Similarly to the previous query, set a query variable in the Query Playground Variables panel:</p>
@@ -863,7 +865,7 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After hitting play you should see the array of movies that reference the specified person:</p>
+<p>After hitting Play you should see an array of movies that reference the specified person:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -902,7 +904,7 @@ export default query;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 11:13:05 UTC
+Last updated 2024-09-11 11:42:54 UTC
 </div>
 </div>
 </body>

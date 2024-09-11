@@ -453,7 +453,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="create_react_project"><a class="link" href="#create_react_project">Create react project</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Feel free to use your favourite tool to create react project, but for this tutorial we will use the following command to set up a project with typescript support:</p>
+<p>Feel free to use your favourite tool to create a React project, but for this tutorial we will use the following command
+to set up a project with TypeScript support:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -467,13 +468,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-you can read more about the <code>create-react-app</code> tool at <a href="https://create-react-app.dev/docs/getting-started">their website</a>
+You can read more about the <code>create-react-app</code> tool at <a href="https://create-react-app.dev/docs/getting-started" target="_blank" rel="noopener">their website</a>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>This will create react app and place it in <code>react-demo</code> folder.</p>
+<p>This will create a React app and place it in <code>react-demo</code> folder.</p>
 </div>
 </div>
 </div>
@@ -481,7 +482,7 @@ you can read more about the <code>create-react-app</code> tool at <a href="https
 <h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, let&#8217;s add enonic libs, react-router-dom and sass to the project:</p>
+<p>Now, let&#8217;s add Enonic libs, <code>react-router-dom</code> and <code>sass</code> to the project:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -536,7 +537,7 @@ export default function App() {
 </div>
 </div>
 <div class="paragraph">
-<p>Notice we renamed the <code>App.css</code> file to <code>App.sass</code>.
+<p>Notice that we renamed the <code>App.css</code> file to <code>App.sass</code>.
 Here is the content of the <code>App.sass</code> file:</p>
 </div>
 <div class="listingblock">
@@ -553,7 +554,7 @@ Here is the content of the <code>App.sass</code> file:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Now, if you reload <a href="http://localhost:3000/">http://localhost:3000</a>, you should see the text <code>URL doesn&#8217;t exist!</code> rendered on the page and that means you are ready for the next chapter!</p>
+<p>Now, if you reload <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000</a>, you should see the text <code>URL doesn&#8217;t exist!</code> rendered on the page and that means you are ready for the next chapter!</p>
 </div>
 </div>
 </div>
@@ -561,14 +562,14 @@ Here is the content of the <code>App.sass</code> file:</p>
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter we&#8217;ll create our first component&#8201;&#8212;&#8201;<a href="personlist.ahtml">person list</a>.</p>
+<p>In the next chapter we&#8217;ll create our first component&#8201;&#8212;&#8201;a <a href="personlist.ahtml">Person list</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-11 11:13:05 UTC
+Last updated 2024-09-11 11:42:54 UTC
 </div>
 </div>
 </body>
