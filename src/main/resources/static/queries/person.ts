@@ -9,55 +9,69 @@ const query = `query PersonQuery($personId: ID!) {
                     photos {
                         ... on media_Image {
                             imageUrl(scale: "width(500)", type: absolute)
+                            attachments {
+                                name
+                            }
                         }
                     }
                     bio(processHtml: { type: absolute }) {
-                        images {
-                            image {
-                                _id
-                                _path
-                                type
-                            }
-                            ref
-                            style {
-                                name
-                                aspectRatio
-                                filter
-                            }
-                        }
+                        processedHtml
                         links {
-                            content {
-                                _id
-                                _name
-                                _path
-                                type
-                            }
+                            ref
                             media {
                                 content {
                                     _id
-                                    _name
-                                    _path
-                                    type
-                                    ... on media_Image {
-                                        mediaUrl
-                                    }
                                 }
-                                intent
                             }
+                            content {
+                                _id
+                                _name
+                                type
+                            }
+                        }
+                        images {
                             ref
-                            uri
+                            image {
+                                _id
+                            }
                         }
                         macros {
                             ref
                             name
                             descriptor
                             config {
-                                filmography {
-                                    heading
+                                factbox {
+                                    header
+                                    body(processHtml: { type: absolute }) {
+                                        processedHtml
+                                        links {
+                                            ref
+                                            media {
+                                                content {
+                                                    _id
+                                                }
+                                            }
+                                            content {
+                                                _id
+                                                _name
+                                                type
+                                            }
+                                        }
+                                        images {
+                                            ref
+                                            image {
+                                                _id
+                                            }
+                                        }
+                                        macros {
+                                            ref
+                                            name
+                                            descriptor
+                                        }
+                                    }
                                 }
                             }
                         }
-                        processedHtml
                     }
                 }
             }

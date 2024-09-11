@@ -18,11 +18,33 @@ Next, let's define Person component in the `src/components/Person.tsx` file:
 .src/components/Person.tsx
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/Person.tsx[]
+include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions.tsx[]
 ----
 
 NOTE: Notice we used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
 More about it in the <<rich-text#,next chapter>>.
+
+Lastly, we need to create `RestProps` interface in the `src/components/index.d.ts` file:
+
+.src/components/index.d.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/index.d.ts[]
+----
+
+We'll cover what it does in detail in the <<rich-text#,next chapter>>.
+
+== Styling
+
+We are going to use To style the macro we are using https://www.reacttutorial.com/css-modules-react[css modules] this time:
+
+Create a `Person.module.css` file with the following content:
+
+.src/components/Person.module.css
+[source,css]
+----
+include::{sourcedir}src/main/resources/static/components/person.module.css[]
+----
 
 == Routing
 
@@ -52,7 +74,7 @@ export default function App() {
 ----
 
 To see the `Person` component in action, open http://localhost:3000[http://localhost:3000] and click any of the persons.
-Alternatively, here's the direct link to http://localhost:3000/p/brad-pitt/3a7b833f-3c37-4d55-88ae-cea21c556c68[Brad Pitt].
+Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux].
 
 == Next step
 
