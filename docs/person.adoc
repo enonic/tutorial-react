@@ -43,7 +43,7 @@ Create a `Person.module.css` file with the following content:
 .src/components/Person.module.css
 [source,css]
 ----
-include::{sourcedir}src/main/resources/static/components/person.module.css[]
+include::{sourcedir}src/main/resources/static/components/Person.module.css[]
 ----
 
 == Routing

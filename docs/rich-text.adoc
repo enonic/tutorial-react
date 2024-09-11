@@ -172,7 +172,7 @@ Create a `FactBox.module.css` file with the following content:
 .src/components/macros/FactBox.module.css
 [source,css]
 ----
-include::{sourcedir}src/main/resources/static/components/macros/factbox.module.css[]
+include::{sourcedir}src/main/resources/static/components/macros/FactBox.module.css[]
 ----
 
 === GraphQL query
