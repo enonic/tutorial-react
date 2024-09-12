@@ -65,8 +65,7 @@ export default function App() {
 }
 ----
 
-Notice that we renamed the `App.css` file to `App.sass`.
-Here is the content of the `App.sass` file:
+Let's also rename the `App.css` file to `App.sass` and update its content to the following:
 
 .src/App.sass
 [source,sass]

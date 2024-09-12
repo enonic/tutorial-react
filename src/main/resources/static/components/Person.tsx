@@ -1,8 +1,8 @@
 import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import type {RestProps} from '.';
-import React, {useEffect, useState,} from 'react';
-import {Link as RouterLink, useParams,} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link as RouterLink, useParams} from 'react-router-dom';
 
 import {Image} from './Image';
 import {Link} from './Link';
@@ -93,8 +93,8 @@ export function Person() {
                         ))
                     }
                 </div>
+                <RouterLink to="/">Back to list</RouterLink>
             </div>
-            <RouterLink to='/'>Back to list</RouterLink>
         </>
     );
 }

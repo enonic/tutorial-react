@@ -1,5 +1,6 @@
 = Person Component
 :sourcedir: ../
+:imagesdir: media/
 
 == Query
 
@@ -36,9 +37,9 @@ We'll cover what it does in detail in the <<rich-text#,next chapter>>.
 
 == Styling
 
-We are going to use https://www.reacttutorial.com/css-modules-react[css modules^] to style the macro:
+We are going to use https://www.reacttutorial.com/css-modules-react[css modules^] to style this component.
 
-Create a `Person.module.css` file with the following content:
+To do that, create a `Person.module.css` file with the following content:
 
 .src/components/Person.module.css
 [source,css]
@@ -74,7 +75,9 @@ export default function App() {
 ----
 
 To see the `Person` component in action, open http://localhost:3000[] and click any of the persons.
-Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^].
+Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^]:
+
+image::./lea-no-macro.png[width=1200]
 
 == Next step
 

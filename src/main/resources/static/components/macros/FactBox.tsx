@@ -1,21 +1,18 @@
 import React from 'react'
 
 import styles from './FactBox.module.css';
-import {RichText} from '@enonic/react-components';
 import {RestProps} from '../index';
 
-interface FactBoxProps extends RestProps {
+declare type FactBoxProps = {
     config: Record<string, any>
-}
+    children: React.ReactNode
+} & RestProps;
 
-export const FactBox = ({config, guillotineUrl, personId}: FactBoxProps) => (<>
+export const FactBox = ({config, children, guillotineUrl, personId}: FactBoxProps) => (<>
     <ins className={styles.factbox}>
         <i className={styles.icon}/>
         <strong className={styles.header}>{config.header?.length ? config.header : 'Fact Box'}</strong>
-        <RichText<RestProps> className={styles.body}
-                             data={config.body}
-                             guillotineUrl={guillotineUrl}
-                             personId={personId}
-        />
+        <br/>
+        {children}
     </ins>
 </>)
