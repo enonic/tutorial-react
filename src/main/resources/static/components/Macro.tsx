@@ -7,13 +7,14 @@ import {FactBox} from './macros/FactBox';
 
 
 export const Macro: MacroComponent<RestProps> = ({
-                                                     config,
-                                                     descriptor,
-                                                     ...rest
-                                                 }) => {
+    config,
+    descriptor,
+    children,
+    ...rest
+}) => {
     if (descriptor === 'com.enonic.app.intro:factbox') {
         const props = {...rest, config};
-        return <FactBox {...props} />;
+        return <FactBox {...props}>{children}</FactBox>;
     }
     throw new Error(`Macro not found: ${descriptor}`);
 }

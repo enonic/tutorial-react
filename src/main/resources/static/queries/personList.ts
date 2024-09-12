@@ -1,7 +1,7 @@
 const query = `query PersonListQuery {
     guillotine {
         queryDsl(
-            first: 9
+            first: 50
             query: {
                 term: {
                     field: "type",
@@ -23,7 +23,7 @@ const query = `query PersonListQuery {
                 data {
                     photos {
                         ... on media_Image {
-                            imageUrl(type: absolute, scale: "width(500)")
+                            imageUrl(type: absolute, scale: "square(500)")
                         }
                     }
                 }

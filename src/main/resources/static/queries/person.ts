@@ -42,33 +42,6 @@ const query = `query PersonQuery($personId: ID!) {
                             config {
                                 factbox {
                                     header
-                                    body(processHtml: { type: absolute }) {
-                                        processedHtml
-                                        links {
-                                            ref
-                                            media {
-                                                content {
-                                                    _id
-                                                }
-                                            }
-                                            content {
-                                                _id
-                                                _name
-                                                type
-                                            }
-                                        }
-                                        images {
-                                            ref
-                                            image {
-                                                _id
-                                            }
-                                        }
-                                        macros {
-                                            ref
-                                            name
-                                            descriptor
-                                        }
-                                    }
                                 }
                             }
                         }

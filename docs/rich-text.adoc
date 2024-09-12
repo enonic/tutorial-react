@@ -95,7 +95,7 @@ TIP: Read more about XP https://developer.enonic.com/docs/xp/stable/cms/macros[M
 
 You will see a warning in the middle of the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
 
-image::./lea-no-macro.png[width=1226]
+image::./lea-no-macro.png[width=1200]
 
 That is because to render macros, you need to create your own implementation that knows how to render a specific macro!
 
@@ -167,7 +167,7 @@ include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
 Congratulations!
 If you did everything correctly, you should see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
 
-image::./lea-with-macro.png[width=1222]
+image::./lea-with-macro.png[width=1200]
 
 == Custom params
 
@@ -191,7 +191,7 @@ And it declares additional params `guillotineUrl` and `personId`:
 include::{sourcedir}src/main/resources/static/components/index.d.ts[]
 ----
 
-These params will be passed to the `Link` and `Macro` components as well.
+These params will be passed to the `Image`, `Link` and `Macro` components as well.
 
 == Next step
 
