@@ -30,7 +30,7 @@ All the common constants are extracted to a separate `constants.ts` file to be r
 include::{sourcedir}src/main/resources/static/components/constants.ts[]
 ----
 
-== Styles
+== Styling
 
 To style the component we also need a complementary sass file:
 
