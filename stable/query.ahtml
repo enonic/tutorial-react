@@ -472,7 +472,7 @@ of Content Studio and paste the query below into the query editor.</p>
 <pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonListQuery {
     guillotine {
         queryDsl(
-            first: 9
+            first: 50
             query: {
                 term: {
                     field: "type",
@@ -494,7 +494,7 @@ of Content Studio and paste the query below into the query editor.</p>
                 data {
                     photos {
                         ... on media_Image {
-                            imageUrl(type: absolute, scale: "width(500)")
+                            imageUrl(type: absolute, scale: "square(500)")
                         }
                     }
                 }
@@ -693,33 +693,6 @@ export default query;</code></pre>
                             config {
                                 factbox {
                                     header
-                                    body(processHtml: { type: absolute }) {
-                                        processedHtml
-                                        links {
-                                            ref
-                                            media {
-                                                content {
-                                                    _id
-                                                }
-                                            }
-                                            content {
-                                                _id
-                                                _name
-                                                type
-                                            }
-                                        }
-                                        images {
-                                            ref
-                                            image {
-                                                _id
-                                            }
-                                        }
-                                        macros {
-                                            ref
-                                            name
-                                            descriptor
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -904,7 +877,7 @@ export default query;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-12 07:27:02 UTC
+Last updated 2024-09-13 07:58:39 UTC
 </div>
 </div>
 </body>

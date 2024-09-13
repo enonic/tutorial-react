@@ -537,8 +537,7 @@ export default function App() {
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that we renamed the <code>App.css</code> file to <code>App.sass</code>.
-Here is the content of the <code>App.sass</code> file:</p>
+<p>Let&#8217;s also rename the <code>App.css</code> file to <code>App.sass</code> and update its content to the following:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/App.sass</div>
@@ -546,7 +545,7 @@ Here is the content of the <code>App.sass</code> file:</p>
 <pre class="highlight"><code class="language-sass" data-lang="sass">body
   background-color: #fff
   color: #595959 // 7:1 AAA #595959 on #fff
-  padding: 20px
+  padding: 0
   margin: 0
   font-family: roboto, arial, serif
   width: 100%
@@ -569,7 +568,7 @@ Here is the content of the <code>App.sass</code> file:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-12 07:27:02 UTC
+Last updated 2024-09-13 07:58:39 UTC
 </div>
 </div>
 </body>

@@ -503,33 +503,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                             config {
                                 factbox {
                                     header
-                                    body(processHtml: { type: absolute }) {
-                                        processedHtml
-                                        links {
-                                            ref
-                                            media {
-                                                content {
-                                                    _id
-                                                }
-                                            }
-                                            content {
-                                                _id
-                                                _name
-                                                type
-                                            }
-                                        }
-                                        images {
-                                            ref
-                                            image {
-                                                _id
-                                            }
-                                        }
-                                        macros {
-                                            ref
-                                            name
-                                            descriptor
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -688,10 +661,10 @@ More about it in the <a href="rich-text.ahtml">next chapter</a>.
 <h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We are going to use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style the macro:</p>
+<p>We are going to use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style this component.</p>
 </div>
 <div class="paragraph">
-<p>Create a <code>Person.module.css</code> file with the following content:</p>
+<p>To do that, create a <code>Person.module.css</code> file with the following content:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Person.module.css</div>
@@ -704,6 +677,7 @@ More about it in the <a href="rich-text.ahtml">next chapter</a>.
 .person {
     display: flex;
     flex-direction: column;
+    padding: 30px
 }
 
 .bio {
@@ -767,7 +741,12 @@ export default function App() {
 </div>
 <div class="paragraph">
 <p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000" class="bare">http://localhost:3000</a> and click any of the persons.
-Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a>.</p>
+Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/lea-no-macro.png" alt="lea no macro" width="1200">
+</div>
 </div>
 </div>
 </div>
@@ -782,7 +761,7 @@ Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-12 07:27:02 UTC
+Last updated 2024-09-13 07:58:39 UTC
 </div>
 </div>
 </body>

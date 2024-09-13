@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#query">Query</a></li>
 <li><a href="#component">Component</a></li>
-<li><a href="#styles">Styles</a></li>
+<li><a href="#styling">Styling</a></li>
 <li><a href="#routing">Routing</a></li>
 <li><a href="#result">Result</a></li>
 <li><a href="#next_step">Next step</a></li>
@@ -463,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonListQuery {
     guillotine {
         queryDsl(
-            first: 9
+            first: 50
             query: {
                 term: {
                     field: "type",
@@ -485,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                 data {
                     photos {
                         ... on media_Image {
-                            imageUrl(type: absolute, scale: "width(500)")
+                            imageUrl(type: absolute, scale: "square(500)")
                         }
                     }
                 }
@@ -595,7 +595,7 @@ export function PersonList() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="styles"><a class="link" href="#styles">Styles</a></h2>
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To style the component we also need a complementary sass file:</p>
@@ -608,14 +608,16 @@ $color: rgba(0, 0, 0, .5)
 
 ul.person-list
   list-style-type: none
-  padding: 15px
+  padding: 30px 30px 0
+  margin: 0
+  background-color: #444
 
   li
     display: inline-block
     margin-bottom: $gutter
     padding-right: $gutter
     vertical-align: middle
-    width: calc((100% / 3) - $gutter)
+    width: calc((100% / 3) - 20px)
     &amp;:nth-child(3n)
       padding-right: 0
 
@@ -690,11 +692,11 @@ export default function App() {
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/person-list.png" alt="person list" width="1200">
+<img src="media/person-list.png" alt="person list" width="1093">
 </div>
 </div>
 <div class="paragraph">
-<p>A left-click on any of the images will take you to the Person&#8217;s page which we will implement in the next chapter.</p>
+<p>A left-click on any of the images will take you to the Person&#8217;s page which we will implement in the <a href="person.ahtml">next chapter</a>.</p>
 </div>
 </div>
 </div>
@@ -709,7 +711,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-12 07:27:02 UTC
+Last updated 2024-09-13 07:58:39 UTC
 </div>
 </div>
 </body>
