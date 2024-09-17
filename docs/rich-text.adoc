@@ -46,7 +46,7 @@ import {Link} from './Link';
 
 // ...
 
-<RichText<RestProps>
+<RichText
   // ...
   Link={Link}
   // ...
@@ -120,7 +120,7 @@ import {Macro} from './Macro';
 
 // ..
 
-<RichText<RestProps>
+<RichText
   // ...
   Macro={Macro}
   // ...
@@ -171,24 +171,19 @@ image::./lea-with-macro.png[width=1200]
 
 == Custom params
 
-You can pass additional params to the `RichText` component by supplying a generic interface declaring them, in this case it is called `RestProps`:
+You can pass additional params to the `RichText` component by supplying a generic interface declaring them:
 
 [source,TypeScript]
 ----
 <RichText<RestProps>
   ...
-  guillotineUrl={guillotineUrl}
-  personId={personId}
+  customParam="paramValue"
   ...
 />
-----
 
-And it declares additional params `guillotineUrl` and `personId`:
-
-.src/components/index.d.ts
-[source,TypeScript]
-----
-include::{sourcedir}src/main/resources/static/components/index.d.ts[]
+interface RestProps {
+  cusomParam: string;
+}
 ----
 
 These params will be passed to the `Image`, `Link` and `Macro` components as well.

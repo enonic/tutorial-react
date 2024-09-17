@@ -1,6 +1,5 @@
 import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
-import type {RestProps} from '.';
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
 
@@ -18,8 +17,6 @@ export function Person() {
         personId = ''
     } = useParams();
 
-    const guillotineUrl = process.env.REACT_APP_GUILLOTINE_URL as string;
-
     const [data, setData] = useState<{
         _name: string
         data: {
@@ -33,7 +30,7 @@ export function Person() {
     }>();
 
     useEffect(() => {
-        fetch(guillotineUrl, {
+        fetch(process.env.REACT_APP_GUILLOTINE_URL as string, {
             body: JSON.stringify({
                 query: PERSON_QUERY,
                 variables: {
@@ -68,14 +65,12 @@ export function Person() {
         <>
             <div className={styles.person}>
                 <h2>{displayName}</h2>
-                <RichText<RestProps>
+                <RichText
                     className={styles.bio}
                     data={bio}
                     Image={Image}
                     Link={Link}
                     Macro={Macro}
-                    guillotineUrl={guillotineUrl}
-                    personId={personId}
                     tag='article'
                 />
                 {

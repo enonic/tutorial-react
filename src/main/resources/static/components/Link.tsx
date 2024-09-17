@@ -2,11 +2,10 @@ import type {LinkComponent} from '@enonic/react-components';
 
 
 import React from 'react';
-import type {RestProps} from './index';
 // import {parse} from 'uri-js';
 
 
-export const Link: LinkComponent<RestProps> = ({
+export const Link: LinkComponent = ({
     children,
     content,
     media,

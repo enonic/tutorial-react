@@ -1,8 +1,7 @@
 import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
-import type {RestProps} from '.';
-import React, {useEffect, useState,} from 'react';
-import {Link as RouterLink, useParams,} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link as RouterLink, useParams} from 'react-router-dom';
 
 import PERSON_QUERY from '../queries/person';
 
@@ -65,11 +64,9 @@ export function Person() {
         <>
             <div className={styles.person}>
                 <h2>{displayName}</h2>
-                <RichText<RestProps>
+                <RichText
                     className={styles.bio}
                     data={bio}
-                    guillotineUrl={guillotineUrl}
-                    personId={personId}
                     tag='article'
                 />
                 {
