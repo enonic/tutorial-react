@@ -26,6 +26,15 @@ cd react-demo
 npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils
 ----
 
+We also need to specify the URL of the Enonic XP instance we'll use for fetching data later.
+
+Create a `.env` file in the root of the project with the following line:
+
+..env
+[source,properties]
+----
+REACT_APP_GUILLOTINE_URL=http://localhost:8080/site/intro/master
+----
 With that done, you're ready to start the app:
 
 [source,Terminal]
