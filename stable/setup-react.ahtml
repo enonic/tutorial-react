@@ -492,6 +492,18 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 </div>
 </div>
 <div class="paragraph">
+<p>We also need to specify the URL of the Enonic XP instance we&#8217;ll use for fetching data later.</p>
+</div>
+<div class="paragraph">
+<p>Create a <code>.env</code> file in the root of the project with the following line:</p>
+</div>
+<div class="listingblock">
+<div class="title">.env</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">REACT_APP_GUILLOTINE_URL=http://localhost:8080/site/intro/master</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>With that done, you&#8217;re ready to start the app:</p>
 </div>
 <div class="listingblock">
@@ -568,7 +580,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-13 07:58:39 UTC
+Last updated 2024-09-17 08:19:38 UTC
 </div>
 </div>
 </body>
