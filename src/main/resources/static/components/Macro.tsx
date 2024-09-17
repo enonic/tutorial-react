@@ -1,12 +1,11 @@
 import type {MacroComponent} from '@enonic/react-components';
-import type {RestProps} from '.';
 
 
 import React from 'react';
 import {FactBox} from './macros/FactBox';
 
 
-export const Macro: MacroComponent<RestProps> = ({
+export const Macro: MacroComponent = ({
     config,
     descriptor,
     children,

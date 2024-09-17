@@ -25,16 +25,6 @@ include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions
 NOTE: Notice that we used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
 More about it in the <<rich-text#,next chapter>>.
 
-Lastly, we need to create `RestProps` interface in the `src/components/index.d.ts` file:
-
-.src/components/index.d.ts
-[source,TypeScript]
-----
-include::{sourcedir}src/main/resources/static/components/index.d.ts[]
-----
-
-We'll cover what it does in detail in the <<rich-text#,next chapter>>.
-
 == Styling
 
 We are going to use https://www.reacttutorial.com/css-modules-react[css modules^] to style this component.

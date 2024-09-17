@@ -1,11 +1,8 @@
 import type {ImageComponent} from '@enonic/react-components';
 
-
 import React from 'react';
-import type {RestProps} from './index';
 
-
-export const Image: ImageComponent<RestProps> = ({
+export const Image: ImageComponent = ({
     alt,
     image,
     imageStyle,
