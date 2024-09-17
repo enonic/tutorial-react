@@ -502,11 +502,10 @@ To make our app handle it we need to change the link URL to be like <code>/p/:na
 
 
 import React from 'react';
-import type {RestProps} from './index';
 // import {parse} from 'uri-js';
 
 
-export const Link: LinkComponent&lt;RestProps&gt; = ({
+export const Link: LinkComponent = ({
     children,
     content,
     media,
@@ -569,7 +568,7 @@ export const Link: LinkComponent&lt;RestProps&gt; = ({
 
 // ...
 
-&lt;RichText&lt;RestProps&gt;
+&lt;RichText
   // ...
   Link={Link}
   // ...
@@ -597,12 +596,9 @@ export const Link: LinkComponent&lt;RestProps&gt; = ({
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {ImageComponent} from '@enonic/react-components';
 
-
 import React from 'react';
-import type {RestProps} from './index';
 
-
-export const Image: ImageComponent&lt;RestProps&gt; = ({
+export const Image: ImageComponent = ({
     alt,
     image,
     imageStyle,
@@ -695,14 +691,13 @@ Read more about XP <a href="https://developer.enonic.com/docs/xp/stable/cms/macr
 <div class="title">src/components/Macro.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
-import type {RestProps} from '.';
 
 
 import React from 'react';
 import {FactBox} from './macros/FactBox';
 
 
-export const Macro: MacroComponent&lt;RestProps&gt; = ({
+export const Macro: MacroComponent = ({
     config,
     descriptor,
     children,
@@ -732,7 +727,7 @@ export const Macro: MacroComponent&lt;RestProps&gt; = ({
 
 // ..
 
-&lt;RichText&lt;RestProps&gt;
+&lt;RichText
   // ...
   Macro={Macro}
   // ...
@@ -755,14 +750,13 @@ We need to create an actual implementation of the <code>FactBox</code> macro tha
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react'
 
 import styles from './FactBox.module.css';
-import {RestProps} from '../index';
 
 declare type FactBoxProps = {
     config: Record&lt;string, any&gt;
     children: React.ReactNode
-} &amp; RestProps;
+};
 
-export const FactBox = ({config, children, guillotineUrl, personId}: FactBoxProps) =&gt; (&lt;&gt;
+export const FactBox = ({config, children}: FactBoxProps) =&gt; (&lt;&gt;
     &lt;ins className={styles.factbox}&gt;
         &lt;i className={styles.icon}/&gt;
         &lt;strong className={styles.header}&gt;{config.header?.length ? config.header : 'Fact Box'}&lt;/strong&gt;
@@ -939,27 +933,18 @@ If you did everything correctly, you should see the <code>FactBox</code> macro r
 <h2 id="custom_params"><a class="link" href="#custom_params">Custom params</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can pass additional params to the <code>RichText</code> component by supplying a generic interface declaring them, in this case it is called <code>RestProps</code>:</p>
+<p>You can pass additional params to the <code>RichText</code> component by supplying a generic interface declaring them:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
   ...
-  guillotineUrl={guillotineUrl}
-  personId={personId}
+  customParam="paramValue"
   ...
-/&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And it declares additional params <code>guillotineUrl</code> and <code>personId</code>:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/index.d.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export declare interface RestProps {
-  guillotineUrl: string
-  personId: string
+/&gt;
+
+interface RestProps {
+  cusomParam: string;
 }</code></pre>
 </div>
 </div>
@@ -979,7 +964,7 @@ If you did everything correctly, you should see the <code>FactBox</code> macro r
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-17 08:19:38 UTC
+Last updated 2024-09-17 16:53:41 UTC
 </div>
 </div>
 </body>
