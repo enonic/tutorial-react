@@ -1,11 +1,6 @@
-// <1> Import some styling, so that a App.css is built
-import './styles/body.sass';
-
-import React from 'react'; // <2> Support JSX syntax
-// <3> Import routing components
+import './App.sass';
+import React from 'react';
 import {Route, BrowserRouter as Router, Routes,} from 'react-router-dom';
-
-// <4> Import actual components (views)
 import {Person} from './components/Person';
 import {PersonList} from './components/PersonList';
 
@@ -25,7 +20,6 @@ export function App({
           element={<Person guillotineUrl={guillotineUrl}/>}
           path="/p/:name/:personId"
         />
-        <Route path='*' element={<p>URL doesn't exist!</p>}/>
       </Routes>
     </Router>
   )

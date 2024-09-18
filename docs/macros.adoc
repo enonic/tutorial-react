@@ -9,20 +9,40 @@ RichText also supports custom components - aka `Macros`.
 
 In order to support more complex componentry within Enonic's rich text editor, you may define macros.
 
-TIP: Further details on defining macros can be found in the https://developer.enonic.com/docs/xp/stable/cms/macros[XP documentation^].
+TIP: Details on defining macros can be found in the https://developer.enonic.com/docs/xp/stable/cms/macros[XP documentation^].
 
 
-== Default macro component
+== Default macro handling
 
-The sample Enonic dataset already contains an example macro called `factbox`. It is added to the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] bio.
+The sample content contains an example macro called `Factbox`, which has been added to the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] bio.
 
-The standard macro component will simply render a placeholder:
+By default, the RichText component will simply render a fallback placeholder:
 
-image::./lea-no-macro.png[width=1200]
+image::no-macro.png[width=663]
 
-That is because to render macros, you need to create your own implementation that knows how to render a specific macro!
+To improve the situation, start by implementing a Factbox component
 
-Let's create a `Macro.tsx` file:
+== Factbox component
+
+Add the following files to your project:
+
+.src/components/macros/FactBox.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/macros/FactBox.tsx[]
+----
+
+.src/components/macros/FactBox.module.css
+[source,css]
+----
+include::{sourcedir}src/main/resources/static/components/macros/FactBox.module.css[]
+----
+
+Like other components, you may also declare a query for your Macro - but in this case we already have everything we need in the data returned from the original `bio` query.
+
+== The Macro component
+
+We now have a Factbox component, but we still need to map it to the Enonic macro definition. The solution is to implement the Macro component.
 
 .src/components/Macro.tsx
 [source,TypeScript]
@@ -30,11 +50,13 @@ Let's create a `Macro.tsx` file:
 include::{sourcedir}src/main/resources/static/components/Macro.tsx[]
 ----
 
-The Macro component above uses `FactBox` component to render all macros that have `com.enonic.app.intro:factbox` descriptor.
+This component takes care of mapping each macro to it's matching React component. In our case, `FactBox` component implements the macro called `com.enonic.app.intro:factbox` in Enonic.
 
-It will throw an error otherwise, which will cause the `RichText` component's `ErrorBoundary` to render an `Error placeholder`.
+It will throw an error otherwise, which will cause the RichText component's `ErrorBoundary` to render an `Error placeholder`.
 
-Remember to import and add `Macro` component to the `RichText` component:
+== Add to RichText
+
+Finally, import and add `Macro` to the `RichText` component:
 
 .src/components/Person.tsx
 [source,TypeScript]
@@ -50,51 +72,14 @@ import {Macro} from './Macro';
 />
 ----
 
-== Factbox component
-
-But we are not done yet.
-We need to create an actual implementation of the `FactBox` macro that is used by our `Macro` component.
-
-Create a `FactBox.tsx` component:
-
-.src/components/macros/FactBox.tsx
-[source,TypeScript]
-----
-include::{sourcedir}src/main/resources/static/components/macros/FactBox.tsx[]
-----
-
-NOTE: Remember that `guillotineUrl` and `personId` are available in macros because we added them to `RichText` component previously.
-
-== Styling
-
-To style the macro we are using https://www.reacttutorial.com/css-modules-react[css modules^] again.
-
-Create a `FactBox.module.css` file with the following content:
-
-.src/components/macros/FactBox.module.css
-[source,css]
-----
-include::{sourcedir}src/main/resources/static/components/macros/FactBox.module.css[]
-----
-
-== GraphQL query
-
-`FactBox` macro imports `PERSON_MOVIES_QUERY` GraphQL query that we need to create now:
-
-.src/queries/personMovies.ts
-[source,GraphQL]
-----
-include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
-----
-
-Congratulations!
-If you did everything correctly, you should see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
+If you did everything correctly, you should now see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
 
 image::./lea-with-macro.png[width=1200]
 
-== Custom params
 
-Sometimes it may be useful to pass additional parameters to the `RichText` component by supplying a generic interface declaring them:
+== A final trick
+
+You may pass additional parameters to the `RichText` component by supplying a generic interface declaring them:
 
 [source,TypeScript]
 ----
@@ -109,12 +94,14 @@ interface RestProps {
 }
 ----
 
-These params will be passed on to the `Image`, `Link` and `Macro` components as well.
+These params will be passed on to the `Image`, `Link` and `Macro` components for your convenience.
 
 == Next steps
 
 Congratulations on completing this tutorial.
 
-TODO
+For more details on our React components, visit https://www.npmjs.com/package/@enonic/react-components[the NPM documentation^].
 
-Now you are ready to create you own React webapp with https://developer.enonic.com/docs/intro/stable/api[headless Enonic XP^] using https://www.npmjs.com/package/@enonic/react-components[@enonic/react-components^] library.
+To learn more about Enonic's CMS capabilities, we recommend the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial]. 
+
+To dive deeper into React and building sites with Enonic, have a look at our https://developer.enonic.com/docs/next.xp[Next.js] integration.

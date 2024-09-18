@@ -28,10 +28,10 @@ include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
 
 The component will also require some styling - you know to look good!
 
-.src/styles/personList.sass
+.src/styles/PersonList.sass
 [source,Sass]
 ----
-include::{sourcedir}src/main/resources/static/styles/personList.sass[]
+include::{sourcedir}src/main/resources/static/styles/PersonList.sass[]
 ----
 
 == Routing

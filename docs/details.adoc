@@ -8,26 +8,13 @@ In this chapter you'll create a component to display details for a single person
 
 Similar to the personList component, create a query which will fetch details for a single person:
 
-.src/queries/person.ts
+.src/queries/Person.ts
 [source,graphql]
 ----
-include::{sourcedir}src/main/resources/static/queries/person.ts[]
+include::{sourcedir}src/main/resources/static/queries/PersonDetails.ts[]
 ----
 
 NOTE: `bio` contains rich text content
-
-== Component
-
-Next, define the Person component:
-
-.src/components/Person.tsx
-[source, TypeScript]
-----
-include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions.tsx[]
-----
-
-NOTE: Here, we use the `RichText` component from `@enonic/react-components` npm module to render data from the `bio`.
-We will dive into more details in the <<rich-text#,next chapter>>.
 
 == Styling
 
@@ -41,6 +28,21 @@ Add the following file to your project:
 include::{sourcedir}src/main/resources/static/components/Person.module.css[]
 ----
 
+
+== Component
+
+Add the Person component:
+
+.src/components/Person.tsx
+[source, TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions.tsx[]
+----
+
+NOTE: Here, we use the `RichText` component from `@enonic/react-components` npm module to render data from the `bio`.
+We will dive into more details in the <<rich-text#,next chapter>>.
+
+
 == Routing
 
 Finally, App.tsx must be updated to handle the `Person` component, and trigger it on the following route pattern: `/p/:name/:personId`.
@@ -49,9 +51,7 @@ Finally, App.tsx must be updated to handle the `Person` component, and trigger i
 [source,TypeScript]
 ----
 import './App.sass';
-
 import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
-
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
 

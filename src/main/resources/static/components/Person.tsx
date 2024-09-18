@@ -6,7 +6,7 @@ import {Link as RouterLink, useParams} from 'react-router-dom';
 import {Image} from './Image';
 import {Link} from './Link';
 import {Macro} from './Macro';
-import PERSON_QUERY from '../queries/person';
+import PERSON_QUERY from '../queries/Person';
 
 import styles from './Person.module.css';
 

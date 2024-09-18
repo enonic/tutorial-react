@@ -2,9 +2,9 @@ import {forceArray} from '@enonic/js-utils/array/forceArray';
 import React, {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom';
 
-import '../styles/personList.sass';
+import '../styles/PersonList.sass';
 
-import PERSON_LIST_QUERY from '../queries/personList';
+import PERSON_LIST_QUERY from '../queries/PersonList';
 
 export function PersonList() {
   const [data, setData] = useState<{

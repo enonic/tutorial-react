@@ -64,17 +64,17 @@ image::react-app.png[width=1024]
 
 == React router
 
-Although beautiful, the app doesn't do much yet. Let's begin by adding a router and some custom styling.
+Although beautiful, the app doesn't do much yet. Let's begin by adding a router and some custom styling:
 
-. Replace `App.css` with `App.sass`:
+. Delete the file `App.css` and add `App.sass instead:
 +
 .src/App.sass
 [source,sass]
 ----
-include::{sourcedir}src/main/resources/static/styles/body.sass[]
+include::{sourcedir}src/main/resources/static/App.sass[]
 ----
 +
-. Update your application file with the following code:
+. Update your `App.tsx` file with the following code:
 +
 .src/App.tsx
 [source,TypeScript]
@@ -101,7 +101,7 @@ export default function App() {
 }
 ----
 +
-. Reload your browser http://localhost:3000/[http://localhost:3000^]. You shoul now see the text `Hello router!`.
+. Your browser should now display the text `Hello router!`.
 
 
 == Next step
