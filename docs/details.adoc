@@ -1,10 +1,12 @@
-= Person Component
+= Person details component
 :sourcedir: ../
 :imagesdir: media/
 
+In this chapter you'll create a component to display details for a single person.
+
 == Query
 
-Similarly to person list component, let's create `src/queries/person.ts` file with a query:
+Similar to the personList component, create a query which will fetch details for a single person:
 
 .src/queries/person.ts
 [source,graphql]
@@ -12,9 +14,11 @@ Similarly to person list component, let's create `src/queries/person.ts` file wi
 include::{sourcedir}src/main/resources/static/queries/person.ts[]
 ----
 
+NOTE: `bio` contains rich text content
+
 == Component
 
-Next, let's define Person component in the `src/components/Person.tsx` file:
+Next, define the Person component:
 
 .src/components/Person.tsx
 [source, TypeScript]
@@ -22,14 +26,14 @@ Next, let's define Person component in the `src/components/Person.tsx` file:
 include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions.tsx[]
 ----
 
-NOTE: Notice that we used `RichText` component from `@enonic/react-components` npm module to render the HTML area `bio` field.
-More about it in the <<rich-text#,next chapter>>.
+NOTE: Here, we use the `RichText` component from `@enonic/react-components` npm module to render data from the `bio`.
+We will dive into more details in the <<rich-text#,next chapter>>.
 
 == Styling
 
-We are going to use https://www.reacttutorial.com/css-modules-react[css modules^] to style this component.
+This time, we will use https://www.reacttutorial.com/css-modules-react[css modules^] to style this component.
 
-To do that, create a `Person.module.css` file with the following content:
+Add the following file to your project:
 
 .src/components/Person.module.css
 [source,css]
@@ -39,7 +43,7 @@ include::{sourcedir}src/main/resources/static/components/Person.module.css[]
 
 == Routing
 
-Finally, we need to update the App.tsx file to include the `Person` component and display it on  `/p/:name/:personId` route:
+Finally, App.tsx must be updated to handle the `Person` component, and trigger it on the following route pattern: `/p/:name/:personId`.
 
 .src/App.tsx
 [source,TypeScript]
@@ -57,18 +61,18 @@ export default function App() {
       <Routes>
         <Route path="/" element={<PersonList />}/>
         <Route path="/p/:name/:personId" element={<Person />}/>
-        <Route path='*' element={<p>URL doesn't exist!</p>}/>
       </Routes>
     </Router>
   );
 }
 ----
 
-To see the `Person` component in action, open http://localhost:3000[] and click any of the persons.
+To see the `Person` component in action, open http://localhost:3000[] and click any of the persons in the list.
+
 Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^]:
 
 image::./lea-no-macro.png[width=1200]
 
 == Next step
 
-Learn how to customize <<rich-text#,Rich text>> component.
+Take control of the <<rich-text#,Rich text component>>.

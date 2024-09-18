@@ -1,0 +1,109 @@
+= Set up React
+:sourcedir: ../
+:imagesdir: media/
+
+In this chapter you will create a React application with TypeScript support.
+
+== Create React app
+
+Start by running the following command:
+
+[source,Terminal]
+----
+npx create-react-app react-enonic --template typescript
+----
+
+This will create a React app and place it in a folder called `react-enonic/`.
+
+TIP: You can read more about the `create-react-app` tool on https://create-react-app.dev/docs/getting-started[their website^]
+
+
+== Install dependencies
+
+Next, add some handy npm modules to the project:
+
+[source,Terminal]
+----
+cd react-demo
+
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils
+----
+
+== Configure
+
+The React applications also needs to know the location of the Enonic API, as you we'll need it for fetching data later.
+
+Create a `.env` file in the root of your project with the following line:
+
+..env
+[source,properties]
+----
+ENONIC_API=
+REACT_APP_GUILLOTINE_URL=$ENONIC_API+'/master'
+----
+
+Replace `ENONIC_API_URL` with your real API URL:
+
+* For Cloud: Add `/master` to the end of your Headless API URL
+* For SDK: Use this: 
+
+TIP: `/master` means we will access the master branch (published items)
+
+== Start 
+
+[source,Terminal]
+----
+npm start
+----
+
+This will launch the app in your default browser. 
+
+TIP: Visit http://localhost:3000 directly if it does not launch automatically
+
+image::react-app.png[width=1024]
+
+== React router
+
+Although beautiful, the app doesn't do much yet. Let's begin by adding a router and some custom styling.
+
+. Replace `App.css` with `App.sass`:
++
+.src/App.sass
+[source,sass]
+----
+include::{sourcedir}src/main/resources/static/styles/body.sass[]
+----
++
+. Update your application file with the following code:
++
+.src/App.tsx
+[source,TypeScript]
+----
+import React from 'react';
+
+import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path='*' element={<p>Hello router!</p>}/>
+      </Routes>
+    </Router>
+  )
+}
+----
++
+. Reload your browser http://localhost:3000/[http://localhost:3000^]. You shoul now see the text `Hello router!`.
+
+
+== Next step
+
+In the following chapter you'll create a proper React component - the <<list#,Person list>>.

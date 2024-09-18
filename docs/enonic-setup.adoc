@@ -1,0 +1,120 @@
+= Setting up Enonic
+:sourcedir: ../
+:imagesdir: media/
+
+In this chapter, you will launch an Enonic instance that contains a public dataset you will use in the React application.
+
+You can choose between two options:
+
+== Alternative 1 - Free Cloud instance
+
+Follow these steps to get your cloud service up and running:
+
+. Sign up to Enonic[https://console.enonic.cloud], and verify your e-mail
+. Create your account
+. Create a solution - choose the template called `Headless demo`, then `Free plan` and complete the setup.
+
+Once the solution is live, notice the ingress called `Headless API` - You will need this URL when setting up your React application later in the tutorial
+
+== Alternative 2 - Enonic SDK
+
+Follow the instructinos below to launch a local developer instance of Enonic:
+
+. If you haven't installed Enonic CLI already, start by running the following command:
++
+[source, Terminal]
+----
+npm install -g @enonic/cli
+----
++
+TIP: More installation methods along with CLI documentation can be found https://developer.enonic.com/docs/enonic-cli/stable/install[here]
++
+. Create sandbox
++
+Create a new sandbox (a developer instance of Enonic XP) by running the following command:
++
+[source,Terminal]
+----
+enonic sandbox create react-tutorial -t intro -f
+----
++
+This will create a sandbox named `react-tutorial` using latest Enonic XP distribution and start it.
++
+NOTE: The `-t intro` flag tells the CLI to provision a set of standard Enonic apps, including sample content you will use later in this tutorial.
+
+
+TIP: With the sandbox up and running, your API should now be available on http://localhost:8080/site/intro/master[http://localhost:8080/site/intro/master^]
+
+== Verify API
+
+To verify that the API is working:
+
+. Open the API URL for your instance. You should now see the Query playground.
++
+image::query-playground.png[width=1200]
++
+. Paste in, and try executing the following query:
++
+[source,GraphQL]
+----
+query PersonListQuery {
+    guillotine {
+        queryDsl(
+            first: 3
+            query: {
+                term: {
+                    field: "type",
+                    value: {
+                        string: "com.enonic.app.intro:person"
+                    }
+                }
+            }
+            sort: {
+                field: "modifiedTime",
+                direction: DESC
+            }
+        ) {
+            _id
+            _name
+            displayName
+            type
+        }
+    }
+}
+----
++
+This should produce a result looking something like this:
++
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "a8b374a2-c532-45eb-9aa1-73d1c37cd681",
+          "_name": "lea-seydoux",
+          "displayName": "Léa Seydoux",
+          "type": "com.enonic.app.intro:person"
+        },
+        {
+          "_id": "569d127d-b6bd-45d6-94b0-949ec6171336",
+          "_name": "jeffrey-wright",
+          "displayName": "Jeffrey Wright",
+          "type": "com.enonic.app.intro:person"
+        },
+        {
+          "_id": "f29ba9b7-a73a-4767-82db-9da4df952924",
+          "_name": "daniel-craig",
+          "displayName": "Daniel Craig",
+          "type": "com.enonic.app.intro:person"
+        }
+      ]
+    }
+  }
+}
+----
+
+== Next step
+
+In the next chapter you will create the React application <<react-setup#,queries>>.

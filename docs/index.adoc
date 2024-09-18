@@ -1,8 +1,16 @@
-= Tutorial React
-:toc: right
+= Tutorial: React SPA with content from Enonic 
 
-In this tutorial we are going to create a single-page https://react.dev/[react.js^] application that fetches data from the https://developer.enonic.com/docs/intro/stable[Enonic XP^] using https://graphql.org/[graphQL] queries.
+This tutorial demonstrate how to build a single-page https://react.dev/[react.js^] application that fetches data from Enonic's GraphQL API.
+
+NOTE: We highly recommend that you study the https://developer.enonic.com/docs/intro[Enonic intro tutorial] before embarking on this. 
+
+== Target audience
+
+This tutorial is aimed at developers looking to understand how Enonic can be used in combination with React based single page webapplications. It demonstrates use of basic structured content in React, combined with routing and rich text handling.
+
+TODO
+
 
 We will also show how to use the `RichText` component from https://www.npmjs.com/package/@enonic/react-components[@enonic/react-components] to render HTML area inputs that can contain images, links and macros.
 
-Let's <<setup-xp#,get started>>!
+Let's <<enonic-setup#,get started>>!

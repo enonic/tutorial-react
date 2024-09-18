@@ -1,0 +1,71 @@
+= PersonList Component
+:sourcedir: ../
+:imagesdir: media/
+
+This chapter covers creation of the PersonList component, including a query for retrieving persons from the Enonic API.
+
+== Query
+
+Add the following file to your project. The component will use it to fetch data:
+
+.src/queries/personList.ts
+[source,graphql]
+----
+include::{sourcedir}src/main/resources/static/queries/personList.ts[]
+----
+
+== React component
+
+Now, add the component itself:
+
+.src/components/PersonList.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
+----
+
+== Styling
+
+The component will also require some styling - you know to look good!
+
+.src/styles/personList.sass
+[source,Sass]
+----
+include::{sourcedir}src/main/resources/static/styles/personList.sass[]
+----
+
+== Routing
+
+Finally, update your the App.tsx file to include the `PersonList` component and display it on the root path `/`:
+
+.src/App.tsx
+[source,TypeScript]
+----
+import './App.sass';
+
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+
+import {PersonList} from './components/PersonList';
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<PersonList />}/>
+      </Routes>
+    </Router>
+  );
+}
+----
+
+== Result
+
+With everything in place, you should now see a grid of person images at http://localhost:3000[].
+
+image::person-list.png[width=1093]
+
+Clicking any of the images will take you to the person's detail page - which is yet to be implemented.
+
+== Next step
+
+Moving forward, you'll create a component and matching router to render <<details#,Person details>>.
