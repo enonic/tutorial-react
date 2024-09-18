@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>PersonList Component</title>
+<title>Set up React</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,266 +437,199 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>PersonList Component</h1>
+<h1>Set up React</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#query">Query</a></li>
-<li><a href="#component">Component</a></li>
-<li><a href="#styling">Styling</a></li>
-<li><a href="#routing">Routing</a></li>
-<li><a href="#result">Result</a></li>
+<li><a href="#create_react_app">Create React app</a></li>
+<li><a href="#install_dependencies">Install dependencies</a></li>
+<li><a href="#configure">Configure</a></li>
+<li><a href="#start">Start</a></li>
+<li><a href="#react_router">React router</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="query"><a class="link" href="#query">Query</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>First, we need to create a <code>src/queries/personList.ts</code> file with query that our component will use to fetch data:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/queries/personList.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonListQuery {
-    guillotine {
-        queryDsl(
-            first: 50
-            query: {
-                term: {
-                    field: "type",
-                    value: {
-                        string: "com.enonic.app.intro:person"
-                    }
-                }
-            }
-            sort: {
-                field: "modifiedTime",
-                direction: DESC
-            }
-        ) {
-            _id
-            _name
-            displayName
-            type
-            ... on com_enonic_app_intro_Person {
-                data {
-                    photos {
-                        ... on media_Image {
-                            imageUrl(type: absolute, scale: "square(500)")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}`;
-
-export default query;</code></pre>
-</div>
+<p>In this chapter you will create a React application with TypeScript support.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="component"><a class="link" href="#component">Component</a></h2>
+<h2 id="create_react_app"><a class="link" href="#create_react_app">Create React app</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To define a component, create a <code>PersonList.tsx</code> file in the <code>components</code> directory:</p>
+<p>Start by running the following command:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/components/PersonList.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {forceArray} from '@enonic/js-utils/array/forceArray';
-import React, {useEffect, useState,} from 'react';
-import {Link} from 'react-router-dom';
-
-import '../styles/personList.sass';
-
-import PERSON_LIST_QUERY from '../queries/personList';
-
-export function PersonList() {
-  const [data, setData] = useState&lt;{
-    _id: string
-    _name: string
-    data: {
-      photos: {
-        imageUrl: string
-      }[]
-    }
-    displayName: string
-  }[]&gt;();
-
-  useEffect(() =&gt; {
-    fetch(process.env.REACT_APP_GUILLOTINE_URL as string, {
-      body: JSON.stringify({
-        query: PERSON_LIST_QUERY,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-      method: 'POST',
-    })
-        .then(response =&gt; response.json())
-        .then(json =&gt; setData(json.data.guillotine.queryDsl));
-  }, []);
-
-  return (
-      &lt;&gt;
-        {data &amp;&amp; &lt;ul className='person-list'&gt;
-          {data.map((person, i) =&gt; {
-
-            const {
-              _id,
-              _name,
-              data: {
-                photos
-              },
-              displayName
-            } = person;
-
-            const imgProps = {
-              alt: displayName,
-              src: photos ? forceArray(photos)[0].imageUrl : undefined,
-            };
-
-            return &lt;li key={i}&gt;
-              &lt;Link to={`/p/${_name}/${_id}`}&gt;
-                &lt;img {...imgProps}/&gt;
-                &lt;div&gt;{displayName}&lt;/div&gt;
-              &lt;/Link&gt;
-            &lt;/li&gt;;
-          })}
-        &lt;/ul&gt;}
-      &lt;/&gt;
-  );
-}</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npx create-react-app react-enonic --template typescript</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>All the common constants are extracted to a separate <code>constants.ts</code> file to be reused in other components:</p>
+<p>This will create a React app and place it in a folder called <code>react-enonic/</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can read more about the <code>create-react-app</code> tool on <a href="https://create-react-app.dev/docs/getting-started" target="_blank" rel="noopener">their website</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next, add some handy npm modules to the project:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/components/constants.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export const BREAK_POINTS = {
-  phone: 320,
-  tablet: 768,
-  laptop: 992,
-  desktop: 1024,
-  hd: 1280,
-  full: 1920,
-  quad: 2560,
-  ultra: 3840
-};</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-demo
+
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<h2 id="configure"><a class="link" href="#configure">Configure</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To style the component we also need a complementary sass file:</p>
+<p>The React applications also needs to know the location of the Enonic API, as you we&#8217;ll need it for fetching data later.</p>
+</div>
+<div class="paragraph">
+<p>Create a <code>.env</code> file in the root of your project with the following line:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/styles/personList.sass</div>
+<div class="title">.env</div>
 <div class="content">
-<pre class="highlight"><code class="language-Sass" data-lang="Sass">$gutter: 30px
-$color: rgba(0, 0, 0, .5)
-
-ul.person-list
-  list-style-type: none
-  padding: 30px 30px 0
+<pre class="highlight"><code class="language-properties" data-lang="properties">ENONIC_API=
+REACT_APP_GUILLOTINE_URL=$ENONIC_API+'/master'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Replace <code>ENONIC_API_URL</code> with your real API URL:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Cloud: Add <code>/master</code> to the end of your Headless API URL</p>
+</li>
+<li>
+<p>For SDK: Use this:</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<code>/master</code> means we will access the master branch (published items)
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="start"><a class="link" href="#start">Start</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will launch the app in your default browser.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit <a href="http://localhost:3000" class="bare">http://localhost:3000</a> directly if it does not launch automatically
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/react-app.png" alt="react app" width="1024">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="react_router"><a class="link" href="#react_router">React router</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Although beautiful, the app doesn&#8217;t do much yet. Let&#8217;s begin by adding a router and some custom styling.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Replace <code>App.css</code> with <code>App.sass</code>:</p>
+<div class="listingblock">
+<div class="title">src/App.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-sass" data-lang="sass">body
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 0
   margin: 0
-  background-color: #444
-
-  li
-    display: inline-block
-    margin-bottom: $gutter
-    padding-right: $gutter
-    vertical-align: middle
-    width: calc((100% / 3) - 20px)
-    &amp;:nth-child(3n)
-      padding-right: 0
-
-    a
-      display: inline-block
-      width: 100%
-      position: relative // so div can be centered
-      div
-        bottom: 10px
-        color: #fff
-        left: 50%
-        font-size: 1.5rem
-        opacity: 0
-        pointer-events: none
-        position: absolute
-        text-shadow: 1px 0 0 $color, 0 -1px 0 $color, 0 1px 0 $color, -1px 0 0 $color
-        transform: translate(-50%)
-        white-space: nowrap
-      &amp;:hover
-        div
-          opacity: 1
-      img
-        box-shadow: 0 0 10px rgba(0, 0, 0, .1)
-        border-radius: 5%
-        filter: grayscale(100%)
-        height: auto
-        margin: auto 0
-        transition: all .2s ease-in-out
-        width: 100%
-
-        &amp;:hover
-          filter: grayscale(0%)
-          transform: scale(1.1)</code></pre>
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Finally, we need to update the App.tsx file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
-</div>
+</li>
+<li>
+<p>Update your application file with the following code:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
 
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import './App.sass';
 
-import {PersonList} from './components/PersonList';
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
 
 export default function App() {
   return (
     &lt;Router&gt;
       &lt;Routes&gt;
-        &lt;Route path="/" element={&lt;PersonList /&gt;}/&gt;
-        &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
+        &lt;Route path='*' element={&lt;p&gt;Hello router!&lt;/p&gt;}/&gt;
       &lt;/Routes&gt;
     &lt;/Router&gt;
-  );
+  )
 }</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="result"><a class="link" href="#result">Result</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Now you should see a grid of 9 images at <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/person-list.png" alt="person list" width="1093">
-</div>
-</div>
-<div class="paragraph">
-<p>A left-click on any of the images will take you to the Person&#8217;s page which we will implement in the <a href="person.ahtml">next chapter</a>.</p>
+</li>
+<li>
+<p>Reload your browser <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000</a>. You shoul now see the text <code>Hello router!</code>.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -704,14 +637,14 @@ export default function App() {
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s create a single <a href="person.ahtml">Person component</a> now.</p>
+<p>In the following chapter you&#8217;ll create a proper React component - the <a href="list.ahtml">Person list</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-17 16:53:41 UTC
+Last updated 2024-09-18 14:21:51 UTC
 </div>
 </div>
 </body>

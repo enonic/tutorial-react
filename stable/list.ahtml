@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Person Component</title>
+<title>PersonList Component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,74 +437,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Person Component</h1>
+<h1>PersonList Component</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#query">Query</a></li>
-<li><a href="#component">Component</a></li>
+<li><a href="#react_component">React component</a></li>
 <li><a href="#styling">Styling</a></li>
 <li><a href="#routing">Routing</a></li>
+<li><a href="#result">Result</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter covers creation of the PersonList component, including a query for retrieving persons from the Enonic API.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Similarly to person list component, let&#8217;s create <code>src/queries/person.ts</code> file with a query:</p>
+<p>Add the following file to your project. The component will use it to fetch data:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/queries/person.ts</div>
+<div class="title">src/queries/personList.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonQuery($personId: ID!) {
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonListQuery {
     guillotine {
-        get(key: $personId) {
+        queryDsl(
+            first: 50
+            query: {
+                term: {
+                    field: "type",
+                    value: {
+                        string: "com.enonic.app.intro:person"
+                    }
+                }
+            }
+            sort: {
+                field: "modifiedTime",
+                direction: DESC
+            }
+        ) {
+            _id
             _name
             displayName
+            type
             ... on com_enonic_app_intro_Person {
                 data {
-                    dateofbirth
                     photos {
                         ... on media_Image {
-                            imageUrl(scale: "width(500)", type: absolute)
-                            attachments {
-                                name
-                            }
-                        }
-                    }
-                    bio(processHtml: { type: absolute }) {
-                        processedHtml
-                        links {
-                            ref
-                            media {
-                                content {
-                                    _id
-                                }
-                            }
-                            content {
-                                _id
-                                _name
-                                type
-                            }
-                        }
-                        images {
-                            ref
-                            image {
-                                _id
-                            }
-                        }
-                        macros {
-                            ref
-                            name
-                            descriptor
-                            config {
-                                factbox {
-                                    header
-                                }
-                            }
+                            imageUrl(type: absolute, scale: "square(500)")
                         }
                     }
                 }
@@ -519,123 +507,79 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="component"><a class="link" href="#component">Component</a></h2>
+<h2 id="react_component"><a class="link" href="#react_component">React component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Next, let&#8217;s define Person component in the <code>src/components/Person.tsx</code> file:</p>
+<p>Now, add the component itself:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/components/Person.tsx</div>
+<div class="title">src/components/PersonList.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData} from '@enonic/react-components';
-import {RichText} from '@enonic/react-components';
-import React, {useEffect, useState} from 'react';
-import {Link as RouterLink, useParams} from 'react-router-dom';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {forceArray} from '@enonic/js-utils/array/forceArray';
+import React, {useEffect, useState,} from 'react';
+import {Link} from 'react-router-dom';
 
-import PERSON_QUERY from '../queries/person';
+import '../styles/personList.sass';
 
-import styles from './Person.module.css';
+import PERSON_LIST_QUERY from '../queries/personList';
 
-
-export function Person() {
-    const {
-        // name,
-        personId = ''
-    } = useParams();
-
-    const guillotineUrl = process.env.REACT_APP_GUILLOTINE_URL as string;
-
-    const [data, setData] = useState&lt;{
-        _name: string
-        data: {
-            bio: RichTextData
-            dateofbirth: string
-            photos: {
-                imageUrl: string
-            }[]
-        }
-        displayName: string
-    }&gt;();
-
-    useEffect(() =&gt; {
-        fetch(guillotineUrl, {
-            body: JSON.stringify({
-                query: PERSON_QUERY,
-                variables: {
-                    personId,
-                }
-            }),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-        })
-            .then(response =&gt; response.json())
-            .then(json =&gt; {
-                const value = json.data.guillotine.get;
-                setData(value)
-            });
-    }, []); // useEffect
-
-    if (!data) {
-        return null;
+export function PersonList() {
+  const [data, setData] = useState&lt;{
+    _id: string
+    _name: string
+    data: {
+      photos: {
+        imageUrl: string
+      }[]
     }
+    displayName: string
+  }[]&gt;();
 
-    const {
-        data: {
-            bio,
-            photos
-        },
-        displayName
-    } = data;
+  useEffect(() =&gt; {
+    fetch(process.env.REACT_APP_GUILLOTINE_URL as string, {
+      body: JSON.stringify({
+        query: PERSON_LIST_QUERY,
+      }),
+      headers: {
+        'content-type': 'application/json',
+      },
+      method: 'POST',
+    })
+        .then(response =&gt; response.json())
+        .then(json =&gt; setData(json.data.guillotine.queryDsl));
+  }, []);
 
-    return (
-        &lt;&gt;
-            &lt;div className={styles.person}&gt;
-                &lt;h2&gt;{displayName}&lt;/h2&gt;
-                &lt;RichText
-                    className={styles.bio}
-                    data={bio}
-                    tag='article'
-                /&gt;
-                {
-                    photos.length &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
-                }
-                &lt;div className={styles.photos}&gt;
-                    {
-                        photos.map((photo: any, i: number) =&gt; (
-                            &lt;img key={i}
-                                 src={photo.imageUrl}
-                                 title={getTitle(photo, displayName)}
-                                 alt={getTitle(photo, displayName)}
-                                 width="500"
-                            /&gt;
-                        ))
-                    }
-                &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
-        &lt;/&gt;
-    );
-}
+  return (
+      &lt;&gt;
+        {data &amp;&amp; &lt;ul className='person-list'&gt;
+          {data.map((person, i) =&gt; {
 
-function getTitle(photo: any, displayName: string) {
-    return (photo.attachments || [])[0].name || displayName;
+            const {
+              _id,
+              _name,
+              data: {
+                photos
+              },
+              displayName
+            } = person;
+
+            const imgProps = {
+              alt: displayName,
+              src: photos ? forceArray(photos)[0].imageUrl : undefined,
+            };
+
+            return &lt;li key={i}&gt;
+              &lt;Link to={`/p/${_name}/${_id}`}&gt;
+                &lt;img {...imgProps}/&gt;
+                &lt;div&gt;{displayName}&lt;/div&gt;
+              &lt;/Link&gt;
+            &lt;/li&gt;;
+          })}
+        &lt;/ul&gt;}
+      &lt;/&gt;
+  );
 }</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Notice that we used <code>RichText</code> component from <code>@enonic/react-components</code> npm module to render the HTML area <code>bio</code> field.
-More about it in the <a href="rich-text.ahtml">next chapter</a>.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -643,51 +587,59 @@ More about it in the <a href="rich-text.ahtml">next chapter</a>.
 <h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We are going to use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style this component.</p>
-</div>
-<div class="paragraph">
-<p>To do that, create a <code>Person.module.css</code> file with the following content:</p>
+<p>The component will also require some styling - you know to look good!</p>
 </div>
 <div class="listingblock">
-<div class="title">src/components/Person.module.css</div>
+<div class="title">src/styles/personList.sass</div>
 <div class="content">
-<pre class="highlight"><code class="language-css" data-lang="css">.person,
-.person .bio {
-    font-family: sans-serif;
-}
+<pre class="highlight"><code class="language-Sass" data-lang="Sass">$gutter: 30px
+$color: rgba(0, 0, 0, .5)
 
-.person {
-    display: flex;
-    flex-direction: column;
-    padding: 30px
-}
+ul.person-list
+  list-style-type: none
+  padding: 30px 30px 0
+  margin: 0
+  background-color: #444
 
-.bio {
-    line-height: 24px;
-}
+  li
+    display: inline-block
+    margin-bottom: $gutter
+    padding-right: $gutter
+    vertical-align: middle
+    width: calc((100% / 3) - 20px)
+    &amp;:nth-child(3n)
+      padding-right: 0
 
-.bio figcaption {
-    font-size: 12px;
-}
+    a
+      display: inline-block
+      width: 100%
+      position: relative // so div can be centered
+      div
+        bottom: 10px
+        color: #fff
+        left: 50%
+        font-size: 1.5rem
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        text-shadow: 1px 0 0 $color, 0 -1px 0 $color, 0 1px 0 $color, -1px 0 0 $color
+        transform: translate(-50%)
+        white-space: nowrap
+      &amp;:hover
+        div
+          opacity: 1
+      img
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1)
+        border-radius: 5%
+        filter: grayscale(100%)
+        height: auto
+        margin: auto 0
+        transition: all .2s ease-in-out
+        width: 100%
 
-.photos {
-    padding: 0 20px 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 50px;
-    gap: 50px;
-}
-
-.photos img {
-    width: 100%;
-    height: auto; /* Ensures images scale properly */
-}
-
-@media screen and (max-width: 720px) {
-    .bio figure {
-        width: auto !important;
-    }
-}</code></pre>
+        &amp;:hover
+          filter: grayscale(0%)
+          transform: scale(1.1)</code></pre>
 </div>
 </div>
 </div>
@@ -696,39 +648,43 @@ More about it in the <a href="rich-text.ahtml">next chapter</a>.
 <h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Finally, we need to update the App.tsx file to include the <code>Person</code> component and display it on  <code>/p/:name/:personId</code> route:</p>
+<p>Finally, update your the App.tsx file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
 
-import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 
 import {PersonList} from './components/PersonList';
-import {Person} from './components/Person';
 
 export default function App() {
   return (
     &lt;Router&gt;
       &lt;Routes&gt;
         &lt;Route path="/" element={&lt;PersonList /&gt;}/&gt;
-        &lt;Route path="/p/:name/:personId" element={&lt;Person /&gt;}/&gt;
-        &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
       &lt;/Routes&gt;
     &lt;/Router&gt;
   );
 }</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="result"><a class="link" href="#result">Result</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000" class="bare">http://localhost:3000</a> and click any of the persons.
-Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a>:</p>
+<p>With everything in place, you should now see a grid of person images at <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/lea-no-macro.png" alt="lea no macro" width="1200">
+<img src="media/person-list.png" alt="person list" width="1093">
 </div>
+</div>
+<div class="paragraph">
+<p>Clicking any of the images will take you to the person&#8217;s detail page - which is yet to be implemented.</p>
 </div>
 </div>
 </div>
@@ -736,14 +692,14 @@ Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Learn how to customize <a href="rich-text.ahtml">Rich text</a> component.</p>
+<p>Moving forward, you&#8217;ll create a component and matching router to render <a href="details.ahtml">Person details</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-17 16:53:41 UTC
+Last updated 2024-09-18 14:21:51 UTC
 </div>
 </div>
 </body>

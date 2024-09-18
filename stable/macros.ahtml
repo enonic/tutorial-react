@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Set up Enonic XP</title>
+<title>Macros - custom rich text components</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,29 +437,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Set up Enonic XP</h1>
+<h1>Macros - custom rich text components</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#create_react_project">Create React project</a></li>
-<li><a href="#install_dependencies">Install dependencies</a></li>
-<li><a href="#update_the_app">Update the app</a></li>
-<li><a href="#next_step">Next step</a></li>
+<li><a href="#background">Background</a></li>
+<li><a href="#default_macro_component">Default macro component</a></li>
+<li><a href="#factbox_component">Factbox component</a></li>
+<li><a href="#styling">Styling</a></li>
+<li><a href="#graphql_query">GraphQL query</a></li>
+<li><a href="#custom_params">Custom params</a></li>
+<li><a href="#next_steps">Next steps</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="create_react_project"><a class="link" href="#create_react_project">Create React project</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Feel free to use your favourite tool to create a React project, but for this tutorial we will use the following command
-to set up a project with TypeScript support:</p>
+<p>RichText also supports custom components - aka <code>Macros</code>.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npx create-react-app react-demo --template typescript</code></pre>
 </div>
+</div>
+<div class="sect1">
+<h2 id="background"><a class="link" href="#background">Background</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to support more complex componentry within Enonic&#8217;s rich text editor, you may define macros.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -468,119 +472,322 @@ to set up a project with TypeScript support:</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can read more about the <code>create-react-app</code> tool at <a href="https://create-react-app.dev/docs/getting-started" target="_blank" rel="noopener">their website</a>
+Further details on defining macros can be found in the <a href="https://developer.enonic.com/docs/xp/stable/cms/macros" target="_blank" rel="noopener">XP documentation</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>This will create a React app and place it in <code>react-demo</code> folder.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
+<h2 id="default_macro_component"><a class="link" href="#default_macro_component">Default macro component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, let&#8217;s add Enonic libs, <code>react-router-dom</code> and <code>sass</code> to the project:</p>
+<p>The sample Enonic dataset already contains an example macro called <code>factbox</code>. It is added to the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> bio.</p>
+</div>
+<div class="paragraph">
+<p>The standard macro component will simply render a placeholder:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/lea-no-macro.png" alt="lea no macro" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>That is because to render macros, you need to create your own implementation that knows how to render a specific macro!</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create a <code>Macro.tsx</code> file:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/components/Macro.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-demo
-
-npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We also need to specify the URL of the Enonic XP instance we&#8217;ll use for fetching data later.</p>
-</div>
-<div class="paragraph">
-<p>Create a <code>.env</code> file in the root of the project with the following line:</p>
-</div>
-<div class="listingblock">
-<div class="title">.env</div>
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">REACT_APP_GUILLOTINE_URL=http://localhost:8080/site/intro/master</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>With that done, you&#8217;re ready to start the app:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm start</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will start the app and open it in your default browser.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="update_the_app"><a class="link" href="#update_the_app">Update the app</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Although beautiful, the default app doesn&#8217;t do much.
-Let&#8217;s change content of the auto-generated <code>App.tsx</code> file to the following:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/App.tsx</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
-
-import './App.sass';
-
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from 'react-router-dom';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
 
 
-export default function App() {
-  return (
-    &lt;Router&gt;
-      &lt;Routes&gt;
-        &lt;Route path='*' element={&lt;p&gt;URL doesn't exist!&lt;/p&gt;}/&gt;
-      &lt;/Routes&gt;
-    &lt;/Router&gt;
-  )
+import React from 'react';
+import {FactBox} from './macros/FactBox';
+
+
+export const Macro: MacroComponent = ({
+    config,
+    descriptor,
+    children,
+    ...rest
+}) =&gt; {
+    if (descriptor === 'com.enonic.app.intro:factbox') {
+        const props = {...rest, config};
+        return &lt;FactBox {...props}&gt;{children}&lt;/FactBox&gt;;
+    }
+    throw new Error(`Macro not found: ${descriptor}`);
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s also rename the <code>App.css</code> file to <code>App.sass</code> and update its content to the following:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/App.sass</div>
-<div class="content">
-<pre class="highlight"><code class="language-sass" data-lang="sass">body
-  background-color: #fff
-  color: #595959 // 7:1 AAA #595959 on #fff
-  padding: 0
-  margin: 0
-  font-family: roboto, arial, serif
-  width: 100%
-  box-sizing: border-box</code></pre>
-</div>
+<p>The Macro component above uses <code>FactBox</code> component to render all macros that have <code>com.enonic.app.intro:factbox</code> descriptor.</p>
 </div>
 <div class="paragraph">
-<p>Now, if you reload <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000</a>, you should see the text <code>URL doesn&#8217;t exist!</code> rendered on the page and that means you are ready for the next chapter!</p>
+<p>It will throw an error otherwise, which will cause the <code>RichText</code> component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
+</div>
+<div class="paragraph">
+<p>Remember to import and add <code>Macro</code> component to the <code>RichText</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Macro} from './Macro';
+
+// ..
+
+&lt;RichText
+  // ...
+  Macro={Macro}
+  // ...
+/&gt;</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<h2 id="factbox_component"><a class="link" href="#factbox_component">Factbox component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter we&#8217;ll create our first component&#8201;&#8212;&#8201;a <a href="personlist.ahtml">Person list</a>.</p>
+<p>But we are not done yet.
+We need to create an actual implementation of the <code>FactBox</code> macro that is used by our <code>Macro</code> component.</p>
+</div>
+<div class="paragraph">
+<p>Create a <code>FactBox.tsx</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/macros/FactBox.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react'
+
+import styles from './FactBox.module.css';
+
+declare type FactBoxProps = {
+    config: Record&lt;string, any&gt;
+    children: React.ReactNode
+};
+
+export const FactBox = ({config, children}: FactBoxProps) =&gt; (&lt;&gt;
+    &lt;ins className={styles.factbox}&gt;
+        &lt;i className={styles.icon}/&gt;
+        &lt;strong className={styles.header}&gt;{config.header?.length ? config.header : 'Fact Box'}&lt;/strong&gt;
+        &lt;br/&gt;
+        {children}
+    &lt;/ins&gt;
+&lt;/&gt;)</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Remember that <code>guillotineUrl</code> and <code>personId</code> are available in macros because we added them to <code>RichText</code> component previously.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To style the macro we are using <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> again.</p>
+</div>
+<div class="paragraph">
+<p>Create a <code>FactBox.module.css</code> file with the following content:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/macros/FactBox.module.css</div>
+<div class="content">
+<pre class="highlight"><code class="language-css" data-lang="css">.icon {
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.factbox {
+    background-color: rgb(235, 249, 249);
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    clear: both;
+
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
+
+    min-height: 24px;
+    line-height: 24px;
+
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #333;
+
+    padding: 10px 20px 10px 44px;
+    width: 75%;
+    margin: 20px auto;
+    position: relative;
+}
+
+.factbox .header {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 24px;
+    margin: 0;
+    color: #1f71a1;
+}
+
+.factbox .icon {
+    display: block;
+    position: absolute;
+    font-size: 24px;
+    top: 10px;
+    left: 10px;
+}
+
+.factbox .icon:before {
+    content: "\1f6c8";
+    color: #1f71a1;
+}
+
+.factbox .body ul {
+    padding-left: 0;
+}
+
+.factbox .body ul li {
+    margin: 5px 0;
+}
+
+@media screen and (max-width: 720px) {
+    .factbox {
+        width: 90%;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graphql_query"><a class="link" href="#graphql_query">GraphQL query</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>FactBox</code> macro imports <code>PERSON_MOVIES_QUERY</code> GraphQL query that we need to create now:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/queries/personMovies.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonMoviesQuery($personId: String!) {
+  guillotine {
+    queryDsl(
+      query: {
+        boolean: {
+          must: [
+            {
+              term: {
+                field: "type",
+                value: {
+                  string: "com.enonic.app.intro:movie"
+                }
+              }
+            },
+            {
+              in: {
+                field: "_references",
+                stringValues: [$personId]
+              }
+            }
+          ]
+        }
+      }
+    ) {
+      _id
+      _name
+      displayName
+      ... on com_enonic_app_intro_Movie {
+        data {
+          photos(first: 1) {
+            ... on media_Image {
+              imageUrl(scale: "width(100)")
+            }
+          }
+        }
+      }
+    }
+  }
+}`
+
+export default query;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Congratulations!
+If you did everything correctly, you should see the <code>FactBox</code> macro rendered inside the biography on the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> page:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/lea-with-macro.png" alt="lea with macro" width="1200">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom_params"><a class="link" href="#custom_params">Custom params</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes it may be useful to pass additional parameters to the <code>RichText</code> component by supplying a generic interface declaring them:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
+  ...
+  customParam="paramValue"
+  ...
+/&gt;
+
+interface RestProps {
+  cusomParam: string;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These params will be passed on to the <code>Image</code>, <code>Link</code> and <code>Macro</code> components as well.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next_steps"><a class="link" href="#next_steps">Next steps</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations on completing this tutorial.</p>
+</div>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="paragraph">
+<p>Now you are ready to create you own React webapp with <a href="https://developer.enonic.com/docs/intro/stable/api" target="_blank" rel="noopener">headless Enonic XP</a> using <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">@enonic/react-components</a> library.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-17 16:53:41 UTC
+Last updated 2024-09-18 14:21:51 UTC
 </div>
 </div>
 </body>
