@@ -1,9 +1,5 @@
 import type {LinkComponent} from '@enonic/react-components';
-
-
 import React from 'react';
-// import {parse} from 'uri-js';
-
 
 export const Link: LinkComponent = ({
     children,
@@ -15,20 +11,6 @@ export const Link: LinkComponent = ({
     uri,
     ...rest
 }) => {
-    // const {
-    //   content: mediaContent,
-    //   intent,
-    // } = media || {} as LinkDataMedia;
-
-    // const {
-    //   _id,
-    //   _name,
-    //   _path,
-    //   imageUrl,
-    //   mediaUrl,
-    //   type,
-    // } = mediaContent || content;
-
     let appHref = '';
     if (content && content.type?.endsWith(':person')) {
         appHref = `/p/${content?._name}/${content?._id}`;

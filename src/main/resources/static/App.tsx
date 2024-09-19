@@ -7,17 +7,15 @@ import {PersonList} from './components/PersonList';
 
 export function App({
   basename,
-  guillotineUrl,
 }: {
   basename: string
-  guillotineUrl: string
 }) {
   return (
     <Router basename={basename}>
       <Routes>
-        <Route path="/" element={<PersonList guillotineUrl={guillotineUrl}/>}/>
+        <Route path="/" element={<PersonList />}/>
         <Route
-          element={<Person guillotineUrl={guillotineUrl}/>}
+          element={<Person />}
           path="/p/:name/:personId"
         />
       </Routes>
