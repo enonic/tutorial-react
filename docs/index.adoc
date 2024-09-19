@@ -1,4 +1,5 @@
-= Tutorial: React SPA powered by Enonic
+= Building a React SPA powered by Enonic
+Tutorial
 
 This tutorial demonstrates how you may build a single-page https://react.dev/[react.js^] application that fetches structured content from Enonic's GraphQL API.
 

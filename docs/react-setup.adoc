@@ -38,16 +38,12 @@ Create a `.env` file in the root of your project with the following line:
 ..env
 [source,properties]
 ----
-ENONIC_API=
-REACT_APP_GUILLOTINE_URL=$ENONIC_API+'/master'
+REACT_APP_GUILLOTINE_URL=<Query Playground URL>/master
 ----
 
-Replace `ENONIC_API_URL` with your real API URL:
+Replace `<Query Playground URL>` with the URL you used to reach Query Playground when setting up Enonic.
 
-* For Cloud: Add `/master` to the end of your Headless API URL
-* For SDK: Use this: 
-
-TIP: `/master` means we will access the master branch (published items)
+NOTE: `/master` is added to the URL because we want to access the master branch (containing the published content)
 
 == Start 
 
@@ -66,7 +62,7 @@ image::react-app.png[width=1024]
 
 Although beautiful, the app doesn't do much yet. Let's begin by adding a router and some custom styling:
 
-. Delete the file `App.css` and add `App.sass instead:
+. Replace the file `App.css` with the file called `App.sass:
 +
 .src/App.sass
 [source,sass]
