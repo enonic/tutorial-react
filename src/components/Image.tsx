@@ -12,19 +12,6 @@ export const Image: ImageComponent = ({
     style,
     ...rest
 }) => {
-    // const {
-    //   _id,
-    //   _name,
-    //   _path,
-    //   type,
-    //   imageUrl
-    // } = image;
-    // const {
-    //   aspectRatio,
-    //   filter,
-    //   name
-    // } = imageStyle;
-
     return <img
         alt={alt}
         sizes={sizes}

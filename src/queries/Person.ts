@@ -8,7 +8,7 @@ const query = `query PersonQuery($personId: ID!) {
                     dateofbirth
                     photos {
                         ... on media_Image {
-                            imageUrl(scale: "width(500)", type: absolute)
+                            imageUrl(scale: "width(1000)", type: absolute)
                             attachments {
                                 name
                             }

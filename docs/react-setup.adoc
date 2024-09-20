@@ -20,7 +20,7 @@ TIP: You can read more about the `create-react-app` tool on https://create-react
 
 == Install dependencies
 
-Next, add some handy npm modules to the project:
+With the basic project files in place, you must add some handy npm modules as well:
 
 [source,Terminal]
 ----
@@ -31,19 +31,20 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 
 == Configure
 
-The React applications also needs to know the location of the Enonic API, as you we'll need it for fetching data later.
+The React applications now needs to know the location of the Enonic API, as you we'll need it for fetching data later.
 
-Create a `.env` file in the root of your project with the following line:
+Create a `.env` file in the root of your project, containing a single line:
 
 ..env
 [source,properties]
 ----
 REACT_APP_GUILLOTINE_URL=<Query Playground URL>/master
 ----
-
 Replace `<Query Playground URL>` with the URL you used to reach Query Playground when setting up Enonic.
 
 NOTE: `/master` is added to the URL because we want to access the master branch (containing the published content)
+
+Wonder why it is called Guillotine? Guillotine is simply the name for Enonic's headless GraphQL API.
 
 == Start 
 
@@ -60,17 +61,20 @@ image::react-app.png[width=1024]
 
 == React router
 
-Although beautiful, the app doesn't do much yet. Let's begin by adding a router and some custom styling:
+Although beautiful, the app doesn't do much yet. 
+Let's begin by adding a router and some custom styling:
 
-. Replace the file `App.css` with the file called `App.sass:
+. Add a file called `App.sass
++
+We'll use this rather than the built-in App.css
 +
 .src/App.sass
 [source,sass]
 ----
-include::{sourcedir}src/main/resources/static/App.sass[]
+include::{sourcedir}src/App.sass[]
 ----
 +
-. Update your `App.tsx` file with the following code:
+. Then *update `App.tsx` file* with the following code:
 +
 .src/App.tsx
 [source,TypeScript]

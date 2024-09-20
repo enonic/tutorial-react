@@ -1,8 +1,8 @@
 # React SPA tutorial for Enonic
 
-Complete tutorial for building a vanilla React SPA powered by content from Enonic
+Tutorial for building React SPAs powered by content from Enonic
 
-The Tutorial is published on [Enonics Developer Portal](https://developer.enonic.com/docs/react)
+The Tutorial is published on [Enonics Developer Portal](https://developer.enonic.com/docs/tutorial-react)
 
 ## About
 

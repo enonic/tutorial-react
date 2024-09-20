@@ -29,7 +29,7 @@ Add the following files to your project:
 .src/components/FactBox.tsx
 [source,TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/macros/FactBox.tsx[]
+include::{sourcedir}src/components/FactBox.tsx[]
 ----
 
 NOTE: The optional body of a macro is available as a React component called `children`.
@@ -37,28 +37,28 @@ NOTE: The optional body of a macro is available as a React component called `chi
 .src/components/FactBox.module.css
 [source,css]
 ----
-include::{sourcedir}src/main/resources/static/components/macros/FactBox.module.css[]
+include::{sourcedir}src/components/FactBox.module.css[]
 ----
 
 Like other components, you may also declare a query for your Macro - but in this case we already have everything we need in the data returned from the original `bio` query.
 
 == The Macro component
 
-We now have a Factbox component, but we still need to map it to the Enonic macro definition. The solution is to implement the Macro component.
+We now have a Factbox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.
 
 .src/components/Macro.tsx
 [source,TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/Macro.tsx[]
+include::{sourcedir}src/components/Macro.tsx[]
 ----
 
-This component takes care of mapping each macro to it's matching React component. In our case, `FactBox` component implements the macro called `com.enonic.app.intro:factbox` in Enonic.
+This component takes care of mapping each macro to it's corresponding React component. In our case, `FactBox` component implements the macro called `com.enonic.app.intro:factbox` in Enonic.
 
 It will throw an error otherwise, which will cause the RichText component's `ErrorBoundary` to render an `Error placeholder`.
 
 == Add to RichText
 
-Finally, import and add `Macro` to the `RichText` component:
+Finally, import and pass it to the `RichText` component:
 
 .src/components/Person.tsx
 [source,TypeScript]

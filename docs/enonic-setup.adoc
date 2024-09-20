@@ -11,8 +11,10 @@ You can choose between two options:
 Follow these steps to get your cloud service up and running:
 
 . Sign up to Enonic[https://console.enonic.cloud], and verify your e-mail
-. Create your account
-. Create a solution - choose the template called `Headless demo`, then `Free plan` and complete the setup.
+. Log in, and create your account
+. Create a solution
++
+Choose the template called `Headless demo`, then `Free plan`, give it a suitable name and complete the setup.
 
 Once the solution has started, click the ingress called `Headless API` on your solution page, this will launch Query Playground in your browser.
 

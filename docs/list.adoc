@@ -11,7 +11,7 @@ Add the following file to your project. The component will use it to fetch data:
 .src/queries/personList.ts
 [source,graphql]
 ----
-include::{sourcedir}src/main/resources/static/queries/personList.ts[]
+include::{sourcedir}src/queries/personList.ts[]
 ----
 
 == React component
@@ -21,7 +21,7 @@ Now, add the component itself:
 .src/components/PersonList.tsx
 [source,TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/PersonList.tsx[]
+include::{sourcedir}src/components/PersonList.tsx[]
 ----
 
 == Styling
@@ -31,7 +31,7 @@ The component will also require some styling - you know to look good!
 .src/styles/PersonList.sass
 [source,Sass]
 ----
-include::{sourcedir}src/main/resources/static/styles/PersonList.sass[]
+include::{sourcedir}src/styles/PersonList.sass[]
 ----
 
 == Routing

@@ -11,7 +11,7 @@ Similar to the personList component, create a query which will fetch details for
 .src/queries/Person.ts
 [source,graphql]
 ----
-include::{sourcedir}src/main/resources/static/queries/PersonDetails.ts[]
+include::{sourcedir}src/queries/Person.ts[]
 ----
 
 NOTE: `bio` contains rich text content
@@ -25,7 +25,7 @@ Add the following file to your project:
 .src/components/Person.module.css
 [source,css]
 ----
-include::{sourcedir}src/main/resources/static/components/Person.module.css[]
+include::{sourcedir}src/components/Person.module.css[]
 ----
 
 
@@ -36,7 +36,7 @@ Add the Person component:
 .src/components/Person.tsx
 [source, TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/PersonWithoutExtensions.tsx[]
+include::{sourcedir}src/components/PersonWithoutExtensions.tsx[]
 ----
 
 NOTE: Here, we use the `RichText` component from `@enonic/react-components` npm module to render data from the `bio`.
@@ -46,6 +46,8 @@ We will dive into more details in the <<rich-text#,next chapter>>.
 == Routing
 
 Finally, App.tsx must be updated to handle the `Person` component, and trigger it on the following route pattern: `/p/:name/:personId`.
+
+This means the link should look something like /p/name-of-person/id-of-person. Since the ID is unique, we can use this to lookup the content in Enonic.
 
 .src/App.tsx
 [source,TypeScript]

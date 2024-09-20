@@ -13,7 +13,7 @@ of Content Studio and paste the query below into the query editor.
 .src/queries/personList.ts
 [source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personList.ts[]
+include::{sourcedir}src/queries/personList.ts[]
 ----
 
 Hit the Play button, and you should see a list of persons in the response:
@@ -154,7 +154,7 @@ Open the `Query Playground` panel and paste the query below:
 .src/queries/person.ts
 [source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/person.ts[]
+include::{sourcedir}src/queries/person.ts[]
 ----
 
 But before you hit Play, you need to set a query variable (this time in the Variables panel at the bottom of the Query
@@ -238,7 +238,7 @@ And paste the query below into the query editor:
 .src/queries/person.ts
 [source, GraphQL]
 ----
-include::{sourcedir}src/main/resources/static/queries/personMovies.ts[]
+include::{sourcedir}src/queries/personMovies.ts[]
 ----
 
 After hitting Play you should see an array of movies that reference the specified person:

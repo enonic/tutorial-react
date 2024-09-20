@@ -30,7 +30,7 @@ Add the following code to your project:
 .src/components/Link.tsx
 [source,TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/Link.tsx[]
+include::{sourcedir}src/components/Link.tsx[]
 ----
 
 What does it do?
@@ -61,17 +61,17 @@ image::./craig-app-render.png[width=1242]
 
 == Images
 
-Similar to links, implement your own `Image` component to control how images are rendered:
+Optionally, you may implement your own `Image` component in order to take more control over how images are rendered:
 
 .src/components/Image.tsx
 [source,TypeScript]
 ----
-include::{sourcedir}src/main/resources/static/components/Image.tsx[]
+include::{sourcedir}src/components/Image.tsx[]
 ----
 
-It doesn't do anything special, but this is a good place to add your own logic to images.
+The above simply keeps the standard values, but can be considered a starting point.
 
-You can add it to the `RichText` component like this:
+Remember to add your image component to the `RichText` component like this:
 
 .src/components/Person.tsx
 [source,TypeScript]
