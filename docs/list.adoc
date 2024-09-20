@@ -11,7 +11,7 @@ Add the following file to your project. The component will use it to fetch data:
 .src/queries/personList.ts
 [source,graphql]
 ----
-include::{sourcedir}src/queries/personList.ts[]
+include::{sourcedir}src/queries/PersonList.ts[]
 ----
 
 == React component
