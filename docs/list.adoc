@@ -42,9 +42,7 @@ Finally, update your the App.tsx file to include the `PersonList` component and 
 [source,TypeScript]
 ----
 import './App.sass';
-
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-
 import {PersonList} from './components/PersonList';
 
 export default function App() {

@@ -14,15 +14,19 @@ Follow these steps to get your cloud service up and running:
 . Log in, and create your account
 . Create a solution
 +
-Choose the template called `Headless demo`, then `Free plan`, give it a suitable name and complete the setup.
+Choose the template called `Headless demo`, then `Free plan`, give it a suitable name, and complete the setup.
++
+. Once the solution has started, click the `Headless API` ingress link, this will launch Query Playground in your browser.
++
+image::ingress.png[width=942]
 
-Once the solution has started, click the ingress called `Headless API` on your solution page, this will launch Query Playground in your browser.
+
 
 Continue in the <<#test_api, Test API section>>. 
 
 == Alternative 2 - Enonic SDK
 
-Follow the instructinos below to launch a local developer instance of Enonic:
+Follow the instructions below to launch a local developer instance of Enonic:
 
 . If you haven't installed Enonic CLI already, start by running the following command:
 +
@@ -39,7 +43,7 @@ Create a new sandbox (a developer instance of Enonic XP) by running the followin
 +
 [source,Terminal]
 ----
-enonic sandbox create react-tutorial -t intro -f
+enonic sandbox create react_tutorial -t intro -f
 ----
 +
 This will create a sandbox named `react-tutorial` using latest Enonic XP distribution and start it.

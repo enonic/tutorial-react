@@ -2,9 +2,7 @@ import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
-
 import PERSON_QUERY from '../queries/Person';
-
 import styles from './Person.module.css';
 
 
