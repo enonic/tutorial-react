@@ -30,7 +30,7 @@ export function Person() {
     }>();
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_GUILLOTINE_URL as string, {
+        fetch(import.meta.env.VITE_GUILLOTINE_URL as string, {
             body: JSON.stringify({
                 query: PERSON_QUERY,
                 variables: {
