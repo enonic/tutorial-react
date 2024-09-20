@@ -9,8 +9,8 @@
       "document": "enonic-setup"
     },
     {
-      "title": "2 - Set up React",
-      "document": "react-setup"
+      "title": "2 - React App",
+      "document": "react-app"
     },
     {
       "title": "3 - List persons",
@@ -21,7 +21,7 @@
       "document": "details"
     },
     {
-      "title": "5 - Rich Text bio",
+      "title": "5 - Rich Text",
       "document": "rich-text"
     },
     {

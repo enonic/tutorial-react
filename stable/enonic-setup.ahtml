@@ -634,14 +634,14 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will create the React application <a href="react-setup.ahtml">queries</a>.</p>
+<p>In the next chapter you will create the React application <a href="react-app.ahtml">queries</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-20 12:05:44 UTC
+Last updated 2024-09-20 12:12:33 UTC
 </div>
 </div>
 </body>
