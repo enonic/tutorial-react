@@ -1,4 +1,4 @@
-= Set up React
+= Create React app
 :sourcedir: ../
 :imagesdir: media/
 

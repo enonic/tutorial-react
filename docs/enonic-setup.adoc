@@ -121,4 +121,4 @@ This should produce a result looking something like this:
 
 == Next step
 
-In the next chapter you will create the React application <<react-setup#,queries>>.
+In the next chapter you will create the React application <<react-app#,queries>>.
