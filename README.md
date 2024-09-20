@@ -1,8 +1,6 @@
-# React SPA tutorial for Enonic
+# Tutorial React SPA powered by Enonic
 
-Tutorial for building React SPAs powered by content from Enonic
-
-The Tutorial is published on [Enonics Developer Portal](https://developer.enonic.com/docs/tutorial-react)
+This tutorial is published on [Enonics Developer Portal](https://developer.enonic.com/docs/tutorial-react-spa)
 
 ## About
 
@@ -12,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Add a .evn file to the project root, with the following variable, pointing to the Enonic API
 
-      REACT_APP_GUILLOTINE_URL=<Url to Enonic API>/master
+      REACT_APP_GUILLOTINE_URL=<Url to Query Playground>/master
 
 
 ## Start
