@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></li>
 <li><a href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></li>
-<li><a href="#verify_api">Verify API</a></li>
+<li><a href="#test_api">Test the API</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -471,15 +471,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Sign up to Enonic[<a href="https://console.enonic.cloud" class="bare">https://console.enonic.cloud</a>], and verify your e-mail</p>
 </li>
 <li>
-<p>Create your account</p>
+<p>Log in, and create your account</p>
 </li>
 <li>
-<p>Create a solution - choose the template called <code>Headless demo</code>, then <code>Free plan</code> and complete the setup.</p>
+<p>Create a solution</p>
+<div class="paragraph">
+<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name and complete the setup.</p>
+</div>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Once the solution is live, notice the ingress called <code>Headless API</code> - You will need this URL when setting up your React application later in the tutorial</p>
+<p>Once the solution has started, click the ingress called <code>Headless API</code> on your solution page, this will launch Query Playground in your browser.</p>
+</div>
+<div class="paragraph">
+<p>Continue in the <a href="#test_api">Test API section</a>.</p>
 </div>
 </div>
 </div>
@@ -536,41 +542,31 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>You are now ready to test that the API is working:</p>
+</div>
+</li>
+<li>
+<p>Open Query Playground by pointing your browser to <a href="http://localhost:8080/site/intro" target="_blank" rel="noopener">http://localhost:8080/site/intro</a> and continue below.</p>
 </li>
 </ol>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-With the sandbox up and running, your API should now be available on <a href="http://localhost:8080/site/intro/master" target="_blank" rel="noopener">http://localhost:8080/site/intro/master</a>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="verify_api"><a class="link" href="#verify_api">Verify API</a></h2>
+<h2 id="test_api"><a class="link" href="#test_api">Test the API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To verify that the API is working:</p>
+<p>If you followed the instructions above, you should now see the Query Playground in your browser.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open the API URL for your instance. You should now see the Query playground.</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/query-playground.png" alt="query playground" width="1200">
 </div>
 </div>
-</li>
-<li>
-<p>Paste in, and try executing the following query:</p>
+<div class="paragraph">
+<p><strong>Paste and run the query below</strong>:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
@@ -632,9 +628,6 @@ With the sandbox up and running, your API should now be available on <a href="ht
 }</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -648,7 +641,7 @@ With the sandbox up and running, your API should now be available on <a href="ht
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 14:21:51 UTC
+Last updated 2024-09-20 11:45:12 UTC
 </div>
 </div>
 </body>

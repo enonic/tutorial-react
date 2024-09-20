@@ -519,9 +519,9 @@ export default query;</code></pre>
 import React, {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom';
 
-import '../styles/personList.sass';
+import '../styles/PersonList.sass';
 
-import PERSON_LIST_QUERY from '../queries/personList';
+import PERSON_LIST_QUERY from '../queries/PersonList';
 
 export function PersonList() {
   const [data, setData] = useState&lt;{
@@ -590,7 +590,7 @@ export function PersonList() {
 <p>The component will also require some styling - you know to look good!</p>
 </div>
 <div class="listingblock">
-<div class="title">src/styles/personList.sass</div>
+<div class="title">src/styles/PersonList.sass</div>
 <div class="content">
 <pre class="highlight"><code class="language-Sass" data-lang="Sass">$gutter: 30px
 $color: rgba(0, 0, 0, .5)
@@ -699,7 +699,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 14:21:51 UTC
+Last updated 2024-09-20 11:45:12 UTC
 </div>
 </div>
 </body>

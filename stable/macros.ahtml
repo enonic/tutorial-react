@@ -442,11 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#background">Background</a></li>
-<li><a href="#default_macro_component">Default macro component</a></li>
+<li><a href="#default_macro_handling">Default macro handling</a></li>
 <li><a href="#factbox_component">Factbox component</a></li>
-<li><a href="#styling">Styling</a></li>
-<li><a href="#graphql_query">GraphQL query</a></li>
-<li><a href="#custom_params">Custom params</a></li>
+<li><a href="#the_macro_component">The Macro component</a></li>
+<li><a href="#add_to_richtext">Add to RichText</a></li>
+<li><a href="#a_final_tip">A final tip</a></li>
 <li><a href="#next_steps">Next steps</a></li>
 </ul>
 </div>
@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Further details on defining macros can be found in the <a href="https://developer.enonic.com/docs/xp/stable/cms/macros" target="_blank" rel="noopener">XP documentation</a>.
+Details on defining macros can be found in the <a href="https://developer.enonic.com/docs/xp/stable/cms/macros" target="_blank" rel="noopener">XP documentation</a>.
 </td>
 </tr>
 </table>
@@ -480,71 +480,21 @@ Further details on defining macros can be found in the <a href="https://develope
 </div>
 </div>
 <div class="sect1">
-<h2 id="default_macro_component"><a class="link" href="#default_macro_component">Default macro component</a></h2>
+<h2 id="default_macro_handling"><a class="link" href="#default_macro_handling">Default macro handling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The sample Enonic dataset already contains an example macro called <code>factbox</code>. It is added to the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> bio.</p>
+<p>The sample content contains an example macro called <code>Factbox</code>, which has been added to the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> bio.</p>
 </div>
 <div class="paragraph">
-<p>The standard macro component will simply render a placeholder:</p>
+<p>By default, the RichText component will simply render a fallback placeholder:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/lea-no-macro.png" alt="lea no macro" width="1200">
+<img src="media/no-macro.png" alt="no macro" width="663">
 </div>
 </div>
 <div class="paragraph">
-<p>That is because to render macros, you need to create your own implementation that knows how to render a specific macro!</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s create a <code>Macro.tsx</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/Macro.tsx</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
-
-
-import React from 'react';
-import {FactBox} from './macros/FactBox';
-
-
-export const Macro: MacroComponent = ({
-    config,
-    descriptor,
-    children,
-    ...rest
-}) =&gt; {
-    if (descriptor === 'com.enonic.app.intro:factbox') {
-        const props = {...rest, config};
-        return &lt;FactBox {...props}&gt;{children}&lt;/FactBox&gt;;
-    }
-    throw new Error(`Macro not found: ${descriptor}`);
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The Macro component above uses <code>FactBox</code> component to render all macros that have <code>com.enonic.app.intro:factbox</code> descriptor.</p>
-</div>
-<div class="paragraph">
-<p>It will throw an error otherwise, which will cause the <code>RichText</code> component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
-</div>
-<div class="paragraph">
-<p>Remember to import and add <code>Macro</code> component to the <code>RichText</code> component:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/Person.tsx</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Macro} from './Macro';
-
-// ..
-
-&lt;RichText
-  // ...
-  Macro={Macro}
-  // ...
-/&gt;</code></pre>
-</div>
+<p>To improve the situation, start by implementing a Factbox component</p>
 </div>
 </div>
 </div>
@@ -552,14 +502,10 @@ export const Macro: MacroComponent = ({
 <h2 id="factbox_component"><a class="link" href="#factbox_component">Factbox component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>But we are not done yet.
-We need to create an actual implementation of the <code>FactBox</code> macro that is used by our <code>Macro</code> component.</p>
-</div>
-<div class="paragraph">
-<p>Create a <code>FactBox.tsx</code> component:</p>
+<p>Add the following files to your project:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/components/macros/FactBox.tsx</div>
+<div class="title">src/components/FactBox.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react'
 
@@ -572,7 +518,6 @@ declare type FactBoxProps = {
 
 export const FactBox = ({config, children}: FactBoxProps) =&gt; (&lt;&gt;
     &lt;ins className={styles.factbox}&gt;
-        &lt;i className={styles.icon}/&gt;
         &lt;strong className={styles.header}&gt;{config.header?.length ? config.header : 'Fact Box'}&lt;/strong&gt;
         &lt;br/&gt;
         {children}
@@ -587,24 +532,13 @@ export const FactBox = ({config, children}: FactBoxProps) =&gt; (&lt;&gt;
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Remember that <code>guillotineUrl</code> and <code>personId</code> are available in macros because we added them to <code>RichText</code> component previously.
+The optional body of a macro is available as a React component called <code>children</code>.
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To style the macro we are using <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> again.</p>
-</div>
-<div class="paragraph">
-<p>Create a <code>FactBox.module.css</code> file with the following content:</p>
-</div>
 <div class="listingblock">
-<div class="title">src/components/macros/FactBox.module.css</div>
+<div class="title">src/components/FactBox.module.css</div>
 <div class="content">
 <pre class="highlight"><code class="language-css" data-lang="css">.icon {
     speak: none;
@@ -653,19 +587,6 @@ Remember that <code>guillotineUrl</code> and <code>personId</code> are available
     color: #1f71a1;
 }
 
-.factbox .icon {
-    display: block;
-    position: absolute;
-    font-size: 24px;
-    top: 10px;
-    left: 10px;
-}
-
-.factbox .icon:before {
-    content: "\1f6c8";
-    color: #1f71a1;
-}
-
 .factbox .body ul {
     padding-left: 0;
 }
@@ -681,87 +602,95 @@ Remember that <code>guillotineUrl</code> and <code>personId</code> are available
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Like other components, you may also declare a query for your Macro - but in this case we already have everything we need in the data returned from the original <code>bio</code> query.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="graphql_query"><a class="link" href="#graphql_query">GraphQL query</a></h2>
+<h2 id="the_macro_component"><a class="link" href="#the_macro_component">The Macro component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>FactBox</code> macro imports <code>PERSON_MOVIES_QUERY</code> GraphQL query that we need to create now:</p>
+<p>We now have a Factbox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.</p>
 </div>
 <div class="listingblock">
-<div class="title">src/queries/personMovies.ts</div>
+<div class="title">src/components/Macro.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">const query = `query PersonMoviesQuery($personId: String!) {
-  guillotine {
-    queryDsl(
-      query: {
-        boolean: {
-          must: [
-            {
-              term: {
-                field: "type",
-                value: {
-                  string: "com.enonic.app.intro:movie"
-                }
-              }
-            },
-            {
-              in: {
-                field: "_references",
-                stringValues: [$personId]
-              }
-            }
-          ]
-        }
-      }
-    ) {
-      _id
-      _name
-      displayName
-      ... on com_enonic_app_intro_Movie {
-        data {
-          photos(first: 1) {
-            ... on media_Image {
-              imageUrl(scale: "width(100)")
-            }
-          }
-        }
-      }
-    }
-  }
-}`
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
 
-export default query;</code></pre>
+
+import React from 'react';
+import {FactBox} from './FactBox';
+
+
+export const Macro: MacroComponent = ({
+    config,
+    descriptor,
+    children,
+    ...rest
+}) =&gt; {
+    if (descriptor === 'com.enonic.app.intro:factbox') {
+        const props = {...rest, config};
+        return &lt;FactBox {...props}&gt;{children}&lt;/FactBox&gt;;
+    }
+    throw new Error(`Macro not found: ${descriptor}`);
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Congratulations!
-If you did everything correctly, you should see the <code>FactBox</code> macro rendered inside the biography on the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> page:</p>
+<p>This component takes care of mapping each macro to it&#8217;s corresponding React component. In our case, <code>FactBox</code> component implements the macro called <code>com.enonic.app.intro:factbox</code> in Enonic.</p>
+</div>
+<div class="paragraph">
+<p>It will throw an error otherwise, which will cause the RichText component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add_to_richtext"><a class="link" href="#add_to_richtext">Add to RichText</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finally, import and pass it to the <code>RichText</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Macro} from './Macro';
+
+// ..
+
+&lt;RichText
+  // ...
+  Macro={Macro}
+  // ...
+/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you did everything correctly, you should now see the <code>FactBox</code> macro rendered inside the biography on the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> page:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/lea-with-macro.png" alt="lea with macro" width="1200">
+<img src="media/factbox-macro.png" alt="factbox macro" width="1028">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="custom_params"><a class="link" href="#custom_params">Custom params</a></h2>
+<h2 id="a_final_tip"><a class="link" href="#a_final_tip">A final tip</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Sometimes it may be useful to pass additional parameters to the <code>RichText</code> component by supplying a generic interface declaring them:</p>
+<p>You may pass additional parameters, such as <code>personID</code> to the RichText component by supplying a generic interface declaring them:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
   ...
-  customParam="paramValue"
+  personID="paramValue"
   ...
 /&gt;
 
 interface RestProps {
-  cusomParam: string;
+  personID: string;
 }</code></pre>
 </div>
 </div>
@@ -777,17 +706,20 @@ interface RestProps {
 <p>Congratulations on completing this tutorial.</p>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>For more details on our React components, visit <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">the NPM documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>Now you are ready to create you own React webapp with <a href="https://developer.enonic.com/docs/intro/stable/api" target="_blank" rel="noopener">headless Enonic XP</a> using <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">@enonic/react-components</a> library.</p>
+<p>To learn more about Enonic&#8217;s CMS capabilities, we recommend the <a href="https://developer.enonic.com/docs/developer-101">Developer 101 tutorial</a>.</p>
+</div>
+<div class="paragraph">
+<p>To dive deeper into React and building sites with Enonic, have a look at our <a href="https://developer.enonic.com/docs/next.xp">Next.js</a> integration.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 14:21:51 UTC
+Last updated 2024-09-20 11:45:12 UTC
 </div>
 </div>
 </body>

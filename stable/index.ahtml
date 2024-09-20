@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Tutorial: React SPA with content from Enonic</title>
+<meta name="author" content="Tutorial">
+<title>Building a React SPA powered by Enonic</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +438,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Tutorial: React SPA with content from Enonic</h1>
+<h1>Building a React SPA powered by Enonic</h1>
+<div class="details">
+<span id="author" class="author">Tutorial</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -449,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial demonstrate how to build a single-page <a href="https://react.dev/" target="_blank" rel="noopener">react.js</a> application that fetches data from Enonic&#8217;s GraphQL API.</p>
+<p>This tutorial demonstrates how to build a single-page <a href="https://react.dev/" target="_blank" rel="noopener">react.js</a> application that renders pages based on structured content from Enonic&#8217;s GraphQL API.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -458,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-We highly recommend that you study the <a href="https://developer.enonic.com/docs/intro">Enonic intro tutorial</a> before embarking on this.
+It may be useful to study the <a href="https://developer.enonic.com/docs/intro">Enonic intro tutorial</a> before you continue.
 </td>
 </tr>
 </table>
@@ -469,13 +473,7 @@ We highly recommend that you study the <a href="https://developer.enonic.com/doc
 <h2 id="target_audience"><a class="link" href="#target_audience">Target audience</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial is aimed at developers looking to understand how Enonic can be used in combination with React based single page webapplications. It demonstrates use of basic structured content in React, combined with routing and rich text handling.</p>
-</div>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-<div class="paragraph">
-<p>We will also show how to use the <code>RichText</code> component from <a href="https://www.npmjs.com/package/@enonic/react-components">@enonic/react-components</a> to render HTML area inputs that can contain images, links and macros.</p>
+<p>This tutorial is aimed at React developers looking to understand how Enonic can be used as a headless CMS to back your application.</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s <a href="enonic-setup.ahtml">get started</a>!</p>
@@ -485,7 +483,7 @@ We highly recommend that you study the <a href="https://developer.enonic.com/doc
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 14:21:51 UTC
+Last updated 2024-09-20 11:45:12 UTC
 </div>
 </div>
 </body>

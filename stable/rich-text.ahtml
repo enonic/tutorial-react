@@ -501,11 +501,7 @@ which is why you can implement your own <code>Image</code> and <code>Link</code>
 <div class="title">src/components/Link.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {LinkComponent} from '@enonic/react-components';
-
-
 import React from 'react';
-// import {parse} from 'uri-js';
-
 
 export const Link: LinkComponent = ({
     children,
@@ -517,20 +513,6 @@ export const Link: LinkComponent = ({
     uri,
     ...rest
 }) =&gt; {
-    // const {
-    //   content: mediaContent,
-    //   intent,
-    // } = media || {} as LinkDataMedia;
-
-    // const {
-    //   _id,
-    //   _name,
-    //   _path,
-    //   imageUrl,
-    //   mediaUrl,
-    //   type,
-    // } = mediaContent || content;
-
     let appHref = '';
     if (content &amp;&amp; content.type?.endsWith(':person')) {
         appHref = `/p/${content?._name}/${content?._id}`;
@@ -592,7 +574,7 @@ export const Link: LinkComponent = ({
 <h2 id="images"><a class="link" href="#images">Images</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Similar to links, implement your own <code>Image</code> component to control how images are rendered:</p>
+<p>Optionally, you may implement your own <code>Image</code> component in order to take more control over how images are rendered:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Image.tsx</div>
@@ -611,19 +593,6 @@ export const Image: ImageComponent = ({
     style,
     ...rest
 }) =&gt; {
-    // const {
-    //   _id,
-    //   _name,
-    //   _path,
-    //   type,
-    //   imageUrl
-    // } = image;
-    // const {
-    //   aspectRatio,
-    //   filter,
-    //   name
-    // } = imageStyle;
-
     return &lt;img
         alt={alt}
         sizes={sizes}
@@ -635,10 +604,10 @@ export const Image: ImageComponent = ({
 </div>
 </div>
 <div class="paragraph">
-<p>It doesn&#8217;t do anything special, but this is a good place to add your own logic to images.</p>
+<p>The above simply keeps the standard values, but can be considered a starting point.</p>
 </div>
 <div class="paragraph">
-<p>You can add it to the <code>RichText</code> component like this:</p>
+<p>Remember to add your image component to the <code>RichText</code> component like this:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
@@ -667,7 +636,7 @@ export const Image: ImageComponent = ({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 14:21:51 UTC
+Last updated 2024-09-20 11:45:12 UTC
 </div>
 </div>
 </body>

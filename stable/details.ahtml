@@ -442,8 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#query">Query</a></li>
-<li><a href="#component">Component</a></li>
 <li><a href="#styling">Styling</a></li>
+<li><a href="#component">Component</a></li>
 <li><a href="#routing">Routing</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
@@ -464,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Similar to the personList component, create a query which will fetch details for a single person:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/queries/person.ts</div>
+<div class="title">src/queries/Person.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonQuery($personId: ID!) {
     guillotine {
@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                     dateofbirth
                     photos {
                         ... on media_Image {
-                            imageUrl(scale: "width(500)", type: absolute)
+                            imageUrl(scale: "width(1000)", type: absolute)
                             attachments {
                                 name
                             }
@@ -538,10 +538,63 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This time, we will use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style this component.</p>
+</div>
+<div class="paragraph">
+<p>Add the following file to your project:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.module.css</div>
+<div class="content">
+<pre class="highlight"><code class="language-css" data-lang="css">.person,
+.person .bio {
+    font-family: sans-serif;
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    padding: 30px
+}
+
+.bio {
+    line-height: 24px;
+}
+
+.bio figcaption {
+    font-size: 12px;
+}
+
+.photos {
+    padding: 0 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 50px;
+    gap: 50px;
+}
+
+.photos img {
+    width: 100%;
+    height: auto; /* Ensures images scale properly */
+}
+
+@media screen and (max-width: 720px) {
+    .bio figure {
+        width: auto !important;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="component"><a class="link" href="#component">Component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Next, define the Person component:</p>
+<p>Add the Person component:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
@@ -551,7 +604,7 @@ import {RichText} from '@enonic/react-components';
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
 
-import PERSON_QUERY from '../queries/person';
+import PERSON_QUERY from '../queries/Person';
 
 import styles from './Person.module.css';
 
@@ -659,71 +712,19 @@ We will dive into more details in the <a href="rich-text.ahtml">next chapter</a>
 </div>
 </div>
 <div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This time, we will use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style this component.</p>
-</div>
-<div class="paragraph">
-<p>Add the following file to your project:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/Person.module.css</div>
-<div class="content">
-<pre class="highlight"><code class="language-css" data-lang="css">.person,
-.person .bio {
-    font-family: sans-serif;
-}
-
-.person {
-    display: flex;
-    flex-direction: column;
-    padding: 30px
-}
-
-.bio {
-    line-height: 24px;
-}
-
-.bio figcaption {
-    font-size: 12px;
-}
-
-.photos {
-    padding: 0 20px 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 50px;
-    gap: 50px;
-}
-
-.photos img {
-    width: 100%;
-    height: auto; /* Ensures images scale properly */
-}
-
-@media screen and (max-width: 720px) {
-    .bio figure {
-        width: auto !important;
-    }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Finally, App.tsx must be updated to handle the <code>Person</code> component, and trigger it on the following route pattern: <code>/p/:name/:personId</code>.</p>
 </div>
+<div class="paragraph">
+<p>This means the link should look something like /p/name-of-person/id-of-person. Since the ID is unique, we can use this to lookup the content in Enonic.</p>
+</div>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
-
 import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
-
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
 
@@ -763,7 +764,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 14:21:51 UTC
+Last updated 2024-09-20 11:45:12 UTC
 </div>
 </div>
 </body>
