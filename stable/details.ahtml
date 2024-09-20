@@ -603,9 +603,7 @@ export default query;</code></pre>
 import {RichText} from '@enonic/react-components';
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
-
 import PERSON_QUERY from '../queries/Person';
-
 import styles from './Person.module.css';
 
 
@@ -764,7 +762,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-20 12:12:33 UTC
+Last updated 2024-09-20 12:43:38 UTC
 </div>
 </div>
 </body>

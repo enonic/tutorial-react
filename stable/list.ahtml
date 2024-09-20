@@ -654,9 +654,7 @@ ul.person-list
 <div class="title">src/App.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
-
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-
 import {PersonList} from './components/PersonList';
 
 export default function App() {
@@ -699,7 +697,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-20 12:12:33 UTC
+Last updated 2024-09-20 12:43:38 UTC
 </div>
 </div>
 </body>

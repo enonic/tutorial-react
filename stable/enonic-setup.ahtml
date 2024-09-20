@@ -476,13 +476,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Create a solution</p>
 <div class="paragraph">
-<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name and complete the setup.</p>
+<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name, and complete the setup.</p>
+</div>
+</li>
+<li>
+<p>Once the solution has started, click the <code>Headless API</code> ingress link, this will launch Query Playground in your browser.</p>
+<div class="imageblock">
+<div class="content">
+<img src="media/ingress.png" alt="ingress" width="942">
+</div>
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Once the solution has started, click the ingress called <code>Headless API</code> on your solution page, this will launch Query Playground in your browser.</p>
 </div>
 <div class="paragraph">
 <p>Continue in the <a href="#test_api">Test API section</a>.</p>
@@ -493,7 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="alternative_2_enonic_sdk"><a class="link" href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Follow the instructinos below to launch a local developer instance of Enonic:</p>
+<p>Follow the instructions below to launch a local developer instance of Enonic:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -524,7 +529,7 @@ More installation methods along with CLI documentation can be found <a href="htt
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react-tutorial -t intro -f</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_tutorial -t intro -f</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -641,7 +646,7 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-20 12:12:33 UTC
+Last updated 2024-09-20 12:43:38 UTC
 </div>
 </div>
 </body>
