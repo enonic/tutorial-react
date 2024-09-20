@@ -26,13 +26,15 @@ To improve the situation, start by implementing a Factbox component
 
 Add the following files to your project:
 
-.src/components/macros/FactBox.tsx
+.src/components/FactBox.tsx
 [source,TypeScript]
 ----
 include::{sourcedir}src/main/resources/static/components/macros/FactBox.tsx[]
 ----
 
-.src/components/macros/FactBox.module.css
+NOTE: The optional body of a macro is available as a React component called `children`.
+
+.src/components/FactBox.module.css
 [source,css]
 ----
 include::{sourcedir}src/main/resources/static/components/macros/FactBox.module.css[]
@@ -74,27 +76,27 @@ import {Macro} from './Macro';
 
 If you did everything correctly, you should now see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
 
-image::./lea-with-macro.png[width=1200]
+image::./factbox-macro.png[width=1028]
 
 
-== A final trick
+== A final tip
 
-You may pass additional parameters to the `RichText` component by supplying a generic interface declaring them:
+You may pass additional parameters, such as `personID` to the RichText component by supplying a generic interface declaring them:
 
 [source,TypeScript]
 ----
 <RichText<RestProps>
   ...
-  customParam="paramValue"
+  personID="paramValue"
   ...
 />
 
 interface RestProps {
-  cusomParam: string;
+  personID: string;
 }
 ----
 
-These params will be passed on to the `Image`, `Link` and `Macro` components for your convenience.
+These params will be passed on to the `Image`, `Link` and `Macro` components as well.
 
 == Next steps
 
