@@ -9,11 +9,11 @@
       "document": "enonic-setup"
     },
     {
-      "title": "2 - Set up React project",
+      "title": "2 - Set up React",
       "document": "react-setup"
     },
     {
-      "title": "3 - Person list",
+      "title": "3 - List persons",
       "document": "list"
     },
     {
@@ -21,12 +21,12 @@
       "document": "details"
     },
     {
-      "title": "5 - Rich Text",
+      "title": "5 - Rich Text bio",
       "document": "rich-text"
     },
     {
-      "title": "6 - Macros",
-      "document": "macros"
+      "title": "6 - Factbox macro",
+      "document": "macro"
     }
   ]
 }

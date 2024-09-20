@@ -1,4 +1,4 @@
-= PersonList Component
+= Render Persons
 :sourcedir: ../
 :imagesdir: media/
 
