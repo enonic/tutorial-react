@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "master"
+      - "react-vite"
     paths:
       - 'docs/**'
   workflow_dispatch:
