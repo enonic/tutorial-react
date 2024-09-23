@@ -1,5 +1,4 @@
 import type {LinkComponent} from '@enonic/react-components';
-import React from 'react';
 
 export const Link: LinkComponent = ({
     children,

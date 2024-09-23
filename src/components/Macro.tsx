@@ -1,7 +1,6 @@
 import type {MacroComponent} from '@enonic/react-components';
 
 
-import React from 'react';
 import {FactBox} from './FactBox';
 
 

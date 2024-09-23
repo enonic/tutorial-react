@@ -1,6 +1,6 @@
 import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
 import PERSON_QUERY from '../queries/Person';
 import styles from './Person.module.css';
@@ -12,7 +12,7 @@ export function Person() {
         personId = ''
     } = useParams();
 
-    const guillotineUrl = process.env.REACT_APP_GUILLOTINE_URL as string;
+    const guillotineUrl = import.meta.env.VITE_GUILLOTINE_URL as string;
 
     const [data, setData] = useState<{
         _name: string

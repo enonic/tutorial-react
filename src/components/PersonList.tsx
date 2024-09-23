@@ -1,10 +1,11 @@
-import {forceArray} from '@enonic/js-utils/array/forceArray';
-import React, {useEffect, useState,} from 'react';
+import {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom';
 
 import '../styles/PersonList.sass';
 
 import PERSON_LIST_QUERY from '../queries/PersonList';
+
+const forceArray = (data: any) => (Array.isArray(data) ? data : [data]);
 
 export function PersonList() {
   const [data, setData] = useState<{
