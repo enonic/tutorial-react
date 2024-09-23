@@ -1,6 +1,6 @@
 import type {RichTextData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
 
 import {Image} from './Image';

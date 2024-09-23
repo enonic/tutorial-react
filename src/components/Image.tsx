@@ -1,7 +1,5 @@
 import type {ImageComponent} from '@enonic/react-components';
 
-import React from 'react';
-
 export const Image: ImageComponent = ({
     alt,
     image,

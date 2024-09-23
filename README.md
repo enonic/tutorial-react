@@ -4,50 +4,35 @@ This tutorial is published on [Enonics Developer Portal](https://developer.enoni
 
 ## About
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and contains a working version of the React application, as well as the tutorial documentation.
+This project was bootstrapped with Vite using `react-ts` template and contains a working version of the React application, as well as the tutorial documentation.
 
 ## Configuration
 
-Add a .evn file to the project root, with the following variable, pointing to the Enonic API
+This project contains a file called `.env` with the following variable, pointing to the Enonic API
 
-      REACT_APP_GUILLOTINE_URL=<Url to Query Playground>/master
+      VITE_GUILLOTINE_URL=http://localhost:8080/site/intro/master
 
+Verify that this URL corresponds to the Guillotine API URL in your Enonic XP installation (see the tutorial referenced above for more details).
 
 ## Start
 
-### `npm start`
+### `npm run dev -- --port 3000`
 
-Runs the app in the development mode.\
+Runs the app in the development mode on port 3000.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production inside the `/dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 

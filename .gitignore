@@ -1,7 +1,10 @@
 /.enonic
 /.gradle/
 /build/
+/dist/
 /coverage/
 /node_modules/
 .idea/
 .env
+tsconfig.app.tsbuildinfo
+tsconfig.node.tsbuildinfo
