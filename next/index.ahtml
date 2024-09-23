@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Setting up Enonic</title>
+<meta name="author" content="Tutorial">
+<title>Building a React SPA powered by Enonic</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +438,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Setting up Enonic</h1>
+<h1>Building a React SPA powered by Enonic</h1>
+<div class="details">
+<span id="author" class="author">Tutorial</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></li>
-<li><a href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></li>
-<li><a href="#test_api">Test the API</a></li>
-<li><a href="#next_step">Next step</a></li>
+<li><a href="#target_audience">Target audience</a></li>
 </ul>
 </div>
 </div>
@@ -452,88 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter, you will launch an Enonic instance that contains a public dataset you will use in the React application.</p>
-</div>
-<div class="paragraph">
-<p>You can choose between two options:</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="alternative_1_free_cloud_instance"><a class="link" href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Follow these steps to get your cloud service up and running:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign up to Enonic[<a href="https://console.enonic.cloud" class="bare">https://console.enonic.cloud</a>], and verify your e-mail</p>
-</li>
-<li>
-<p>Log in, and create your account</p>
-</li>
-<li>
-<p>Create a solution</p>
-<div class="paragraph">
-<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name, and complete the setup.</p>
-</div>
-</li>
-<li>
-<p>Once the solution has started, click the <code>Headless API</code> ingress link, this will launch Query Playground in your browser.</p>
-<div class="imageblock">
-<div class="content">
-<img src="media/ingress.png" alt="ingress" width="942">
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Continue in the <a href="#test_api">Test API section</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="alternative_2_enonic_sdk"><a class="link" href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Follow the instructions below to launch a local developer instance of Enonic:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If you haven&#8217;t installed Enonic CLI already, start by running the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install -g @enonic/cli</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-More installation methods along with CLI documentation can be found <a href="https://developer.enonic.com/docs/enonic-cli/stable/install">here</a>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Create sandbox</p>
-<div class="paragraph">
-<p>Create a new sandbox (a developer instance of Enonic XP) by running the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_tutorial -t intro -f</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will create a sandbox named <code>react-tutorial</code> using latest Enonic XP distribution and start it.</p>
+<p>This tutorial demonstrates how to build a single-page <a href="https://react.dev/" target="_blank" rel="noopener">react.js</a> application that renders pages based on structured content from Enonic&#8217;s GraphQL API.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -542,111 +462,28 @@ More installation methods along with CLI documentation can be found <a href="htt
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>-t intro</code> flag tells the CLI to provision a set of standard Enonic apps, including sample content you will use later in this tutorial.
+It may be useful to study the <a href="https://developer.enonic.com/docs/intro">Enonic intro tutorial</a> before you continue.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>You are now ready to test that the API is working:</p>
-</div>
-</li>
-<li>
-<p>Open Query Playground by pointing your browser to <a href="http://localhost:8080/site/intro" target="_blank" rel="noopener">http://localhost:8080/site/intro</a> and continue below.</p>
-</li>
-</ol>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="test_api"><a class="link" href="#test_api">Test the API</a></h2>
+<h2 id="target_audience"><a class="link" href="#target_audience">Target audience</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you followed the instructions above, you should now see the Query Playground in your browser.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/query-playground.png" alt="query playground" width="1200">
-</div>
+<p>This tutorial is aimed at React developers looking to understand how Enonic can be used as a headless CMS to back your application.</p>
 </div>
 <div class="paragraph">
-<p><strong>Paste and run the query below</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
-    guillotine {
-        queryDsl(
-            first: 3
-            query: {
-                term: {
-                    field: "type",
-                    value: {
-                        string: "com.enonic.app.intro:person"
-                    }
-                }
-            }
-            sort: {
-                field: "modifiedTime",
-                direction: DESC
-            }
-        ) {
-            _id
-            _name
-            displayName
-            type
-        }
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This should produce a result looking something like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "data": {
-    "guillotine": {
-      "queryDsl": [
-        {
-          "_id": "a8b374a2-c532-45eb-9aa1-73d1c37cd681",
-          "_name": "lea-seydoux",
-          "displayName": "Léa Seydoux",
-          "type": "com.enonic.app.intro:person"
-        },
-        {
-          "_id": "569d127d-b6bd-45d6-94b0-949ec6171336",
-          "_name": "jeffrey-wright",
-          "displayName": "Jeffrey Wright",
-          "type": "com.enonic.app.intro:person"
-        },
-        {
-          "_id": "f29ba9b7-a73a-4767-82db-9da4df952924",
-          "_name": "daniel-craig",
-          "displayName": "Daniel Craig",
-          "type": "com.enonic.app.intro:person"
-        }
-      ]
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the next chapter you will create the React application <a href="react-app.ahtml">queries</a>.</p>
+<p>Let&#8217;s <a href="enonic-setup.ahtml">get started</a>!</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 09:40:38 UTC
+Last updated 2024-09-23 09:40:51 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Setting up Enonic</title>
+<title>Render Persons</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Setting up Enonic</h1>
+<h1>Render Persons</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></li>
-<li><a href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></li>
-<li><a href="#test_api">Test the API</a></li>
+<li><a href="#query">Query</a></li>
+<li><a href="#react_component">React component</a></li>
+<li><a href="#styling">Styling</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#result">Result</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -452,132 +454,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter, you will launch an Enonic instance that contains a public dataset you will use in the React application.</p>
-</div>
-<div class="paragraph">
-<p>You can choose between two options:</p>
+<p>This chapter covers creation of the PersonList component, including a query for retrieving persons from the Enonic API.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="alternative_1_free_cloud_instance"><a class="link" href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></h2>
+<h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Follow these steps to get your cloud service up and running:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign up to Enonic[<a href="https://console.enonic.cloud" class="bare">https://console.enonic.cloud</a>], and verify your e-mail</p>
-</li>
-<li>
-<p>Log in, and create your account</p>
-</li>
-<li>
-<p>Create a solution</p>
-<div class="paragraph">
-<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name, and complete the setup.</p>
-</div>
-</li>
-<li>
-<p>Once the solution has started, click the <code>Headless API</code> ingress link, this will launch Query Playground in your browser.</p>
-<div class="imageblock">
-<div class="content">
-<img src="media/ingress.png" alt="ingress" width="942">
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Continue in the <a href="#test_api">Test API section</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="alternative_2_enonic_sdk"><a class="link" href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Follow the instructions below to launch a local developer instance of Enonic:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If you haven&#8217;t installed Enonic CLI already, start by running the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install -g @enonic/cli</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-More installation methods along with CLI documentation can be found <a href="https://developer.enonic.com/docs/enonic-cli/stable/install">here</a>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Create sandbox</p>
-<div class="paragraph">
-<p>Create a new sandbox (a developer instance of Enonic XP) by running the following command:</p>
+<p>Add the following file to your project. The component will use it to fetch data:</p>
 </div>
 <div class="listingblock">
+<div class="title">src/queries/PersonList.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_tutorial -t intro -f</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will create a sandbox named <code>react-tutorial</code> using latest Enonic XP distribution and start it.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>-t intro</code> flag tells the CLI to provision a set of standard Enonic apps, including sample content you will use later in this tutorial.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>You are now ready to test that the API is working:</p>
-</div>
-</li>
-<li>
-<p>Open Query Playground by pointing your browser to <a href="http://localhost:8080/site/intro" target="_blank" rel="noopener">http://localhost:8080/site/intro</a> and continue below.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="test_api"><a class="link" href="#test_api">Test the API</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you followed the instructions above, you should now see the Query Playground in your browser.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/query-playground.png" alt="query playground" width="1200">
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Paste and run the query below</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonListQuery {
     guillotine {
         queryDsl(
-            first: 3
+            first: 50
             query: {
                 term: {
                     field: "type",
@@ -595,43 +488,201 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
             _name
             displayName
             type
+            ... on com_enonic_app_intro_Person {
+                data {
+                    photos {
+                        ... on media_Image {
+                            imageUrl(type: absolute, scale: "square(500)")
+                        }
+                    }
+                }
+            }
         }
     }
+}`;
+
+export default query;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="react_component"><a class="link" href="#react_component">React component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, add the component itself:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/PersonList.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {forceArray} from '@enonic/js-utils/array/forceArray';
+import React, {useEffect, useState,} from 'react';
+import {Link} from 'react-router-dom';
+
+import '../styles/PersonList.sass';
+
+import PERSON_LIST_QUERY from '../queries/PersonList';
+
+export function PersonList() {
+  const [data, setData] = useState&lt;{
+    _id: string
+    _name: string
+    data: {
+      photos: {
+        imageUrl: string
+      }[]
+    }
+    displayName: string
+  }[]&gt;();
+
+  useEffect(() =&gt; {
+    fetch(import.meta.env.VITE_GUILLOTINE_URL as string, {
+      body: JSON.stringify({
+        query: PERSON_LIST_QUERY,
+      }),
+      headers: {
+        'content-type': 'application/json',
+      },
+      method: 'POST',
+    })
+        .then(response =&gt; response.json())
+        .then(json =&gt; setData(json.data.guillotine.queryDsl));
+  }, []);
+
+  return (
+      &lt;&gt;
+        {data &amp;&amp; &lt;ul className='person-list'&gt;
+          {data.map((person, i) =&gt; {
+
+            const {
+              _id,
+              _name,
+              data: {
+                photos
+              },
+              displayName
+            } = person;
+
+            const imgProps = {
+              alt: displayName,
+              src: photos ? forceArray(photos)[0].imageUrl : undefined,
+            };
+
+            return &lt;li key={i}&gt;
+              &lt;Link to={`/p/${_name}/${_id}`}&gt;
+                &lt;img {...imgProps}/&gt;
+                &lt;div&gt;{displayName}&lt;/div&gt;
+              &lt;/Link&gt;
+            &lt;/li&gt;;
+          })}
+        &lt;/ul&gt;}
+      &lt;/&gt;
+  );
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component will also require some styling, to make it look good!</p>
+</div>
+<div class="listingblock">
+<div class="title">src/styles/PersonList.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-Sass" data-lang="Sass">$gutter: 30px
+$color: rgba(0, 0, 0, .5)
+
+ul.person-list
+  list-style-type: none
+  padding: 30px 30px 0
+  margin: 0
+  background-color: #444
+
+  li
+    display: inline-block
+    margin-bottom: $gutter
+    padding-right: $gutter
+    vertical-align: middle
+    width: calc((100% / 3) - 20px)
+    &amp;:nth-child(3n)
+      padding-right: 0
+
+    a
+      display: inline-block
+      width: 100%
+      position: relative // so div can be centered
+      div
+        bottom: 10px
+        color: #fff
+        left: 50%
+        font-size: 1.5rem
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        text-shadow: 1px 0 0 $color, 0 -1px 0 $color, 0 1px 0 $color, -1px 0 0 $color
+        transform: translate(-50%)
+        white-space: nowrap
+      &amp;:hover
+        div
+          opacity: 1
+      img
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1)
+        border-radius: 5%
+        filter: grayscale(100%)
+        height: auto
+        margin: auto 0
+        transition: all .2s ease-in-out
+        width: 100%
+
+        &amp;:hover
+          filter: grayscale(0%)
+          transform: scale(1.1)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finally, update the App.tsx file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import {PersonList} from './components/PersonList';
+
+export default function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;PersonList /&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  );
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="result"><a class="link" href="#result">Result</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With everything in place, you should now see a grid of person images at <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/person-list.png" alt="person list" width="1093">
 </div>
 </div>
 <div class="paragraph">
-<p>This should produce a result looking something like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "data": {
-    "guillotine": {
-      "queryDsl": [
-        {
-          "_id": "a8b374a2-c532-45eb-9aa1-73d1c37cd681",
-          "_name": "lea-seydoux",
-          "displayName": "Léa Seydoux",
-          "type": "com.enonic.app.intro:person"
-        },
-        {
-          "_id": "569d127d-b6bd-45d6-94b0-949ec6171336",
-          "_name": "jeffrey-wright",
-          "displayName": "Jeffrey Wright",
-          "type": "com.enonic.app.intro:person"
-        },
-        {
-          "_id": "f29ba9b7-a73a-4767-82db-9da4df952924",
-          "_name": "daniel-craig",
-          "displayName": "Daniel Craig",
-          "type": "com.enonic.app.intro:person"
-        }
-      ]
-    }
-  }
-}</code></pre>
-</div>
+<p>Clicking any of the images will take you to the person&#8217;s detail page - which is yet to be implemented.</p>
 </div>
 </div>
 </div>
@@ -639,14 +690,14 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will create the React application <a href="react-app.ahtml">queries</a>.</p>
+<p>Moving forward, you&#8217;ll create a component and a matching routing to render <a href="details.ahtml">Person details</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 09:40:38 UTC
+Last updated 2024-09-23 09:40:51 UTC
 </div>
 </div>
 </body>

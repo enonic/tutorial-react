@@ -1,0 +1,32 @@
+{
+  "menuItems": [
+    {
+      "title": "Introduction",
+      "document": "index"
+    },
+    {
+      "title": "1 - Set up Enonic",
+      "document": "enonic-setup"
+    },
+    {
+      "title": "2 - React App",
+      "document": "react-app"
+    },
+    {
+      "title": "3 - List persons",
+      "document": "list"
+    },
+    {
+      "title": "4 - Person details",
+      "document": "details"
+    },
+    {
+      "title": "5 - Rich Text",
+      "document": "rich-text"
+    },
+    {
+      "title": "6 - Factbox macro",
+      "document": "macro"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Setting up Enonic</title>
+<title>Create React app</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Setting up Enonic</h1>
+<h1>Create React app</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></li>
-<li><a href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></li>
-<li><a href="#test_api">Test the API</a></li>
+<li><a href="#create_react_app">Create React app</a></li>
+<li><a href="#install_dependencies">Install dependencies</a></li>
+<li><a href="#configure">Configure</a></li>
+<li><a href="#start">Start</a></li>
+<li><a href="#react_router">React router</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -452,88 +454,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter, you will launch an Enonic instance that contains a public dataset you will use in the React application.</p>
-</div>
-<div class="paragraph">
-<p>You can choose between two options:</p>
+<p>In this chapter you will create a React application with TypeScript support.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="alternative_1_free_cloud_instance"><a class="link" href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></h2>
+<h2 id="create_react_app"><a class="link" href="#create_react_app">Create React app</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Follow these steps to get your cloud service up and running:</p>
+<p>Open a new terminal tab/window and run the following command:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign up to Enonic[<a href="https://console.enonic.cloud" class="bare">https://console.enonic.cloud</a>], and verify your e-mail</p>
-</li>
-<li>
-<p>Log in, and create your account</p>
-</li>
-<li>
-<p>Create a solution</p>
-<div class="paragraph">
-<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name, and complete the setup.</p>
-</div>
-</li>
-<li>
-<p>Once the solution has started, click the <code>Headless API</code> ingress link, this will launch Query Playground in your browser.</p>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="media/ingress.png" alt="ingress" width="942">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm create vite@latest react-enonic -- --template react-ts</code></pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
-<p>Continue in the <a href="#test_api">Test API section</a>.</p>
+<p>This will create a React app and place it in a folder called <code>react-enonic/</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="alternative_2_enonic_sdk"><a class="link" href="#alternative_2_enonic_sdk">Alternative 2 - Enonic SDK</a></h2>
+<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Follow the instructions below to launch a local developer instance of Enonic:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If you haven&#8217;t installed Enonic CLI already, start by running the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install -g @enonic/cli</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-More installation methods along with CLI documentation can be found <a href="https://developer.enonic.com/docs/enonic-cli/stable/install">here</a>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Create sandbox</p>
-<div class="paragraph">
-<p>Create a new sandbox (a developer instance of Enonic XP) by running the following command:</p>
+<p>With the basic project files in place, you must add some handy npm modules as well:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_tutorial -t intro -f</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-enonic
+
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure"><a class="link" href="#configure">Configure</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The React application now needs to know the location of the Enonic API, as we&#8217;ll need it for fetching data later.</p>
+</div>
+<div class="paragraph">
+<p>Create an <code>.env</code> file in the root of your project, containing a single line:</p>
+</div>
+<div class="listingblock">
+<div class="title">.env</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">VITE_GUILLOTINE_URL=http://localhost:8080/site/intro/master</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will create a sandbox named <code>react-tutorial</code> using latest Enonic XP distribution and start it.</p>
+<p>which is the URL you used to reach Query Playground when setting up Enonic, with appended <code>/master</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -542,96 +514,103 @@ More installation methods along with CLI documentation can be found <a href="htt
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>-t intro</code> flag tells the CLI to provision a set of standard Enonic apps, including sample content you will use later in this tutorial.
+<code>/master</code> is added to the URL because we want to access the master branch (containing the published content)
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>You are now ready to test that the API is working:</p>
-</div>
-</li>
-<li>
-<p>Open Query Playground by pointing your browser to <a href="http://localhost:8080/site/intro" target="_blank" rel="noopener">http://localhost:8080/site/intro</a> and continue below.</p>
-</li>
-</ol>
+<p>Wonder why it is called Guillotine? Guillotine is simply the name for Enonic&#8217;s headless <a href="https://developer.enonic.com/docs/guillotine">GraphQL API</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="test_api"><a class="link" href="#test_api">Test the API</a></h2>
+<h2 id="start"><a class="link" href="#start">Start</a></h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm run dev -- --port 3000</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>If you followed the instructions above, you should now see the Query Playground in your browser.</p>
+<p>This will launch the app on port 3000 in your default browser.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit <a href="http://localhost:3000" class="bare">http://localhost:3000</a> directly if it does not launch automatically
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/query-playground.png" alt="query playground" width="1200">
+<img src="media/react-app.png" alt="react app" width="75%">
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="react_router"><a class="link" href="#react_router">React router</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Paste and run the query below</strong>:</p>
+<p>Although beautiful, the app doesn&#8217;t do much yet.
+Let&#8217;s begin by adding a router and some custom styling:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a file called <code>App.sass</code>. We&#8217;ll use it instead of the built-in <code>App.css</code>.</p>
 <div class="listingblock">
+<div class="title">src/App.sass</div>
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
-    guillotine {
-        queryDsl(
-            first: 3
-            query: {
-                term: {
-                    field: "type",
-                    value: {
-                        string: "com.enonic.app.intro:person"
-                    }
-                }
-            }
-            sort: {
-                field: "modifiedTime",
-                direction: DESC
-            }
-        ) {
-            _id
-            _name
-            displayName
-            type
-        }
-    }
+<pre class="highlight"><code class="language-sass" data-lang="sass">body
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 0
+  margin: 0
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Then <strong>update <code>App.tsx</code> file</strong> with the following code:</p>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
+
+import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path='*' element={&lt;p&gt;Hello router!&lt;/p&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  )
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This should produce a result looking something like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "data": {
-    "guillotine": {
-      "queryDsl": [
-        {
-          "_id": "a8b374a2-c532-45eb-9aa1-73d1c37cd681",
-          "_name": "lea-seydoux",
-          "displayName": "Léa Seydoux",
-          "type": "com.enonic.app.intro:person"
-        },
-        {
-          "_id": "569d127d-b6bd-45d6-94b0-949ec6171336",
-          "_name": "jeffrey-wright",
-          "displayName": "Jeffrey Wright",
-          "type": "com.enonic.app.intro:person"
-        },
-        {
-          "_id": "f29ba9b7-a73a-4767-82db-9da4df952924",
-          "_name": "daniel-craig",
-          "displayName": "Daniel Craig",
-          "type": "com.enonic.app.intro:person"
-        }
-      ]
-    }
-  }
-}</code></pre>
-</div>
+</li>
+<li>
+<p>Your browser should now display the text <code>Hello router!</code>.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -639,14 +618,14 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will create the React application <a href="react-app.ahtml">queries</a>.</p>
+<p>In the following chapter you&#8217;ll create a proper React component - the <a href="list.ahtml">Person list</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 09:40:38 UTC
+Last updated 2024-09-23 09:40:51 UTC
 </div>
 </div>
 </body>
