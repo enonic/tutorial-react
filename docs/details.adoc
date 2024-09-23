@@ -6,7 +6,7 @@ In this chapter you'll create a component to display details of a single person.
 
 == Query
 
-Similar to the `PersonList` component, create a query which will fetch details of a single person:
+Similar to the `PersonList` component, create a query which will fetch details of a person:
 
 .src/queries/Person.ts
 [source,graphql]

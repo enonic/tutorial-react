@@ -31,7 +31,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 
 The React application now needs to know the location of the Enonic API, as we'll need it for fetching data later.
 
-Create a `.env` file in the root of your project, containing a single line:
+Create an `.env` file in the root of your project, containing a single line:
 
 ..env
 [source,properties]
@@ -42,7 +42,7 @@ which is the URL you used to reach Query Playground when setting up Enonic, with
 
 NOTE: `/master` is added to the URL because we want to access the master branch (containing the published content)
 
-Wonder why it is called Guillotine? Guillotine is simply the name for Enonic's headless https://developer.enonic.com/docs/guillotine/stable[GraphQL API].
+Wonder why it is called Guillotine? Guillotine is simply the name for Enonic's headless https://developer.enonic.com/docs/guillotine[GraphQL API].
 
 == Start
 
@@ -55,16 +55,14 @@ This will launch the app on port 3000 in your default browser.
 
 TIP: Visit http://localhost:3000 directly if it does not launch automatically
 
-image::react-app.png[width=1024]
+image::react-app.png[width=75%]
 
 == React router
 
 Although beautiful, the app doesn't do much yet.
 Let's begin by adding a router and some custom styling:
 
-. Add a file called `App.sass
-+
-We'll use this rather than the built-in App.css
+. Add a file called `App.sass`. We'll use it instead of the built-in `App.css`.
 +
 .src/App.sass
 [source,sass]
