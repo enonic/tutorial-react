@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#background">Background</a></li>
 <li><a href="#default_macro_handling">Default macro handling</a></li>
-<li><a href="#factbox_component">Factbox component</a></li>
+<li><a href="#factbox_component">FactBox component</a></li>
 <li><a href="#the_macro_component">The Macro component</a></li>
 <li><a href="#add_to_richtext">Add to RichText</a></li>
 <li><a href="#a_final_tip">A final tip</a></li>
@@ -455,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>RichText also supports custom components - aka <code>Macros</code>.</p>
+<p>Rich Text also supports custom components - aka <code>Macros</code>.</p>
 </div>
 </div>
 </div>
@@ -463,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="background"><a class="link" href="#background">Background</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to support more complex componentry within Enonic&#8217;s rich text editor, you may define macros.</p>
+<p>In order to support more complex structure within Enonic&#8217;s Rich Text editor, you can define macros.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -494,12 +494,12 @@ Details on defining macros can be found in the <a href="https://developer.enonic
 </div>
 </div>
 <div class="paragraph">
-<p>To improve the situation, start by implementing a Factbox component</p>
+<p>To improve the situation, start by implementing a FactBox component.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="factbox_component"><a class="link" href="#factbox_component">Factbox component</a></h2>
+<h2 id="factbox_component"><a class="link" href="#factbox_component">FactBox component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add the following files to your project:</p>
@@ -611,7 +611,7 @@ The optional body of a macro is available as a React component called <code>chil
 <h2 id="the_macro_component"><a class="link" href="#the_macro_component">The Macro component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We now have a Factbox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.</p>
+<p>We now have a FactBox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Macro.tsx</div>
@@ -638,7 +638,7 @@ export const Macro: MacroComponent = ({
 </div>
 </div>
 <div class="paragraph">
-<p>This component takes care of mapping each macro to it&#8217;s corresponding React component. In our case, <code>FactBox</code> component implements the macro called <code>com.enonic.app.intro:factbox</code> in Enonic.</p>
+<p>This component takes care of mapping each macro to its corresponding React component. In our case, <code>FactBox</code> component implements the macro called <code>com.enonic.app.intro:factbox</code> in Enonic.</p>
 </div>
 <div class="paragraph">
 <p>It will throw an error otherwise, which will cause the RichText component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
@@ -709,17 +709,17 @@ interface RestProps {
 <p>For more details on our React components, visit <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">the NPM documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>To learn more about Enonic&#8217;s CMS capabilities, we recommend the <a href="https://developer.enonic.com/docs/developer-101">Developer 101 tutorial</a>.</p>
+<p>To learn more about Enonic&#8217;s CMS capabilities, we recommend the <a href="https://developer.enonic.com/docs/developer-101" target="_blank" rel="noopener">Developer 101 tutorial</a>.</p>
 </div>
 <div class="paragraph">
-<p>To dive deeper into React and building sites with Enonic, have a look at our <a href="https://developer.enonic.com/docs/next.xp">Next.js</a> integration.</p>
+<p>To dive deeper into React and building sites with Enonic, have a look at our <a href="https://developer.enonic.com/docs/next.xp" target="_blank" rel="noopener">Next.js integration</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 09:44:57 UTC
+Last updated 2024-09-23 13:05:18 UTC
 </div>
 </div>
 </body>

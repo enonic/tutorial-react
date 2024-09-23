@@ -462,27 +462,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="create_react_app"><a class="link" href="#create_react_app">Create React app</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Start by running the following command:</p>
+<p>Open a new terminal tab/window and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npx create-react-app react-enonic --template typescript</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm create vite@latest react-enonic -- --template react-ts</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This will create a React app and place it in a folder called <code>react-enonic/</code>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-You can read more about the <code>create-react-app</code> tool on <a href="https://create-react-app.dev/docs/getting-started" target="_blank" rel="noopener">their website</a>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -494,7 +482,7 @@ You can read more about the <code>create-react-app</code> tool on <a href="https
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-demo
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-enonic
 
 npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
 </div>
@@ -505,19 +493,19 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <h2 id="configure"><a class="link" href="#configure">Configure</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The React applications now needs to know the location of the Enonic API, as you we&#8217;ll need it for fetching data later.</p>
+<p>The React application now needs to know the location of the Enonic API, as we&#8217;ll need it for fetching data later.</p>
 </div>
 <div class="paragraph">
-<p>Create a <code>.env</code> file in the root of your project, containing a single line:</p>
+<p>Create an <code>.env</code> file in the root of your project, containing a single line:</p>
 </div>
 <div class="listingblock">
 <div class="title">.env</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">REACT_APP_GUILLOTINE_URL=&lt;Query Playground URL&gt;/master</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">VITE_GUILLOTINE_URL=http://localhost:8080/site/intro/master</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Replace <code>&lt;Query Playground URL&gt;</code> with the URL you used to reach Query Playground when setting up Enonic.</p>
+<p>which is the URL you used to reach Query Playground when setting up Enonic, with appended <code>/master</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -532,7 +520,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 </table>
 </div>
 <div class="paragraph">
-<p>Wonder why it is called Guillotine? Guillotine is simply the name for Enonic&#8217;s headless GraphQL API.</p>
+<p>Wonder why it is called Guillotine? Guillotine is simply the name for Enonic&#8217;s headless <a href="https://developer.enonic.com/docs/guillotine">GraphQL API</a>.</p>
 </div>
 </div>
 </div>
@@ -541,11 +529,11 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm start</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm run dev -- --port 3000</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will launch the app in your default browser.</p>
+<p>This will launch the app on port 3000 in your default browser.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -561,7 +549,7 @@ Visit <a href="http://localhost:3000" class="bare">http://localhost:3000</a> dir
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/react-app.png" alt="react app" width="1024">
+<img src="media/react-app.png" alt="react app" width="75%">
 </div>
 </div>
 </div>
@@ -576,10 +564,7 @@ Let&#8217;s begin by adding a router and some custom styling:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a file called `App.sass</p>
-<div class="paragraph">
-<p>We&#8217;ll use this rather than the built-in App.css</p>
-</div>
+<p>Add a file called <code>App.sass</code>. We&#8217;ll use it instead of the built-in <code>App.css</code>.</p>
 <div class="listingblock">
 <div class="title">src/App.sass</div>
 <div class="content">
@@ -640,7 +625,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 09:44:57 UTC
+Last updated 2024-09-23 13:05:18 UTC
 </div>
 </div>
 </body>
