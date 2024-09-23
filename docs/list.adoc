@@ -26,7 +26,7 @@ include::{sourcedir}src/components/PersonList.tsx[]
 
 == Styling
 
-The component will also require some styling - you know to look good!
+The component will also require some styling, to make it look good!
 
 .src/styles/PersonList.sass
 [source,Sass]
@@ -66,4 +66,4 @@ Clicking any of the images will take you to the person's detail page - which is 
 
 == Next step
 
-Moving forward, you'll create a component and matching router to render <<details#,Person details>>.
+Moving forward, you'll create a component and a matching routing to render <<details#,Person details>>.

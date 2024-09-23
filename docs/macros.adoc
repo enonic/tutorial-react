@@ -3,11 +3,11 @@
 
 = Macros - custom rich text components
 
-RichText also supports custom components - aka `Macros`.
+Rich Text also supports custom components - aka `Macros`.
 
 == Background
 
-In order to support more complex componentry within Enonic's rich text editor, you can define macros.
+In order to support more complex structure within Enonic's Rich Text editor, you can define macros.
 
 TIP: Details on defining macros can be found in the https://developer.enonic.com/docs/xp/stable/cms/macros[XP documentation^].
 
@@ -20,9 +20,9 @@ By default, the RichText component will simply render a fallback placeholder:
 
 image::no-macro.png[width=663]
 
-To improve the situation, start by implementing a Factbox component.
+To improve the situation, start by implementing a FactBox component.
 
-== Factbox component
+== FactBox component
 
 Add the following files to your project:
 
@@ -44,7 +44,7 @@ Like other components, you may also declare a query for your Macro - but in this
 
 == The Macro component
 
-We now have a Factbox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.
+We now have a FactBox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.
 
 .src/components/Macro.tsx
 [source,TypeScript]
@@ -104,6 +104,6 @@ Congratulations on completing this tutorial.
 
 For more details on our React components, visit https://www.npmjs.com/package/@enonic/react-components[the NPM documentation^].
 
-To learn more about Enonic's CMS capabilities, we recommend the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial].
+To learn more about Enonic's CMS capabilities, we recommend the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial^].
 
-To dive deeper into React and building sites with Enonic, have a look at our https://developer.enonic.com/docs/next.xp[Next.js] integration.
+To dive deeper into React and building sites with Enonic, have a look at our https://developer.enonic.com/docs/next.xp[Next.js integration^].
