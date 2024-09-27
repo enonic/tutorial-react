@@ -515,13 +515,14 @@ export default query;</code></pre>
 <div class="listingblock">
 <div class="title">src/components/PersonList.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {forceArray} from '@enonic/js-utils/array/forceArray';
-import React, {useEffect, useState,} from 'react';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom';
 
 import '../styles/PersonList.sass';
 
 import PERSON_LIST_QUERY from '../queries/PersonList';
+
+const forceArray = (data: any) =&gt; (Array.isArray(data) ? data : [data]);
 
 export function PersonList() {
   const [data, setData] = useState&lt;{
@@ -697,7 +698,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 13:05:18 UTC
+Last updated 2024-09-27 07:48:38 UTC
 </div>
 </div>
 </body>

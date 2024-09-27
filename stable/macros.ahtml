@@ -619,7 +619,6 @@ The optional body of a macro is available as a React component called <code>chil
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {MacroComponent} from '@enonic/react-components';
 
 
-import React from 'react';
 import {FactBox} from './FactBox';
 
 
@@ -719,7 +718,7 @@ interface RestProps {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-23 13:05:18 UTC
+Last updated 2024-09-27 07:48:38 UTC
 </div>
 </div>
 </body>
