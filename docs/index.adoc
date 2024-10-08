@@ -1,9 +1,9 @@
-= Building a React SPA powered by Enonic
+= Building a React app powered by Enonic
 Tutorial
 
 This tutorial demonstrates how to build a single-page https://react.dev/[react.js^] application that renders pages based on structured content from Enonic's https://developer.enonic.com/docs/guillotine[GraphQL API].
 
-NOTE: It may be useful to study the https://developer.enonic.com/docs/intro[Enonic intro tutorial] before you continue.
+NOTE: It may be useful to study the https://developer.enonic.com/docs/intro[Enonic intro tutorial^] before you continue.
 
 == Target audience
 
