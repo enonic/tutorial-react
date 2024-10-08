@@ -13,7 +13,7 @@
       "document": "react-app"
     },
     {
-      "title": "3 - List persons",
+      "title": "3 - Person list",
       "document": "list"
     },
     {
@@ -25,8 +25,8 @@
       "document": "rich-text"
     },
     {
-      "title": "6 - Factbox macro",
-      "document": "macro"
+      "title": "6 - Macros",
+      "document": "macros"
     }
   ]
 }

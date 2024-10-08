@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Setting up Enonic</title>
+<title>Set up Enonic</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Setting up Enonic</h1>
+<h1>Set up Enonic</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -452,7 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter, you will launch an Enonic instance that contains a public dataset you will use in the React application.</p>
+<p>In this chapter, you will launch an Enonic instance that contains a dataset your React application is going to use.</p>
 </div>
 <div class="paragraph">
 <p>You can choose between two options:</p>
@@ -463,12 +463,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="alternative_1_free_cloud_instance"><a class="link" href="#alternative_1_free_cloud_instance">Alternative 1 - Free Cloud instance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Follow these steps to get your cloud service up and running:</p>
+<p>Follow these steps to get your Cloud service up and running:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign up to Enonic[<a href="https://console.enonic.cloud" class="bare">https://console.enonic.cloud</a>], and verify your e-mail</p>
+<p>Sign up to Enonic&#8217;s <a href="https://console.enonic.cloud">Free Plan account</a>, and verify your e-mail</p>
 </li>
 <li>
 <p>Log in, and create your account</p>
@@ -639,14 +639,14 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will create the React application <a href="react-app.ahtml">queries</a>.</p>
+<p>In the next chapter you will create a <a href="react-app.ahtml">React application</a> which will fetch data from the Enonic sandbox we&#8217;ve just created, using GraphQL queries.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-27 07:48:38 UTC
+Last updated 2024-10-08 15:23:53 UTC
 </div>
 </div>
 </body>

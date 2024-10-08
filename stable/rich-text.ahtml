@@ -559,7 +559,7 @@ export const Link: LinkComponent = ({
 </div>
 </div>
 <div class="paragraph">
-<p>If you go to the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> page and click the <a href="http://localhost:3000/p/daniel-craig/f29ba9b7-a73a-4767-82db-9da4df952924" target="_blank" rel="noopener">Daniel Craig</a> link once more, you should see the page rendered by React:</p>
+<p>If you go to the <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a> page and click the <a href="http://localhost:3000/p/daniel-craig/f29ba9b7-a73a-4767-82db-9da4df952924" target="_blank" rel="noopener">Daniel Craig</a> link again, you should see that the Daniel Craig&#8217;s page is now rendered by our React app:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -573,7 +573,7 @@ export const Link: LinkComponent = ({
 <h2 id="images"><a class="link" href="#images">Images</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Optionally, you can implement your own <code>Image</code> component in order to take more control over how images are rendered:</p>
+<p>Similarly, you can implement your own <code>Image</code> component in order to take more control over how images are rendered:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Image.tsx</div>
@@ -626,14 +626,14 @@ export const Image: ImageComponent = ({
 <h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You are now familiar with the basic rich text handling. In the next chapter, we dive into <a href="macros.ahtml">custom rich text components - aka Macros</a>.</p>
+<p>You are now familiar with the basic Rich text handling. In the next chapter, we dive into custom rich text components - aka <a href="macros.ahtml">Macros</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-27 07:48:38 UTC
+Last updated 2024-10-08 15:23:53 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Macros - custom rich text components</title>
+<title>Macros</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,15 +437,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Macros - custom rich text components</h1>
+<h1>Macros</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#background">Background</a></li>
 <li><a href="#default_macro_handling">Default macro handling</a></li>
-<li><a href="#factbox_component">FactBox component</a></li>
+<li><a href="#the_factbox_component">The FactBox component</a></li>
 <li><a href="#the_macro_component">The Macro component</a></li>
-<li><a href="#add_to_richtext">Add to RichText</a></li>
+<li><a href="#use_in_richtext">Use in RichText</a></li>
 <li><a href="#a_final_tip">A final tip</a></li>
 <li><a href="#next_steps">Next steps</a></li>
 </ul>
@@ -499,7 +499,7 @@ Details on defining macros can be found in the <a href="https://developer.enonic
 </div>
 </div>
 <div class="sect1">
-<h2 id="factbox_component"><a class="link" href="#factbox_component">FactBox component</a></h2>
+<h2 id="the_factbox_component"><a class="link" href="#the_factbox_component">The FactBox component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add the following files to your project:</p>
@@ -507,9 +507,7 @@ Details on defining macros can be found in the <a href="https://developer.enonic
 <div class="listingblock">
 <div class="title">src/components/FactBox.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react'
-
-import styles from './FactBox.module.css';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import styles from './FactBox.module.css';
 
 declare type FactBoxProps = {
     config: Record&lt;string, any&gt;
@@ -611,7 +609,7 @@ The optional body of a macro is available as a React component called <code>chil
 <h2 id="the_macro_component"><a class="link" href="#the_macro_component">The Macro component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We now have a FactBox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.</p>
+<p>We now have a FactBox component, but we still need to map it to the Enonic macro definition. This can be solved by implementing a generic Macro component where you map specific macro descriptors to corresponding macro components.</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Macro.tsx</div>
@@ -645,10 +643,10 @@ export const Macro: MacroComponent = ({
 </div>
 </div>
 <div class="sect1">
-<h2 id="add_to_richtext"><a class="link" href="#add_to_richtext">Add to RichText</a></h2>
+<h2 id="use_in_richtext"><a class="link" href="#use_in_richtext">Use in RichText</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Finally, import and pass it to the <code>RichText</code> component:</p>
+<p>Just like with <code>Link</code> and <code>Image</code> components, import <code>Macro</code> component and pass it to the <code>RichText</code> component:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
@@ -702,10 +700,10 @@ interface RestProps {
 <h2 id="next_steps"><a class="link" href="#next_steps">Next steps</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Congratulations on completing this tutorial.</p>
+<p>Congratulations on completing this tutorial!</p>
 </div>
 <div class="paragraph">
-<p>For more details on our React components, visit <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">the NPM documentation</a>.</p>
+<p>For more details on our React Components library, visit <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">the NPM documentation</a>.</p>
 </div>
 <div class="paragraph">
 <p>To learn more about Enonic&#8217;s CMS capabilities, we recommend the <a href="https://developer.enonic.com/docs/developer-101" target="_blank" rel="noopener">Developer 101 tutorial</a>.</p>
@@ -718,7 +716,7 @@ interface RestProps {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-27 07:48:38 UTC
+Last updated 2024-10-08 15:23:53 UTC
 </div>
 </div>
 </body>

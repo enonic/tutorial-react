@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Render Persons</title>
+<title>Person list component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Render Persons</h1>
+<h1>Person list component</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Add the following file to your project. The component will use it to fetch data:</p>
+<p>Add the following file to your project (note the new <code>query</code> folder). The component will use it to fetch data:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/queries/PersonList.ts</div>
@@ -510,7 +510,7 @@ export default query;</code></pre>
 <h2 id="react_component"><a class="link" href="#react_component">React component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, add the component itself:</p>
+<p>Now, add the component itself (note the new <code>components</code> folder):</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/PersonList.tsx</div>
@@ -588,12 +588,12 @@ export function PersonList() {
 <h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The component will also require some styling, to make it look good!</p>
+<p>The component will also require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new <code>styles</code> folder):</p>
 </div>
 <div class="listingblock">
 <div class="title">src/styles/PersonList.sass</div>
 <div class="content">
-<pre class="highlight"><code class="language-Sass" data-lang="Sass">$gutter: 30px
+<pre class="highlight"><code class="language-scss" data-lang="scss">$gutter: 30px
 $color: rgba(0, 0, 0, .5)
 
 ul.person-list
@@ -649,7 +649,7 @@ ul.person-list
 <h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Finally, update the App.tsx file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
+<p>Finally, update the <code>App.tsx</code> file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
 </div>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
@@ -675,7 +675,7 @@ export default function App() {
 <h2 id="result"><a class="link" href="#result">Result</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With everything in place, you should now see a grid of person images at <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
+<p>With everything in place, you should now see a grid of person images at <a href="http://localhost:3000" class="bare" target="_blank" rel="noopener">http://localhost:3000</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -698,7 +698,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-27 07:48:38 UTC
+Last updated 2024-10-08 15:23:53 UTC
 </div>
 </div>
 </body>

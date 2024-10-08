@@ -453,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial demonstrates how to build a single-page <a href="https://react.dev/" target="_blank" rel="noopener">react.js</a> application that renders pages based on structured content from Enonic&#8217;s GraphQL API.</p>
+<p>This tutorial demonstrates how to build a single-page <a href="https://react.dev/" target="_blank" rel="noopener">react.js</a> application that renders pages based on structured content from Enonic&#8217;s <a href="https://developer.enonic.com/docs/guillotine">GraphQL API</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -483,7 +483,7 @@ It may be useful to study the <a href="https://developer.enonic.com/docs/intro">
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-27 07:48:38 UTC
+Last updated 2024-10-08 15:23:53 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Create React app</title>
+<title>Create a React app</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Create React app</h1>
+<h1>Create a React app</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="create_react_app"><a class="link" href="#create_react_app">Create React app</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Open a new terminal tab/window and run the following command:</p>
+<p>With the sandbox running, open a new terminal tab/window and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -496,7 +496,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <p>The React application now needs to know the location of the Enonic API, as we&#8217;ll need it for fetching data later.</p>
 </div>
 <div class="paragraph">
-<p>Create an <code>.env</code> file in the root of your project, containing a single line:</p>
+<p>Open an IDE of your choice, and create an <code>.env</code> file in the root of your project, containing a single line:</p>
 </div>
 <div class="listingblock">
 <div class="title">.env</div>
@@ -514,7 +514,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>/master</code> is added to the URL because we want to access the master branch (containing the published content)
+<code>/master</code> is added to the URL because we want to access the master branch (published content).
 </td>
 </tr>
 </table>
@@ -527,6 +527,9 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <div class="sect1">
 <h2 id="start"><a class="link" href="#start">Start</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Run this command from inside your project&#8217;s folder:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm run dev -- --port 3000</code></pre>
@@ -542,7 +545,7 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Visit <a href="http://localhost:3000" class="bare">http://localhost:3000</a> directly if it does not launch automatically
+Visit <a href="http://localhost:3000" class="bare" target="_blank" rel="noopener">http://localhost:3000</a> directly if it does not launch automatically
 </td>
 </tr>
 </table>
@@ -558,24 +561,27 @@ Visit <a href="http://localhost:3000" class="bare">http://localhost:3000</a> dir
 <h2 id="react_router"><a class="link" href="#react_router">React router</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Although beautiful, the app doesn&#8217;t do much yet.
+<p>Although beautiful, the app doesn&#8217;t do much yet and just shows the Vite+React splash screen.
 Let&#8217;s begin by adding a router and some custom styling:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a file called <code>App.sass</code>. We&#8217;ll use it instead of the built-in <code>App.css</code>.</p>
+<p>Add a file called <code>App.sass</code> to the <code>/src</code> folder. We&#8217;ll use it instead of the built-in <code>App.css</code>.</p>
 <div class="listingblock">
 <div class="title">src/App.sass</div>
 <div class="content">
-<pre class="highlight"><code class="language-sass" data-lang="sass">body
+<pre class="highlight"><code class="language-scss" data-lang="scss">body
   background-color: #fff
   color: #595959 // 7:1 AAA #595959 on #fff
   padding: 0
   margin: 0
   font-family: roboto, arial, serif
   width: 100%
-  box-sizing: border-box</code></pre>
+  box-sizing: border-box
+
+.back-link
+  padding: 30px</code></pre>
 </div>
 </div>
 </li>
@@ -584,9 +590,7 @@ Let&#8217;s begin by adding a router and some custom styling:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import React from 'react';
-
-import './App.sass';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
 
 import {
   Route,
@@ -625,7 +629,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-27 07:48:38 UTC
+Last updated 2024-10-08 15:23:53 UTC
 </div>
 </div>
 </body>
