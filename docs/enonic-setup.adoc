@@ -1,16 +1,16 @@
-= Setting up Enonic
+= Set up Enonic
 :sourcedir: ../
 :imagesdir: media/
 
-In this chapter, you will launch an Enonic instance that contains a public dataset you will use in the React application.
+In this chapter, you will launch an Enonic instance that contains a dataset your React application is going to use.
 
 You can choose between two options:
 
 == Alternative 1 - Free Cloud instance
 
-Follow these steps to get your cloud service up and running:
+Follow these steps to get your Cloud service up and running:
 
-. Sign up to Enonic[https://console.enonic.cloud], and verify your e-mail
+. Sign up to Enonic's https://console.enonic.cloud[Free Plan account], and verify your e-mail
 . Log in, and create your account
 . Create a solution
 +
@@ -22,7 +22,7 @@ image::ingress.png[width=942]
 
 
 
-Continue in the <<#test_api, Test API section>>. 
+Continue in the <<#test_api, Test API section>>.
 
 == Alternative 2 - Enonic SDK
 
@@ -50,7 +50,7 @@ This will create a sandbox named `react-tutorial` using latest Enonic XP distrib
 +
 NOTE: The `-t intro` flag tells the CLI to provision a set of standard Enonic apps, including sample content you will use later in this tutorial.
 +
-You are now ready to test that the API is working: 
+You are now ready to test that the API is working:
 +
 . Open Query Playground by pointing your browser to http://localhost:8080/site/intro[http://localhost:8080/site/intro^] and continue below.
 
@@ -125,4 +125,4 @@ This should produce a result looking something like this:
 
 == Next step
 
-In the next chapter you will create the React application <<react-app#,queries>>.
+In the next chapter you will create a <<react-app#,React application>> which will fetch data from the Enonic sandbox we've just created, using GraphQL queries.

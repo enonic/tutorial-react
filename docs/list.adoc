@@ -1,4 +1,4 @@
-= Render Persons
+= Person list component
 :sourcedir: ../
 :imagesdir: media/
 
@@ -6,7 +6,7 @@ This chapter covers creation of the PersonList component, including a query for 
 
 == Query
 
-Add the following file to your project. The component will use it to fetch data:
+Add the following file to your project (note the new `query` folder). The component will use it to fetch data:
 
 .src/queries/PersonList.ts
 [source,graphql]
@@ -16,7 +16,7 @@ include::{sourcedir}src/queries/PersonList.ts[]
 
 == React component
 
-Now, add the component itself:
+Now, add the component itself (note the new `components` folder):
 
 .src/components/PersonList.tsx
 [source,TypeScript]
@@ -26,17 +26,17 @@ include::{sourcedir}src/components/PersonList.tsx[]
 
 == Styling
 
-The component will also require some styling, to make it look good!
+The component will also require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new `styles` folder):
 
 .src/styles/PersonList.sass
-[source,Sass]
+[source,scss]
 ----
 include::{sourcedir}src/styles/PersonList.sass[]
 ----
 
 == Routing
 
-Finally, update the App.tsx file to include the `PersonList` component and display it on the root path `/`:
+Finally, update the `App.tsx` file to include the `PersonList` component and display it on the root path `/`:
 
 .src/App.tsx
 [source,TypeScript]
@@ -58,7 +58,7 @@ export default function App() {
 
 == Result
 
-With everything in place, you should now see a grid of person images at http://localhost:3000[].
+With everything in place, you should now see a grid of person images at http://localhost:3000[^].
 
 image::person-list.png[width=1093]
 

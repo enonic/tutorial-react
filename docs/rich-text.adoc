@@ -55,13 +55,13 @@ import {Link} from './Link';
 />
 ----
 
-If you go to the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page and click the http://localhost:3000/p/daniel-craig/f29ba9b7-a73a-4767-82db-9da4df952924[Daniel Craig^] link once more, you should see the page rendered by React:
+If you go to the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page and click the http://localhost:3000/p/daniel-craig/f29ba9b7-a73a-4767-82db-9da4df952924[Daniel Craig^] link again, you should see that the Daniel Craig's page is now rendered by our React app:
 
 image::./craig-app-render.png[width=1242]
 
 == Images
 
-Optionally, you can implement your own `Image` component in order to take more control over how images are rendered:
+Similarly, you can implement your own `Image` component in order to take more control over how images are rendered:
 
 .src/components/Image.tsx
 [source,TypeScript]
@@ -89,4 +89,4 @@ import {Image} from './Image';
 
 == Next step
 
-You are now familiar with the basic rich text handling. In the next chapter, we dive into <<macros#, custom rich text components - aka Macros>>.
+You are now familiar with the basic Rich text handling. In the next chapter, we dive into custom rich text components - aka <<macros#, Macros>>.

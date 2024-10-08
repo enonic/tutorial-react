@@ -1,4 +1,4 @@
-= Person details
+= Person details component
 :sourcedir: ../
 :imagesdir: media/
 
@@ -77,4 +77,4 @@ image::./lea-no-macro.png[width=1200]
 
 == Next step
 
-We take control over the <<rich-text#,Rich text component>>.
+Now let's learn how to render <<rich-text#,Rich text>>.

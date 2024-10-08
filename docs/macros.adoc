@@ -1,7 +1,7 @@
 :sourcedir: ../
 :imagesdir: media/
 
-= Macros - custom rich text components
+= Macros
 
 Rich Text also supports custom components - aka `Macros`.
 
@@ -22,7 +22,7 @@ image::no-macro.png[width=663]
 
 To improve the situation, start by implementing a FactBox component.
 
-== FactBox component
+== The FactBox component
 
 Add the following files to your project:
 
@@ -44,7 +44,7 @@ Like other components, you may also declare a query for your Macro - but in this
 
 == The Macro component
 
-We now have a FactBox component, but we still need to map it to the Enonic macro definition. The solution is a Macro component.
+We now have a FactBox component, but we still need to map it to the Enonic macro definition. This can be solved by implementing a generic Macro component where you map specific macro descriptors to corresponding macro components.
 
 .src/components/Macro.tsx
 [source,TypeScript]
@@ -56,9 +56,9 @@ This component takes care of mapping each macro to its corresponding React compo
 
 It will throw an error otherwise, which will cause the RichText component's `ErrorBoundary` to render an `Error placeholder`.
 
-== Add to RichText
+== Use in RichText
 
-Finally, import and pass it to the `RichText` component:
+Just like with `Link` and `Image` components, import `Macro` component and pass it to the `RichText` component:
 
 .src/components/Person.tsx
 [source,TypeScript]
@@ -100,9 +100,9 @@ These params will be passed on to the `Image`, `Link` and `Macro` components as 
 
 == Next steps
 
-Congratulations on completing this tutorial.
+Congratulations on completing this tutorial!
 
-For more details on our React components, visit https://www.npmjs.com/package/@enonic/react-components[the NPM documentation^].
+For more details on our React Components library, visit https://www.npmjs.com/package/@enonic/react-components[the NPM documentation^].
 
 To learn more about Enonic's CMS capabilities, we recommend the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial^].
 

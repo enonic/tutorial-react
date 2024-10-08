@@ -1,12 +1,12 @@
 = Building a React SPA powered by Enonic
 Tutorial
 
-This tutorial demonstrates how to build a single-page https://react.dev/[react.js^] application that renders pages based on structured content from Enonic's GraphQL API.
+This tutorial demonstrates how to build a single-page https://react.dev/[react.js^] application that renders pages based on structured content from Enonic's https://developer.enonic.com/docs/guillotine[GraphQL API].
 
-NOTE: It may be useful to study the https://developer.enonic.com/docs/intro[Enonic intro tutorial] before you continue. 
+NOTE: It may be useful to study the https://developer.enonic.com/docs/intro[Enonic intro tutorial] before you continue.
 
 == Target audience
 
-This tutorial is aimed at React developers looking to understand how Enonic can be used as a headless CMS to back your application. 
+This tutorial is aimed at React developers looking to understand how Enonic can be used as a headless CMS to back your application.
 
 Let's <<enonic-setup#,get started>>!
