@@ -442,8 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#query">Query</a></li>
-<li><a href="#react_component">React component</a></li>
 <li><a href="#styling">Styling</a></li>
+<li><a href="#component">Component</a></li>
 <li><a href="#routing">Routing</a></li>
 <li><a href="#result">Result</a></li>
 <li><a href="#next_step">Next step</a></li>
@@ -507,10 +507,71 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="react_component"><a class="link" href="#react_component">React component</a></h2>
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, add the component itself (note the new <code>components</code> folder):</p>
+<p>The component will require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new <code>styles</code> folder):</p>
+</div>
+<div class="listingblock">
+<div class="title">src/styles/PersonList.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-scss" data-lang="scss">$gutter: 30px
+$color: rgba(0, 0, 0, .5)
+
+ul.person-list
+  list-style-type: none
+  padding: 30px 30px 0
+  margin: 0
+  background-color: #444
+
+  li
+    display: inline-block
+    margin-bottom: $gutter
+    padding-right: $gutter
+    vertical-align: middle
+    width: calc((100% / 3) - 20px)
+    &amp;:nth-child(3n)
+      padding-right: 0
+
+    a
+      display: inline-block
+      width: 100%
+      position: relative // so div can be centered
+      div
+        bottom: 10px
+        color: #fff
+        left: 50%
+        font-size: 1.5rem
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        text-shadow: 1px 0 0 $color, 0 -1px 0 $color, 0 1px 0 $color, -1px 0 0 $color
+        transform: translate(-50%)
+        white-space: nowrap
+      &amp;:hover
+        div
+          opacity: 1
+      img
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1)
+        border-radius: 5%
+        filter: grayscale(100%)
+        height: auto
+        margin: auto 0
+        transition: all .2s ease-in-out
+        width: 100%
+
+        &amp;:hover
+          filter: grayscale(0%)
+          transform: scale(1.1)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="component"><a class="link" href="#component">Component</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, add the React component itself (note the new <code>components</code> folder):</p>
 </div>
 <div class="listingblock">
 <div class="title">src/components/PersonList.tsx</div>
@@ -585,67 +646,6 @@ export function PersonList() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The component will also require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new <code>styles</code> folder):</p>
-</div>
-<div class="listingblock">
-<div class="title">src/styles/PersonList.sass</div>
-<div class="content">
-<pre class="highlight"><code class="language-scss" data-lang="scss">$gutter: 30px
-$color: rgba(0, 0, 0, .5)
-
-ul.person-list
-  list-style-type: none
-  padding: 30px 30px 0
-  margin: 0
-  background-color: #444
-
-  li
-    display: inline-block
-    margin-bottom: $gutter
-    padding-right: $gutter
-    vertical-align: middle
-    width: calc((100% / 3) - 20px)
-    &amp;:nth-child(3n)
-      padding-right: 0
-
-    a
-      display: inline-block
-      width: 100%
-      position: relative // so div can be centered
-      div
-        bottom: 10px
-        color: #fff
-        left: 50%
-        font-size: 1.5rem
-        opacity: 0
-        pointer-events: none
-        position: absolute
-        text-shadow: 1px 0 0 $color, 0 -1px 0 $color, 0 1px 0 $color, -1px 0 0 $color
-        transform: translate(-50%)
-        white-space: nowrap
-      &amp;:hover
-        div
-          opacity: 1
-      img
-        box-shadow: 0 0 10px rgba(0, 0, 0, .1)
-        border-radius: 5%
-        filter: grayscale(100%)
-        height: auto
-        margin: auto 0
-        transition: all .2s ease-in-out
-        width: 100%
-
-        &amp;:hover
-          filter: grayscale(0%)
-          transform: scale(1.1)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -698,7 +698,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-08 15:27:46 UTC
+Last updated 2024-10-16 19:16:17 UTC
 </div>
 </div>
 </body>

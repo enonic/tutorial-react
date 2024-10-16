@@ -445,6 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#styling">Styling</a></li>
 <li><a href="#component">Component</a></li>
 <li><a href="#routing">Routing</a></li>
+<li><a href="#result">Result</a></li>
 <li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
@@ -738,6 +739,11 @@ export default function App() {
 }</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="result"><a class="link" href="#result">Result</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000" class="bare">http://localhost:3000</a> and click any of the persons in the list.</p>
 </div>
@@ -762,7 +768,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-08 15:27:46 UTC
+Last updated 2024-10-16 19:16:17 UTC
 </div>
 </div>
 </body>
