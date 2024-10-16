@@ -69,6 +69,8 @@ export default function App() {
 }
 ----
 
+== Result
+
 To see the `Person` component in action, open http://localhost:3000[] and click any of the persons in the list.
 
 Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^]:

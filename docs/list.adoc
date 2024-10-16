@@ -14,24 +14,24 @@ Add the following file to your project (note the new `query` folder). The compon
 include::{sourcedir}src/queries/PersonList.ts[]
 ----
 
-== React component
-
-Now, add the component itself (note the new `components` folder):
-
-.src/components/PersonList.tsx
-[source,TypeScript]
-----
-include::{sourcedir}src/components/PersonList.tsx[]
-----
-
 == Styling
 
-The component will also require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new `styles` folder):
+The component will require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new `styles` folder):
 
 .src/styles/PersonList.sass
 [source,scss]
 ----
 include::{sourcedir}src/styles/PersonList.sass[]
+----
+
+== Component
+
+Now, add the React component itself (note the new `components` folder):
+
+.src/components/PersonList.tsx
+[source,TypeScript]
+----
+include::{sourcedir}src/components/PersonList.tsx[]
 ----
 
 == Routing
