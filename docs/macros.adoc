@@ -81,10 +81,22 @@ image::./factbox-macro.png[width=1028]
 
 == A final tip
 
-You may pass additional parameters, such as `personID` to the RichText component by supplying a generic interface declaring them:
+Make an interface for RestProps so you can use it in other components as needed:
+
+.src/components/RestProps.tsx
+[source,TypeScript]
+----
+export interface RestProps {
+    personID: string;
+  }
+----
+
+You may pass additional parameters, such as `personID` to the RichText component by supplying a generic interface which declares them:
 
 [source,TypeScript]
 ----
+import { RestProps } from './RestProps';
+  ...
 <RichText<RestProps>
   ...
   personID="paramValue"
@@ -96,7 +108,14 @@ interface RestProps {
 }
 ----
 
-These params will be passed on to the `Image`, `Link` and `Macro` components as well.
+Import the interface and supply it to the Link.tsx, Image.tsx and Maxro.tsx components to make them aware of the new personID field:
+
+[source,TypeScript]
+----
+import { RestProps } from './RestProps';
+
+export const Link: LinkComponent<RestProps> = ({
+----
 
 == Next steps
 
