@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm create vite@latest react-enonic -- --template react-ts</code></pre>
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm create vite@6.1.1 react-enonic -- --template react-ts</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -629,7 +629,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-27 11:32:21 UTC
+Last updated 2025-01-27 15:06:10 UTC
 </div>
 </div>
 </body>
