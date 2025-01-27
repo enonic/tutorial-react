@@ -676,11 +676,24 @@ export const Macro: MacroComponent = ({
 <h2 id="a_final_tip"><a class="link" href="#a_final_tip">A final tip</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You may pass additional parameters, such as <code>personID</code> to the RichText component by supplying a generic interface declaring them:</p>
+<p>Make an interface for RestProps so you can use it in other components as needed:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/RestProps.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export interface RestProps {
+    personID: string;
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may pass additional parameters, such as <code>personID</code> to the RichText component by supplying a generic interface which declares them:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import { RestProps } from './RestProps';
+  ...
+&lt;RichText&lt;RestProps&gt;
   ...
   personID="paramValue"
   ...
@@ -692,7 +705,14 @@ interface RestProps {
 </div>
 </div>
 <div class="paragraph">
-<p>These params will be passed on to the <code>Image</code>, <code>Link</code> and <code>Macro</code> components as well.</p>
+<p>Import the interface and supply it to the Link.tsx, Image.tsx and Maxro.tsx components to make them aware of the new personID field:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import { RestProps } from './RestProps';
+
+export const Link: LinkComponent&lt;RestProps&gt; = ({</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -716,7 +736,7 @@ interface RestProps {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-27 15:06:10 UTC
+Last updated 2025-01-27 15:07:38 UTC
 </div>
 </div>
 </body>
