@@ -10,7 +10,7 @@ You can choose between two options:
 
 Follow these steps to get your Cloud service up and running:
 
-. Sign up to Enonic's https://console.enonic.cloud[Free Plan account], and verify your e-mail
+. Sign up to Enonic's https://console.enonic.com[Free Plan account], and verify your e-mail
 . Log in, and create your account
 . Create a solution
 +
