@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign up to Enonic&#8217;s <a href="https://console.enonic.cloud">Free Plan account</a>, and verify your e-mail</p>
+<p>Sign up to Enonic&#8217;s <a href="https://console.enonic.com">Free Plan account</a>, and verify your e-mail</p>
 </li>
 <li>
 <p>Log in, and create your account</p>
@@ -646,7 +646,7 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-27 15:07:38 UTC
+Last updated 2025-02-21 16:03:11 UTC
 </div>
 </div>
 </body>
