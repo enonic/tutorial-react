@@ -14,7 +14,7 @@ Follow these steps to get your Cloud service up and running:
 . Log in, and create your account
 . Create a solution
 +
-Choose the template called `Headless demo`, then `Free plan`, give it a suitable name, and complete the setup.
+Choose the template called `Intro`, then `Free plan`, give it a suitable name, and complete the setup.
 +
 . Once the solution has started, click the `Headless API` ingress link, this will launch Query Playground in your browser.
 +
