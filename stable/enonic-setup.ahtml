@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Create a solution</p>
 <div class="paragraph">
-<p>Choose the template called <code>Headless demo</code>, then <code>Free plan</code>, give it a suitable name, and complete the setup.</p>
+<p>Choose the template called <code>Intro</code>, then <code>Free plan</code>, give it a suitable name, and complete the setup.</p>
 </div>
 </li>
 <li>
@@ -646,7 +646,7 @@ The <code>-t intro</code> flag tells the CLI to provision a set of standard Enon
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-21 16:03:11 UTC
+Last updated 2025-05-28 13:11:03 UTC
 </div>
 </div>
 </body>
