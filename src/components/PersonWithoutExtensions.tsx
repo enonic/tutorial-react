@@ -1,4 +1,4 @@
-import type {RichTextData} from '@enonic/react-components';
+import type {RichTextData, RichTextMetaData, PartData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
@@ -58,6 +58,20 @@ export function Person() {
         displayName
     } = data;
 
+    // Minimal meta and component data required by RichText
+    const meta: RichTextMetaData = {
+        type: 'part',
+        id: 'standalone',
+        path: '/',
+        mode: 'inline'
+    };
+
+    const component: PartData = {
+        descriptor: 'standalone:app',
+        path: '/',
+        type: 'part'
+    };
+
     return (
         <>
             <div className={styles.person}>
@@ -65,6 +79,8 @@ export function Person() {
                 <RichText
                     className={styles.bio}
                     data={bio}
+                    meta={meta}
+                    component={component}
                     tag='article'
                 />
                 {

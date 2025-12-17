@@ -11,7 +11,7 @@ export const Macro: MacroComponent = ({
     ...rest
 }) => {
     if (descriptor === 'com.enonic.app.intro:factbox') {
-        const props = {...rest, config};
+        const props = {...rest, config: config as Record<string, any>};
         return <FactBox {...props}>{children}</FactBox>;
     }
     throw new Error(`Macro not found: ${descriptor}`);
