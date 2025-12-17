@@ -10,7 +10,7 @@ With the sandbox running, open a new terminal tab/window and run the following c
 
 [source,Terminal]
 ----
-npm create vite@6.1.1 react-enonic -- --template react-ts
+npm create vite@latest react-enonic -- --template react-ts
 ----
 
 This will create a React app and place it in a folder called `react-enonic/`.
