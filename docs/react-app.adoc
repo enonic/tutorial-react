@@ -24,7 +24,7 @@ With the basic project files in place, you must add some handy npm modules as we
 ----
 cd react-enonic
 
-npm install --save react-router-dom sass @enonic/react-components@6.1.0 @enonic/js-utils
+npm install --save react-router-dom sass @enonic/react-components@6.1.0-A1 @enonic/js-utils
 ----
 
 == Configure
