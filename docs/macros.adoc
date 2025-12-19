@@ -83,7 +83,7 @@ image::./factbox-macro.png[width=1028]
 
 Make an interface for RestProps so you can use it in other components as needed:
 
-.src/components/RestProps.tsx
+.src/components/RestProps.d.ts
 [source,TypeScript]
 ----
 export interface RestProps {
@@ -102,10 +102,6 @@ import { RestProps } from './RestProps';
   personID="paramValue"
   ...
 />
-
-interface RestProps {
-  personID: string;
-}
 ----
 
 Import the interface and supply it to the Link.tsx, Image.tsx and Maxro.tsx components to make them aware of the new personID field:

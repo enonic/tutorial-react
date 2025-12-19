@@ -1,6 +1,7 @@
 const query = `query PersonQuery($personId: ID!) {
     guillotine {
         get(key: $personId) {
+            _path
             _name
             displayName
             ... on com_enonic_app_intro_Person {

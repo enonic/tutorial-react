@@ -5,14 +5,12 @@ import {FactBox} from './FactBox';
 
 
 export const Macro: MacroComponent = ({
-    config,
-    descriptor,
-    children,
-    ...rest
-}) => {
-    if (descriptor === 'com.enonic.app.intro:factbox') {
-        const props = {...rest, config};
-        return <FactBox {...props}>{children}</FactBox>;
+                                          component,
+                                          data,
+                                          children
+                                      }) => {
+    if (component.descriptor === 'com.enonic.app.intro:factbox') {
+        return <FactBox header={data?.header as string[] | undefined}>{children}</FactBox>;
     }
-    throw new Error(`Macro not found: ${descriptor}`);
+    throw new Error(`Macro not found: ${component.descriptor}`);
 }
