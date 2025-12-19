@@ -1,4 +1,4 @@
-import type {RichTextData, RichTextMetaData, PartData} from '@enonic/react-components';
+import type {RichTextData, RichTextMetaData, ContentTypeData} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
@@ -16,6 +16,7 @@ export function Person() {
 
     const [data, setData] = useState<{
         _name: string
+        _path: string
         data: {
             bio: RichTextData
             dateofbirth: string
@@ -60,16 +61,15 @@ export function Person() {
 
     // Minimal meta and component data required by RichText
     const meta: RichTextMetaData = {
-        type: 'part',
-        id: 'standalone',
-        path: '/',
+        type: 'person',
+        id: personId,
+        path: data._path,
         mode: 'inline'
     };
 
-    const component: PartData = {
-        descriptor: 'standalone:app',
-        path: '/',
-        type: 'part'
+    const component: ContentTypeData = {
+        contentType: 'person',
+        type: 'contentType'
     };
 
     return (
