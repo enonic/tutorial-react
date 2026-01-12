@@ -10,7 +10,7 @@ With the sandbox running, open a new terminal tab/window and run the following c
 
 [source,Terminal]
 ----
-npm create vite@6.1.1 react-enonic -- --template react-ts
+npm create vite@8.2.0 react-enonic -- --template react-ts
 ----
 
 This will create a React app and place it in a folder called `react-enonic/`.
@@ -24,7 +24,7 @@ With the basic project files in place, you must add some handy npm modules as we
 ----
 cd react-enonic
 
-npm install --save react-router-dom sass @enonic/react-components@5.0.1 @enonic/js-utils
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils
 ----
 
 == Configure
@@ -64,6 +64,14 @@ image::react-app.png[width=75%]
 Although beautiful, the app doesn't do much yet and just shows the Vite+React splash screen.
 Let's begin by adding a router and some custom styling:
 
+. First, set the contents of `index.css` file to the following:
++
+.index.css
+[source,css]
+----
+include::{sourcedir}src/index.css[]
+----
++
 . Add a file called `App.sass` to the `/src` folder. We'll use it instead of the built-in `App.css`.
 +
 .src/App.sass

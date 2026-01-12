@@ -1,13 +1,14 @@
 import styles from './FactBox.module.css';
+import type {ReactNode} from 'react';
 
 declare type FactBoxProps = {
-    config: Record<string, any>
-    children: React.ReactNode
+    header?: string[];
+    children: ReactNode
 };
 
-export const FactBox = ({config, children}: FactBoxProps) => (<>
+export const FactBox = ({header, children}: FactBoxProps) => (<>
     <ins className={styles.factbox}>
-        <strong className={styles.header}>{config.header?.length ? config.header : 'Fact Box'}</strong>
+        <strong className={styles.header}>{header?.length ? header.join(' ') : 'Fact Box'}</strong>
         <br/>
         {children}
     </ins>
