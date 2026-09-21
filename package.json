@@ -13,7 +13,7 @@
     "@enonic/react-components": "^7.0.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-router-dom": "^7.18.3",
+    "react-router-dom": "^7.18.4",
     "sass": "^1.104.0"
   },
   "devDependencies": {
