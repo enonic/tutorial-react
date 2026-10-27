@@ -8,3 +8,4 @@
 .env
 tsconfig.app.tsbuildinfo
 tsconfig.node.tsbuildinfo
+.DS_Store

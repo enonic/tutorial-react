@@ -14,11 +14,15 @@ TIP: Details on defining macros can be found in the https://developer.enonic.com
 
 == Default macro handling
 
-The sample content contains an example macro called `Factbox`, which has been added to the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] bio.
+The sample content contains an example macro called `Factbox`, which has been added to the http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydough^] bio.
+
+For Guillotine 9 to resolve this macro, configure the Intro provider app (`com.enonic.app.intro`) in the `intro` project's applications in Content Studio. Our queries use the project-root scope `scopeKey: "/"`; having the app installed, or configured only on a site, is not sufficient.
 
 By default, the RichText component will simply render a fallback placeholder:
 
 image::no-macro.png[width=663]
+
+NOTE: The screenshots may show names from an older Intro dataset.
 
 To improve the situation, start by implementing a FactBox component.
 
@@ -63,18 +67,10 @@ Just like with `Link` and `Image` components, import `Macro` component and pass 
 .src/components/Person.tsx
 [source,TypeScript]
 ----
-import {Macro} from './Macro';
-
-// ..
-
-<RichText
-  // ...
-  Macro={Macro}
-  // ...
-/>
+include::{sourcedir}src/components/Person.tsx[tags=**]
 ----
 
-If you did everything correctly, you should now see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^] page:
+If you did everything correctly, you should now see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydough^] page:
 
 image::./factbox-macro.png[width=1028]
 
@@ -88,30 +84,43 @@ Make an interface for RestProps so you can use it in other components as needed:
 ----
 export interface RestProps {
     personID: string;
-  }
+}
 ----
 
-You may pass additional parameters, such as `personID` to the RichText component by supplying a generic interface which declares them:
+You may pass additional parameters, such as `personID` to the RichText component by supplying a generic interface which declares them. Import the interface and supply it to the Link, Image and Macro component types to make them aware of the new field.
 
+For example, this optional wrapper forwards `personID` to typed renderers while keeping the existing Link.tsx, Image.tsx and Macro.tsx implementations:
+
+.src/components/RichTextWithPerson.tsx
 [source,TypeScript]
 ----
-import { RestProps } from './RestProps';
-  ...
-<RichText<RestProps>
-  ...
-  personID="paramValue"
-  ...
-/>
+import {RichText} from '@enonic/react-components';
+import type {
+    ImageComponent,
+    LinkComponent,
+    MacroComponent,
+    RichTextParams
+} from '@enonic/react-components';
+import type {RestProps} from './RestProps';
+import {Link} from './Link';
+import {Image} from './Image';
+import {Macro} from './Macro';
+
+const PersonLink: LinkComponent<RestProps> = (props) => <Link {...props}/>;
+const PersonImage: ImageComponent<RestProps> = (props) => <Image {...props}/>;
+const PersonMacro: MacroComponent<RestProps> = (props) => <Macro {...props}/>;
+
+export function RichTextWithPerson(props: RichTextParams<RestProps>) {
+    return <RichText<RestProps>
+        {...props}
+        Link={PersonLink}
+        Image={PersonImage}
+        Macro={PersonMacro}
+    />;
+}
 ----
 
-Import the interface and supply it to the Link.tsx, Image.tsx and Maxro.tsx components to make them aware of the new personID field:
-
-[source,TypeScript]
-----
-import { RestProps } from './RestProps';
-
-export const Link: LinkComponent<RestProps> = ({
-----
+Use `RichTextWithPerson` in place of `RichText` in `Person.tsx`, importing it from `./RichTextWithPerson` and adding `personID={personId}` alongside the existing `data`, `meta`, and `component` props. Each typed renderer can then read `props.personID` when needed.
 
 == Next steps
 

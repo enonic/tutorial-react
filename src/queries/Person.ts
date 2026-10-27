@@ -1,6 +1,7 @@
 const query = `query PersonQuery($personId: ID!) {
-    guillotine {
+    guillotine(project: "intro", branch: "master", scopeKey: "/") {
         get(key: $personId) {
+            _id
             _path
             _name
             displayName
@@ -9,17 +10,22 @@ const query = `query PersonQuery($personId: ID!) {
                     dateofbirth
                     photos {
                         ... on media_Image {
-                            imageUrl(scale: "width(1000)", type: absolute)
+                            imageUrl(scale: "width(1000)") { path queryString }
                             attachments {
                                 name
                             }
                         }
                     }
-                    bio(processHtml: { type: absolute }) {
+                    bio(processHtml: { imageSrcWidth: 768, imageWidths: [400, 800, 1200], imageSizes: "(max-width: 800px) 100vw, 800px" }) {
                         processedHtml
                         links {
                             ref
+                            uri
+                            fragment
+                            pageUrl { baseUrl path queryString }
                             media {
+                                mediaUrl { path queryString }
+                                intent
                                 content {
                                     _id
                                 }
@@ -32,6 +38,11 @@ const query = `query PersonQuery($personId: ID!) {
                         }
                         images {
                             ref
+                            src { path queryString }
+                            srcset {
+                                width
+                                imageUrl { path queryString }
+                            }
                             image {
                                 _id
                             }
