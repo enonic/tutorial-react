@@ -6,13 +6,15 @@ This chapter covers creation of the PersonList component, including a query for 
 
 == Query
 
-Add the following file to your project (note the new `query` folder). The component will use it to fetch data:
+Add the following file to your project (note the new `queries` folder). The component will use it to fetch data:
 
 .src/queries/PersonList.ts
-[source,graphql]
+[source,TypeScript]
 ----
 include::{sourcedir}src/queries/PersonList.ts[]
 ----
+
+To try this query in a GraphQL playground, copy only the query text between the backticks, not the TypeScript declaration or export. No query variables are needed: the query selects `guillotine(project: "intro", branch: "master", scopeKey: "/")` directly.
 
 == Styling
 
@@ -24,9 +26,21 @@ The component will require some styling, to make it look good! Add the styleshee
 include::{sourcedir}src/styles/PersonList.sass[]
 ----
 
+== Media URLs
+
+Guillotine 9 returns each photo's `imageUrl` as URL parts (`path` and `queryString`), not a URL string. Before adding the component, create `src/api.ts` to construct browser URLs:
+
+.src/api.ts
+[source,TypeScript]
+----
+include::{sourcedir}src/api.ts[]
+----
+
+This module exports only `mediaUrl(value?: UrlValue | null)`. It uses the optional `+VITE_ENONIC_MEDIA_URL+`, or derives the media API root from `+VITE_GUILLOTINE_URL+` with `new URL('.', endpoint)`.
+
 == Component
 
-Now, add the React component itself (note the new `components` folder):
+Add the React component (note the new `components` folder). It fetches directly from `import.meta.env.VITE_GUILLOTINE_URL` and keeps its response type inline, with `imageUrl` typed as `UrlParts | null`. `mediaUrl()` constructs the image source:
 
 .src/components/PersonList.tsx
 [source,TypeScript]

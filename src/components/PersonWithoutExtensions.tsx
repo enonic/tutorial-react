@@ -1,7 +1,8 @@
-import type {RichTextData, RichTextMetaData, ContentTypeData} from '@enonic/react-components';
+import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
+import {mediaUrl} from '../api';
 import PERSON_QUERY from '../queries/Person';
 import styles from './Person.module.css';
 
@@ -21,7 +22,7 @@ export function Person() {
             bio: RichTextData
             dateofbirth: string
             photos: {
-                imageUrl: string
+                imageUrl: UrlParts | null
             }[]
         }
         displayName: string
@@ -45,7 +46,7 @@ export function Person() {
                 const value = json.data.guillotine.get;
                 setData(value)
             });
-    }, []); // useEffect
+    }, [personId]); // useEffect
 
     if (!data) {
         return null;
@@ -90,7 +91,7 @@ export function Person() {
                     {
                         photos.map((photo: any, i: number) => (
                             <img key={i}
-                                 src={photo.imageUrl}
+                                 src={mediaUrl(photo.imageUrl)}
                                  title={getTitle(photo, displayName)}
                                  alt={getTitle(photo, displayName)}
                                  width="500"

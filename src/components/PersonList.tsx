@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom';
 
 import '../styles/PersonList.sass';
 
+import {mediaUrl} from '../api';
+import type {UrlParts} from '@enonic/react-components';
+
 import PERSON_LIST_QUERY from '../queries/PersonList';
 
 const forceArray = (data: any) => (Array.isArray(data) ? data : [data]);
@@ -13,7 +16,7 @@ export function PersonList() {
     _name: string
     data: {
       photos: {
-        imageUrl: string
+        imageUrl: UrlParts | null
       }[]
     }
     displayName: string
@@ -49,7 +52,7 @@ export function PersonList() {
 
             const imgProps = {
               alt: displayName,
-              src: photos ? forceArray(photos)[0].imageUrl : undefined,
+              src: mediaUrl(photos ? forceArray(photos)[0].imageUrl : undefined),
             };
 
             return <li key={i}>

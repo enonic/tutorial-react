@@ -2,27 +2,17 @@
 :sourcedir: ../
 :imagesdir: media/
 
-In this chapter, you will launch an Enonic instance that contains a dataset your React application is going to use.
+In this chapter, you will prepare an Enonic XP 8.1+ instance with Guillotine 9 and the Intro sample content that your React application will use.
 
-You can choose between two options:
+You can use Enonic Cloud or a local SDK sandbox. In either case, verify the installed XP and Guillotine versions; an older Intro template may need updating before it supports this tutorial.
 
 == Alternative 1 - Free Cloud instance
 
-Follow these steps to get your Cloud service up and running:
+Use the https://console.enonic.com[Enonic Cloud console] to create or select a solution. If an Intro template and Free plan are available, you can use them as a starting point. Available templates, plans, and provisioning options may vary; verify that the solution runs XP 8.1+ and has Guillotine 9 installed.
 
-. Sign up to Enonic's https://console.enonic.com[Free Plan account], and verify your e-mail
-. Log in, and create your account
-. Create a solution
-+
-Choose the template called `Intro`, then `Free plan`, give it a suitable name, and complete the setup.
-+
-. Once the solution has started, click the `Headless API` ingress link, this will launch Query Playground in your browser.
-+
-image::ingress.png[width=942]
+Configure a public API root for the solution, such as `https://your-enonic-host/api`. Verify that the configured route exposes both the Guillotine endpoint and the media API routes used by returned URLs. Do not assume that an ingress named `Headless API` provides those routes or opens a playground.
 
-
-
-Continue in the <<#test_api, Test API section>>.
+Continue with <<#prepare_content,Prepare the sample project>>.
 
 == Alternative 2 - Enonic SDK
 
@@ -46,27 +36,63 @@ Create a new sandbox (a developer instance of Enonic XP) by running the followin
 enonic sandbox create react_tutorial -t intro -f
 ----
 +
-This will create a sandbox named `react-tutorial` using latest Enonic XP distribution and start it.
+This requests a sandbox named `+react_tutorial+` using the Intro template. Verify that the resulting sandbox runs XP 8.1+ with Guillotine 9, and start it if it is not already running.
 +
-NOTE: The `-t intro` flag tells the CLI to provision a set of standard Enonic apps, including sample content you will use later in this tutorial.
-+
-You are now ready to test that the API is working:
-+
-. Open Query Playground by pointing your browser to http://localhost:8080/site/intro[http://localhost:8080/site/intro^] and continue below.
+NOTE: The `-t intro` flag selects the Intro template. Check the installed apps and sample project rather than assuming that the template contains the required versions.
+
+The local API root is `http://localhost:8080/api`.
+
+[#prepare_content]
+== Prepare the sample project
+
+For either deployment option:
+
+. Install compatible versions of the Intro app, Content Studio, and Guillotine 9 if they are not already installed.
+. Install or import the Intro sample project as `intro`, including its person content and referenced media.
+. In Content Studio, configure the Intro provider app (`com.enonic.app.intro`) in the `intro` project's applications. The queries use the project context with `scopeKey: "/"`; the provider must be available there for macro and style resolution, not only on a site.
+. Publish the sample content and referenced media. The SPA reads the `master` branch (published content), not `draft`.
+. Ensure anonymous visitors have the permissions needed to read the published content and media, and that both API and media routes are reachable. Grant only the access intended for public delivery.
+
+NOTE: This is a client-side application. Never put administrator credentials, API secrets, or other private tokens in its environment variables or browser requests.
+
+[#configure_cors]
+== Optional: direct cross-origin browser requests
+
+The local tutorial uses a Vite proxy, configured in <<react-app#,the next chapter>>, so GraphQL and media requests stay on the frontend's origin. No CORS configuration is needed for that development setup.
+
+If you instead expose an absolute XP endpoint directly to the browser, configure CORS. Following the https://developer.enonic.com/docs/guillotine/stable/configuration[Guillotine configuration reference], create or update `com.enonic.app.guillotine.cfg` in your XP instance's `config` directory with these settings for local development:
+
+.com.enonic.app.guillotine.cfg
+[source,properties]
+----
+cors.origin=http://localhost:3000, http://localhost:5173
+cors.credentials=false
+cors.allowedHeaders=Content-Type
+cors.methods=POST, OPTIONS
+----
+
+For Cloud or a deployed SPA, use the corresponding browser origin, including the scheme and port when applicable, rather than the API endpoint. Multiple allowed origins can be comma-separated. The browser requests do not send credentials; anonymous content permissions still apply.
+
+Vite uses port `5173` by default; this tutorial starts it with `--port 3000`. The configuration above allows both development origins. If Vite selects another port, add that exact origin too.
+
+A successful POST from a non-browser client does not verify direct browser access. Both POST and its `OPTIONS` preflight must return the appropriate CORS headers. If POST has `Access-Control-Allow-Origin` but OPTIONS returns only a generic `Allow` header, the API's preflight handling is not working; changing allowed origins alone will not fix it. The development proxy avoids that cross-origin request, but does not repair backend preflight handling.
 
 [#test_api]
 == Test the API
 
-If you followed the instructions above, you should now see the Query Playground in your browser.
+Guillotine 9 accepts GraphQL POST requests at the API root followed by `/com.enonic.app.guillotine:graphql`. Locally, the endpoint is `http://localhost:8080/api/com.enonic.app.guillotine:graphql`. Opening this endpoint with a browser GET does not launch a playground.
 
-image::query-playground.png[width=1200]
+You can test queries in either of these ways:
 
-*Paste and run the query below*:
+* Use Content Studio's Query Playground while authenticated, selecting the `intro` project. For an editorial test, change the query below to `branch: "draft"`. A successful authenticated draft query does not verify anonymous access to published content.
+* Use an external GraphQL client to POST the query below to the Guillotine endpoint with `Content-Type: application/json`. Send a JSON body with a `query` property containing the query text. For the public SPA test, use `master` without authentication and verify that the published content is returned. In Cloud, substitute your verified public API root.
+
+The query explicitly selects the project, branch, and project-root scope:
 
 [source,GraphQL]
 ----
 query PersonListQuery {
-    guillotine {
+    guillotine(project: "intro", branch: "master", scopeKey: "/") {
         queryDsl(
             first: 3
             query: {
@@ -91,7 +117,7 @@ query PersonListQuery {
 }
 ----
 
-This should produce a result looking something like this:
+This should produce a result looking something like this (names and ordering depend on the sample-data version):
 
 [source,JSON]
 ----
@@ -101,20 +127,20 @@ This should produce a result looking something like this:
       "queryDsl": [
         {
           "_id": "a8b374a2-c532-45eb-9aa1-73d1c37cd681",
-          "_name": "lea-seydoux",
-          "displayName": "Léa Seydoux",
+          "_name": "lea-seydough",
+          "displayName": "Léa Seydough",
           "type": "com.enonic.app.intro:person"
         },
         {
           "_id": "569d127d-b6bd-45d6-94b0-949ec6171336",
-          "_name": "jeffrey-wright",
-          "displayName": "Jeffrey Wright",
+          "_name": "jeffrey-wroughtair",
+          "displayName": "Jeffrey Wroughtair",
           "type": "com.enonic.app.intro:person"
         },
         {
           "_id": "f29ba9b7-a73a-4767-82db-9da4df952924",
-          "_name": "daniel-craig",
-          "displayName": "Daniel Craig",
+          "_name": "daniel-carrigear",
+          "displayName": "Daniel Carrigear",
           "type": "com.enonic.app.intro:person"
         }
       ]
@@ -125,4 +151,4 @@ This should produce a result looking something like this:
 
 == Next step
 
-In the next chapter you will create a <<react-app#,React application>> which will fetch data from the Enonic sandbox we've just created, using GraphQL queries.
+In the next chapter you will create a <<react-app#,React application>> that fetches GraphQL data and media through Vite's same-origin development proxy.

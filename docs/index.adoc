@@ -1,9 +1,11 @@
 = Building a React app powered by Enonic
 Tutorial
 
-This tutorial demonstrates how to build a single-page https://react.dev/[react.js^] application that renders pages based on structured content from Enonic's https://developer.enonic.com/docs/guillotine[GraphQL API].
+This tutorial demonstrates how to build a client-side https://react.dev/[React] single-page application with Vite and TypeScript that renders structured content from Enonic XP 8.1+ through https://developer.enonic.com/docs/guillotine[Guillotine 9, Enonic's GraphQL API].
 
-NOTE: It may be useful to study the https://developer.enonic.com/docs/intro[Enonic intro tutorial^] before you continue.
+The application queries published content in the `intro` project and uses `@enonic/react-components` to render rich text, images, and macros. It remains a browser-based SPA; it does not use Next.js or the Next.js adapter.
+
+NOTE: It may be useful to study the https://developer.enonic.com/docs/intro[Enonic intro tutorial] before you continue.
 
 == Target audience
 

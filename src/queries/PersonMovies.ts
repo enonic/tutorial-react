@@ -1,5 +1,5 @@
 const query = `query PersonMoviesQuery($personId: String!) {
-  guillotine {
+  guillotine(project: "intro", branch: "master", scopeKey: "/") {
     queryDsl(
       query: {
         boolean: {
@@ -29,7 +29,7 @@ const query = `query PersonMoviesQuery($personId: String!) {
         data {
           photos(first: 1) {
             ... on media_Image {
-              imageUrl(scale: "width(100)")
+              imageUrl(scale: "width(100)") { path queryString }
             }
           }
         }

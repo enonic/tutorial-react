@@ -24,25 +24,43 @@ With the basic project files in place, you must add some handy npm modules as we
 ----
 cd react-enonic
 
-npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils
+npm install react-router-dom sass @enonic/react-components
 ----
 
-== Configure
 
-The React application now needs to know the location of the Enonic API, as we'll need it for fetching data later.
+== Configure the API connection
 
-Open an IDE of your choice, and create an `.env` file in the root of your project, containing a single line:
+The application is a client-side SPA. It uses `fetch(import.meta.env.VITE_GUILLOTINE_URL, ...)` to call https://developer.enonic.com/docs/guillotine[Guillotine 9]; no Next.js adapter is needed.
+
+=== Development proxy
+
+Update `vite.config.ts` so Vite forwards `/api` requests to XP. This keeps browser requests on the frontend's own origin and avoids cross-origin preflight requests:
+
+.vite.config.ts
+[source,TypeScript]
+----
+include::{sourcedir}vite.config.ts[]
+----
+
+During development, `define` sets the existing endpoint variable to `/api/com.enonic.app.guillotine:graphql`, even if an older `.env` contains an absolute XP URL. The proxy forwards both GraphQL and media paths without rewriting them. For a Cloud backend, change the proxy target to its public host, which must expose the same `/api` routes.
+
+=== Environment variables
+
+Create `.env` in the root of your project with the following contents:
 
 ..env
 [source,properties]
 ----
-VITE_GUILLOTINE_URL=http://localhost:8080/site/intro/master
+VITE_GUILLOTINE_URL=/api/com.enonic.app.guillotine:graphql
 ----
-which is the URL you used to reach Query Playground when setting up Enonic, with appended `/master`.
 
-NOTE: `/master` is added to the URL because we want to access the master branch (published content).
+`+VITE_GUILLOTINE_URL+` is the GraphQL endpoint, not a site URL or just the API root. The relative value uses the frontend's own origin. The queries select `guillotine(project: "intro", branch: "master", scopeKey: "/")` directly; `master` selects published content.
 
-Wonder why it is called Guillotine? Guillotine is simply the name for Enonic's headless https://developer.enonic.com/docs/guillotine[GraphQL API].
+`+VITE_ENONIC_MEDIA_URL+` is optional. The media API root defaults to the endpoint's parent: `/api` for the relative endpoint above, or an absolute API root when an absolute endpoint is configured. Leave it unset to send images and downloads through the same proxy. Set it only when media is served from a separate public API root.
+
+WARNING: Vite exposes `+VITE_+` variables in the browser bundle. These values are public configuration, not a place for credentials or secrets.
+
+Restart Vite after changing `.env`. The development proxy is not part of the production build: configure equivalent `/api` routing on the production host when building with the relative endpoint. Alternatively, build with an absolute endpoint and configure <<enonic-setup#configure_cors,Guillotine CORS>> for the deployed frontend. `vite preview` also needs suitable API routing or an absolute, CORS-enabled endpoint.
 
 == Start
 
@@ -53,9 +71,9 @@ Run this command from inside your project's folder:
 npm run dev -- --port 3000
 ----
 
-This will launch the app on port 3000 in your default browser.
+This starts Vite on port 3000. Keep Enonic running so the browser can fetch content and media.
 
-TIP: Visit http://localhost:3000[^] directly if it does not launch automatically
+TIP: Open http://localhost:3000[http://localhost:3000] in your browser.
 
 image::react-app.png[width=75%]
 
@@ -66,7 +84,7 @@ Let's begin by adding a router and some custom styling:
 
 . First, set the contents of `index.css` file to the following:
 +
-.index.css
+.src/index.css
 [source,css]
 ----
 include::{sourcedir}src/index.css[]

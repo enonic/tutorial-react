@@ -9,12 +9,14 @@ In this chapter you'll create a component to display details of a single person.
 Similar to the `PersonList` component, create a query which will fetch details of a person:
 
 .src/queries/Person.ts
-[source,graphql]
+[source,TypeScript]
 ----
 include::{sourcedir}src/queries/Person.ts[]
 ----
 
-NOTE: `bio` contains Rich Text content
+NOTE: `bio` contains Rich Text content, rendered below with the `RichText` component.
+
+To test in a GraphQL playground, copy only the query text between the backticks and supply only `personId`, such as `{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}`, in the query variables. The query selects `guillotine(project: "intro", branch: "master", scopeKey: "/")` directly.
 
 == Styling
 
@@ -39,8 +41,9 @@ Add the `Person` component:
 include::{sourcedir}src/components/PersonWithoutExtensions.tsx[]
 ----
 
-NOTE: Here, we use the `RichText` component from `@enonic/react-components` npm module to render data from the `bio`.
-We will dive into more details in the <<rich-text#,next chapter>>.
+The component fetches directly from `import.meta.env.VITE_GUILLOTINE_URL` and keeps its response type inline. Gallery images use `UrlParts | null` for `imageUrl` and `mediaUrl()` for their `src`.
+
+NOTE: This version uses `RichText` with its default renderers. Basic HTML is displayed, but Guillotine 9's internal image and link placeholders are not resolved yet. The <<rich-text#,next chapter>> adds custom renderers to resolve those URLs and map person links to the SPA.
 
 
 == Routing
@@ -73,9 +76,11 @@ export default function App() {
 
 To see the `Person` component in action, open http://localhost:3000[] and click any of the persons in the list.
 
-Alternatively, here's the direct link to http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydoux^]:
+Alternatively, here's the direct link to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydough^]:
 
 image::./lea-no-macro.png[width=1200]
+
+NOTE: Screenshots may show older sample names and working image URLs. At this stage, internal biography images and links still need the custom renderers introduced next.
 
 == Next step
 

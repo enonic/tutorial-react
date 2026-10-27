@@ -1,5 +1,5 @@
 const query = `query PersonListQuery {
-    guillotine {
+    guillotine(project: "intro", branch: "master", scopeKey: "/") {
         queryDsl(
             first: 50
             query: {
@@ -23,7 +23,7 @@ const query = `query PersonListQuery {
                 data {
                     photos {
                         ... on media_Image {
-                            imageUrl(type: absolute, scale: "square(500)")
+                            imageUrl(scale: "square(500)") { path queryString }
                         }
                     }
                 }
