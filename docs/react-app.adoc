@@ -60,7 +60,7 @@ VITE_GUILLOTINE_URL=/api/com.enonic.app.guillotine:graphql
 
 WARNING: Vite exposes `+VITE_+` variables in the browser bundle. These values are public configuration, not a place for credentials or secrets.
 
-Restart Vite after changing `.env`. The development proxy is not part of the production build: configure equivalent `/api` routing on the production host when building with the relative endpoint. Alternatively, build with an absolute endpoint and configure <<enonic-setup#configure_cors,Guillotine CORS>> for the deployed frontend. `vite preview` also needs suitable API routing or an absolute, CORS-enabled endpoint.
+Restart Vite after changing `.env`. The development proxy is not part of the production build: configure equivalent `/api` routing on the production host when building with the relative endpoint. Alternatively, build with an absolute endpoint and configure https://developer.enonic.com/docs/guillotine/stable/configuration[Guillotine CORS] for the deployed frontend. `vite preview` also needs suitable API routing or an absolute, CORS-enabled endpoint.
 
 == Start
 
