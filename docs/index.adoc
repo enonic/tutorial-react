@@ -1,9 +1,9 @@
-= Building a React app powered by Enonic
+= Build a React SPA on the Enonic GraphQL API
 Tutorial
 
 This is a step-by-step tutorial on building a client-side https://react.dev/[React] application that renders structured content from Enonic. The application fetches published content through https://developer.enonic.com/docs/guillotine[Guillotine], Enonic's GraphQL API, and uses the `@enonic/react-components` library to render rich text.
 
-*Requirements*: We recommend that you complete the https://developer.enonic.com/docs/intro[introduction to Enonic] before embarking on this tutorial. You should be familiar with React and TypeScript.
+NOTE: *Requirements*: We recommend that you complete the https://developer.enonic.com/docs/intro[introduction to Enonic] before embarking on this tutorial. You should be familiar with React and TypeScript.
 
 == Intro
 
