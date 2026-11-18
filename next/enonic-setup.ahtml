@@ -446,7 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#task_open_content_studio">Task: Open Content Studio</a></li>
 <li><a href="#test_api">Task: Run a query</a></li>
 <li><a href="#the_api_endpoint">The API endpoint</a></li>
-<li><a href="#next">Next</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -467,10 +467,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Install the CLI</strong> by running this command in your terminal:</p>
+<p><strong>Install the CLI</strong> - Run this command in your terminal:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm install -g @enonic/cli</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm install -g @enonic/cli</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p><strong>Verify the installation</strong>. Run <code>enonic -v</code>, which prints the version of the CLI. This tutorial expects version 4 or newer.</p>
+<p><strong>Verify the installation</strong> - Run <code>enonic -v</code>, which prints the version of the CLI. This tutorial expects version 4 or newer.</p>
 </li>
 </ol>
 </div>
@@ -490,10 +490,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Create a sandbox</strong> called <code>react_tutorial</code> by running this command:</p>
+<p><strong>Create a sandbox</strong> - Run this command to create a sandbox called <code>react_tutorial</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">enonic sandbox create react_tutorial -t intro -v 8.1.3 -f</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">enonic sandbox create react_tutorial -t intro -v 8.1.3 -f</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -514,7 +514,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p><strong>Wait for the sandbox to start</strong>. The first startup takes a little longer, as the applications are installed and the sample content is imported and published.</p>
+<p><strong>Wait for the sandbox to start</strong> - The first startup takes a little longer, as the applications are installed and the sample content is imported and published.</p>
+</li>
+<li>
+<p><strong>Verify that the sandbox is running</strong> - Open <a href="http://localhost:8080">http://localhost:8080</a>. The Enonic XP welcome page appears.</p>
 </li>
 </ol>
 </div>
@@ -529,13 +532,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Open the welcome page</strong> at <a href="http://localhost:8080">http://localhost:8080</a>.</p>
+<p><strong>Log in</strong> - On the welcome page, click <strong>Log In as Guest</strong> to open the XP admin dashboard.</p>
 </li>
 <li>
-<p><strong>Log in</strong>. Click <strong>Log In as Guest</strong> to open the XP admin dashboard.</p>
+<p><strong>Open Content Studio</strong> - Select it from the <code>XP menu</code>. The <code>Intro Project</code> opens automatically.</p>
 </li>
 <li>
-<p><strong>Open Content Studio</strong> from the <code>XP menu</code>. The <code>Intro Project</code> opens automatically.</p>
+<p><strong>Verify the sample content</strong> - The content tree lists the <code>Persons</code> and <code>Movies</code> folders, among others.</p>
 </li>
 </ol>
 </div>
@@ -553,13 +556,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Open Query Playground</strong> by clicking <code>Query Playground</code> in the Content Studio menu.</p>
+<p><strong>Open Query Playground</strong> - Click <code>Query Playground</code> in the Content Studio menu.</p>
 </li>
 <li>
-<p><strong>Paste and run the query below</strong>. It retrieves the three most recently modified persons:</p>
+<p><strong>Paste and run the query below</strong> - It retrieves the three most recently modified persons:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query PersonListQuery {
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">query PersonListQuery {
     guillotine(project: "intro", branch: "master") {
         queryDsl(
             first: 3
@@ -585,12 +588,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>You should get this result in the response panel:</p>
-</div>
+</li>
+<li>
+<p><strong>Verify the response</strong> - The response panel shows this result:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+<pre class="highlight"><code class="language-json" data-lang="json">{
   "data": {
     "guillotine": {
       "queryDsl": [
@@ -647,7 +650,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>http://localhost:8080/api/com.enonic.app.guillotine:graphql</pre>
+<pre class="highlight"><code class="language-text" data-lang="text">http://localhost:8080/api/com.enonic.app.guillotine:graphql</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -656,17 +659,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="next"><a class="link" href="#next">Next</a></h2>
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With Enonic up and running, it is time to <a href="react-app.ahtml">create the React app</a>.</p>
+<p>You&#8217;ve installed the Enonic CLI, started a sandbox with the Intro sample content, and run a GraphQL query against Guillotine in Query Playground.</p>
+</div>
+<div class="paragraph">
+<p>Next, you&#8217;ll <a href="react-app.ahtml">create the React app</a> that sends queries to the same endpoint.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:42:01 UTC
+Last updated 2026-11-18 17:10:06 UTC
 </div>
 </div>
 </body>

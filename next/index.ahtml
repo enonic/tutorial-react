@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="Tutorial">
 <title>Build a React SPA on the Enonic GraphQL API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,9 +438,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>Build a React SPA on the Enonic GraphQL API</h1>
-<div class="details">
-<span id="author" class="author">Tutorial</span><br>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -454,7 +450,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a step-by-step tutorial on building a client-side <a href="https://react.dev/">React</a> application that renders structured content from Enonic. The application fetches published content through <a href="https://developer.enonic.com/docs/guillotine">Guillotine</a>, Enonic&#8217;s GraphQL API, and uses the <code>@enonic/react-components</code> library to render rich text.</p>
+<p>This is a step-by-step tutorial on building a client-side <a href="https://react.dev/">React</a> application that renders structured content from Enonic. The application fetches published content through <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, Enonic&#8217;s GraphQL API, and uses the <code>@enonic/react-components</code> library to render rich text.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -463,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>Requirements</strong>: We recommend that you complete the <a href="https://developer.enonic.com/docs/intro">introduction to Enonic</a> before embarking on this tutorial. You should be familiar with React and TypeScript.
+<strong>Requirements</strong>: If Enonic is new to you, complete the <a href="https://developer.enonic.com/learn/intro">introduction to Enonic</a> before starting this tutorial. You should be familiar with React and TypeScript.
 </td>
 </tr>
 </table>
@@ -502,7 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/docs/next.xp">Next.js integration</a> instead.</p>
+<p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/docs/next.xp/stable">Next.js integration</a> instead.</p>
 </div>
 <div class="paragraph">
 <p>The finished application is available on <a href="https://github.com/enonic/tutorial-react">GitHub</a>.</p>
@@ -576,7 +572,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:42:01 UTC
+Last updated 2026-11-18 17:10:06 UTC
 </div>
 </div>
 </body>

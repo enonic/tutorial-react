@@ -442,10 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#background">Background</a></li>
-<li><a href="#task_add_a_link_renderer">Task: Add a link renderer</a></li>
-<li><a href="#task_add_an_image_renderer">Task: Add an image renderer</a></li>
-<li><a href="#task_use_the_renderers">Task: Use the renderers</a></li>
-<li><a href="#next">Next</a></li>
+<li><a href="#task_add_link_and_image_renderers">Task: Add link and image renderers</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -479,16 +477,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="task_add_a_link_renderer"><a class="link" href="#task_add_a_link_renderer">Task: Add a link renderer</a></h2>
+<h2 id="task_add_link_and_image_renderers"><a class="link" href="#task_add_link_and_image_renderers">Task: Add link and image renderers</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Add the <code>Link</code> component</strong>:</p>
+<p><strong>Add the <code>Link</code> component</strong> - Create the following file:</p>
 <div class="listingblock">
 <div class="title">src/components/Link.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {LinkComponent} from '@enonic/react-components';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {LinkComponent} from '@enonic/react-components';
 import {Link as RouterLink} from 'react-router-dom';
 import {mediaUrl} from '../api';
 
@@ -510,9 +508,6 @@ export const Link: LinkComponent = ({children, data, href, target, title}) =&gt;
 };</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The renderer handles four cases:</p>
 </div>
@@ -532,19 +527,13 @@ export const Link: LinkComponent = ({children, data, href, target, title}) =&gt;
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="task_add_an_image_renderer"><a class="link" href="#task_add_an_image_renderer">Task: Add an image renderer</a></h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p><strong>Add the <code>Image</code> component</strong>:</p>
+<p><strong>Add the <code>Image</code> component</strong> - Create the following file:</p>
 <div class="listingblock">
 <div class="title">src/components/Image.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {ImageComponent} from '@enonic/react-components';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {ImageComponent} from '@enonic/react-components';
 import {mediaUrl} from '../api';
 
 export const Image: ImageComponent = ({data, alt, sizes, style}) =&gt; {
@@ -557,25 +546,16 @@ export const Image: ImageComponent = ({data, alt, sizes, style}) =&gt; {
 };</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The renderer resolves <code>data.src</code> and every entry in <code>data.srcset</code> with the <code>mediaUrl</code> helper, and keeps the <code>alt</code>, <code>sizes</code> and <code>style</code> values from the HTML. An image that cannot be resolved is left out.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="task_use_the_renderers"><a class="link" href="#task_use_the_renderers">Task: Use the renderers</a></h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p><strong>Replace the contents of <code>src/components/Person.tsx</code></strong> with the following. It imports the two renderers and passes them to <code>RichText</code>:</p>
+<p><strong>Use the renderers</strong> - Replace the contents of <code>src/components/Person.tsx</code> with the following. It imports the two renderers and passes them to <code>RichText</code>:</p>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
@@ -685,10 +665,10 @@ export function Person() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong>. Open <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a> again. The image is now in place, and clicking <code>Daniel Carrigear</code> in the biography takes you to his page:</p>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a> again. The image is now in place, and clicking <code>Daniel Carrigear</code> in the biography takes you to his page:</p>
 <div class="imageblock">
 <div class="content">
-<img src="media/rich-text.png" alt="rich text" width="1200">
+<img src="media/rich-text.png" alt="The biography with a working image and links" width="1200">
 </div>
 </div>
 </li>
@@ -697,17 +677,20 @@ export function Person() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="next"><a class="link" href="#next">Next</a></h2>
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The error message in the biography is still there. It comes from a fact box, which <code>RichText</code> does not know how to render yet. In the next chapter you will add support for <a href="macros.ahtml">macros</a>.</p>
+<p>You&#8217;ve added <code>Link</code> and <code>Image</code> renderers and passed them to <code>RichText</code>. Links between persons now go through the router, and media links and images resolve to working URLs.</p>
+</div>
+<div class="paragraph">
+<p>The error message in the biography is still there. It comes from a fact box, which <code>RichText</code> does not know how to render yet. Next, you&#8217;ll <a href="macros.ahtml">render macros with your own React components</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:42:01 UTC
+Last updated 2026-11-18 17:10:06 UTC
 </div>
 </div>
 </body>

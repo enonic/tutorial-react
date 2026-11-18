@@ -442,10 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#task_add_the_query">Task: Add the query</a></li>
-<li><a href="#task_add_the_api_helper">Task: Add the API helper</a></li>
-<li><a href="#task_add_the_component">Task: Add the component</a></li>
-<li><a href="#task_add_the_route">Task: Add the route</a></li>
-<li><a href="#next">Next</a></li>
+<li><a href="#task_display_the_persons">Task: Display the persons</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -463,11 +461,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Add the query</strong> to a new <code>queries</code> folder:</p>
+<p><strong>Add the query</strong> - Create it in a new <code>queries</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/queries/PersonList.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const query = `query PersonListQuery {
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">const query = `query PersonListQuery {
     guillotine(project: "intro", branch: "master") {
         queryDsl(
             first: 50
@@ -503,37 +501,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 export default query;</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>This is the query you ran in the <a href="enonic-setup.ahtml#test_api">first chapter</a>, extended with the first photo of each person. <code>com_enonic_app_intro_Person</code> is the GraphQL type for the <code>person</code> content type, and gives access to its fields.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-To try the query in Query Playground, copy only the text between the backticks.
-</td>
-</tr>
-</table>
+</li>
+<li>
+<p><strong>Verify the query</strong> - Copy only the text between the backticks into Query Playground and run it. The response lists the persons, each with the <code>path</code> and <code>queryString</code> of its photo.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="task_add_the_api_helper"><a class="link" href="#task_add_the_api_helper">Task: Add the API helper</a></h2>
+<h2 id="task_display_the_persons"><a class="link" href="#task_display_the_persons">Task: Display the persons</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Add a module</strong> for communicating with the API:</p>
+<p><strong>Add the API module</strong> - Create a module for communicating with the API:</p>
 <div class="listingblock">
 <div class="title">src/api.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {UrlValue} from '@enonic/react-components';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {UrlValue} from '@enonic/react-components';
 
 const endpoint = import.meta.env.VITE_GUILLOTINE_URL || '/api/com.enonic.app.guillotine:graphql';
 const mediaRoot = (import.meta.env.VITE_ENONIC_MEDIA_URL
@@ -566,12 +555,11 @@ export function mediaUrl(value?: UrlValue | null): string | undefined {
 }</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The module exports two functions:</p>
 </div>
+<div class="openblock">
+<div class="content">
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><code>fetchGuillotine</code></dt>
@@ -584,18 +572,14 @@ export function mediaUrl(value?: UrlValue | null): string | undefined {
 </dd>
 </dl>
 </div>
+</div>
+</div>
 <div class="paragraph">
 <p>The media API is served from the same root as the endpoint, which is <code>/api</code> in this tutorial. If your media is served from another address, set <code>VITE_ENONIC_MEDIA_URL</code> in <code>.env</code>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="task_add_the_component"><a class="link" href="#task_add_the_component">Task: Add the component</a></h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p><strong>Add the stylesheet</strong> to a new <code>styles</code> folder:</p>
+<p><strong>Add the stylesheet</strong> - Create it in a new <code>styles</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/styles/PersonList.sass</div>
 <div class="content">
@@ -651,11 +635,11 @@ ul.person-list
 </div>
 </li>
 <li>
-<p><strong>Add the component</strong> to a new <code>components</code> folder:</p>
+<p><strong>Add the component</strong> - Create it in a new <code>components</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/components/PersonList.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {useEffect, useState} from 'react';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import '../styles/PersonList.sass';
@@ -709,25 +693,16 @@ export function PersonList() {
 }</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The component fetches the persons when it is first displayed, and renders each of them as a photo linking to <code>/p/&lt;name&gt;/&lt;id&gt;</code>. If the request fails, it shows the error message instead.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="task_add_the_route"><a class="link" href="#task_add_the_route">Task: Add the route</a></h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p><strong>Update <code>src/App.tsx</code></strong> to display the component on the root path:</p>
+<p><strong>Add the route</strong> - Update <code>src/App.tsx</code> to display the component on the root path:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import './App.sass';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {PersonList} from './components/PersonList';
 
@@ -744,10 +719,10 @@ export default function App() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong>. <a href="http://localhost:3000">http://localhost:3000</a> should now show a grid of persons:</p>
+<p><strong>Verify the result</strong> - <a href="http://localhost:3000">http://localhost:3000</a> now shows a grid of persons:</p>
 <div class="imageblock">
 <div class="content">
-<img src="media/person-list.png" alt="person list" width="1093">
+<img src="media/person-list.png" alt="The person list as a grid of photos" width="1093">
 </div>
 </div>
 </li>
@@ -759,17 +734,20 @@ export default function App() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="next"><a class="link" href="#next">Next</a></h2>
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will create the <a href="details.ahtml">person details</a> page.</p>
+<p>You&#8217;ve added a GraphQL query, a module that sends queries to Guillotine and builds media URLs, and a <code>PersonList</code> component that shows the persons on the front page.</p>
+</div>
+<div class="paragraph">
+<p>Next, you&#8217;ll <a href="details.ahtml">create the page that shows the details of a single person</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:42:01 UTC
+Last updated 2026-11-18 17:10:06 UTC
 </div>
 </div>
 </body>

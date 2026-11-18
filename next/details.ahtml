@@ -442,9 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#task_add_the_query">Task: Add the query</a></li>
-<li><a href="#task_add_the_component">Task: Add the component</a></li>
-<li><a href="#task_add_the_route">Task: Add the route</a></li>
-<li><a href="#next">Next</a></li>
+<li><a href="#task_display_the_person">Task: Display the person</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -462,11 +461,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Add the query</strong>:</p>
+<p><strong>Add the query</strong> - Create the following file:</p>
 <div class="listingblock">
 <div class="title">src/queries/Person.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const query = `query PersonQuery($personId: ID!) {
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">const query = `query PersonQuery($personId: ID!) {
     guillotine(project: "intro", branch: "master") {
         get(key: $personId) {
             _id
@@ -534,36 +533,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 export default query;</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The query takes the ID of the person as a variable. The <code>bio</code> field is rich text: besides the HTML in <code>processedHtml</code>, the query requests the <code>links</code>, <code>images</code> and <code>macros</code> the HTML refers to. You will put them to use in the following chapters.</p>
 </div>
 <div class="paragraph">
 <p>The <code>processHtml</code> argument controls the images in the HTML. <code>imageSrcWidth</code> sets the width of the default image, while <code>imageWidths</code> and <code>imageSizes</code> produce the <code>srcset</code> and <code>sizes</code> values for responsive images.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-To try the query in Query Playground, copy only the text between the backticks, and add <code>{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}</code> in the variables panel.
-</td>
-</tr>
-</table>
+</li>
+<li>
+<p><strong>Verify the query</strong> - Copy only the text between the backticks into Query Playground, add <code>{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}</code> in the variables panel, and run it. The response contains Léa Seydough, with her biography in <code>processedHtml</code>.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="task_add_the_component"><a class="link" href="#task_add_the_component">Task: Add the component</a></h2>
+<h2 id="task_display_the_person"><a class="link" href="#task_display_the_person">Task: Display the person</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Add the stylesheet</strong>. This component uses <a href="https://vite.dev/guide/features#css-modules">CSS modules</a>, which Vite supports out of the box:</p>
+<p><strong>Add the stylesheet</strong> - This component uses <a href="https://vite.dev/guide/features#css-modules">CSS modules</a>, which Vite supports out of the box:</p>
 <div class="listingblock">
 <div class="title">src/components/Person.module.css</div>
 <div class="content">
@@ -608,11 +598,11 @@ To try the query in Query Playground, copy only the text between the backticks, 
 </div>
 </li>
 <li>
-<p><strong>Add the component</strong>:</p>
+<p><strong>Add the component</strong> - Create the following file:</p>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
@@ -716,9 +706,6 @@ export function Person() {
 }</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The component reads the ID of the person from the URL, fetches the person and renders the name, the biography and the photos.</p>
 </div>
@@ -738,19 +725,13 @@ export function Person() {
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="task_add_the_route"><a class="link" href="#task_add_the_route">Task: Add the route</a></h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p><strong>Update <code>src/App.tsx</code></strong> with a route for the component:</p>
+<p><strong>Add the route</strong> - Update <code>src/App.tsx</code> with a route for the component:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import './App.sass';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
@@ -772,10 +753,10 @@ export default function App() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong>. Open <a href="http://localhost:3000">http://localhost:3000</a> and click a person, or go directly to <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:3000">http://localhost:3000</a> and click a person, or go directly to <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
 <div class="imageblock">
 <div class="content">
-<img src="media/person-details.png" alt="person details" width="1200">
+<img src="media/person-details.png" alt="The person details page with the biography partly rendered" width="1200">
 </div>
 </div>
 </li>
@@ -787,17 +768,20 @@ export default function App() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="next"><a class="link" href="#next">Next</a></h2>
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the next chapter you will take control of <a href="rich-text.ahtml">rich text</a> rendering.</p>
+<p>You&#8217;ve added a query for a single person, and a <code>Person</code> component that shows the name, biography and photos on its own route. The image, the links and the fact box in the biography do not work yet.</p>
+</div>
+<div class="paragraph">
+<p>Next, you&#8217;ll <a href="rich-text.ahtml">take control of the rich text rendering</a> to fix the links and the image.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:42:01 UTC
+Last updated 2026-11-18 17:10:06 UTC
 </div>
 </div>
 </body>
