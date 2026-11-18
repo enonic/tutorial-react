@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Person list component</title>
+<title>Listing persons</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,17 +437,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Person list component</h1>
+<h1>Listing persons</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#query">Query</a></li>
-<li><a href="#styling">Styling</a></li>
-<li><a href="#media_urls">Media URLs</a></li>
-<li><a href="#component">Component</a></li>
-<li><a href="#routing">Routing</a></li>
-<li><a href="#result">Result</a></li>
-<li><a href="#next_step">Next step</a></li>
+<li><a href="#task_add_the_query">Task: Add the query</a></li>
+<li><a href="#task_add_the_api_helper">Task: Add the API helper</a></li>
+<li><a href="#task_add_the_component">Task: Add the component</a></li>
+<li><a href="#task_add_the_route">Task: Add the route</a></li>
+<li><a href="#next">Next</a></li>
 </ul>
 </div>
 </div>
@@ -455,21 +453,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter covers creation of the PersonList component, including a query for retrieving persons from the Enonic API.</p>
+<p>In this chapter you will fetch persons from the Enonic API and present them in a <code>PersonList</code> component.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="query"><a class="link" href="#query">Query</a></h2>
+<h2 id="task_add_the_query"><a class="link" href="#task_add_the_query">Task: Add the query</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Add the following file to your project (note the new <code>queries</code> folder). The component will use it to fetch data:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add the query</strong> to a new <code>queries</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/queries/PersonList.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const query = `query PersonListQuery {
-    guillotine(project: "intro", branch: "master", scopeKey: "/") {
+    guillotine(project: "intro", branch: "master") {
         queryDsl(
             first: 50
             query: {
@@ -488,7 +487,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
             _id
             _name
             displayName
-            type
             ... on com_enonic_app_intro_Person {
                 data {
                     photos {
@@ -505,17 +503,99 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 export default query;</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
-<p>To try this query in a GraphQL playground, copy only the query text between the backticks, not the TypeScript declaration or export. No query variables are needed: the query selects <code>guillotine(project: "intro", branch: "master", scopeKey: "/")</code> directly.</p>
+<p>This is the query you ran in the <a href="enonic-setup.ahtml#test_api">first chapter</a>, extended with the first photo of each person. <code>com_enonic_app_intro_Person</code> is the GraphQL type for the <code>person</code> content type, and gives access to its fields.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To try the query in Query Playground, copy only the text between the backticks.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<h2 id="task_add_the_api_helper"><a class="link" href="#task_add_the_api_helper">Task: Add the API helper</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The component will require some styling, to make it look good! Add the stylesheet for the PersonList component (note the new <code>styles</code> folder):</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add a module</strong> for communicating with the API:</p>
+<div class="listingblock">
+<div class="title">src/api.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {UrlValue} from '@enonic/react-components';
+
+const endpoint = import.meta.env.VITE_GUILLOTINE_URL || '/api/com.enonic.app.guillotine:graphql';
+const mediaRoot = (import.meta.env.VITE_ENONIC_MEDIA_URL
+    || (endpoint.startsWith('/') ? endpoint.slice(0, endpoint.lastIndexOf('/')) : new URL('.', endpoint).href))
+    .replace(/\/+$/, '');
+
+export async function fetchGuillotine&lt;T&gt;(query: string, variables?: Record&lt;string, unknown&gt;): Promise&lt;T&gt; {
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({query, variables}),
+    });
+    if (!response.ok) {
+        throw new Error(`Guillotine responded with ${response.status}`);
+    }
+    const json = await response.json();
+    if (json.errors) {
+        throw new Error(json.errors[0].message);
+    }
+    return json.data.guillotine;
+}
+
+export function mediaUrl(value?: UrlValue | null): string | undefined {
+    if (typeof value === 'string') {
+        return value;
+    }
+    return value ? mediaRoot + value.path + (value.queryString || '') : undefined;
+}</code></pre>
 </div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The module exports two functions:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>fetchGuillotine</code></dt>
+<dd>
+<p>Sends a query to the endpoint set in <code>.env</code>, and returns the contents of the <code>guillotine</code> field. It throws an error when the request fails, or when the response contains GraphQL errors.</p>
+</dd>
+<dt class="hdlist1"><code>mediaUrl</code></dt>
+<dd>
+<p>Guillotine returns the URL of an image or attachment as two parts, <code>path</code> and <code>queryString</code>, which are relative to the API root. This function turns them into a URL the browser can use.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The media API is served from the same root as the endpoint, which is <code>/api</code> in this tutorial. If your media is served from another address, set <code>VITE_ENONIC_MEDIA_URL</code> in <code>.env</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="task_add_the_component"><a class="link" href="#task_add_the_component">Task: Add the component</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add the stylesheet</strong> to a new <code>styles</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/styles/PersonList.sass</div>
 <div class="content">
@@ -569,124 +649,81 @@ ul.person-list
           transform: scale(1.1)</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="media_urls"><a class="link" href="#media_urls">Media URLs</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Guillotine 9 returns each photo&#8217;s <code>imageUrl</code> as URL parts (<code>path</code> and <code>queryString</code>), not a URL string. Before adding the component, create <code>src/api.ts</code> to construct browser URLs:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/api.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {UrlValue} from '@enonic/react-components';
-
-const endpoint = import.meta.env.VITE_GUILLOTINE_URL || '/api/com.enonic.app.guillotine:graphql';
-const mediaRoot = (import.meta.env.VITE_ENONIC_MEDIA_URL
-    || (endpoint.startsWith('/') ? endpoint.slice(0, endpoint.lastIndexOf('/')) : new URL('.', endpoint).href))
-    .replace(/\/+$/, '');
-
-export function mediaUrl(value?: UrlValue | null): string | undefined {
-    if (typeof value === 'string') {
-        return value;
-    }
-    return value ? mediaRoot + value.path + (value.queryString || '') : undefined;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This module exports only <code>mediaUrl(value?: UrlValue | null)</code>. It uses the optional <code>VITE_ENONIC_MEDIA_URL</code>, or derives the media API root from <code>VITE_GUILLOTINE_URL</code> with <code>new URL('.', endpoint)</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="component"><a class="link" href="#component">Component</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Add the React component (note the new <code>components</code> folder). It fetches directly from <code>import.meta.env.VITE_GUILLOTINE_URL</code> and keeps its response type inline, with <code>imageUrl</code> typed as <code>UrlParts | null</code>. <code>mediaUrl()</code> constructs the image source:</p>
-</div>
+</li>
+<li>
+<p><strong>Add the component</strong> to a new <code>components</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/components/PersonList.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {useEffect, useState,} from 'react';
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import '../styles/PersonList.sass';
 
-import {mediaUrl} from '../api';
+import {fetchGuillotine, mediaUrl} from '../api';
 import type {UrlParts} from '@enonic/react-components';
 
 import PERSON_LIST_QUERY from '../queries/PersonList';
 
-const forceArray = (data: any) =&gt; (Array.isArray(data) ? data : [data]);
+type PersonListItem = {
+  _id: string
+  _name: string
+  data: {
+    photos: {
+      imageUrl: UrlParts | null
+    }[]
+  }
+  displayName: string
+};
 
 export function PersonList() {
-  const [data, setData] = useState&lt;{
-    _id: string
-    _name: string
-    data: {
-      photos: {
-        imageUrl: UrlParts | null
-      }[]
-    }
-    displayName: string
-  }[]&gt;();
+  const [persons, setPersons] = useState&lt;PersonListItem[]&gt;();
+  const [error, setError] = useState&lt;Error&gt;();
 
   useEffect(() =&gt; {
-    fetch(import.meta.env.VITE_GUILLOTINE_URL as string, {
-      body: JSON.stringify({
-        query: PERSON_LIST_QUERY,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-      method: 'POST',
-    })
-        .then(response =&gt; response.json())
-        .then(json =&gt; setData(json.data.guillotine.queryDsl));
+    fetchGuillotine&lt;{queryDsl: PersonListItem[]}&gt;(PERSON_LIST_QUERY)
+        .then(result =&gt; setPersons(result.queryDsl))
+        .catch(setError);
   }, []);
 
+  if (error) {
+    return &lt;p&gt;Failed to load persons: {error.message}&lt;/p&gt;;
+  }
+
+  if (!persons) {
+    return null;
+  }
+
   return (
-      &lt;&gt;
-        {data &amp;&amp; &lt;ul className='person-list'&gt;
-          {data.map((person, i) =&gt; {
-
-            const {
-              _id,
-              _name,
-              data: {
-                photos
-              },
-              displayName
-            } = person;
-
-            const imgProps = {
-              alt: displayName,
-              src: mediaUrl(photos ? forceArray(photos)[0].imageUrl : undefined),
-            };
-
-            return &lt;li key={i}&gt;
+      &lt;ul className='person-list'&gt;
+        {persons.map(({_id, _name, data: {photos}, displayName}) =&gt; (
+            &lt;li key={_id}&gt;
               &lt;Link to={`/p/${_name}/${_id}`}&gt;
-                &lt;img {...imgProps}/&gt;
+                &lt;img alt={displayName} src={mediaUrl(photos?.[0]?.imageUrl)}/&gt;
                 &lt;div&gt;{displayName}&lt;/div&gt;
               &lt;/Link&gt;
-            &lt;/li&gt;;
-          })}
-        &lt;/ul&gt;}
-      &lt;/&gt;
+            &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
   );
 }</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The component fetches the persons when it is first displayed, and renders each of them as a photo linking to <code>/p/&lt;name&gt;/&lt;id&gt;</code>. If the request fails, it shows the error message instead.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
+<h2 id="task_add_the_route"><a class="link" href="#task_add_the_route">Task: Add the route</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Finally, update the <code>App.tsx</code> file to include the <code>PersonList</code> component and display it on the root path <code>/</code>:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Update <code>src/App.tsx</code></strong> to display the component on the root path:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
@@ -705,36 +742,34 @@ export default function App() {
 }</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="result"><a class="link" href="#result">Result</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With everything in place, you should now see a grid of person images at <a href="http://localhost:3000" class="bare" target="_blank" rel="noopener">http://localhost:3000</a>.</p>
-</div>
+</li>
+<li>
+<p><strong>Verify the result</strong>. <a href="http://localhost:3000">http://localhost:3000</a> should now show a grid of persons:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/person-list.png" alt="person list" width="1093">
 </div>
 </div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
-<p>Clicking any of the images will take you to the person&#8217;s detail page - which is yet to be implemented.</p>
+<p>Clicking a person takes you to an empty page, since the details page is yet to be implemented.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<h2 id="next"><a class="link" href="#next">Next</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Moving forward, you&#8217;ll create a component and a matching routing to render <a href="details.ahtml">Person details</a>.</p>
+<p>In the next chapter you will create the <a href="details.ahtml">person details</a> page.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:12:15 UTC
+Last updated 2026-11-18 13:42:01 UTC
 </div>
 </div>
 </body>

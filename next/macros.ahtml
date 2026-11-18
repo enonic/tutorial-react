@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Macros</title>
+<title>Rendering macros</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,17 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Macros</h1>
+<h1>Rendering macros</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#background">Background</a></li>
-<li><a href="#default_macro_handling">Default macro handling</a></li>
-<li><a href="#the_factbox_component">The FactBox component</a></li>
-<li><a href="#the_macro_component">The Macro component</a></li>
-<li><a href="#use_in_richtext">Use in RichText</a></li>
-<li><a href="#a_final_tip">A final tip</a></li>
-<li><a href="#next_steps">Next steps</a></li>
+<li><a href="#task_add_the_factbox_component">Task: Add the FactBox component</a></li>
+<li><a href="#task_add_a_macro_renderer">Task: Add a macro renderer</a></li>
+<li><a href="#task_use_the_renderer">Task: Use the renderer</a></li>
+<li><a href="#passing_props_to_the_renderers">Passing props to the renderers</a></li>
+<li><a href="#next">Next</a></li>
 </ul>
 </div>
 </div>
@@ -455,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rich Text also supports custom components - aka <code>Macros</code>.</p>
+<p>In this chapter you will render a macro, which is a custom component placed inside rich text.</p>
 </div>
 </div>
 </div>
@@ -463,7 +462,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="background"><a class="link" href="#background">Background</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to support more complex structure within Enonic&#8217;s Rich Text editor, you can define macros.</p>
+<p>Macros let editors insert more than text, links and images into rich text. Each macro is defined by an application, and has its own configuration and optionally a body.</p>
+</div>
+<div class="paragraph">
+<p>The Intro app defines a macro called <code>factbox</code>, which is used in the biography of Léa Seydough. Guillotine returns it in the <code>macros</code> field of the rich text, and <code>RichText</code> calls a <code>Macro</code> renderer for it. Without one, it renders an error message:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/no-macro.png" alt="no macro" width="1200">
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -472,7 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Details on defining macros can be found in the <a href="https://developer.enonic.com/docs/xp/stable/cms/macros" target="_blank" rel="noopener">XP documentation</a>.
+Macros are described in the <a href="https://developer.enonic.com/docs/xp/stable/cms/macros">XP documentation</a>.
 </td>
 </tr>
 </table>
@@ -480,52 +487,19 @@ Details on defining macros can be found in the <a href="https://developer.enonic
 </div>
 </div>
 <div class="sect1">
-<h2 id="default_macro_handling"><a class="link" href="#default_macro_handling">Default macro handling</a></h2>
+<h2 id="task_add_the_factbox_component"><a class="link" href="#task_add_the_factbox_component">Task: Add the FactBox component</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The sample content contains an example macro called <code>Factbox</code>, which has been added to the <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydough</a> bio.</p>
-</div>
-<div class="paragraph">
-<p>For Guillotine 9 to resolve this macro, configure the Intro provider app (<code>com.enonic.app.intro</code>) in the <code>intro</code> project&#8217;s applications in Content Studio. Our queries use the project-root scope <code>scopeKey: "/"</code>; having the app installed, or configured only on a site, is not sufficient.</p>
-</div>
-<div class="paragraph">
-<p>By default, the RichText component will simply render a fallback placeholder:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/no-macro.png" alt="no macro" width="663">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The screenshots may show names from an older Intro dataset.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To improve the situation, start by implementing a FactBox component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the_factbox_component"><a class="link" href="#the_factbox_component">The FactBox component</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Add the following files to your project:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add the component</strong> that will render the macro:</p>
 <div class="listingblock">
 <div class="title">src/components/FactBox.tsx</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import styles from './FactBox.module.css';
 import type {ReactNode} from 'react';
 
-declare type FactBoxProps = {
+type FactBoxProps = {
     header?: string[];
     children: ReactNode
 };
@@ -534,40 +508,21 @@ export const FactBox = ({header, children}: FactBoxProps) =&gt; (&lt;&gt;
     &lt;ins className={styles.factbox}&gt;
         &lt;strong className={styles.header}&gt;{header?.length ? header.join(' ') : 'Fact Box'}&lt;/strong&gt;
         &lt;br/&gt;
-        {children}
+        &lt;div className={styles.body}&gt;{children}&lt;/div&gt;
     &lt;/ins&gt;
 &lt;/&gt;)</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The optional body of a macro is available as a React component called <code>children</code>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The body of the macro is passed to the component as <code>children</code>.</p>
 </div>
+</li>
+<li>
+<p><strong>Add the stylesheet</strong>:</p>
 <div class="listingblock">
 <div class="title">src/components/FactBox.module.css</div>
 <div class="content">
-<pre class="highlight"><code class="language-css" data-lang="css">.icon {
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.factbox {
+<pre class="highlight"><code class="language-css" data-lang="css">.factbox {
     background-color: rgb(235, 249, 249);
     display: block;
     text-decoration: none;
@@ -616,17 +571,18 @@ The optional body of a macro is available as a React component called <code>chil
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Like other components, you may also declare a query for your Macro - but in this case we already have everything we need in the data returned from the original <code>bio</code> query.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="the_macro_component"><a class="link" href="#the_macro_component">The Macro component</a></h2>
+<h2 id="task_add_a_macro_renderer"><a class="link" href="#task_add_a_macro_renderer">Task: Add a macro renderer</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>We now have a FactBox component, but we still need to map it to the Enonic macro definition. This can be solved by implementing a generic Macro component where you map specific macro descriptors to corresponding macro components.</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add the <code>Macro</code> component</strong>:</p>
 <div class="listingblock">
 <div class="title">src/components/Macro.tsx</div>
 <div class="content">
@@ -648,20 +604,24 @@ export const Macro: MacroComponent = ({
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This component takes care of mapping each macro to its corresponding React component. In our case, <code>FactBox</code> component implements the macro called <code>com.enonic.app.intro:factbox</code> in Enonic.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>It will throw an error otherwise, which will cause the RichText component&#8217;s <code>ErrorBoundary</code> to render an <code>Error placeholder</code>.</p>
+<p><code>RichText</code> uses a single renderer for all macros. It identifies each macro by its descriptor, and passes the configuration as <code>data</code>. The renderer maps <code>com.enonic.app.intro:factbox</code> to the <code>FactBox</code> component.</p>
+</div>
+<div class="paragraph">
+<p>For any other macro, the renderer throws an error. <code>RichText</code> catches it and renders an error placeholder in place of the macro, without affecting the rest of the text.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="use_in_richtext"><a class="link" href="#use_in_richtext">Use in RichText</a></h2>
+<h2 id="task_use_the_renderer"><a class="link" href="#task_use_the_renderer">Task: Use the renderer</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Just like with <code>Link</code> and <code>Image</code> components, import <code>Macro</code> component and pass it to the <code>RichText</code> component:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Update <code>src/components/Person.tsx</code></strong> to import the <code>Macro</code> component and pass it to <code>RichText</code>:</p>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
 <div class="content">
@@ -673,11 +633,24 @@ import {Link as RouterLink, useParams} from 'react-router-dom';
 import {Image} from './Image';
 import {Link} from './Link';
 import {Macro} from './Macro';
-import {mediaUrl} from '../api';
+import {fetchGuillotine, mediaUrl} from '../api';
 import PERSON_QUERY from '../queries/Person';
 
 import styles from './Person.module.css';
 
+type PersonContent = {
+    _path: string
+    data: {
+        bio: RichTextData
+        photos: {
+            imageUrl: UrlParts | null
+            attachments: {
+                name: string
+            }[]
+        }[]
+    }
+    displayName: string
+};
 
 export function Person() {
 
@@ -685,40 +658,24 @@ export function Person() {
         personId = ''
     } = useParams();
 
-    const [data, setData] = useState&lt;{
-        _name: string
-        _path: string
-        data: {
-            bio: RichTextData
-            dateofbirth: string
-            photos: {
-                imageUrl: UrlParts | null
-            }[]
-        }
-        displayName: string
-    }&gt;();
+    const [person, setPerson] = useState&lt;PersonContent | null&gt;();
+    const [error, setError] = useState&lt;Error&gt;();
 
     useEffect(() =&gt; {
-        fetch(import.meta.env.VITE_GUILLOTINE_URL as string, {
-            body: JSON.stringify({
-                query: PERSON_QUERY,
-                variables: {
-                    personId,
-                }
-            }),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-        })
-            .then(response =&gt; response.json())
-            .then(json =&gt; {
-                const value = json.data.guillotine.get;
-                setData(value)
-            });
-    }, [personId]); // useEffect
+        fetchGuillotine&lt;{get: PersonContent | null}&gt;(PERSON_QUERY, {personId})
+            .then(result =&gt; setPerson(result.get))
+            .catch(setError);
+    }, [personId]);
 
-    if (!data) {
+    if (error) {
+        return &lt;p&gt;Failed to load person: {error.message}&lt;/p&gt;;
+    }
+
+    if (person === null) {
+        return &lt;p&gt;Person not found&lt;/p&gt;;
+    }
+
+    if (!person) {
         return null;
     }
 
@@ -728,13 +685,13 @@ export function Person() {
             photos
         },
         displayName
-    } = data;
+    } = person;
 
     // Minimal meta and component data required by RichText
     const meta: RichTextMetaData = {
         type: 'person',
         id: personId,
-        path: data._path,
+        path: person._path,
         mode: 'inline'
     };
 
@@ -744,130 +701,123 @@ export function Person() {
     };
 
     return (
-        &lt;&gt;
-            &lt;div className={styles.person}&gt;
-                &lt;h2&gt;{displayName}&lt;/h2&gt;
-                &lt;RichText
-                    className={styles.bio}
-                    data={bio}
-                    meta={meta}
-                    component={component}
-                    Image={Image}
-                    Link={Link}
-                    Macro={Macro}
-                    tag='article'
-                /&gt;
+        &lt;div className={styles.person}&gt;
+            &lt;h2&gt;{displayName}&lt;/h2&gt;
+            &lt;RichText
+                className={styles.bio}
+                data={bio}
+                meta={meta}
+                component={component}
+                Image={Image}
+                Link={Link}
+                Macro={Macro}
+                tag='article'
+            /&gt;
+            {
+                photos.length &gt; 0 &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
+            }
+            &lt;div className={styles.photos}&gt;
                 {
-                    photos.length &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
+                    photos.map((photo, i) =&gt; {
+                        const title = photo.attachments?.[0]?.name || displayName;
+                        return &lt;img key={i}
+                                    src={mediaUrl(photo.imageUrl)}
+                                    title={title}
+                                    alt={title}
+                                    width="500"
+                        /&gt;;
+                    })
                 }
-                &lt;div className={styles.photos}&gt;
-                    {
-                        photos.map((photo: any, i: number) =&gt; (
-                            &lt;img key={i}
-                                 src={mediaUrl(photo.imageUrl)}
-                                 title={getTitle(photo, displayName)}
-                                 alt={getTitle(photo, displayName)}
-                                 width="500"
-                            /&gt;
-                        ))
-                    }
-                &lt;/div&gt;
-                &lt;RouterLink to="/"&gt;Back to list&lt;/RouterLink&gt;
             &lt;/div&gt;
-        &lt;/&gt;
+            &lt;RouterLink to="/"&gt;Back to list&lt;/RouterLink&gt;
+        &lt;/div&gt;
     );
-}
-
-function getTitle(photo: any, displayName: string) {
-    return (photo.attachments || [])[0].name || displayName;
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>If you did everything correctly, you should now see the <code>FactBox</code> macro rendered inside the biography on the <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydough</a> page:</p>
-</div>
+</li>
+<li>
+<p><strong>Verify the result</strong>. The fact box is now rendered in the biography of <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/factbox-macro.png" alt="factbox macro" width="1028">
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="a_final_tip"><a class="link" href="#a_final_tip">A final tip</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Make an interface for RestProps so you can use it in other components as needed:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/RestProps.d.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export interface RestProps {
-    personID: string;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You may pass additional parameters, such as <code>personID</code> to the RichText component by supplying a generic interface which declares them. Import the interface and supply it to the Link, Image and Macro component types to make them aware of the new field.</p>
-</div>
-<div class="paragraph">
-<p>For example, this optional wrapper forwards <code>personID</code> to typed renderers while keeping the existing Link.tsx, Image.tsx and Macro.tsx implementations:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/RichTextWithPerson.tsx</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {RichText} from '@enonic/react-components';
-import type {
-    ImageComponent,
-    LinkComponent,
-    MacroComponent,
-    RichTextParams
-} from '@enonic/react-components';
-import type {RestProps} from './RestProps';
-import {Link} from './Link';
-import {Image} from './Image';
-import {Macro} from './Macro';
-
-const PersonLink: LinkComponent&lt;RestProps&gt; = (props) =&gt; &lt;Link {...props}/&gt;;
-const PersonImage: ImageComponent&lt;RestProps&gt; = (props) =&gt; &lt;Image {...props}/&gt;;
-const PersonMacro: MacroComponent&lt;RestProps&gt; = (props) =&gt; &lt;Macro {...props}/&gt;;
-
-export function RichTextWithPerson(props: RichTextParams&lt;RestProps&gt;) {
-    return &lt;RichText&lt;RestProps&gt;
-        {...props}
-        Link={PersonLink}
-        Image={PersonImage}
-        Macro={PersonMacro}
-    /&gt;;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Use <code>RichTextWithPerson</code> in place of <code>RichText</code> in <code>Person.tsx</code>, importing it from <code>./RichTextWithPerson</code> and adding <code>personID={personId}</code> alongside the existing <code>data</code>, <code>meta</code>, and <code>component</code> props. Each typed renderer can then read <code>props.personID</code> when needed.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="next_steps"><a class="link" href="#next_steps">Next steps</a></h2>
+<h2 id="passing_props_to_the_renderers"><a class="link" href="#passing_props_to_the_renderers">Passing props to the renderers</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Congratulations on completing this tutorial!</p>
+<p>A renderer may need values from the component that uses <code>RichText</code>. Any additional prop you give <code>RichText</code> is passed on to the <code>Image</code>, <code>Link</code> and <code>Macro</code> renderers.</p>
 </div>
 <div class="paragraph">
-<p>For more details on our React Components library, visit <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">the NPM documentation</a>.</p>
+<p>To do this with type safety, declare the additional props as a type:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/RestProps.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export type RestProps = {
+    personId: string
+};</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>To learn more about Enonic&#8217;s CMS capabilities, we recommend the <a href="https://developer.enonic.com/docs/developer-101" target="_blank" rel="noopener">Developer 101 tutorial</a>.</p>
+<p>Use the type when declaring each renderer, which makes the props available in it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export const Link: LinkComponent&lt;RestProps&gt; = ({children, data, href, target, title, personId}) =&gt; {
+    // ...
+};</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>To dive deeper into React and building sites with Enonic, have a look at our <a href="https://developer.enonic.com/docs/next.xp" target="_blank" rel="noopener">Next.js integration</a>.</p>
+<p>Then supply the type and the values to <code>RichText</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">&lt;RichText&lt;RestProps&gt;
+    data={bio}
+    meta={meta}
+    component={component}
+    Image={Image}
+    Link={Link}
+    Macro={Macro}
+    personId={personId}
+/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next"><a class="link" href="#next">Next</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations on completing this tutorial! Here are some suggestions for where to go from here:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://www.npmjs.com/package/@enonic/react-components">documentation of <code>@enonic/react-components</code></a> covers the library in detail.</p>
+</li>
+<li>
+<p>The <a href="https://developer.enonic.com/docs/developer-101">Developer 101 tutorial</a> teaches you how to build your own content model in Enonic.</p>
+</li>
+<li>
+<p>The <a href="https://developer.enonic.com/docs/next.xp">Next.js integration</a> adds server-side rendering and previewing of content in Content Studio.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 13:12:15 UTC
+Last updated 2026-11-18 13:42:01 UTC
 </div>
 </div>
 </body>
