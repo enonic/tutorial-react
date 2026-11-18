@@ -1,4 +1,6 @@
 = Creating the React app
+include::.variables.adoc[]
+:toc: right
 :sourcedir: ../
 :imagesdir: media/
 
@@ -6,18 +8,18 @@ In this chapter you will create a React application with TypeScript, connect it 
 
 == Task: Create the project
 
-. *Scaffold the app*. With the sandbox running, open a new terminal window and run this command:
+. *Scaffold the app* - With the sandbox running, open a new terminal window and run this command:
 +
-[source,Terminal]
+[source,shell]
 ----
 npm create vite@9 react-enonic -- --template react-ts
 ----
 +
 This creates a Vite project with React and TypeScript in a folder called `react-enonic/`.
+
+. *Install the dependencies* - Run these commands:
 +
-. *Install the dependencies*:
-+
-[source,Terminal]
+[source,shell]
 ----
 cd react-enonic
 
@@ -29,24 +31,35 @@ This installs the dependencies of the project template, and adds:
 * `react-router-dom` for routing between the pages of the application
 * `sass` for the stylesheets used in this tutorial
 * `@enonic/react-components` for rendering rich text from Enonic
+
+. *Start Vite* - Run this command from the project folder:
 +
-. *Remove the files you will not need*. Delete `src/App.css` and the `src/assets/` folder.
+[source,shell]
+----
+npm run dev -- --port 3000
+----
+
+. *Verify the app* - Open http://localhost:3000[http://localhost:3000]. It shows the start page of the project template:
++
+image::react-app.png[The start page of the Vite project template,width=75%]
+
+Leave Vite running. It updates the page in the browser whenever you change a file.
 
 == Task: Connect to the API
 
-The application runs in the browser and fetches content directly from https://developer.enonic.com/docs/guillotine[Guillotine]. During development, the application and Enonic run on different ports. To keep all requests on the application's own origin, Vite will forward them to Enonic.
+The application runs in the browser and fetches content directly from {guillotine-docs}[Guillotine]. During development, the application and Enonic run on different ports. To keep all requests on the application's own origin, Vite will forward them to Enonic.
 
-. *Add a proxy*. Replace the contents of `vite.config.ts` with the following:
+. *Add a proxy* - Replace the contents of `vite.config.ts` with the following:
 +
 .vite.config.ts
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}vite.config.ts[]
 ----
 +
 Vite now forwards every request starting with `/api` to the sandbox. This covers both the GraphQL endpoint and the images it refers to. To use an Enonic instance on another address, set `+ENONIC_URL+` in `.env`.
-+
-. *Set the endpoint*. Create a file called `.env` in the root of the project:
+
+. *Set the endpoint* - Create a file called `.env` in the root of the project:
 +
 ..env
 [source,properties]
@@ -56,47 +69,42 @@ VITE_GUILLOTINE_URL=/api/com.enonic.app.guillotine:graphql
 +
 The value is relative, so the browser sends requests to the application's own origin, where the proxy picks them up.
 
+. *Verify the configuration* - Check the terminal where Vite is running. It reports that both files changed, and that the server restarted:
++
+[source,text]
+----
+[vite] vite.config.ts changed, restarting server...
+[vite] server restarted.
+[vite] .env changed, restarting server...
+[vite] server restarted.
+----
+
 WARNING: Vite includes `+VITE_+` variables in the code sent to the browser. Never use them for credentials or other secrets.
 
-NOTE: The proxy only exists during development. In production, either route `/api` to Enonic on the host serving the application, or build with an absolute endpoint URL and configure https://developer.enonic.com/docs/guillotine/stable/configuration[CORS in Guillotine].
-
-== Task: Start the app
-
-. *Start Vite* from the project folder:
-+
-[source,Terminal]
-----
-npm run dev -- --port 3000
-----
-+
-. *Open the app* at http://localhost:3000[http://localhost:3000]. It shows the start page of the project template:
-+
-image::react-app.png[width=75%]
-
-Leave Vite running. It updates the page in the browser whenever you change a file.
+NOTE: The proxy only exists during development. In production, either route `/api` to Enonic on the host serving the application, or build with an absolute endpoint URL and configure {guillotine-docs}/configuration[CORS in Guillotine].
 
 == Task: Add routing and styling
 
-. *Replace the contents of `src/index.css`* with the following:
+. *Replace the contents of `src/index.css`* - Use the following:
 +
 .src/index.css
 [source,css]
 ----
 include::{sourcedir}src/index.css[]
 ----
-+
-. *Add a stylesheet* called `App.sass` to the `src/` folder:
+
+. *Add a stylesheet* - Create `App.sass` in the `src/` folder:
 +
 .src/App.sass
 [source,scss]
 ----
 include::{sourcedir}src/App.sass[]
 ----
-+
-. *Replace the contents of `src/App.tsx`* with a router that has a single route:
+
+. *Replace the contents of `src/App.tsx`* - Use a router that has a single route:
 +
 .src/App.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 import './App.sass';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
@@ -111,9 +119,13 @@ export default function App() {
   );
 }
 ----
-+
-. *Verify the result*. Your browser should now display the text `Hello router!`.
 
-== Next
+. *Remove the files you no longer need* - Delete `src/App.css` and the `src/assets/` folder. The new `App.tsx` does not use them.
 
-In the next chapter you will create your first component, the <<list#,person list>>.
+. *Verify the result* - Your browser now displays the text `Hello router!`.
+
+== Summary
+
+You've created a Vite project with React and TypeScript, set up a proxy that forwards `/api` requests to Enonic, and replaced the template's start page with a router.
+
+Next, you'll <<list#,fetch persons from the API and list them>> in your first component.

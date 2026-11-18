@@ -1,4 +1,6 @@
 = Rendering macros
+include::.variables.adoc[]
+:toc: right
 :sourcedir: ../
 :imagesdir: media/
 
@@ -10,23 +12,23 @@ Macros let editors insert more than text, links and images into rich text. Each 
 
 The Intro app defines a macro called `factbox`, which is used in the biography of Léa Seydough. Guillotine returns it in the `macros` field of the rich text, and `RichText` calls a `Macro` renderer for it. Without one, it renders an error message:
 
-image::no-macro.png[width=1200]
+image::no-macro.png[The error message shown in place of the macro,width=1200]
 
-TIP: Macros are described in the https://developer.enonic.com/docs/xp/stable/cms/macros[XP documentation].
+TIP: Macros are described in the {cms-docs}/richtext/macros[CMS documentation].
 
-== Task: Add the FactBox component
+== Task: Render the fact box
 
-. *Add the component* that will render the macro:
+. *Add the `FactBox` component* - It will render the macro:
 +
 .src/components/FactBox.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/FactBox.tsx[]
 ----
 +
 The body of the macro is passed to the component as `children`.
-+
-. *Add the stylesheet*:
+
+. *Add the stylesheet* - Create the following file:
 +
 .src/components/FactBox.module.css
 [source,css]
@@ -34,33 +36,29 @@ The body of the macro is passed to the component as `children`.
 include::{sourcedir}src/components/FactBox.module.css[]
 ----
 
-== Task: Add a macro renderer
-
-. *Add the `Macro` component*:
+. *Add the `Macro` component* - Create the following file:
 +
 .src/components/Macro.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/Macro.tsx[]
 ----
-
++
 `RichText` uses a single renderer for all macros. It identifies each macro by its descriptor, and passes the configuration as `data`. The renderer maps `com.enonic.app.intro:factbox` to the `FactBox` component.
-
++
 For any other macro, the renderer throws an error. `RichText` catches it and renders an error placeholder in place of the macro, without affecting the rest of the text.
 
-== Task: Use the renderer
-
-. *Update `src/components/Person.tsx`* to import the `Macro` component and pass it to `RichText`:
+. *Use the renderer* - Update `src/components/Person.tsx` to import the `Macro` component and pass it to `RichText`:
 +
 .src/components/Person.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/Person.tsx[tags=**]
 ----
+
+. *Verify the result* - The fact box is now rendered in the biography of http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
 +
-. *Verify the result*. The fact box is now rendered in the biography of http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
-+
-image::factbox-macro.png[width=1028]
+image::factbox-macro.png[The fact box rendered in the biography,width=1028]
 
 == Passing props to the renderers
 
@@ -69,7 +67,7 @@ A renderer may need values from the component that uses `RichText`. Any addition
 To do this with type safety, declare the additional props as a type:
 
 .src/components/RestProps.ts
-[source,TypeScript]
+[source,typescript]
 ----
 export type RestProps = {
     personId: string
@@ -78,7 +76,7 @@ export type RestProps = {
 
 Use the type when declaring each renderer, which makes the props available in it:
 
-[source,TypeScript]
+[source,typescript]
 ----
 export const Link: LinkComponent<RestProps> = ({children, data, href, target, title, personId}) => {
     // ...
@@ -87,7 +85,7 @@ export const Link: LinkComponent<RestProps> = ({children, data, href, target, ti
 
 Then supply the type and the values to `RichText`:
 
-[source,TypeScript]
+[source,typescript]
 ----
 <RichText<RestProps>
     data={bio}
@@ -100,10 +98,14 @@ Then supply the type and the values to `RichText`:
 />
 ----
 
-== Next
+== Summary
 
-Congratulations on completing this tutorial! Here are some suggestions for where to go from here:
+You did it! 🎉 You've built a React single-page application that fetches published content from Enonic through Guillotine, and renders rich text with working links, images and macros. That completes the tutorial.
+
+== Further reading
+
+None of this is required, but here are some suggestions for where to go from here:
 
 * The https://www.npmjs.com/package/@enonic/react-components[documentation of `@enonic/react-components`] covers the library in detail.
-* The https://developer.enonic.com/docs/developer-101[Developer 101 tutorial] teaches you how to build your own content model in Enonic.
-* The https://developer.enonic.com/docs/next.xp[Next.js integration] adds server-side rendering and previewing of content in Content Studio.
+* The https://developer.enonic.com/learn/developer-101[Developer 101 tutorial] teaches you how to build your own content model in Enonic.
+* The {nextjs-docs}[Next.js integration] adds server-side rendering and previewing of content in Content Studio.

@@ -1,4 +1,6 @@
 = Listing persons
+include::.variables.adoc[]
+:toc: right
 :sourcedir: ../
 :imagesdir: media/
 
@@ -6,61 +8,59 @@ In this chapter you will fetch persons from the Enonic API and present them in a
 
 == Task: Add the query
 
-. *Add the query* to a new `queries` folder:
+. *Add the query* - Create it in a new `queries` folder:
 +
 .src/queries/PersonList.ts
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/queries/PersonList.ts[]
 ----
++
+This is the query you ran in the <<enonic-setup#test_api,first chapter>>, extended with the first photo of each person. `+com_enonic_app_intro_Person+` is the GraphQL type for the `person` content type, and gives access to its fields.
 
-This is the query you ran in the <<enonic-setup#test_api,first chapter>>, extended with the first photo of each person. `com_enonic_app_intro_Person` is the GraphQL type for the `person` content type, and gives access to its fields.
+. *Verify the query* - Copy only the text between the backticks into Query Playground and run it. The response lists the persons, each with the `path` and `queryString` of its photo.
 
-TIP: To try the query in Query Playground, copy only the text between the backticks.
+== Task: Display the persons
 
-== Task: Add the API helper
-
-. *Add a module* for communicating with the API:
+. *Add the API module* - Create a module for communicating with the API:
 +
 .src/api.ts
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/api.ts[]
 ----
-
++
 The module exports two functions:
-
++
+--
 `fetchGuillotine`:: Sends a query to the endpoint set in `.env`, and returns the contents of the `guillotine` field. It throws an error when the request fails, or when the response contains GraphQL errors.
 `mediaUrl`:: Guillotine returns the URL of an image or attachment as two parts, `path` and `queryString`, which are relative to the API root. This function turns them into a URL the browser can use.
-
+--
++
 The media API is served from the same root as the endpoint, which is `/api` in this tutorial. If your media is served from another address, set `+VITE_ENONIC_MEDIA_URL+` in `.env`.
 
-== Task: Add the component
-
-. *Add the stylesheet* to a new `styles` folder:
+. *Add the stylesheet* - Create it in a new `styles` folder:
 +
 .src/styles/PersonList.sass
 [source,scss]
 ----
 include::{sourcedir}src/styles/PersonList.sass[]
 ----
-+
-. *Add the component* to a new `components` folder:
+
+. *Add the component* - Create it in a new `components` folder:
 +
 .src/components/PersonList.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/PersonList.tsx[]
 ----
-
++
 The component fetches the persons when it is first displayed, and renders each of them as a photo linking to `/p/<name>/<id>`. If the request fails, it shows the error message instead.
 
-== Task: Add the route
-
-. *Update `src/App.tsx`* to display the component on the root path:
+. *Add the route* - Update `src/App.tsx` to display the component on the root path:
 +
 .src/App.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 import './App.sass';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
@@ -76,13 +76,15 @@ export default function App() {
   );
 }
 ----
+
+. *Verify the result* - http://localhost:3000[http://localhost:3000] now shows a grid of persons:
 +
-. *Verify the result*. http://localhost:3000[http://localhost:3000] should now show a grid of persons:
-+
-image::person-list.png[width=1093]
+image::person-list.png[The person list as a grid of photos,width=1093]
 
 Clicking a person takes you to an empty page, since the details page is yet to be implemented.
 
-== Next
+== Summary
 
-In the next chapter you will create the <<details#,person details>> page.
+You've added a GraphQL query, a module that sends queries to Guillotine and builds media URLs, and a `PersonList` component that shows the persons on the front page.
+
+Next, you'll <<details#,create the page that shows the details of a single person>>.

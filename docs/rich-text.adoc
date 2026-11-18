@@ -1,4 +1,6 @@
 = Rendering rich text
+include::.variables.adoc[]
+:toc: right
 :sourcedir: ../
 :imagesdir: media/
 
@@ -13,49 +15,47 @@ Rich text in Enonic may contain links to other content, links to media, and imag
 
 `RichText` matches the two. For every link and image in the HTML, it calls a renderer and passes the matching entry as `data`. The default renderers output the HTML as it is. By supplying your own, you decide what each link and image becomes in your application.
 
-== Task: Add a link renderer
+== Task: Add link and image renderers
 
-. *Add the `Link` component*:
+. *Add the `Link` component* - Create the following file:
 +
 .src/components/Link.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/Link.tsx[]
 ----
-
++
 The renderer handles four cases:
-
++
 * An ordinary link, such as an external URL, has no `data` and is rendered unchanged.
 * A link to media is resolved with the `mediaUrl` helper.
 * A link to a person becomes a router link to `/p/<name>/<id>`, built from `+_name+` and `+_id+` of the content. The application handles the navigation without reloading the page.
 * A link to other content is rendered as plain text, since the application has no page to show it.
 
-== Task: Add an image renderer
-
-. *Add the `Image` component*:
+. *Add the `Image` component* - Create the following file:
 +
 .src/components/Image.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/Image.tsx[]
 ----
-
++
 The renderer resolves `data.src` and every entry in `data.srcset` with the `mediaUrl` helper, and keeps the `alt`, `sizes` and `style` values from the HTML. An image that cannot be resolved is left out.
 
-== Task: Use the renderers
-
-. *Replace the contents of `src/components/Person.tsx`* with the following. It imports the two renderers and passes them to `RichText`:
+. *Use the renderers* - Replace the contents of `src/components/Person.tsx` with the following. It imports the two renderers and passes them to `RichText`:
 +
 .src/components/Person.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/Person.tsx[tags=**;!macro-import;!macro-prop]
 ----
-+
-. *Verify the result*. Open http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough] again. The image is now in place, and clicking `Daniel Carrigear` in the biography takes you to his page:
-+
-image::rich-text.png[width=1200]
 
-== Next
+. *Verify the result* - Open http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough] again. The image is now in place, and clicking `Daniel Carrigear` in the biography takes you to his page:
++
+image::rich-text.png[The biography with a working image and links,width=1200]
 
-The error message in the biography is still there. It comes from a fact box, which `RichText` does not know how to render yet. In the next chapter you will add support for <<macros#,macros>>.
+== Summary
+
+You've added `Link` and `Image` renderers and passed them to `RichText`. Links between persons now go through the router, and media links and images resolve to working URLs.
+
+The error message in the biography is still there. It comes from a fact box, which `RichText` does not know how to render yet. Next, you'll <<macros#,render macros with your own React components>>.

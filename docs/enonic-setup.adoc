@@ -1,4 +1,6 @@
 = Setting up Enonic
+include::.variables.adoc[]
+:toc: right
 :sourcedir: ../
 :imagesdir: media/
 
@@ -8,41 +10,43 @@ In this chapter you will create a local Enonic instance with sample content, and
 
 The Enonic CLI manages local instances of Enonic XP, known as sandboxes.
 
-. *Install the CLI* by running this command in your terminal:
+. *Install the CLI* - Run this command in your terminal:
 +
-[source,Terminal]
+[source,shell]
 ----
 npm install -g @enonic/cli
 ----
 +
 There are https://developer.enonic.com/start[alternative ways to install the Enonic CLI] as well.
-+
-. *Verify the installation*. Run `enonic -v`, which prints the version of the CLI. This tutorial expects version 4 or newer.
+
+. *Verify the installation* - Run `enonic -v`, which prints the version of the CLI. This tutorial expects version 4 or newer.
 
 == Task: Create and start a sandbox
 
-. *Create a sandbox* called `+react_tutorial+` by running this command:
+. *Create a sandbox* - Run this command to create a sandbox called `+react_tutorial+`:
 +
-[source,Terminal]
+[source,shell,subs="attributes+"]
 ----
-enonic sandbox create react_tutorial -t intro -v 8.1.3 -f
+enonic sandbox create react_tutorial -t intro -v {xp-release} -f
 ----
 +
 This command will:
 +
-* create a sandbox running Enonic XP 8.1.3
+* create a sandbox running Enonic XP {xp-release}
 * use the `intro` template, which installs Content Studio, Guillotine and the Intro app with its sample content
 * accept default values for the remaining options (`-f`), and start the sandbox
-+
-. *Wait for the sandbox to start*. The first startup takes a little longer, as the applications are installed and the sample content is imported and published.
+
+. *Wait for the sandbox to start* - The first startup takes a little longer, as the applications are installed and the sample content is imported and published.
+
+. *Verify that the sandbox is running* - Open http://localhost:8080[http://localhost:8080]. The Enonic XP welcome page appears.
 
 Leave the sandbox running in this terminal window for the rest of the tutorial. To stop it, press ctrl-c. To start it again, run `+enonic sandbox start react_tutorial+`.
 
 == Task: Open Content Studio
 
-. *Open the welcome page* at http://localhost:8080[http://localhost:8080].
-. *Log in*. Click *Log In as Guest* to open the XP admin dashboard.
-. *Open Content Studio* from the `XP menu`. The `Intro Project` opens automatically.
+. *Log in* - On the welcome page, click *Log In as Guest* to open the XP admin dashboard.
+. *Open Content Studio* - Select it from the `XP menu`. The `Intro Project` opens automatically.
+. *Verify the sample content* - The content tree lists the `Persons` and `Movies` folders, among others.
 
 The project contains persons and movies, along with their images. This is the content your React application will list and present. All of it is already published.
 
@@ -51,10 +55,10 @@ The project contains persons and movies, along with their images. This is the co
 
 Guillotine is Enonic's GraphQL API. Content Studio includes Query Playground, a tool for writing and testing queries against it.
 
-. *Open Query Playground* by clicking `Query Playground` in the Content Studio menu.
-. *Paste and run the query below*. It retrieves the three most recently modified persons:
+. *Open Query Playground* - Click `Query Playground` in the Content Studio menu.
+. *Paste and run the query below* - It retrieves the three most recently modified persons:
 +
-[source,GraphQL]
+[source,graphql]
 ----
 query PersonListQuery {
     guillotine(project: "intro", branch: "master") {
@@ -81,10 +85,10 @@ query PersonListQuery {
     }
 }
 ----
+
+. *Verify the response* - The response panel shows this result:
 +
-You should get this result in the response panel:
-+
-[source,JSON]
+[source,json]
 ----
 {
   "data": {
@@ -124,12 +128,15 @@ In the query:
 
 Query Playground is a convenience for developers. Your React application will send the same queries directly to the Guillotine endpoint:
 
+[source,text]
 ----
 http://localhost:8080/api/com.enonic.app.guillotine:graphql
 ----
 
 The endpoint is shared by all content projects, which is why each query states the project and branch. Published content in the Intro project can be read without logging in, so the application needs no credentials.
 
-== Next
+== Summary
 
-With Enonic up and running, it is time to <<react-app#,create the React app>>.
+You've installed the Enonic CLI, started a sandbox with the Intro sample content, and run a GraphQL query against Guillotine in Query Playground.
+
+Next, you'll <<react-app#,create the React app>> that sends queries to the same endpoint.

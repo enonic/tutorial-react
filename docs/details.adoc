@@ -1,4 +1,6 @@
 = Showing person details
+include::.variables.adoc[]
+:toc: right
 :sourcedir: ../
 :imagesdir: media/
 
@@ -6,52 +8,50 @@ In this chapter you will create a `Person` component that displays the details o
 
 == Task: Add the query
 
-. *Add the query*:
+. *Add the query* - Create the following file:
 +
 .src/queries/Person.ts
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/queries/Person.ts[]
 ----
-
++
 The query takes the ID of the person as a variable. The `bio` field is rich text: besides the HTML in `processedHtml`, the query requests the `links`, `images` and `macros` the HTML refers to. You will put them to use in the following chapters.
-
++
 The `processHtml` argument controls the images in the HTML. `imageSrcWidth` sets the width of the default image, while `imageWidths` and `imageSizes` produce the `srcset` and `sizes` values for responsive images.
 
-TIP: To try the query in Query Playground, copy only the text between the backticks, and add `{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}` in the variables panel.
+. *Verify the query* - Copy only the text between the backticks into Query Playground, add `{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}` in the variables panel, and run it. The response contains Léa Seydough, with her biography in `processedHtml`.
 
-== Task: Add the component
+== Task: Display the person
 
-. *Add the stylesheet*. This component uses https://vite.dev/guide/features#css-modules[CSS modules], which Vite supports out of the box:
+. *Add the stylesheet* - This component uses https://vite.dev/guide/features#css-modules[CSS modules], which Vite supports out of the box:
 +
 .src/components/Person.module.css
 [source,css]
 ----
 include::{sourcedir}src/components/Person.module.css[]
 ----
-+
-. *Add the component*:
+
+. *Add the component* - Create the following file:
 +
 .src/components/Person.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 include::{sourcedir}src/components/PersonWithoutExtensions.tsx[]
 ----
-
++
 The component reads the ID of the person from the URL, fetches the person and renders the name, the biography and the photos.
-
++
 The biography is rendered by the `RichText` component from `@enonic/react-components`. It needs three things:
-
++
 * `data` is the rich text value, exactly as returned by Guillotine
 * `meta` describes the content the rich text belongs to
 * `component` describes where the rich text is used. This application has no page components, so a minimal content type entry is sufficient
 
-== Task: Add the route
-
-. *Update `src/App.tsx`* with a route for the component:
+. *Add the route* - Update `src/App.tsx` with a route for the component:
 +
 .src/App.tsx
-[source,TypeScript]
+[source,typescript]
 ----
 import './App.sass';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
@@ -71,13 +71,15 @@ export default function App() {
 ----
 +
 The name makes the URL readable, while the ID is what the component uses to fetch the person.
+
+. *Verify the result* - Open http://localhost:3000[http://localhost:3000] and click a person, or go directly to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
 +
-. *Verify the result*. Open http://localhost:3000[http://localhost:3000] and click a person, or go directly to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
-+
-image::person-details.png[width=1200]
+image::person-details.png[The person details page with the biography partly rendered,width=1200]
 
 The text of the biography is in place, but the image in it is missing, the links do not work, and an error message is shown in the middle of the text. Guillotine does not know where your application serves images and pages, so the HTML only contains placeholders for them. Resolving the placeholders is the job of your application.
 
-== Next
+== Summary
 
-In the next chapter you will take control of <<rich-text#,rich text>> rendering.
+You've added a query for a single person, and a `Person` component that shows the name, biography and photos on its own route. The image, the links and the fact box in the biography do not work yet.
+
+Next, you'll <<rich-text#,take control of the rich text rendering>> to fix the links and the image.

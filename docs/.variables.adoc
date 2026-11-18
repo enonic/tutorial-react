@@ -1,0 +1,5 @@
+:xp-version: 8.1
+:xp-release: 8.1.3
+:guillotine-docs: https://developer.enonic.com/docs/guillotine/stable
+:cms-docs: https://developer.enonic.com/docs/cms/stable
+:nextjs-docs: https://developer.enonic.com/docs/next.xp/stable
