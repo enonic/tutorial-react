@@ -1,5 +1,5 @@
 const query = `query PersonListQuery {
-    guillotine(project: "intro", branch: "master", scopeKey: "/") {
+    guillotine(project: "intro", branch: "master") {
         queryDsl(
             first: 50
             query: {
@@ -18,7 +18,6 @@ const query = `query PersonListQuery {
             _id
             _name
             displayName
-            type
             ... on com_enonic_app_intro_Person {
                 data {
                     photos {

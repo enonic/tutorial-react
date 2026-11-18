@@ -3,6 +3,7 @@ import {before, test} from 'node:test';
 import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {RichText} from '@enonic/react-components';
+import {MemoryRouter} from 'react-router-dom';
 import {createServer} from 'vite';
 
 let vite;
@@ -26,26 +27,26 @@ before(async () => {
     ({Image} = await vite.ssrLoadModule('/src/components/Image.tsx'));
     ({Link} = await vite.ssrLoadModule('/src/components/Link.tsx'));
     ({Macro} = await vite.ssrLoadModule('/src/components/Macro.tsx'));
-    for (const name of ['PersonList', 'Person', 'PersonMovies']) {
+    for (const name of ['PersonList', 'Person']) {
         queries[name] = (await vite.ssrLoadModule(`/src/queries/${name}.ts`)).default;
     }
     await vite.close();
 });
 
 function renderRichText(data) {
-    return renderToStaticMarkup(createElement(RichText, {
+    return renderToStaticMarkup(createElement(MemoryRouter, null, createElement(RichText, {
         data,
         meta: {type: 'person', id: 'person', path: '/persons/person', mode: 'inline'},
         component: {type: 'contentType', contentType: 'person'},
         Image,
         Link,
         Macro
-    }));
+    })));
 }
 
 test('queries explicitly select the published Intro project without extra context variables', () => {
     for (const query of Object.values(queries)) {
-        assert.match(query, /guillotine\(project: "intro", branch: "master", scopeKey: "\/"\)/);
+        assert.match(query, /guillotine\(project: "intro", branch: "master"\)/);
         assert.doesNotMatch(query, /\$(project|branch|scopeKey)/);
     }
     assert.match(queries.Person, /\$personId: ID!/);
@@ -196,7 +197,6 @@ test('runs the tutorial queries and renders real XP rich text', {skip: !process.
     assert.match(html, /\?download/);
     assert.match(html, /Fact Box/);
     assert.doesNotMatch(html, /\[object Object\]|href="\/persons\//);
-    assert.ok(Array.isArray((await request(queries.PersonMovies, {personId: selected._id})).queryDsl));
 
     const image = person.data.bio.images[0];
     const download = person.data.bio.links.find(link => link.media?.intent === 'download');

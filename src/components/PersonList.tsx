@@ -1,68 +1,52 @@
-import {useEffect, useState,} from 'react';
+import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import '../styles/PersonList.sass';
 
-import {mediaUrl} from '../api';
+import {fetchGuillotine, mediaUrl} from '../api';
 import type {UrlParts} from '@enonic/react-components';
 
 import PERSON_LIST_QUERY from '../queries/PersonList';
 
-const forceArray = (data: any) => (Array.isArray(data) ? data : [data]);
+type PersonListItem = {
+  _id: string
+  _name: string
+  data: {
+    photos: {
+      imageUrl: UrlParts | null
+    }[]
+  }
+  displayName: string
+};
 
 export function PersonList() {
-  const [data, setData] = useState<{
-    _id: string
-    _name: string
-    data: {
-      photos: {
-        imageUrl: UrlParts | null
-      }[]
-    }
-    displayName: string
-  }[]>();
+  const [persons, setPersons] = useState<PersonListItem[]>();
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_GUILLOTINE_URL as string, {
-      body: JSON.stringify({
-        query: PERSON_LIST_QUERY,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-      method: 'POST',
-    })
-        .then(response => response.json())
-        .then(json => setData(json.data.guillotine.queryDsl));
+    fetchGuillotine<{queryDsl: PersonListItem[]}>(PERSON_LIST_QUERY)
+        .then(result => setPersons(result.queryDsl))
+        .catch(setError);
   }, []);
 
+  if (error) {
+    return <p>Failed to load persons: {error.message}</p>;
+  }
+
+  if (!persons) {
+    return null;
+  }
+
   return (
-      <>
-        {data && <ul className='person-list'>
-          {data.map((person, i) => {
-
-            const {
-              _id,
-              _name,
-              data: {
-                photos
-              },
-              displayName
-            } = person;
-
-            const imgProps = {
-              alt: displayName,
-              src: mediaUrl(photos ? forceArray(photos)[0].imageUrl : undefined),
-            };
-
-            return <li key={i}>
+      <ul className='person-list'>
+        {persons.map(({_id, _name, data: {photos}, displayName}) => (
+            <li key={_id}>
               <Link to={`/p/${_name}/${_id}`}>
-                <img {...imgProps}/>
+                <img alt={displayName} src={mediaUrl(photos?.[0]?.imageUrl)}/>
                 <div>{displayName}</div>
               </Link>
-            </li>;
-          })}
-        </ul>}
-      </>
+            </li>
+        ))}
+      </ul>
   );
 }

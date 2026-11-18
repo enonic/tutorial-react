@@ -1,133 +1,109 @@
+= Rendering macros
 :sourcedir: ../
 :imagesdir: media/
 
-= Macros
-
-Rich Text also supports custom components - aka `Macros`.
+In this chapter you will render a macro, which is a custom component placed inside rich text.
 
 == Background
 
-In order to support more complex structure within Enonic's Rich Text editor, you can define macros.
+Macros let editors insert more than text, links and images into rich text. Each macro is defined by an application, and has its own configuration and optionally a body.
 
-TIP: Details on defining macros can be found in the https://developer.enonic.com/docs/xp/stable/cms/macros[XP documentation^].
+The Intro app defines a macro called `factbox`, which is used in the biography of Léa Seydough. Guillotine returns it in the `macros` field of the rich text, and `RichText` calls a `Macro` renderer for it. Without one, it renders an error message:
 
+image::no-macro.png[width=1200]
 
-== Default macro handling
+TIP: Macros are described in the https://developer.enonic.com/docs/xp/stable/cms/macros[XP documentation].
 
-The sample content contains an example macro called `Factbox`, which has been added to the http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydough^] bio.
+== Task: Add the FactBox component
 
-For Guillotine 9 to resolve this macro, configure the Intro provider app (`com.enonic.app.intro`) in the `intro` project's applications in Content Studio. Our queries use the project-root scope `scopeKey: "/"`; having the app installed, or configured only on a site, is not sufficient.
-
-By default, the RichText component will simply render a fallback placeholder:
-
-image::no-macro.png[width=663]
-
-NOTE: The screenshots may show names from an older Intro dataset.
-
-To improve the situation, start by implementing a FactBox component.
-
-== The FactBox component
-
-Add the following files to your project:
-
+. *Add the component* that will render the macro:
++
 .src/components/FactBox.tsx
 [source,TypeScript]
 ----
 include::{sourcedir}src/components/FactBox.tsx[]
 ----
-
-NOTE: The optional body of a macro is available as a React component called `children`.
-
++
+The body of the macro is passed to the component as `children`.
++
+. *Add the stylesheet*:
++
 .src/components/FactBox.module.css
 [source,css]
 ----
 include::{sourcedir}src/components/FactBox.module.css[]
 ----
 
-Like other components, you may also declare a query for your Macro - but in this case we already have everything we need in the data returned from the original `bio` query.
+== Task: Add a macro renderer
 
-== The Macro component
-
-We now have a FactBox component, but we still need to map it to the Enonic macro definition. This can be solved by implementing a generic Macro component where you map specific macro descriptors to corresponding macro components.
-
+. *Add the `Macro` component*:
++
 .src/components/Macro.tsx
 [source,TypeScript]
 ----
 include::{sourcedir}src/components/Macro.tsx[]
 ----
 
-This component takes care of mapping each macro to its corresponding React component. In our case, `FactBox` component implements the macro called `com.enonic.app.intro:factbox` in Enonic.
+`RichText` uses a single renderer for all macros. It identifies each macro by its descriptor, and passes the configuration as `data`. The renderer maps `com.enonic.app.intro:factbox` to the `FactBox` component.
 
-It will throw an error otherwise, which will cause the RichText component's `ErrorBoundary` to render an `Error placeholder`.
+For any other macro, the renderer throws an error. `RichText` catches it and renders an error placeholder in place of the macro, without affecting the rest of the text.
 
-== Use in RichText
+== Task: Use the renderer
 
-Just like with `Link` and `Image` components, import `Macro` component and pass it to the `RichText` component:
-
+. *Update `src/components/Person.tsx`* to import the `Macro` component and pass it to `RichText`:
++
 .src/components/Person.tsx
 [source,TypeScript]
 ----
 include::{sourcedir}src/components/Person.tsx[tags=**]
 ----
++
+. *Verify the result*. The fact box is now rendered in the biography of http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
++
+image::factbox-macro.png[width=1028]
 
-If you did everything correctly, you should now see the `FactBox` macro rendered inside the biography on the http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydough^] page:
+== Passing props to the renderers
 
-image::./factbox-macro.png[width=1028]
+A renderer may need values from the component that uses `RichText`. Any additional prop you give `RichText` is passed on to the `Image`, `Link` and `Macro` renderers.
 
+To do this with type safety, declare the additional props as a type:
 
-== A final tip
-
-Make an interface for RestProps so you can use it in other components as needed:
-
-.src/components/RestProps.d.ts
+.src/components/RestProps.ts
 [source,TypeScript]
 ----
-export interface RestProps {
-    personID: string;
-}
+export type RestProps = {
+    personId: string
+};
 ----
 
-You may pass additional parameters, such as `personID` to the RichText component by supplying a generic interface which declares them. Import the interface and supply it to the Link, Image and Macro component types to make them aware of the new field.
+Use the type when declaring each renderer, which makes the props available in it:
 
-For example, this optional wrapper forwards `personID` to typed renderers while keeping the existing Link.tsx, Image.tsx and Macro.tsx implementations:
-
-.src/components/RichTextWithPerson.tsx
 [source,TypeScript]
 ----
-import {RichText} from '@enonic/react-components';
-import type {
-    ImageComponent,
-    LinkComponent,
-    MacroComponent,
-    RichTextParams
-} from '@enonic/react-components';
-import type {RestProps} from './RestProps';
-import {Link} from './Link';
-import {Image} from './Image';
-import {Macro} from './Macro';
-
-const PersonLink: LinkComponent<RestProps> = (props) => <Link {...props}/>;
-const PersonImage: ImageComponent<RestProps> = (props) => <Image {...props}/>;
-const PersonMacro: MacroComponent<RestProps> = (props) => <Macro {...props}/>;
-
-export function RichTextWithPerson(props: RichTextParams<RestProps>) {
-    return <RichText<RestProps>
-        {...props}
-        Link={PersonLink}
-        Image={PersonImage}
-        Macro={PersonMacro}
-    />;
-}
+export const Link: LinkComponent<RestProps> = ({children, data, href, target, title, personId}) => {
+    // ...
+};
 ----
 
-Use `RichTextWithPerson` in place of `RichText` in `Person.tsx`, importing it from `./RichTextWithPerson` and adding `personID={personId}` alongside the existing `data`, `meta`, and `component` props. Each typed renderer can then read `props.personID` when needed.
+Then supply the type and the values to `RichText`:
 
-== Next steps
+[source,TypeScript]
+----
+<RichText<RestProps>
+    data={bio}
+    meta={meta}
+    component={component}
+    Image={Image}
+    Link={Link}
+    Macro={Macro}
+    personId={personId}
+/>
+----
 
-Congratulations on completing this tutorial!
+== Next
 
-For more details on our React Components library, visit https://www.npmjs.com/package/@enonic/react-components[the NPM documentation^].
+Congratulations on completing this tutorial! Here are some suggestions for where to go from here:
 
-To learn more about Enonic's CMS capabilities, we recommend the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial^].
-
-To dive deeper into React and building sites with Enonic, have a look at our https://developer.enonic.com/docs/next.xp[Next.js integration^].
+* The https://www.npmjs.com/package/@enonic/react-components[documentation of `@enonic/react-components`] covers the library in detail.
+* The https://developer.enonic.com/docs/developer-101[Developer 101 tutorial] teaches you how to build your own content model in Enonic.
+* The https://developer.enonic.com/docs/next.xp[Next.js integration] adds server-side rendering and previewing of content in Content Studio.

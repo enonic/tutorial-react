@@ -1,5 +1,5 @@
 const query = `query PersonQuery($personId: ID!) {
-    guillotine(project: "intro", branch: "master", scopeKey: "/") {
+    guillotine(project: "intro", branch: "master") {
         get(key: $personId) {
             _id
             _path
@@ -7,7 +7,6 @@ const query = `query PersonQuery($personId: ID!) {
             displayName
             ... on com_enonic_app_intro_Person {
                 data {
-                    dateofbirth
                     photos {
                         ... on media_Image {
                             imageUrl(scale: "width(1000)") { path queryString }

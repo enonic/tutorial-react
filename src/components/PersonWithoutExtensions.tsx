@@ -2,53 +2,50 @@ import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@e
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
-import {mediaUrl} from '../api';
+
+import {fetchGuillotine, mediaUrl} from '../api';
 import PERSON_QUERY from '../queries/Person';
+
 import styles from './Person.module.css';
 
+type PersonContent = {
+    _path: string
+    data: {
+        bio: RichTextData
+        photos: {
+            imageUrl: UrlParts | null
+            attachments: {
+                name: string
+            }[]
+        }[]
+    }
+    displayName: string
+};
 
 export function Person() {
+
     const {
-        // name,
         personId = ''
     } = useParams();
 
-    const guillotineUrl = import.meta.env.VITE_GUILLOTINE_URL as string;
-
-    const [data, setData] = useState<{
-        _name: string
-        _path: string
-        data: {
-            bio: RichTextData
-            dateofbirth: string
-            photos: {
-                imageUrl: UrlParts | null
-            }[]
-        }
-        displayName: string
-    }>();
+    const [person, setPerson] = useState<PersonContent | null>();
+    const [error, setError] = useState<Error>();
 
     useEffect(() => {
-        fetch(guillotineUrl, {
-            body: JSON.stringify({
-                query: PERSON_QUERY,
-                variables: {
-                    personId,
-                }
-            }),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-        })
-            .then(response => response.json())
-            .then(json => {
-                const value = json.data.guillotine.get;
-                setData(value)
-            });
-    }, [personId]); // useEffect
+        fetchGuillotine<{get: PersonContent | null}>(PERSON_QUERY, {personId})
+            .then(result => setPerson(result.get))
+            .catch(setError);
+    }, [personId]);
 
-    if (!data) {
+    if (error) {
+        return <p>Failed to load person: {error.message}</p>;
+    }
+
+    if (person === null) {
+        return <p>Person not found</p>;
+    }
+
+    if (!person) {
         return null;
     }
 
@@ -58,13 +55,13 @@ export function Person() {
             photos
         },
         displayName
-    } = data;
+    } = person;
 
     // Minimal meta and component data required by RichText
     const meta: RichTextMetaData = {
         type: 'person',
         id: personId,
-        path: data._path,
+        path: person._path,
         mode: 'inline'
     };
 
@@ -74,37 +71,32 @@ export function Person() {
     };
 
     return (
-        <>
-            <div className={styles.person}>
-                <h2>{displayName}</h2>
-                <RichText
-                    className={styles.bio}
-                    data={bio}
-                    meta={meta}
-                    component={component}
-                    tag='article'
-                />
+        <div className={styles.person}>
+            <h2>{displayName}</h2>
+            <RichText
+                className={styles.bio}
+                data={bio}
+                meta={meta}
+                component={component}
+                tag='article'
+            />
+            {
+                photos.length > 0 && <h4 className={styles.photosheader}>Photos</h4>
+            }
+            <div className={styles.photos}>
                 {
-                    photos.length && <h4 className={styles.photosheader}>Photos</h4>
+                    photos.map((photo, i) => {
+                        const title = photo.attachments?.[0]?.name || displayName;
+                        return <img key={i}
+                                    src={mediaUrl(photo.imageUrl)}
+                                    title={title}
+                                    alt={title}
+                                    width="500"
+                        />;
+                    })
                 }
-                <div className={styles.photos}>
-                    {
-                        photos.map((photo: any, i: number) => (
-                            <img key={i}
-                                 src={mediaUrl(photo.imageUrl)}
-                                 title={getTitle(photo, displayName)}
-                                 alt={getTitle(photo, displayName)}
-                                 width="500"
-                            />
-                        ))
-                    }
-                </div>
             </div>
-            <RouterLink to='/'>Back to list</RouterLink>
-        </>
+            <RouterLink to="/">Back to list</RouterLink>
+        </div>
     );
-}
-
-function getTitle(photo: any, displayName: string) {
-    return (photo.attachments || [])[0].name || displayName;
 }

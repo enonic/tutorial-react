@@ -1,62 +1,60 @@
-= Person details component
+= Showing person details
 :sourcedir: ../
 :imagesdir: media/
 
-In this chapter you'll create a component to display details of a single person.
+In this chapter you will create a `Person` component that displays the details of a single person, including the biography, which is rich text.
 
-== Query
+== Task: Add the query
 
-Similar to the `PersonList` component, create a query which will fetch details of a person:
-
+. *Add the query*:
++
 .src/queries/Person.ts
 [source,TypeScript]
 ----
 include::{sourcedir}src/queries/Person.ts[]
 ----
 
-NOTE: `bio` contains Rich Text content, rendered below with the `RichText` component.
+The query takes the ID of the person as a variable. The `bio` field is rich text: besides the HTML in `processedHtml`, the query requests the `links`, `images` and `macros` the HTML refers to. You will put them to use in the following chapters.
 
-To test in a GraphQL playground, copy only the query text between the backticks and supply only `personId`, such as `{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}`, in the query variables. The query selects `guillotine(project: "intro", branch: "master", scopeKey: "/")` directly.
+The `processHtml` argument controls the images in the HTML. `imageSrcWidth` sets the width of the default image, while `imageWidths` and `imageSizes` produce the `srcset` and `sizes` values for responsive images.
 
-== Styling
+TIP: To try the query in Query Playground, copy only the text between the backticks, and add `{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}` in the variables panel.
 
-This time, we will use https://www.reacttutorial.com/css-modules-react[css modules^] to style this component.
+== Task: Add the component
 
-Add the following file to your project:
-
+. *Add the stylesheet*. This component uses https://vite.dev/guide/features#css-modules[CSS modules], which Vite supports out of the box:
++
 .src/components/Person.module.css
 [source,css]
 ----
 include::{sourcedir}src/components/Person.module.css[]
 ----
-
-
-== Component
-
-Add the `Person` component:
-
++
+. *Add the component*:
++
 .src/components/Person.tsx
-[source, TypeScript]
+[source,TypeScript]
 ----
 include::{sourcedir}src/components/PersonWithoutExtensions.tsx[]
 ----
 
-The component fetches directly from `import.meta.env.VITE_GUILLOTINE_URL` and keeps its response type inline. Gallery images use `UrlParts | null` for `imageUrl` and `mediaUrl()` for their `src`.
+The component reads the ID of the person from the URL, fetches the person and renders the name, the biography and the photos.
 
-NOTE: This version uses `RichText` with its default renderers. Basic HTML is displayed, but Guillotine 9's internal image and link placeholders are not resolved yet. The <<rich-text#,next chapter>> adds custom renderers to resolve those URLs and map person links to the SPA.
+The biography is rendered by the `RichText` component from `@enonic/react-components`. It needs three things:
 
+* `data` is the rich text value, exactly as returned by Guillotine
+* `meta` describes the content the rich text belongs to
+* `component` describes where the rich text is used. This application has no page components, so a minimal content type entry is sufficient
 
-== Routing
+== Task: Add the route
 
-Finally, `App.tsx` must be updated to handle the `Person` component, and trigger it on the following route pattern: `/p/:name/:personId`.
-
-This means the link should look something like this: `/p/name-of-person/id-of-person`. Since the ID is unique, we can use this to look up the content in Enonic.
-
+. *Update `src/App.tsx`* with a route for the component:
++
 .src/App.tsx
 [source,TypeScript]
 ----
 import './App.sass';
-import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
 
@@ -71,17 +69,15 @@ export default function App() {
   );
 }
 ----
++
+The name makes the URL readable, while the ID is what the component uses to fetch the person.
++
+. *Verify the result*. Open http://localhost:3000[http://localhost:3000] and click a person, or go directly to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
++
+image::person-details.png[width=1200]
 
-== Result
+The text of the biography is in place, but the image in it is missing, the links do not work, and an error message is shown in the middle of the text. Guillotine does not know where your application serves images and pages, so the HTML only contains placeholders for them. Resolving the placeholders is the job of your application.
 
-To see the `Person` component in action, open http://localhost:3000[] and click any of the persons in the list.
+== Next
 
-Alternatively, here's the direct link to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Lea Seydough^]:
-
-image::./lea-no-macro.png[width=1200]
-
-NOTE: Screenshots may show older sample names and working image URLs. At this stage, internal biography images and links still need the custom renderers introduced next.
-
-== Next step
-
-Now let's learn how to render <<rich-text#,Rich text>>.
+In the next chapter you will take control of <<rich-text#,rich text>> rendering.
