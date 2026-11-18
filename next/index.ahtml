@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="author" content="Tutorial">
-<title>Building a React app powered by Enonic</title>
+<title>Build a React SPA on the Enonic GraphQL API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Building a React app powered by Enonic</h1>
+<h1>Build a React SPA on the Enonic GraphQL API</h1>
 <div class="details">
 <span id="author" class="author">Tutorial</span><br>
 </div>
@@ -456,8 +456,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>This is a step-by-step tutorial on building a client-side <a href="https://react.dev/">React</a> application that renders structured content from Enonic. The application fetches published content through <a href="https://developer.enonic.com/docs/guillotine">Guillotine</a>, Enonic&#8217;s GraphQL API, and uses the <code>@enonic/react-components</code> library to render rich text.</p>
 </div>
-<div class="paragraph">
-<p><strong>Requirements</strong>: We recommend that you complete the <a href="https://developer.enonic.com/docs/intro">introduction to Enonic</a> before embarking on this tutorial. You should be familiar with React and TypeScript.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Requirements</strong>: We recommend that you complete the <a href="https://developer.enonic.com/docs/intro">introduction to Enonic</a> before embarking on this tutorial. You should be familiar with React and TypeScript.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -567,7 +576,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-17 08:40:32 UTC
+Last updated 2026-11-18 13:12:15 UTC
 </div>
 </div>
 </body>

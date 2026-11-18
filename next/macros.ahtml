@@ -867,7 +867,7 @@ export function RichTextWithPerson(props: RichTextParams&lt;RestProps&gt;) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-17 08:40:32 UTC
+Last updated 2026-11-18 13:12:15 UTC
 </div>
 </div>
 </body>
