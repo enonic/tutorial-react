@@ -753,7 +753,7 @@ export default function App() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong> - Open <a href="http://localhost:3000">http://localhost:3000</a> and click a person, or go directly to <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a> and click a person, or go directly to <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/person-details.png" alt="The person details page with the biography partly rendered" width="1200">
@@ -781,7 +781,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:34:38 UTC
+Last updated 2026-11-19 09:38:27 UTC
 </div>
 </div>
 </body>

@@ -718,7 +718,7 @@ export function Person() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong> - The fact box is now rendered in the biography of <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
+<p><strong>Verify the result</strong> - The fact box is now rendered in the biography of <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/factbox-macro.png" alt="The fact box rendered in the biography" width="1028">
@@ -806,7 +806,7 @@ export function Person() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:34:38 UTC
+Last updated 2026-11-19 09:38:27 UTC
 </div>
 </div>
 </body>

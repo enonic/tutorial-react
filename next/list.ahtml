@@ -719,7 +719,7 @@ export default function App() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong> - <a href="http://localhost:3000">http://localhost:3000</a> now shows a grid of persons:</p>
+<p><strong>Verify the result</strong> - <a href="http://localhost:5173">http://localhost:5173</a> now shows a grid of persons:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/person-list.png" alt="The person list as a grid of photos" width="1093">
@@ -747,7 +747,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:34:38 UTC
+Last updated 2026-11-19 09:38:27 UTC
 </div>
 </div>
 </body>

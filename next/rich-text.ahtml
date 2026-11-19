@@ -665,7 +665,7 @@ export function Person() {
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong> - Open <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a> again. The image is now in place, and clicking <code>Daniel Carrigear</code> in the biography takes you to his page:</p>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a> again. The image is now in place, and clicking <code>Daniel Carrigear</code> in the biography takes you to his page:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/rich-text.png" alt="The biography with a working image and links" width="1200">
@@ -690,7 +690,7 @@ export function Person() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:34:38 UTC
+Last updated 2026-11-19 09:38:27 UTC
 </div>
 </div>
 </body>

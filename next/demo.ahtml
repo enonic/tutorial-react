@@ -541,7 +541,7 @@ npm install</code></pre>
 <p><strong>Start the application</strong> - Run this command from the <code>tutorial-reactspa</code> folder:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev -- --port 3000</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -549,7 +549,7 @@ npm install</code></pre>
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong> - Open <a href="http://localhost:3000">http://localhost:3000</a>. It shows a grid of persons:</p>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a>. It shows a grid of persons:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/person-list.png" alt="The person list as a grid of photos" width="1093">
@@ -557,7 +557,7 @@ npm install</code></pre>
 </div>
 </li>
 <li>
-<p><strong>Open a person</strong> - Click a person in the grid, or go directly to <a href="http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>. Her page shows a biography with an image, links and a fact box:</p>
+<p><strong>Open a person</strong> - Click a person in the grid, or go directly to <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>. Her page shows a biography with an image, links and a fact box:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/factbox-macro.png" alt="The fact box rendered in the biography" width="1028">
@@ -607,7 +607,7 @@ npm install</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:34:38 UTC
+Last updated 2026-11-19 09:38:27 UTC
 </div>
 </div>
 </body>

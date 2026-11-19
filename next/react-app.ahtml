@@ -502,12 +502,12 @@ npm install react-router-dom sass @enonic/react-components</code></pre>
 <p><strong>Start Vite</strong> - Run this command from the <code>tutorial-reactspa-frontend</code> folder:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev -- --port 3000</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p><strong>Verify the app</strong> - Open <a href="http://localhost:3000">http://localhost:3000</a>. It shows the start page of the project template:</p>
+<p><strong>Verify the app</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a>. It shows the start page of the project template:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/react-app.png" alt="The start page of the Vite project template" width="75%">
@@ -703,7 +703,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:34:38 UTC
+Last updated 2026-11-19 09:38:27 UTC
 </div>
 </div>
 </body>
