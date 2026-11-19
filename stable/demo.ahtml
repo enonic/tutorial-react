@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Rendering macros</title>
+<title>Running the demo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,15 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Rendering macros</h1>
+<h1>Running the demo</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#background">Background</a></li>
-<li><a href="#task_render_the_fact_box">Task: Render the fact box</a></li>
-<li><a href="#passing_props_to_the_renderers">Passing props to the renderers</a></li>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#further_reading">Further reading</a></li>
+<li><a href="#task_start_enonic">Task: Start Enonic</a></li>
+<li><a href="#task_run_the_application">Task: Run the application</a></li>
+<li><a href="#how_it_works">How it works</a></li>
 </ul>
 </div>
 </div>
@@ -453,23 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter you will render a macro, which is a custom component placed inside rich text.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="background"><a class="link" href="#background">Background</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Macros let editors insert more than text, links and images into rich text. Each macro is defined by an application, and has its own configuration and optionally a body.</p>
-</div>
-<div class="paragraph">
-<p>The Intro app defines a macro called <code>factbox</code>, which is used in the biography of Léa Seydough. Guillotine returns it in the <code>macros</code> field of the rich text, and <code>RichText</code> calls a <code>Macro</code> renderer for it. Without one, it renders an error message:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/no-macro.png" alt="The error message shown in place of the macro" width="1200">
-</div>
+<p>On this page you will run the finished application from this tutorial, without going through the chapters. It takes a few minutes, and gives you a working React application that reads its content from a local Enonic instance.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -478,247 +460,104 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Macros are described in the <a href="https://developer.enonic.com/docs/cms/stable/richtext/macros">CMS documentation</a>.
+Want to learn how it works? Start with the <a href="enonic-setup.ahtml">first chapter</a> of the tutorial instead.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>To run the demo you will need the <a href="https://developer.enonic.com/start">Enonic CLI</a> and <a href="https://git-scm.com/">Git</a>, in addition to the <a href="index.ahtml#prerequisites">prerequisites of the tutorial</a>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="task_render_the_fact_box"><a class="link" href="#task_render_the_fact_box">Task: Render the fact box</a></h2>
+<h2 id="task_start_enonic"><a class="link" href="#task_start_enonic">Task: Start Enonic</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The application reads its content from a sandbox, which is a local instance of Enonic XP.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create a sandbox</strong> - Run this command in your terminal. It works from any folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">enonic sandbox create tutorial_reactspa -t intro -v 8.1.3 -f</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>intro</code> template installs Content Studio, the Guillotine GraphQL API and the Intro app with its sample content. The <code>-f</code> option accepts the default values for the remaining options, and starts the sandbox.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you created the sandbox in the first chapter of the tutorial, start it with <code>enonic sandbox start tutorial_reactspa</code> instead.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><strong>Verify that the sandbox is running</strong> - Open <a href="http://localhost:8080">http://localhost:8080</a>. The Enonic XP welcome page appears.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Leave the sandbox running in this terminal window. To stop it, press ctrl-c.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="task_run_the_application"><a class="link" href="#task_run_the_application">Task: Run the application</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Add the <code>FactBox</code> component</strong> - It will render the macro:</p>
+<p><strong>Get the code</strong> - Open a new terminal window in the folder where you keep your tutorial projects, and run this command:</p>
 <div class="listingblock">
-<div class="title">src/components/FactBox.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import styles from './FactBox.module.css';
-import type {ReactNode} from 'react';
-
-type FactBoxProps = {
-    header?: string[];
-    children: ReactNode
-};
-
-export const FactBox = ({header, children}: FactBoxProps) =&gt; (&lt;&gt;
-    &lt;ins className={styles.factbox}&gt;
-        &lt;strong className={styles.header}&gt;{header?.length ? header.join(' ') : 'Fact Box'}&lt;/strong&gt;
-        &lt;br/&gt;
-        &lt;div className={styles.body}&gt;{children}&lt;/div&gt;
-    &lt;/ins&gt;
-&lt;/&gt;)</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">git clone --branch master https://github.com/enonic/tutorial-reactspa.git</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The body of the macro is passed to the component as <code>children</code>.</p>
+<p>This creates a folder called <code>tutorial-reactspa/</code>, holding the application built in this version of the tutorial.</p>
 </div>
 </li>
 <li>
-<p><strong>Add the stylesheet</strong> - Create the following file:</p>
+<p><strong>Install the dependencies</strong> - Enter the new folder and install:</p>
 <div class="listingblock">
-<div class="title">src/components/FactBox.module.css</div>
 <div class="content">
-<pre class="highlight"><code class="language-css" data-lang="css">.factbox {
-    background-color: rgb(235, 249, 249);
-    display: block;
-    text-decoration: none;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    clear: both;
+<pre class="highlight"><code class="language-shell" data-lang="shell">cd tutorial-reactspa
 
-    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
-    -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
-
-    min-height: 24px;
-    line-height: 24px;
-
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #333;
-
-    padding: 10px 20px 10px 44px;
-    width: 75%;
-    margin: 20px auto;
-    position: relative;
-}
-
-.factbox .header {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 24px;
-    margin: 0;
-    color: #1f71a1;
-}
-
-.factbox .body ul {
-    padding-left: 0;
-}
-
-.factbox .body ul li {
-    margin: 5px 0;
-}
-
-@media screen and (max-width: 720px) {
-    .factbox {
-        width: 90%;
-    }
-}</code></pre>
+npm install</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p><strong>Add the <code>Macro</code> component</strong> - Create the following file:</p>
+<p><strong>Start the application</strong> - Run this command from the <code>tutorial-reactspa</code> folder:</p>
 <div class="listingblock">
-<div class="title">src/components/Macro.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {MacroComponent} from '@enonic/react-components';
-
-
-import {FactBox} from './FactBox';
-
-
-export const Macro: MacroComponent = ({
-                                          component,
-                                          data,
-                                          children
-                                      }) =&gt; {
-    if (component.descriptor === 'com.enonic.app.intro:factbox') {
-        return &lt;FactBox header={data?.header as string[] | undefined}&gt;{children}&lt;/FactBox&gt;;
-    }
-    throw new Error(`Macro not found: ${component.descriptor}`);
-}</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>RichText</code> uses a single renderer for all macros. It identifies each macro by its descriptor, and passes the configuration as <code>data</code>. The renderer maps <code>com.enonic.app.intro:factbox</code> to the <code>FactBox</code> component.</p>
-</div>
-<div class="paragraph">
-<p>For any other macro, the renderer throws an error. <code>RichText</code> catches it and renders an error placeholder in place of the macro, without affecting the rest of the text.</p>
+<p>The application needs no configuration. During development, it forwards all requests starting with <code>/api</code> to the sandbox on <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code>.</p>
 </div>
 </li>
 <li>
-<p><strong>Use the renderer</strong> - Update <code>src/components/Person.tsx</code> to import the <code>Macro</code> component and pass it to <code>RichText</code>:</p>
-<div class="listingblock">
-<div class="title">src/components/Person.tsx</div>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a>. It shows a grid of persons:</p>
+<div class="imageblock">
 <div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
-import {RichText} from '@enonic/react-components';
-import {useEffect, useState} from 'react';
-import {Link as RouterLink, useParams} from 'react-router-dom';
-
-import {Image} from './Image';
-import {Link} from './Link';
-import {Macro} from './Macro';
-import {fetchGuillotine, mediaUrl} from '../api';
-import PERSON_QUERY from '../queries/Person';
-
-import styles from './Person.module.css';
-
-type PersonContent = {
-    _path: string
-    data: {
-        bio: RichTextData
-        photos: {
-            imageUrl: UrlParts | null
-            attachments: {
-                name: string
-            }[]
-        }[]
-    }
-    displayName: string
-};
-
-export function Person() {
-
-    const {
-        personId = ''
-    } = useParams();
-
-    const [person, setPerson] = useState&lt;PersonContent | null&gt;();
-    const [error, setError] = useState&lt;Error&gt;();
-
-    useEffect(() =&gt; {
-        fetchGuillotine&lt;{get: PersonContent | null}&gt;(PERSON_QUERY, {personId})
-            .then(result =&gt; setPerson(result.get))
-            .catch(setError);
-    }, [personId]);
-
-    if (error) {
-        return &lt;p&gt;Failed to load person: {error.message}&lt;/p&gt;;
-    }
-
-    if (person === null) {
-        return &lt;p&gt;Person not found&lt;/p&gt;;
-    }
-
-    if (!person) {
-        return null;
-    }
-
-    const {
-        data: {
-            bio,
-            photos
-        },
-        displayName
-    } = person;
-
-    // Minimal meta and component data required by RichText
-    const meta: RichTextMetaData = {
-        type: 'person',
-        id: personId,
-        path: person._path,
-        mode: 'inline'
-    };
-
-    const component: ContentTypeData = {
-        contentType: 'person',
-        type: 'contentType'
-    };
-
-    return (
-        &lt;div className={styles.person}&gt;
-            &lt;h2&gt;{displayName}&lt;/h2&gt;
-            &lt;RichText
-                className={styles.bio}
-                data={bio}
-                meta={meta}
-                component={component}
-                Image={Image}
-                Link={Link}
-                Macro={Macro}
-                tag='article'
-            /&gt;
-            {
-                photos.length &gt; 0 &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
-            }
-            &lt;div className={styles.photos}&gt;
-                {
-                    photos.map((photo, i) =&gt; {
-                        const title = photo.attachments?.[0]?.name || displayName;
-                        return &lt;img key={i}
-                                    src={mediaUrl(photo.imageUrl)}
-                                    title={title}
-                                    alt={title}
-                                    width="500"
-                        /&gt;;
-                    })
-                }
-            &lt;/div&gt;
-            &lt;RouterLink to="/"&gt;Back to list&lt;/RouterLink&gt;
-        &lt;/div&gt;
-    );
-}</code></pre>
+<img src="media/person-list.png" alt="The person list as a grid of photos" width="1093">
 </div>
 </div>
 </li>
 <li>
-<p><strong>Verify the result</strong> - The fact box is now rendered in the biography of <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
+<p><strong>Open a person</strong> - Click a person in the grid, or go directly to <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>. Her page shows a biography with an image, links and a fact box:</p>
 <div class="imageblock">
 <div class="content">
 <img src="media/factbox-macro.png" alt="The fact box rendered in the biography" width="1028">
@@ -727,86 +566,48 @@ export function Person() {
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="passing_props_to_the_renderers"><a class="link" href="#passing_props_to_the_renderers">Passing props to the renderers</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>A renderer may need values from the component that uses <code>RichText</code>. Any additional prop you give <code>RichText</code> is passed on to the <code>Image</code>, <code>Link</code> and <code>Macro</code> renderers.</p>
-</div>
-<div class="paragraph">
-<p>To do this with type safety, declare the additional props as a type:</p>
-</div>
-<div class="listingblock">
-<div class="title">src/components/RestProps.ts</div>
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">export type RestProps = {
-    personId: string
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Use the type when declaring each renderer, which makes the props available in it:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">export const Link: LinkComponent&lt;RestProps&gt; = ({children, data, href, target, title, personId}) =&gt; {
-    // ...
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Then supply the type and the values to <code>RichText</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">&lt;RichText&lt;RestProps&gt;
-    data={bio}
-    meta={meta}
-    component={component}
-    Image={Image}
-    Link={Link}
-    Macro={Macro}
-    personId={personId}
-/&gt;</code></pre>
-</div>
+<p>To stop the application, press ctrl-c in its terminal window.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
+<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You did it! 🎉 You&#8217;ve built a React single-page application that fetches published content from Enonic through Guillotine, and renders rich text with working links, images and macros. That completes the tutorial.</p>
+<p>The application runs entirely in the browser. It fetches published content from <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, Enonic&#8217;s GraphQL API, and renders the rich text with the <code>@enonic/react-components</code> library.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="further_reading"><a class="link" href="#further_reading">Further reading</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>None of this is required, but here are some suggestions for where to go from here:</p>
+<p>The code is in the <code>src/</code> folder:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The <a href="https://www.npmjs.com/package/@enonic/react-components">documentation of <code>@enonic/react-components</code></a> covers the library in detail.</p>
-</li>
-<li>
-<p>The <a href="https://developer.enonic.com/learn/developer-101">Developer 101 tutorial</a> teaches you how to build your own content model in Enonic.</p>
-</li>
-<li>
-<p>The <a href="https://developer.enonic.com/learn/nextjs">Next.js tutorial</a> adds server-side rendering and previewing of content in Content Studio.</p>
-</li>
-</ul>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>queries/</code></dt>
+<dd>
+<p>The GraphQL queries for the person list and for a single person</p>
+</dd>
+<dt class="hdlist1"><code>api.ts</code></dt>
+<dd>
+<p>Sends the queries to Guillotine, and builds the URLs of images</p>
+</dd>
+<dt class="hdlist1"><code>components/</code></dt>
+<dd>
+<p>The React components, including the renderers for links, images and macros in rich text</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>To change what the application shows, edit the persons in Content Studio and publish your changes. Open Content Studio from the <code>XP menu</code>, after clicking <strong>Log In as Guest</strong> on the welcome page.</p>
+</div>
+<div class="paragraph">
+<p>Each part of the application is explained in the tutorial, starting with <a href="enonic-setup.ahtml">setting up Enonic</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:49:36 UTC
+Last updated 2026-11-19 09:55:30 UTC
 </div>
 </div>
 </body>

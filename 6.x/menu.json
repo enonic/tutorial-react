@@ -9,7 +9,7 @@
       "document": "enonic-setup"
     },
     {
-      "title": "2 - React app",
+      "title": "2 - React App",
       "document": "react-app"
     },
     {
@@ -21,16 +21,12 @@
       "document": "details"
     },
     {
-      "title": "5 - Rich text",
+      "title": "5 - Rich Text",
       "document": "rich-text"
     },
     {
       "title": "6 - Macros",
       "document": "macros"
-    },
-    {
-      "title": "Demo",
-      "document": "demo"
     }
   ]
 }

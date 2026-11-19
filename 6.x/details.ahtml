@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Running the demo</title>
+<title>Person details component</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Running the demo</h1>
+<h1>Person details component</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#task_start_enonic">Task: Start Enonic</a></li>
-<li><a href="#task_run_the_application">Task: Run the application</a></li>
-<li><a href="#how_it_works">How it works</a></li>
+<li><a href="#query">Query</a></li>
+<li><a href="#styling">Styling</a></li>
+<li><a href="#component">Component</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#result">Result</a></li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
@@ -451,42 +454,76 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>On this page you will run the finished application from this tutorial, without going through the chapters. It takes a few minutes, and gives you a working React application that reads its content from a local Enonic instance.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Want to learn how it works? Start with the <a href="enonic-setup.ahtml">first chapter</a> of the tutorial instead.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To run the demo you will need the <a href="index.ahtml#prerequisites">prerequisites of the tutorial</a>, as well as <a href="https://git-scm.com/">Git</a>.</p>
+<p>In this chapter you&#8217;ll create a component to display details of a single person.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="task_start_enonic"><a class="link" href="#task_start_enonic">Task: Start Enonic</a></h2>
+<h2 id="query"><a class="link" href="#query">Query</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application reads its content from a sandbox, which is a local instance of Enonic XP.</p>
+<p>Similar to the <code>PersonList</code> component, create a query which will fetch details of a person:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Create a sandbox</strong> - Run this command in your terminal. It works from any folder:</p>
 <div class="listingblock">
+<div class="title">src/queries/Person.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">enonic sandbox create tutorial_reactspa -t intro -v 8.1.3 -f</code></pre>
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonQuery($personId: ID!) {
+    guillotine {
+        get(key: $personId) {
+            _path
+            _name
+            displayName
+            ... on com_enonic_app_intro_Person {
+                data {
+                    dateofbirth
+                    photos {
+                        ... on media_Image {
+                            imageUrl(scale: "width(1000)", type: absolute)
+                            attachments {
+                                name
+                            }
+                        }
+                    }
+                    bio(processHtml: { type: absolute }) {
+                        processedHtml
+                        links {
+                            ref
+                            media {
+                                content {
+                                    _id
+                                }
+                            }
+                            content {
+                                _id
+                                _name
+                                type
+                            }
+                        }
+                        images {
+                            ref
+                            image {
+                                _id
+                            }
+                        }
+                        macros {
+                            ref
+                            name
+                            descriptor
+                            config {
+                                factbox {
+                                    header
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}`;
+
+export default query;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The <code>intro</code> template installs Content Studio, the Guillotine GraphQL API and the Intro app with its sample content. The <code>-f</code> option accepts the default values for the remaining options, and starts the sandbox.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -495,119 +532,260 @@ Want to learn how it works? Start with the <a href="enonic-setup.ahtml">first ch
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you created the sandbox in the first chapter of the tutorial, start it with <code>enonic sandbox start tutorial_reactspa</code> instead.
+<code>bio</code> contains Rich Text content
 </td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p><strong>Verify that the sandbox is running</strong> - Open <a href="http://localhost:8080">http://localhost:8080</a>. The Enonic XP welcome page appears.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Leave the sandbox running in this terminal window. To stop it, press ctrl-c.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="task_run_the_application"><a class="link" href="#task_run_the_application">Task: Run the application</a></h2>
+<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Get the code</strong> - Open a new terminal window in the folder where you keep your tutorial projects, and run this command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">git clone --branch master https://github.com/enonic/tutorial-reactspa.git</code></pre>
-</div>
+<div class="paragraph">
+<p>This time, we will use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style this component.</p>
 </div>
 <div class="paragraph">
-<p>This creates a folder called <code>tutorial-reactspa/</code>, holding the application built in this version of the tutorial.</p>
+<p>Add the following file to your project:</p>
 </div>
-</li>
-<li>
-<p><strong>Install the dependencies</strong> - Enter the new folder and install:</p>
 <div class="listingblock">
+<div class="title">src/components/Person.module.css</div>
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">cd tutorial-reactspa
+<pre class="highlight"><code class="language-css" data-lang="css">.person,
+.person .bio {
+    font-family: sans-serif;
+}
 
-npm install</code></pre>
+.person {
+    display: flex;
+    flex-direction: column;
+    padding: 30px
+}
+
+.bio {
+    line-height: 24px;
+}
+
+.bio figcaption {
+    font-size: 12px;
+}
+
+.photos {
+    padding: 0 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 50px;
+    gap: 50px;
+}
+
+.photos img {
+    width: 100%;
+    height: auto; /* Ensures images scale properly */
+}
+
+@media screen and (max-width: 720px) {
+    .bio figure {
+        width: auto !important;
+    }
+}</code></pre>
 </div>
-</div>
-</li>
-<li>
-<p><strong>Start the application</strong> - Run this command from the <code>tutorial-reactspa</code> folder:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The application needs no configuration. During development, it forwards all requests starting with <code>/api</code> to the sandbox on <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code>.</p>
-</div>
-</li>
-<li>
-<p><strong>Verify the result</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a>. It shows a grid of persons:</p>
-<div class="imageblock">
-<div class="content">
-<img src="media/person-list.png" alt="The person list as a grid of photos" width="1093">
-</div>
-</div>
-</li>
-<li>
-<p><strong>Open a person</strong> - Click a person in the grid, or go directly to <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>. Her page shows a biography with an image, links and a fact box:</p>
-<div class="imageblock">
-<div class="content">
-<img src="media/factbox-macro.png" alt="The fact box rendered in the biography" width="1028">
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>To stop the application, press ctrl-c in its terminal window.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
+<h2 id="component"><a class="link" href="#component">Component</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application runs entirely in the browser. It fetches published content from <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, Enonic&#8217;s GraphQL API, and renders the rich text with the <code>@enonic/react-components</code> library.</p>
+<p>Add the <code>Person</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/components/Person.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData, RichTextMetaData, ContentTypeData} from '@enonic/react-components';
+import {RichText} from '@enonic/react-components';
+import {useEffect, useState} from 'react';
+import {Link as RouterLink, useParams} from 'react-router-dom';
+import PERSON_QUERY from '../queries/Person';
+import styles from './Person.module.css';
+
+
+export function Person() {
+    const {
+        // name,
+        personId = ''
+    } = useParams();
+
+    const guillotineUrl = import.meta.env.VITE_GUILLOTINE_URL as string;
+
+    const [data, setData] = useState&lt;{
+        _name: string
+        _path: string
+        data: {
+            bio: RichTextData
+            dateofbirth: string
+            photos: {
+                imageUrl: string
+            }[]
+        }
+        displayName: string
+    }&gt;();
+
+    useEffect(() =&gt; {
+        fetch(guillotineUrl, {
+            body: JSON.stringify({
+                query: PERSON_QUERY,
+                variables: {
+                    personId,
+                }
+            }),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+        })
+            .then(response =&gt; response.json())
+            .then(json =&gt; {
+                const value = json.data.guillotine.get;
+                setData(value)
+            });
+    }, []); // useEffect
+
+    if (!data) {
+        return null;
+    }
+
+    const {
+        data: {
+            bio,
+            photos
+        },
+        displayName
+    } = data;
+
+    // Minimal meta and component data required by RichText
+    const meta: RichTextMetaData = {
+        type: 'person',
+        id: personId,
+        path: data._path,
+        mode: 'inline'
+    };
+
+    const component: ContentTypeData = {
+        contentType: 'person',
+        type: 'contentType'
+    };
+
+    return (
+        &lt;&gt;
+            &lt;div className={styles.person}&gt;
+                &lt;h2&gt;{displayName}&lt;/h2&gt;
+                &lt;RichText
+                    className={styles.bio}
+                    data={bio}
+                    meta={meta}
+                    component={component}
+                    tag='article'
+                /&gt;
+                {
+                    photos.length &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
+                }
+                &lt;div className={styles.photos}&gt;
+                    {
+                        photos.map((photo: any, i: number) =&gt; (
+                            &lt;img key={i}
+                                 src={photo.imageUrl}
+                                 title={getTitle(photo, displayName)}
+                                 alt={getTitle(photo, displayName)}
+                                 width="500"
+                            /&gt;
+                        ))
+                    }
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
+        &lt;/&gt;
+    );
+}
+
+function getTitle(photo: any, displayName: string) {
+    return (photo.attachments || [])[0].name || displayName;
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Here, we use the <code>RichText</code> component from <code>@enonic/react-components</code> npm module to render data from the <code>bio</code>.
+We will dive into more details in the <a href="rich-text.ahtml">next chapter</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finally, <code>App.tsx</code> must be updated to handle the <code>Person</code> component, and trigger it on the following route pattern: <code>/p/:name/:personId</code>.</p>
 </div>
 <div class="paragraph">
-<p>The code is in the <code>src/</code> folder:</p>
+<p>This means the link should look something like this: <code>/p/name-of-person/id-of-person</code>. Since the ID is unique, we can use this to look up the content in Enonic.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>queries/</code></dt>
-<dd>
-<p>The GraphQL queries for the person list and for a single person</p>
-</dd>
-<dt class="hdlist1"><code>api.ts</code></dt>
-<dd>
-<p>Sends the queries to Guillotine, and builds the URLs of images</p>
-</dd>
-<dt class="hdlist1"><code>components/</code></dt>
-<dd>
-<p>The React components, including the renderers for links, images and macros in rich text</p>
-</dd>
-</dl>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+import {PersonList} from './components/PersonList';
+import {Person} from './components/Person';
+
+export default function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;PersonList /&gt;}/&gt;
+        &lt;Route path="/p/:name/:personId" element={&lt;Person /&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  );
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="result"><a class="link" href="#result">Result</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000" class="bare">http://localhost:3000</a> and click any of the persons in the list.</p>
 </div>
 <div class="paragraph">
-<p>To change what the application shows, edit the persons in Content Studio and publish your changes. Open Content Studio from the <code>XP menu</code>, after clicking <strong>Log In as Guest</strong> on the welcome page.</p>
+<p>Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a>:</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="media/lea-no-macro.png" alt="lea no macro" width="1200">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Each part of the application is explained in the tutorial, starting with <a href="enonic-setup.ahtml">setting up Enonic</a>.</p>
+<p>Now let&#8217;s learn how to render <a href="rich-text.ahtml">Rich text</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:49:36 UTC
+Last updated 2026-11-19 09:55:53 UTC
 </div>
 </div>
 </body>

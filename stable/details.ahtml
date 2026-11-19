@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Person details component</title>
+<title>Showing person details</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,16 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Person details component</h1>
+<h1>Showing person details</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#query">Query</a></li>
-<li><a href="#styling">Styling</a></li>
-<li><a href="#component">Component</a></li>
-<li><a href="#routing">Routing</a></li>
-<li><a href="#result">Result</a></li>
-<li><a href="#next_step">Next step</a></li>
+<li><a href="#task_add_the_query">Task: Add the query</a></li>
+<li><a href="#task_display_the_person">Task: Display the person</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -454,41 +451,47 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter you&#8217;ll create a component to display details of a single person.</p>
+<p>In this chapter you will create a <code>Person</code> component that displays the details of a single person, including the biography, which is rich text.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="query"><a class="link" href="#query">Query</a></h2>
+<h2 id="task_add_the_query"><a class="link" href="#task_add_the_query">Task: Add the query</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Similar to the <code>PersonList</code> component, create a query which will fetch details of a person:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add the query</strong> - Create the following file:</p>
 <div class="listingblock">
 <div class="title">src/queries/Person.ts</div>
 <div class="content">
-<pre class="highlight"><code class="language-graphql" data-lang="graphql">const query = `query PersonQuery($personId: ID!) {
-    guillotine {
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">const query = `query PersonQuery($personId: ID!) {
+    guillotine(project: "intro", branch: "master") {
         get(key: $personId) {
+            _id
             _path
             _name
             displayName
             ... on com_enonic_app_intro_Person {
                 data {
-                    dateofbirth
                     photos {
                         ... on media_Image {
-                            imageUrl(scale: "width(1000)", type: absolute)
+                            imageUrl(scale: "width(1000)") { path queryString }
                             attachments {
                                 name
                             }
                         }
                     }
-                    bio(processHtml: { type: absolute }) {
+                    bio(processHtml: { imageSrcWidth: 768, imageWidths: [400, 800, 1200], imageSizes: "(max-width: 800px) 100vw, 800px" }) {
                         processedHtml
                         links {
                             ref
+                            uri
+                            fragment
+                            pageUrl { baseUrl path queryString }
                             media {
+                                mediaUrl { path queryString }
+                                intent
                                 content {
                                     _id
                                 }
@@ -501,6 +504,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                         }
                         images {
                             ref
+                            src { path queryString }
+                            srcset {
+                                width
+                                imageUrl { path queryString }
+                            }
                             image {
                                 _id
                             }
@@ -525,29 +533,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 export default query;</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>bio</code> contains Rich Text content
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The query takes the ID of the person as a variable. The <code>bio</code> field is rich text: besides the HTML in <code>processedHtml</code>, the query requests the <code>links</code>, <code>images</code> and <code>macros</code> the HTML refers to. You will put them to use in the following chapters.</p>
+</div>
+<div class="paragraph">
+<p>The <code>processHtml</code> argument controls the images in the HTML. <code>imageSrcWidth</code> sets the width of the default image, while <code>imageWidths</code> and <code>imageSizes</code> produce the <code>srcset</code> and <code>sizes</code> values for responsive images.</p>
+</div>
+</li>
+<li>
+<p><strong>Verify the query</strong> - Copy only the text between the backticks into Query Playground, add <code>{"personId": "a8b374a2-c532-45eb-9aa1-73d1c37cd681"}</code> in the variables panel, and run it. The response contains Léa Seydough, with her biography in <code>processedHtml</code>.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="styling"><a class="link" href="#styling">Styling</a></h2>
+<h2 id="task_display_the_person"><a class="link" href="#task_display_the_person">Task: Display the person</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>This time, we will use <a href="https://www.reacttutorial.com/css-modules-react" target="_blank" rel="noopener">css modules</a> to style this component.</p>
-</div>
-<div class="paragraph">
-<p>Add the following file to your project:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add the stylesheet</strong> - This component uses <a href="https://vite.dev/guide/features#css-modules">CSS modules</a>, which Vite supports out of the box:</p>
 <div class="listingblock">
 <div class="title">src/components/Person.module.css</div>
 <div class="content">
@@ -590,67 +596,60 @@ export default query;</code></pre>
 }</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="component"><a class="link" href="#component">Component</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Add the <code>Person</code> component:</p>
-</div>
+</li>
+<li>
+<p><strong>Add the component</strong> - Create the following file:</p>
 <div class="listingblock">
 <div class="title">src/components/Person.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import type {RichTextData, RichTextMetaData, ContentTypeData} from '@enonic/react-components';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import type {RichTextData, RichTextMetaData, ContentTypeData, UrlParts} from '@enonic/react-components';
 import {RichText} from '@enonic/react-components';
 import {useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
+
+import {fetchGuillotine, mediaUrl} from '../api';
 import PERSON_QUERY from '../queries/Person';
+
 import styles from './Person.module.css';
 
+type PersonContent = {
+    _path: string
+    data: {
+        bio: RichTextData
+        photos: {
+            imageUrl: UrlParts | null
+            attachments: {
+                name: string
+            }[]
+        }[]
+    }
+    displayName: string
+};
 
 export function Person() {
+
     const {
-        // name,
         personId = ''
     } = useParams();
 
-    const guillotineUrl = import.meta.env.VITE_GUILLOTINE_URL as string;
-
-    const [data, setData] = useState&lt;{
-        _name: string
-        _path: string
-        data: {
-            bio: RichTextData
-            dateofbirth: string
-            photos: {
-                imageUrl: string
-            }[]
-        }
-        displayName: string
-    }&gt;();
+    const [person, setPerson] = useState&lt;PersonContent | null&gt;();
+    const [error, setError] = useState&lt;Error&gt;();
 
     useEffect(() =&gt; {
-        fetch(guillotineUrl, {
-            body: JSON.stringify({
-                query: PERSON_QUERY,
-                variables: {
-                    personId,
-                }
-            }),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-        })
-            .then(response =&gt; response.json())
-            .then(json =&gt; {
-                const value = json.data.guillotine.get;
-                setData(value)
-            });
-    }, []); // useEffect
+        fetchGuillotine&lt;{get: PersonContent | null}&gt;(PERSON_QUERY, {personId})
+            .then(result =&gt; setPerson(result.get))
+            .catch(setError);
+    }, [personId]);
 
-    if (!data) {
+    if (error) {
+        return &lt;p&gt;Failed to load person: {error.message}&lt;/p&gt;;
+    }
+
+    if (person === null) {
+        return &lt;p&gt;Person not found&lt;/p&gt;;
+    }
+
+    if (!person) {
         return null;
     }
 
@@ -660,13 +659,13 @@ export function Person() {
             photos
         },
         displayName
-    } = data;
+    } = person;
 
     // Minimal meta and component data required by RichText
     const meta: RichTextMetaData = {
         type: 'person',
         id: personId,
-        path: data._path,
+        path: person._path,
         mode: 'inline'
     };
 
@@ -676,71 +675,64 @@ export function Person() {
     };
 
     return (
-        &lt;&gt;
-            &lt;div className={styles.person}&gt;
-                &lt;h2&gt;{displayName}&lt;/h2&gt;
-                &lt;RichText
-                    className={styles.bio}
-                    data={bio}
-                    meta={meta}
-                    component={component}
-                    tag='article'
-                /&gt;
+        &lt;div className={styles.person}&gt;
+            &lt;h2&gt;{displayName}&lt;/h2&gt;
+            &lt;RichText
+                className={styles.bio}
+                data={bio}
+                meta={meta}
+                component={component}
+                tag='article'
+            /&gt;
+            {
+                photos.length &gt; 0 &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
+            }
+            &lt;div className={styles.photos}&gt;
                 {
-                    photos.length &amp;&amp; &lt;h4 className={styles.photosheader}&gt;Photos&lt;/h4&gt;
+                    photos.map((photo, i) =&gt; {
+                        const title = photo.attachments?.[0]?.name || displayName;
+                        return &lt;img key={i}
+                                    src={mediaUrl(photo.imageUrl)}
+                                    title={title}
+                                    alt={title}
+                                    width="500"
+                        /&gt;;
+                    })
                 }
-                &lt;div className={styles.photos}&gt;
-                    {
-                        photos.map((photo: any, i: number) =&gt; (
-                            &lt;img key={i}
-                                 src={photo.imageUrl}
-                                 title={getTitle(photo, displayName)}
-                                 alt={getTitle(photo, displayName)}
-                                 width="500"
-                            /&gt;
-                        ))
-                    }
-                &lt;/div&gt;
             &lt;/div&gt;
-            &lt;RouterLink to='/'&gt;Back to list&lt;/RouterLink&gt;
-        &lt;/&gt;
+            &lt;RouterLink to="/"&gt;Back to list&lt;/RouterLink&gt;
+        &lt;/div&gt;
     );
-}
-
-function getTitle(photo: any, displayName: string) {
-    return (photo.attachments || [])[0].name || displayName;
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Here, we use the <code>RichText</code> component from <code>@enonic/react-components</code> npm module to render data from the <code>bio</code>.
-We will dive into more details in the <a href="rich-text.ahtml">next chapter</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="routing"><a class="link" href="#routing">Routing</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Finally, <code>App.tsx</code> must be updated to handle the <code>Person</code> component, and trigger it on the following route pattern: <code>/p/:name/:personId</code>.</p>
+<p>The component reads the ID of the person from the URL, fetches the person and renders the name, the biography and the photos.</p>
 </div>
 <div class="paragraph">
-<p>This means the link should look something like this: <code>/p/name-of-person/id-of-person</code>. Since the ID is unique, we can use this to look up the content in Enonic.</p>
+<p>The biography is rendered by the <code>RichText</code> component from <code>@enonic/react-components</code>. It needs three things:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>data</code> is the rich text value, exactly as returned by Guillotine</p>
+</li>
+<li>
+<p><code>meta</code> describes the content the rich text belongs to</p>
+</li>
+<li>
+<p><code>component</code> describes where the rich text is used. This application has no page components, so a minimal content type entry is sufficient</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Add the route</strong> - Update <code>src/App.tsx</code> with a route for the component:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
-import {Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import './App.sass';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {PersonList} from './components/PersonList';
 import {Person} from './components/Person';
 
@@ -756,36 +748,40 @@ export default function App() {
 }</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="result"><a class="link" href="#result">Result</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>To see the <code>Person</code> component in action, open <a href="http://localhost:3000" class="bare">http://localhost:3000</a> and click any of the persons in the list.</p>
+<p>The name makes the URL readable, while the ID is what the component uses to fetch the person.</p>
 </div>
-<div class="paragraph">
-<p>Alternatively, here&#8217;s the direct link to <a href="http://localhost:3000/p/lea-seydoux/a8b374a2-c532-45eb-9aa1-73d1c37cd681" target="_blank" rel="noopener">Lea Seydoux</a>:</p>
-</div>
+</li>
+<li>
+<p><strong>Verify the result</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a> and click a person, or go directly to <a href="http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681">Léa Seydough</a>:</p>
 <div class="imageblock">
 <div class="content">
-<img src="media/lea-no-macro.png" alt="lea no macro" width="1200">
+<img src="media/person-details.png" alt="The person details page with the biography partly rendered" width="1200">
 </div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The text of the biography is in place, but the image in it is missing, the links do not work, and an error message is shown in the middle of the text. Guillotine does not know where your application serves images and pages, so the HTML only contains placeholders for them. Resolving the placeholders is the job of your application.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now let&#8217;s learn how to render <a href="rich-text.ahtml">Rich text</a>.</p>
+<p>You&#8217;ve added a query for a single person, and a <code>Person</code> component that shows the name, biography and photos on its own route. The image, the links and the fact box in the biography do not work yet.</p>
+</div>
+<div class="paragraph">
+<p>Next, you&#8217;ll <a href="rich-text.ahtml">take control of the rich text rendering</a> to fix the links and the image.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:50:01 UTC
+Last updated 2026-11-19 09:55:30 UTC
 </div>
 </div>
 </body>

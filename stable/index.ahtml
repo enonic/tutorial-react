@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="Tutorial">
-<title>Building a React app powered by Enonic</title>
+<title>Build a React SPA on the Enonic GraphQL API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,14 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Building a React app powered by Enonic</h1>
-<div class="details">
-<span id="author" class="author">Tutorial</span><br>
-</div>
+<h1>Build a React SPA on the Enonic GraphQL API</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#target_audience">Target audience</a></li>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#tested_versions">Tested versions</a></li>
 </ul>
 </div>
 </div>
@@ -453,16 +451,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial demonstrates how to build a single-page <a href="https://react.dev/" target="_blank" rel="noopener">react.js</a> application that renders pages based on structured content from Enonic&#8217;s <a href="https://developer.enonic.com/docs/guillotine">GraphQL API</a>.</p>
+<p>This is a step-by-step tutorial on building a client-side <a href="https://react.dev/">React</a> application that renders structured content from Enonic. The application fetches published content through <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, Enonic&#8217;s GraphQL API, and uses the <code>@enonic/react-components</code> library to render rich text.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-It may be useful to study the <a href="https://developer.enonic.com/docs/intro" target="_blank" rel="noopener">Enonic intro tutorial</a> before you continue.
+<strong>Just want to see the result?</strong> <a href="demo.ahtml">Run the demo</a> to try the finished application without going through the chapters.
 </td>
 </tr>
 </table>
@@ -470,20 +468,125 @@ It may be useful to study the <a href="https://developer.enonic.com/docs/intro" 
 </div>
 </div>
 <div class="sect1">
-<h2 id="target_audience"><a class="link" href="#target_audience">Target audience</a></h2>
+<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial is aimed at React developers looking to understand how Enonic can be used as a headless CMS to back your application.</p>
+<p>Enonic can be used as a headless CMS: editors manage content in Content Studio, and your application reads it through an API. In this tutorial the application is a single-page application built with Vite, which runs entirely in the browser.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s <a href="enonic-setup.ahtml">get started</a>!</p>
+<p>When you are done, the application lists persons like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/person-list.png" alt="The person list as a grid of photos" width="75%">
+</div>
+</div>
+<div class="paragraph">
+<p>You will complete the following steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="enonic-setup.ahtml">Set up Enonic</a> with sample content, and try out the GraphQL API</p>
+</li>
+<li>
+<p><a href="react-app.ahtml">Create a React app</a> and connect it to Enonic</p>
+</li>
+<li>
+<p><a href="list.ahtml">List persons</a> fetched from the API</p>
+</li>
+<li>
+<p><a href="details.ahtml">Show the details</a> of a single person</p>
+</li>
+<li>
+<p><a href="rich-text.ahtml">Render rich text</a>, with control over links and images</p>
+</li>
+<li>
+<p><a href="macros.ahtml">Render macros</a> using your own React components</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/learn/nextjs">Next.js tutorial</a> instead.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="link" href="#prerequisites">Prerequisites</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should be familiar with React and TypeScript. If Enonic is new to you, complete the <a href="https://developer.enonic.com/learn/intro">introduction to Enonic</a> before starting this tutorial.</p>
+</div>
+<div class="paragraph">
+<p>To follow this tutorial you will need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://nodejs.org/">Node.js</a> 24 or newer, with npm</p>
+</li>
+<li>
+<p>Your favorite code editor</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You will install the Enonic CLI in the first chapter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tested_versions"><a class="link" href="#tested_versions">Tested versions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This version of the tutorial was produced and tested with the following stack:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 66.6666%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enonic XP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guillotine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@enonic/react-components</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Using an older setup? Select the matching tutorial version from the version menu on this page.</p>
+</div>
+<div class="paragraph">
+<p>Get started by <a href="enonic-setup.ahtml">setting up Enonic</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:50:01 UTC
+Last updated 2026-11-19 09:55:30 UTC
 </div>
 </div>
 </body>

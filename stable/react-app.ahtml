@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Create a React app</title>
+<title>Creating the React app</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,16 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Create a React app</h1>
+<h1>Creating the React app</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#create_react_app">Create React app</a></li>
-<li><a href="#install_dependencies">Install dependencies</a></li>
-<li><a href="#configure">Configure</a></li>
-<li><a href="#start">Start</a></li>
-<li><a href="#react_router">React router</a></li>
-<li><a href="#next_step">Next step</a></li>
+<li><a href="#task_create_the_project">Task: Create the project</a></li>
+<li><a href="#task_connect_to_the_api">Task: Connect to the API</a></li>
+<li><a href="#task_add_routing_and_styling">Task: Add routing and styling</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -454,58 +452,148 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter you will create a React application with TypeScript support.</p>
+<p>In this chapter you will create a React application with TypeScript, connect it to the Enonic API, and add routing.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="create_react_app"><a class="link" href="#create_react_app">Create React app</a></h2>
+<h2 id="task_create_the_project"><a class="link" href="#task_create_the_project">Task: Create the project</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>With the sandbox running, open a new terminal tab/window and run the following command:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Scaffold the app</strong> - With the sandbox running, open a new terminal window in the folder where you keep your tutorial projects, and run this command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm create vite@8.2.0 react-enonic -- --template react-ts</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm create vite@9 tutorial-reactspa-frontend -- --template react-ts</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will create a React app and place it in a folder called <code>react-enonic/</code>.</p>
+<p>This creates a Vite project with React and TypeScript in a new folder called <code>tutorial-reactspa-frontend/</code>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With the basic project files in place, you must add some handy npm modules as well:</p>
-</div>
+</li>
+<li>
+<p><strong>Install the dependencies</strong> - Enter the new folder and install:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-enonic
+<pre class="highlight"><code class="language-shell" data-lang="shell">cd tutorial-reactspa-frontend
 
-npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
+npm install react-router-dom sass @enonic/react-components</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This installs the dependencies of the project template, and adds:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>react-router-dom</code> for routing between the pages of the application</p>
+</li>
+<li>
+<p><code>sass</code> for the stylesheets used in this tutorial</p>
+</li>
+<li>
+<p><code>@enonic/react-components</code> for rendering rich text from Enonic</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Start Vite</strong> - Run this command from the <code>tutorial-reactspa-frontend</code> folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Verify the app</strong> - Open <a href="http://localhost:5173">http://localhost:5173</a>. It shows the start page of the project template:</p>
+<div class="imageblock">
+<div class="content">
+<img src="media/react-app.png" alt="The start page of the Vite project template" width="75%">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Leave Vite running. It updates the page in the browser whenever you change a file. To stop it, press ctrl-c.</p>
+</div>
+<div class="paragraph">
+<p>To resume the tutorial later, start the sandbox with <code>enonic sandbox start tutorial_reactspa</code>, then run the command above again from the <code>tutorial-reactspa-frontend</code> folder. All file paths in this tutorial are relative to that folder.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configure"><a class="link" href="#configure">Configure</a></h2>
+<h2 id="task_connect_to_the_api"><a class="link" href="#task_connect_to_the_api">Task: Connect to the API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The React application now needs to know the location of the Enonic API, as we&#8217;ll need it for fetching data later.</p>
+<p>The application runs in the browser and fetches content directly from <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>. During development, the application and Enonic run on different ports. To keep all requests on the application&#8217;s own origin, Vite will forward them to Enonic.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Add a proxy</strong> - Replace the contents of <code>vite.config.ts</code> with the following:</p>
+<div class="listingblock">
+<div class="title">vite.config.ts</div>
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import { defineConfig, loadEnv } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig(({mode}) =&gt; ({
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: loadEnv(mode, '.', 'ENONIC_').ENONIC_URL || 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
+  },
+}))</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Open an IDE of your choice, and create an <code>.env</code> file in the root of your project, containing a single line:</p>
+<p>Vite now forwards every request starting with <code>/api</code> to the sandbox. This covers both the GraphQL endpoint and the images it refers to. To use an Enonic instance on another address, set <code>ENONIC_URL</code> in <code>.env</code>.</p>
 </div>
+</li>
+<li>
+<p><strong>Set the endpoint</strong> - Create a file called <code>.env</code> in the <code>tutorial-reactspa-frontend</code> folder:</p>
 <div class="listingblock">
 <div class="title">.env</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">VITE_GUILLOTINE_URL=http://localhost:8080/site/intro/master</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">VITE_GUILLOTINE_URL=/api/com.enonic.app.guillotine:graphql</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>which is the URL you used to reach Query Playground when setting up Enonic, with appended <code>/master</code>.</p>
+<p>The value is relative, so the browser sends requests to the application&#8217;s own origin, where the proxy picks them up.</p>
+</div>
+</li>
+<li>
+<p><strong>Verify the configuration</strong> - Check the terminal where Vite is running. It reports that both files changed, and that the server restarted:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[vite] vite.config.ts changed, restarting server...
+[vite] server restarted.
+[vite] .env changed, restarting server...
+[vite] server restarted.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Vite includes <code>VITE_</code> variables in the code sent to the browser. Never use them for credentials or other secrets.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -514,62 +602,22 @@ npm install --save react-router-dom sass @enonic/react-components @enonic/js-uti
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>/master</code> is added to the URL because we want to access the master branch (published content).
+The proxy only exists during development. In production, either route <code>/api</code> to Enonic on the host serving the application, or build with an absolute endpoint URL and configure <a href="https://developer.enonic.com/docs/guillotine/stable/configuration">CORS in Guillotine</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Wonder why it is called Guillotine? Guillotine is simply the name for Enonic&#8217;s headless <a href="https://developer.enonic.com/docs/guillotine">GraphQL API</a>.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="start"><a class="link" href="#start">Start</a></h2>
+<h2 id="task_add_routing_and_styling"><a class="link" href="#task_add_routing_and_styling">Task: Add routing and styling</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Run this command from inside your project&#8217;s folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm run dev -- --port 3000</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will launch the app on port 3000 in your default browser.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Visit <a href="http://localhost:3000" class="bare" target="_blank" rel="noopener">http://localhost:3000</a> directly if it does not launch automatically
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/react-app.png" alt="react app" width="75%">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="react_router"><a class="link" href="#react_router">React router</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Although beautiful, the app doesn&#8217;t do much yet and just shows the Vite+React splash screen.
-Let&#8217;s begin by adding a router and some custom styling:</p>
-</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>First, set the contents of <code>index.css</code> file to the following:</p>
+<p><strong>Replace the contents of <code>src/index.css</code></strong> - Use the following:</p>
 <div class="listingblock">
-<div class="title">index.css</div>
+<div class="title">src/index.css</div>
 <div class="content">
 <pre class="highlight"><code class="language-css" data-lang="css">html {
   padding: 0;
@@ -596,7 +644,7 @@ code {
 </div>
 </li>
 <li>
-<p>Add a file called <code>App.sass</code> to the <code>/src</code> folder. We&#8217;ll use it instead of the built-in <code>App.css</code>.</p>
+<p><strong>Add a stylesheet</strong> - Create <code>App.sass</code> in the <code>src/</code> folder:</p>
 <div class="listingblock">
 <div class="title">src/App.sass</div>
 <div class="content">
@@ -607,58 +655,55 @@ code {
   margin: 0
   font-family: roboto, arial, serif
   width: 100%
-  box-sizing: border-box
-
-.back-link
-  padding: 30px</code></pre>
+  box-sizing: border-box</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Then <strong>update <code>App.tsx</code> file</strong> with the following code:</p>
+<p><strong>Replace the contents of <code>src/App.tsx</code></strong> - Use a router that has a single route:</p>
 <div class="listingblock">
 <div class="title">src/App.tsx</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
-
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from 'react-router-dom';
-
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import './App.sass';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 
 export default function App() {
   return (
     &lt;Router&gt;
       &lt;Routes&gt;
-        &lt;Route path='*' element={&lt;p&gt;Hello router!&lt;/p&gt;}/&gt;
+        &lt;Route path="*" element={&lt;p&gt;Hello router!&lt;/p&gt;}/&gt;
       &lt;/Routes&gt;
     &lt;/Router&gt;
-  )
+  );
 }</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Your browser should now display the text <code>Hello router!</code>.</p>
+<p><strong>Remove the files you no longer need</strong> - Delete <code>src/App.css</code> and the <code>src/assets/</code> folder. The new <code>App.tsx</code> does not use them.</p>
+</li>
+<li>
+<p><strong>Verify the result</strong> - Your browser now displays the text <code>Hello router!</code>.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<h2 id="summary"><a class="link" href="#summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the following chapter you&#8217;ll create a proper React component - the <a href="list.ahtml">Person list</a>.</p>
+<p>You&#8217;ve created a Vite project with React and TypeScript, set up a proxy that forwards <code>/api</code> requests to Enonic, and replaced the template&#8217;s start page with a router.</p>
+</div>
+<div class="paragraph">
+<p>Next, you&#8217;ll <a href="list.ahtml">fetch persons from the API and list them</a> in your first component.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:50:01 UTC
+Last updated 2026-11-19 09:55:30 UTC
 </div>
 </div>
 </body>

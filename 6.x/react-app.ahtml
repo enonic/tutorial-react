@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Build a React SPA on the Enonic GraphQL API</title>
+<title>Create a React app</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,12 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Build a React SPA on the Enonic GraphQL API</h1>
+<h1>Create a React app</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">Intro</a></li>
-<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#create_react_app">Create React app</a></li>
+<li><a href="#install_dependencies">Install dependencies</a></li>
+<li><a href="#configure">Configure</a></li>
+<li><a href="#start">Start</a></li>
+<li><a href="#react_router">React router</a></li>
+<li><a href="#next_step">Next step</a></li>
 </ul>
 </div>
 </div>
@@ -450,19 +454,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a step-by-step tutorial on building a client-side <a href="https://react.dev/">React</a> application that renders structured content from Enonic. The application fetches published content through <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, Enonic&#8217;s GraphQL API, and uses the <code>@enonic/react-components</code> library to render rich text.</p>
+<p>In this chapter you will create a React application with TypeScript support.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<strong>Just want to see the result?</strong> <a href="demo.ahtml">Run the demo</a> to try the finished application without going through the chapters.
-</td>
-</tr>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create_react_app"><a class="link" href="#create_react_app">Create React app</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the sandbox running, open a new terminal tab/window and run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm create vite@8.2.0 react-enonic -- --template react-ts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a React app and place it in a folder called <code>react-enonic/</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install_dependencies"><a class="link" href="#install_dependencies">Install dependencies</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the basic project files in place, you must add some handy npm modules as well:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">cd react-enonic
+
+npm install --save react-router-dom sass @enonic/react-components @enonic/js-utils</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure"><a class="link" href="#configure">Configure</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The React application now needs to know the location of the Enonic API, as we&#8217;ll need it for fetching data later.</p>
+</div>
+<div class="paragraph">
+<p>Open an IDE of your choice, and create an <code>.env</code> file in the root of your project, containing a single line:</p>
+</div>
+<div class="listingblock">
+<div class="title">.env</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">VITE_GUILLOTINE_URL=http://localhost:8080/site/intro/master</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which is the URL you used to reach Query Playground when setting up Enonic, with appended <code>/master</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -471,125 +514,151 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>Requirements</strong>: If Enonic is new to you, complete the <a href="https://developer.enonic.com/learn/intro">introduction to Enonic</a> before starting this tutorial. You should be familiar with React and TypeScript.
+<code>/master</code> is added to the URL because we want to access the master branch (published content).
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Wonder why it is called Guillotine? Guillotine is simply the name for Enonic&#8217;s headless <a href="https://developer.enonic.com/docs/guillotine">GraphQL API</a>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<h2 id="start"><a class="link" href="#start">Start</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic can be used as a headless CMS: editors manage content in Content Studio, and your application reads it through an API. In this tutorial the application is a single-page application built with Vite, which runs entirely in the browser.</p>
+<p>Run this command from inside your project&#8217;s folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Terminal" data-lang="Terminal">npm run dev -- --port 3000</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>You will complete the following steps:</p>
+<p>This will launch the app on port 3000 in your default browser.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="enonic-setup.ahtml">Set up Enonic</a> with sample content, and try out the GraphQL API</p>
-</li>
-<li>
-<p><a href="react-app.ahtml">Create a React app</a> and connect it to Enonic</p>
-</li>
-<li>
-<p><a href="list.ahtml">List persons</a> fetched from the API</p>
-</li>
-<li>
-<p><a href="details.ahtml">Show the details</a> of a single person</p>
-</li>
-<li>
-<p><a href="rich-text.ahtml">Render rich text</a>, with control over links and images</p>
-</li>
-<li>
-<p><a href="macros.ahtml">Render macros</a> using your own React components</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When you are done, the application lists persons like this:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit <a href="http://localhost:3000" class="bare" target="_blank" rel="noopener">http://localhost:3000</a> directly if it does not launch automatically
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/person-list.png" alt="The person list as a grid of photos" width="75%">
+<img src="media/react-app.png" alt="react app" width="75%">
 </div>
-</div>
-<div class="paragraph">
-<p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/learn/nextjs">Next.js tutorial</a> instead.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="prerequisites"><a class="link" href="#prerequisites">Prerequisites</a></h2>
+<h2 id="react_router"><a class="link" href="#react_router">React router</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To follow this tutorial you will need:</p>
+<p>Although beautiful, the app doesn&#8217;t do much yet and just shows the Vite+React splash screen.
+Let&#8217;s begin by adding a router and some custom styling:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>The <a href="https://developer.enonic.com/start">Enonic CLI</a></p>
+<p>First, set the contents of <code>index.css</code> file to the following:</p>
+<div class="listingblock">
+<div class="title">index.css</div>
+<div class="content">
+<pre class="highlight"><code class="language-css" data-lang="css">html {
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html body a {
+  pointer-events: all;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p><a href="https://nodejs.org/">Node.js</a> 24 or newer, with npm</p>
+<p>Add a file called <code>App.sass</code> to the <code>/src</code> folder. We&#8217;ll use it instead of the built-in <code>App.css</code>.</p>
+<div class="listingblock">
+<div class="title">src/App.sass</div>
+<div class="content">
+<pre class="highlight"><code class="language-scss" data-lang="scss">body
+  background-color: #fff
+  color: #595959 // 7:1 AAA #595959 on #fff
+  padding: 0
+  margin: 0
+  font-family: roboto, arial, serif
+  width: 100%
+  box-sizing: border-box
+
+.back-link
+  padding: 30px</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Your favorite code editor</p>
+<p>Then <strong>update <code>App.tsx</code> file</strong> with the following code:</p>
+<div class="listingblock">
+<div class="title">src/App.tsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import './App.sass';
+
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+
+
+export default function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Routes&gt;
+        &lt;Route path='*' element={&lt;p&gt;Hello router!&lt;/p&gt;}/&gt;
+      &lt;/Routes&gt;
+    &lt;/Router&gt;
+  )
+}</code></pre>
+</div>
+</div>
 </li>
-</ul>
+<li>
+<p>Your browser should now display the text <code>Hello router!</code>.</p>
+</li>
+</ol>
 </div>
-<div class="paragraph">
-<p>This version of the tutorial was produced and tested with the following stack:</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 66.6666%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Component</th>
-<th class="tableblock halign-left valign-top">Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enonic XP</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8.1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Guillotine</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@enonic/react-components</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vite</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Using an older setup? Select the matching tutorial version from the version menu on this page.</p>
 </div>
+<div class="sect1">
+<h2 id="next_step"><a class="link" href="#next_step">Next step</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Get started by <a href="enonic-setup.ahtml">setting up Enonic</a>.</p>
+<p>In the following chapter you&#8217;ll create a proper React component - the <a href="list.ahtml">Person list</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:49:36 UTC
+Last updated 2026-11-19 09:55:53 UTC
 </div>
 </div>
 </body>
