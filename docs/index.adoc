@@ -1,6 +1,7 @@
 = Build a React SPA on the Enonic GraphQL API
 include::.variables.adoc[]
 :toc: right
+:imagesdir: media/
 
 This is a step-by-step tutorial on building a client-side https://react.dev/[React] application that renders structured content from Enonic. The application fetches published content through {guillotine-docs}[Guillotine], Enonic's GraphQL API, and uses the `@enonic/react-components` library to render rich text.
 
@@ -18,6 +19,10 @@ You will complete the following steps:
 * <<details#,Show the details>> of a single person
 * <<rich-text#,Render rich text>>, with control over links and images
 * <<macros#,Render macros>> using your own React components
+
+When you are done, the application lists persons like this:
+
+image::person-list.png[The person list as a grid of photos,width=75%]
 
 The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the {nextjs-docs}[Next.js integration] instead.
 
