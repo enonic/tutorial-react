@@ -23,9 +23,10 @@ even without the skill.
 
 - Versions are named after the `@enonic/react-components` major they document, and are listed in `docs/versions.json` on
   `master`.
-- `master` holds the 7.x tutorial (Enonic XP 8, Guillotine 9), published as `next` until it is released.
-- The `6.x` branch holds the released tutorial, published as `stable`.
-- When 7.x is released: point `stable` at `master`, and list `6.x` under its own label.
+- `master` holds the 7.x tutorial (Enonic XP 8, Guillotine 9), published as `stable`.
+- The `6.x` branch holds the previous tutorial, published as `6.x`.
+- When a new major is started: cut a branch for the outgoing major from `master`, list it under its own label, add it to the
+  docgen workflow, and update the branch in the clone command in `docs/demo.adoc` on that branch.
 - The stack the tutorial was written and tested with is declared in the tutorial itself. Update that declaration whenever a
   major of Enonic XP, Guillotine, `@enonic/react-components`, React or Vite changes.
 

@@ -7,11 +7,13 @@ This is a step-by-step tutorial on building a client-side https://react.dev/[Rea
 
 TIP: *Just want to see the result?* <<demo#,Run the demo>> to try the finished application without going through the chapters.
 
-NOTE: *Requirements*: If Enonic is new to you, complete the https://developer.enonic.com/learn/intro[introduction to Enonic] before starting this tutorial. You should be familiar with React and TypeScript.
-
 == Intro
 
 Enonic can be used as a headless CMS: editors manage content in Content Studio, and your application reads it through an API. In this tutorial the application is a single-page application built with Vite, which runs entirely in the browser.
+
+When you are done, the application lists persons like this:
+
+image::person-list.png[The person list as a grid of photos,width=75%]
 
 You will complete the following steps:
 
@@ -22,20 +24,21 @@ You will complete the following steps:
 * <<rich-text#,Render rich text>>, with control over links and images
 * <<macros#,Render macros>> using your own React components
 
-When you are done, the application lists persons like this:
-
-image::person-list.png[The person list as a grid of photos,width=75%]
-
 The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the {nextjs-tutorial}[Next.js tutorial] instead.
 
 [#prerequisites]
 == Prerequisites
 
+You should be familiar with React and TypeScript. If Enonic is new to you, complete the https://developer.enonic.com/learn/intro[introduction to Enonic] before starting this tutorial.
+
 To follow this tutorial you will need:
 
-* The https://developer.enonic.com/start[Enonic CLI]
 * https://nodejs.org/[Node.js] 24 or newer, with npm
 * Your favorite code editor
+
+You will install the Enonic CLI in the first chapter.
+
+== Tested versions
 
 This version of the tutorial was produced and tested with the following stack:
 

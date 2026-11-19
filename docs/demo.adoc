@@ -7,7 +7,7 @@ On this page you will run the finished application from this tutorial, without g
 
 TIP: Want to learn how it works? Start with the <<enonic-setup#,first chapter>> of the tutorial instead.
 
-To run the demo you will need the <<index#prerequisites,prerequisites of the tutorial>>, as well as https://git-scm.com/[Git].
+To run the demo you will need the https://developer.enonic.com/start[Enonic CLI] and https://git-scm.com/[Git], in addition to the <<index#prerequisites,prerequisites of the tutorial>>.
 
 == Task: Start Enonic
 

@@ -8,7 +8,7 @@ This project was bootstrapped with Vite using `react-ts` template and contains a
 
 ## Run the application
 
-Follow the [demo](https://developer.enonic.com/learn/react-spa/next/demo) to start a sandbox with the sample content and run the application.
+Follow the [demo](https://developer.enonic.com/learn/react-spa/stable/demo) to start a sandbox with the sample content and run the application.
 
 ## Configuration
 
