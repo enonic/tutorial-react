@@ -1,6 +1,6 @@
 # Tutorial React SPA powered by Enonic
 
-This tutorial is published on [Enonic's Developer Portal](https://developer.enonic.com/docs/tutorial-react)
+This tutorial is published on [Enonic's Developer Portal](https://developer.enonic.com/learn/react-spa)
 
 ## About
 
