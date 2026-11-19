@@ -462,21 +462,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Scaffold the app</strong> - With the sandbox running, open a new terminal window and run this command:</p>
+<p><strong>Scaffold the app</strong> - With the sandbox running, open a new terminal window in the folder where you keep your tutorial projects, and run this command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm create vite@9 react-enonic -- --template react-ts</code></pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">npm create vite@9 tutorial-reactspa-frontend -- --template react-ts</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This creates a Vite project with React and TypeScript in a folder called <code>react-enonic/</code>.</p>
+<p>This creates a Vite project with React and TypeScript in a new folder called <code>tutorial-reactspa-frontend/</code>.</p>
 </div>
 </li>
 <li>
-<p><strong>Install the dependencies</strong> - Run these commands:</p>
+<p><strong>Install the dependencies</strong> - Enter the new folder and install:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">cd react-enonic
+<pre class="highlight"><code class="language-shell" data-lang="shell">cd tutorial-reactspa-frontend
 
 npm install react-router-dom sass @enonic/react-components</code></pre>
 </div>
@@ -499,7 +499,7 @@ npm install react-router-dom sass @enonic/react-components</code></pre>
 </div>
 </li>
 <li>
-<p><strong>Start Vite</strong> - Run this command from the project folder:</p>
+<p><strong>Start Vite</strong> - Run this command from the <code>tutorial-reactspa-frontend</code> folder:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-shell" data-lang="shell">npm run dev -- --port 3000</code></pre>
@@ -517,7 +517,10 @@ npm install react-router-dom sass @enonic/react-components</code></pre>
 </ol>
 </div>
 <div class="paragraph">
-<p>Leave Vite running. It updates the page in the browser whenever you change a file.</p>
+<p>Leave Vite running. It updates the page in the browser whenever you change a file. To stop it, press ctrl-c.</p>
+</div>
+<div class="paragraph">
+<p>To resume the tutorial later, start the sandbox with <code>enonic sandbox start tutorial_reactspa</code>, then run the command above again from the <code>tutorial-reactspa-frontend</code> folder. All file paths in this tutorial are relative to that folder.</p>
 </div>
 </div>
 </div>
@@ -556,7 +559,7 @@ export default defineConfig(({mode}) =&gt; ({
 </div>
 </li>
 <li>
-<p><strong>Set the endpoint</strong> - Create a file called <code>.env</code> in the root of the project:</p>
+<p><strong>Set the endpoint</strong> - Create a file called <code>.env</code> in the <code>tutorial-reactspa-frontend</code> folder:</p>
 <div class="listingblock">
 <div class="title">.env</div>
 <div class="content">
@@ -700,7 +703,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 17:10:06 UTC
+Last updated 2026-11-19 08:40:25 UTC
 </div>
 </div>
 </body>

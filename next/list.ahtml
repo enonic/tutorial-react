@@ -502,7 +502,7 @@ export default query;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This is the query you ran in the <a href="enonic-setup.ahtml#test_api">first chapter</a>, extended with the first photo of each person. <code>com_enonic_app_intro_Person</code> is the GraphQL type for the <code>person</code> content type, and gives access to its fields.</p>
+<p>This is the query you ran in the <a href="enonic-setup.ahtml#test_api">first chapter</a>, extended with the photos of each person. <code>com_enonic_app_intro_Person</code> is the GraphQL type for the <code>person</code> content type, and gives access to its fields.</p>
 </div>
 </li>
 <li>
@@ -747,7 +747,7 @@ export default function App() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-18 17:10:06 UTC
+Last updated 2026-11-19 08:40:25 UTC
 </div>
 </div>
 </body>
