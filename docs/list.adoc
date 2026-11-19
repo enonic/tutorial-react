@@ -16,7 +16,7 @@ In this chapter you will fetch persons from the Enonic API and present them in a
 include::{sourcedir}src/queries/PersonList.ts[]
 ----
 +
-This is the query you ran in the <<enonic-setup#test_api,first chapter>>, extended with the first photo of each person. `+com_enonic_app_intro_Person+` is the GraphQL type for the `person` content type, and gives access to its fields.
+This is the query you ran in the <<enonic-setup#test_api,first chapter>>, extended with the photos of each person. `+com_enonic_app_intro_Person+` is the GraphQL type for the `person` content type, and gives access to its fields.
 
 . *Verify the query* - Copy only the text between the backticks into Query Playground and run it. The response lists the persons, each with the `path` and `queryString` of its photo.
 

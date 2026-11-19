@@ -21,7 +21,7 @@ You will complete the following steps:
 
 The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the {nextjs-docs}[Next.js integration] instead.
 
-The finished application is available on https://github.com/enonic/tutorial-react[GitHub].
+The finished application is available on https://github.com/enonic/tutorial-reactspa[GitHub].
 
 == Prerequisites
 

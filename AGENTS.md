@@ -1,7 +1,7 @@
 # Agent instructions for the React SPA tutorial
 
 This repository contains the **React SPA tutorial** for Enonic: a working Vite + React + TypeScript application in `src/`,
-and the tutorial text in `docs/`, written in AsciiDoc and published to https://developer.enonic.com/docs/tutorial-react.
+and the tutorial text in `docs/`, written in AsciiDoc and published to https://developer.enonic.com/learn/react-spa.
 
 Shared conventions for Enonic documentation (publishing pipeline, menu and version files, AsciiDoc rules) are in the
 `enonic-docs` skill from the `enonic-contrib` plugin of https://github.com/enonic/agent-toolkit. Install it and follow it for
@@ -43,6 +43,10 @@ even without the skill.
 
 - **Images:** screenshots are in `docs/media/` and pages set `:imagesdir: media/`. Retake screenshots when the sample content or
   UI they show has changed.
+- **Naming:** the tutorial slug is `reactspa`. The sandbox is `tutorial_reactspa` (the CLI does not accept hyphens in
+  sandbox names) and the frontend folder is
+  `tutorial-reactspa-frontend`. The reader creates no Enonic application; the preinstalled Intro app keeps its ID
+  `com.enonic.app.intro`.
 - **Sample content:** the tutorial uses the `intro` project from the Intro template. Use the names and IDs that project
   actually returns in examples and links.
 

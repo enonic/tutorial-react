@@ -8,20 +8,20 @@ In this chapter you will create a React application with TypeScript, connect it 
 
 == Task: Create the project
 
-. *Scaffold the app* - With the sandbox running, open a new terminal window and run this command:
+. *Scaffold the app* - With the sandbox running, open a new terminal window in the folder where you keep your tutorial projects, and run this command:
 +
 [source,shell]
 ----
-npm create vite@9 react-enonic -- --template react-ts
+npm create vite@9 tutorial-reactspa-frontend -- --template react-ts
 ----
 +
-This creates a Vite project with React and TypeScript in a folder called `react-enonic/`.
+This creates a Vite project with React and TypeScript in a new folder called `tutorial-reactspa-frontend/`.
 
-. *Install the dependencies* - Run these commands:
+. *Install the dependencies* - Enter the new folder and install:
 +
 [source,shell]
 ----
-cd react-enonic
+cd tutorial-reactspa-frontend
 
 npm install react-router-dom sass @enonic/react-components
 ----
@@ -32,7 +32,7 @@ This installs the dependencies of the project template, and adds:
 * `sass` for the stylesheets used in this tutorial
 * `@enonic/react-components` for rendering rich text from Enonic
 
-. *Start Vite* - Run this command from the project folder:
+. *Start Vite* - Run this command from the `tutorial-reactspa-frontend` folder:
 +
 [source,shell]
 ----
@@ -43,7 +43,9 @@ npm run dev -- --port 3000
 +
 image::react-app.png[The start page of the Vite project template,width=75%]
 
-Leave Vite running. It updates the page in the browser whenever you change a file.
+Leave Vite running. It updates the page in the browser whenever you change a file. To stop it, press ctrl-c.
+
+To resume the tutorial later, start the sandbox with `+enonic sandbox start tutorial_reactspa+`, then run the command above again from the `tutorial-reactspa-frontend` folder. All file paths in this tutorial are relative to that folder.
 
 == Task: Connect to the API
 
@@ -59,7 +61,7 @@ include::{sourcedir}vite.config.ts[]
 +
 Vite now forwards every request starting with `/api` to the sandbox. This covers both the GraphQL endpoint and the images it refers to. To use an Enonic instance on another address, set `+ENONIC_URL+` in `.env`.
 
-. *Set the endpoint* - Create a file called `.env` in the root of the project:
+. *Set the endpoint* - Create a file called `.env` in the `tutorial-reactspa-frontend` folder:
 +
 ..env
 [source,properties]

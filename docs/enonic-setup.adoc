@@ -23,11 +23,11 @@ There are https://developer.enonic.com/start[alternative ways to install the Eno
 
 == Task: Create and start a sandbox
 
-. *Create a sandbox* - Run this command to create a sandbox called `+react_tutorial+`:
+. *Create a sandbox* - Run this command to create a sandbox called `+tutorial_reactspa+`. It works from any folder:
 +
 [source,shell,subs="attributes+"]
 ----
-enonic sandbox create react_tutorial -t intro -v {xp-release} -f
+enonic sandbox create tutorial_reactspa -t intro -v {xp-release} -f
 ----
 +
 This command will:
@@ -40,7 +40,9 @@ This command will:
 
 . *Verify that the sandbox is running* - Open http://localhost:8080[http://localhost:8080]. The Enonic XP welcome page appears.
 
-Leave the sandbox running in this terminal window for the rest of the tutorial. To stop it, press ctrl-c. To start it again, run `+enonic sandbox start react_tutorial+`.
+Leave the sandbox running in this terminal window for the rest of the tutorial. To stop it, press ctrl-c. To start it again, run `+enonic sandbox start tutorial_reactspa+` from any folder.
+
+NOTE: The sandbox has its own content and applications, separate from other tutorials. All sandboxes use the same ports by default, so stop the sandbox of any other tutorial before starting this one.
 
 == Task: Open Content Studio
 
