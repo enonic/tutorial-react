@@ -72,7 +72,7 @@ export default function App() {
 +
 The name makes the URL readable, while the ID is what the component uses to fetch the person.
 
-. *Verify the result* - Open http://localhost:3000[http://localhost:3000] and click a person, or go directly to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
+. *Verify the result* - Open http://localhost:5173[http://localhost:5173] and click a person, or go directly to http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]:
 +
 image::person-details.png[The person details page with the biography partly rendered,width=1200]
 

@@ -36,10 +36,10 @@ This installs the dependencies of the project template, and adds:
 +
 [source,shell]
 ----
-npm run dev -- --port 3000
+npm run dev
 ----
 
-. *Verify the app* - Open http://localhost:3000[http://localhost:3000]. It shows the start page of the project template:
+. *Verify the app* - Open http://localhost:5173[http://localhost:5173]. It shows the start page of the project template:
 +
 image::react-app.png[The start page of the Vite project template,width=75%]
 

@@ -6,14 +6,13 @@ This tutorial is published on [Enonic's Developer Portal](https://developer.enon
 
 This project was bootstrapped with Vite using `react-ts` template and contains a working version of the React application, as well as the tutorial documentation.
 
+## Run the application
+
+Follow the [demo](https://developer.enonic.com/learn/react-spa/next/demo) to start a sandbox with the sample content and run the application.
+
 ## Configuration
 
-Requires Enonic XP 8.1+ with Guillotine 9 and the published Intro sample project.
-Create `.env` in the project root:
-
-```properties
-VITE_GUILLOTINE_URL=/api/com.enonic.app.guillotine:graphql
-```
+The application needs no configuration to run against a local sandbox. Requires Enonic XP 8.1+ with Guillotine 9 and the published Intro sample project.
 
 Vite forwards `/api` to `http://localhost:8080` during development, so GraphQL, images and downloads use the frontend's origin, without browser CORS preflight requests. Set `ENONIC_URL` in `.env` for another backend exposing the same API paths.
 
@@ -24,39 +23,19 @@ For production, provide equivalent `/api` routing on the frontend host. Alternat
 Only for direct cross-origin access, configure `com.enonic.app.guillotine.cfg` in XP's `config` directory:
 
 ```properties
-cors.origin=http://localhost:3000, http://localhost:5173
+cors.origin=http://localhost:5173
 cors.credentials=false
 cors.allowedHeaders=Content-Type
 cors.methods=POST, OPTIONS
 ```
 
-Vite defaults to port 5173 unless started with `--port 3000`; allow the actual browser origin. For Cloud or a deployed SPA, allow its corresponding origin, including scheme and port. See the [Guillotine configuration reference](https://developer.enonic.com/docs/guillotine/stable/configuration). Both POST and OPTIONS must return CORS headers. If POST works but OPTIONS returns only a generic `Allow` header, the API's preflight handler needs fixing; an allowed-origin setting alone is insufficient.
+Vite serves the application on port 5173 by default; allow the actual browser origin. For Cloud or a deployed SPA, allow its corresponding origin, including scheme and port. See the [Guillotine configuration reference](https://developer.enonic.com/docs/guillotine/stable/configuration). Both POST and OPTIONS must return CORS headers. If POST works but OPTIONS returns only a generic `Allow` header, the API's preflight handler needs fixing; an allowed-origin setting alone is insufficient.
 
 Media URLs are built from their returned `path` and `queryString` by `mediaUrl()` in `src/api.ts`.
 The media API root defaults to the endpoint's parent (`/api` for the relative endpoint above). Relative and absolute GraphQL endpoints are supported.
 Set the optional `VITE_ENONIC_MEDIA_URL` only if your media API/CDN uses another public root.
 Never put credentials in `VITE_*` variables: they are exposed to the browser.
 
-
-## Start
-
-### `npm run dev -- --port 3000`
-
-Runs the app in the development mode on port 3000.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-Run `npm run lint` to check the code.
-
-### `npm run build`
-
-Builds the app for production inside the `/dist` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the Vite guide on [deploying a static site](https://vite.dev/guide/static-deploy) for more information.
 
 ## Verify the tutorial
 

@@ -52,16 +52,16 @@ npm install
 +
 [source,shell]
 ----
-npm run dev -- --port 3000
+npm run dev
 ----
 +
 The application needs no configuration. During development, it forwards all requests starting with `/api` to the sandbox on `http://localhost:8080`.
 
-. *Verify the result* - Open http://localhost:3000[http://localhost:3000]. It shows a grid of persons:
+. *Verify the result* - Open http://localhost:5173[http://localhost:5173]. It shows a grid of persons:
 +
 image::person-list.png[The person list as a grid of photos,width=1093]
 
-. *Open a person* - Click a person in the grid, or go directly to http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]. Her page shows a biography with an image, links and a fact box:
+. *Open a person* - Click a person in the grid, or go directly to http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough]. Her page shows a biography with an image, links and a fact box:
 +
 image::factbox-macro.png[The fact box rendered in the biography,width=1028]
 

@@ -50,7 +50,7 @@ The renderer resolves `data.src` and every entry in `data.srcset` with the `medi
 include::{sourcedir}src/components/Person.tsx[tags=**;!macro-import;!macro-prop]
 ----
 
-. *Verify the result* - Open http://localhost:3000/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough] again. The image is now in place, and clicking `Daniel Carrigear` in the biography takes you to his page:
+. *Verify the result* - Open http://localhost:5173/p/lea-seydough/a8b374a2-c532-45eb-9aa1-73d1c37cd681[Léa Seydough] again. The image is now in place, and clicking `Daniel Carrigear` in the biography takes you to his page:
 +
 image::rich-text.png[The biography with a working image and links,width=1200]
 
