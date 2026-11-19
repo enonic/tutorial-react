@@ -5,6 +5,8 @@ include::.variables.adoc[]
 
 This is a step-by-step tutorial on building a client-side https://react.dev/[React] application that renders structured content from Enonic. The application fetches published content through {guillotine-docs}[Guillotine], Enonic's GraphQL API, and uses the `@enonic/react-components` library to render rich text.
 
+TIP: *Just want to see the result?* <<demo#,Run the demo>> to try the finished application without going through the chapters.
+
 NOTE: *Requirements*: If Enonic is new to you, complete the https://developer.enonic.com/learn/intro[introduction to Enonic] before starting this tutorial. You should be familiar with React and TypeScript.
 
 == Intro
@@ -25,8 +27,6 @@ When you are done, the application lists persons like this:
 image::person-list.png[The person list as a grid of photos,width=75%]
 
 The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the {nextjs-tutorial}[Next.js tutorial] instead.
-
-To try the finished application without going through the chapters, <<demo#,run the demo>>.
 
 [#prerequisites]
 == Prerequisites
