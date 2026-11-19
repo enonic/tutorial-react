@@ -797,7 +797,7 @@ export function Person() {
 <p>The <a href="https://developer.enonic.com/learn/developer-101">Developer 101 tutorial</a> teaches you how to build your own content model in Enonic.</p>
 </li>
 <li>
-<p>The <a href="https://developer.enonic.com/docs/next.xp/stable">Next.js integration</a> adds server-side rendering and previewing of content in Content Studio.</p>
+<p>The <a href="https://developer.enonic.com/learn/nextjs">Next.js tutorial</a> adds server-side rendering and previewing of content in Content Studio.</p>
 </li>
 </ul>
 </div>
@@ -806,7 +806,7 @@ export function Person() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:22:34 UTC
+Last updated 2026-11-19 09:34:38 UTC
 </div>
 </div>
 </body>

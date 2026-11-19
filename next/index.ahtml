@@ -506,10 +506,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/docs/next.xp/stable">Next.js integration</a> instead.</p>
+<p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/learn/nextjs">Next.js tutorial</a> instead.</p>
 </div>
 <div class="paragraph">
-<p>The finished application is available on <a href="https://github.com/enonic/tutorial-reactspa">GitHub</a>.</p>
+<p>To try the finished application without going through the chapters, <a href="demo.ahtml">run the demo</a>.</p>
 </div>
 </div>
 </div>
@@ -580,7 +580,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:22:34 UTC
+Last updated 2026-11-19 09:34:38 UTC
 </div>
 </div>
 </body>
