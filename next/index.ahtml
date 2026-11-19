@@ -498,6 +498,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
+<p>When you are done, the application lists persons like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/person-list.png" alt="The person list as a grid of photos" width="75%">
+</div>
+</div>
+<div class="paragraph">
 <p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/docs/next.xp/stable">Next.js integration</a> instead.</p>
 </div>
 <div class="paragraph">
@@ -572,7 +580,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 08:40:25 UTC
+Last updated 2026-11-19 09:22:34 UTC
 </div>
 </div>
 </body>
