@@ -452,6 +452,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>This is a step-by-step tutorial on building a client-side <a href="https://react.dev/">React</a> application that renders structured content from Enonic. The application fetches published content through <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, Enonic&#8217;s GraphQL API, and uses the <code>@enonic/react-components</code> library to render rich text.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong>Just want to see the result?</strong> <a href="demo.ahtml">Run the demo</a> to try the finished application without going through the chapters.
+</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -507,9 +519,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="paragraph">
 <p>The tutorial covers delivery of published content. If you need server-side rendering or live preview in Content Studio, have a look at the <a href="https://developer.enonic.com/learn/nextjs">Next.js tutorial</a> instead.</p>
-</div>
-<div class="paragraph">
-<p>To try the finished application without going through the chapters, <a href="demo.ahtml">run the demo</a>.</p>
 </div>
 </div>
 </div>
@@ -580,7 +589,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-19 09:38:27 UTC
+Last updated 2026-11-19 09:49:36 UTC
 </div>
 </div>
 </body>
