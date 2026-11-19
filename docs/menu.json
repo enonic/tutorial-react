@@ -27,6 +27,10 @@
     {
       "title": "6 - Macros",
       "document": "macros"
+    },
+    {
+      "title": "Demo",
+      "document": "demo"
     }
   ]
 }

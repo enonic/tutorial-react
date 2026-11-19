@@ -50,7 +50,7 @@ NOTE: The sandbox has its own content and applications, separate from other tuto
 . *Open Content Studio* - Select it from the `XP menu`. The `Intro Project` opens automatically.
 . *Verify the sample content* - The content tree lists the `Persons` and `Movies` folders, among others.
 
-The project contains persons and movies, along with their images. This is the content your React application will list and present. All of it is already published.
+The project contains persons and movies, along with their images. Your React application will list and present the persons. All of the content is already published.
 
 [#test_api]
 == Task: Run a query

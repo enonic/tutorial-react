@@ -108,4 +108,4 @@ None of this is required, but here are some suggestions for where to go from her
 
 * The https://www.npmjs.com/package/@enonic/react-components[documentation of `@enonic/react-components`] covers the library in detail.
 * The https://developer.enonic.com/learn/developer-101[Developer 101 tutorial] teaches you how to build your own content model in Enonic.
-* The {nextjs-docs}[Next.js integration] adds server-side rendering and previewing of content in Content Studio.
+* The {nextjs-tutorial}[Next.js tutorial] adds server-side rendering and previewing of content in Content Studio.
